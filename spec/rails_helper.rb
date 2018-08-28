@@ -8,6 +8,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'support/shoulda'
 require 'support/factory_bot'
+require 'support/database_cleaner.rb'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
