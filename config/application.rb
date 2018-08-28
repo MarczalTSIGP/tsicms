@@ -16,6 +16,6 @@ module Sgstsi
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    ENV.update YAML.load_file('config/application.yml')[Rails.env] rescue {}
+    ENV.update YAML.load_file('config/application.yml')[Rails.env]
   end
 end
