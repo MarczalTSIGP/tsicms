@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TSICMS</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <%= stylesheet_link_tag    'admins/application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'admins/application', 'data-turbolinks-track': 'reload' %>
+
+    <%= favicon_link_tag %>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="page-main">
+        <%= render 'admins/layouts/header' %>
+
+        <div class="container">
+
+          <div class="page-header">
+            <h1 class="page-title">
+              <%= yield(:page_title) %>
+            </h1>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3 mb-4">
+              <%= render 'admins/layouts/sidebar' %>
+            </div>
+
+            <div class="col-lg-9 order-lg-1">
+              <%= yield %>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <%= render 'admins/layouts/footer' %>
+    </div>
+  </body>
+</html>
