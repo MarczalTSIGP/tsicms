@@ -10,18 +10,18 @@
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar"></span>
             <span class="ml-2 d-none d-lg-block">
-              <span class="text-default">Jane Pearson</span>
+              <span class="text-default"><%= current_admin.email %></span>
               <small class="text-muted d-block mt-1">Administrator</small>
             </span>
           </a>
 
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-            <a class="dropdown-item" href="#">
-              <i class="dropdown-icon fe fe-user"></i> Profile
-            </a>
-            <a class="dropdown-item" href="#">
-              <i class="dropdown-icon fe fe-log-out"></i> Sign out
-            </a>
+            <%= link_to edit_admin_registration_path, class: 'dropdown-item' do %>
+              <i class="dropdown-icon fe fe-user"></i> Perfil
+            <% end %>
+            <%= link_to destroy_admin_session_path, method: :delete, class: 'dropdown-item' do %>
+              <i class="dropdown-icon fe fe-log-out"></i> Sair
+            <% end %>
           </div>
         </div>
 

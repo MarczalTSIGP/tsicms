@@ -4,8 +4,16 @@ Rails.application.routes.draw do
   #========================================
   # Admin
   #========================================
-  namespace :admins do
-    root to: 'dashboard#index'
+  as :admin do
+    get '/admins/edit' => 'admins/registrations#edit', :as => 'edit_admin_registration'
+    put '/admins' => 'admins/registrations#update', :as => 'admin_registration'
+  end
+
+  devise_for :admins
+  authenticate :admin do
+    namespace :admins do
+      root to: 'dashboard#index'
+    end
   end
   #========================================
 end
