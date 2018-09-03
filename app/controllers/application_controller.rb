@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   def after_sign_in_path_for(resource)
     return admins_root_path if resource.is_a?(Admin)
 
@@ -28,4 +30,7 @@ class ApplicationController < ActionController::Base
     path.second ? path.first : nil
   end
 
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+  end
 end
