@@ -31,4 +31,8 @@
 /config/master.key
 
 /config/application.yml
+
 /coverage
+
+# Ignore JetBrains IDE path
+.idea/
