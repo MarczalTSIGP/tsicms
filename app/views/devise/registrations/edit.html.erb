@@ -1,0 +1,36 @@
+<% provide(:page_title, 'Alterar dados pessoais') %>
+
+<%= simple_form_for(resource, as: resource_name, url: send("#{resource_name}_registration_path"), html: { method: :put }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :email, required: true, autofocus: true %>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+    <% end %>
+
+    <%= f.input :password,
+                hint: "leave it blank if you don't want to change it",
+                required: false,
+                input_html: { autocomplete: "new-password" } %>
+    <%= f.input :password_confirmation,
+                required: false,
+                input_html: { autocomplete: "new-password" } %>
+    <%= f.input :current_password,
+                hint: "we need your current password to confirm your changes",
+                required: true,
+                input_html: { autocomplete: "current-password" } %>
+  </div>
+
+
+  <div class="d-flex">
+    <%= link_to "Back", :back, class: 'btn btn-link' %>
+    <%= f.button :submit, "Update", class: 'btn btn-primary ml-auto' %>
+  </div>
+
+<% end %>
+
+<div class="d-flex justify-content-end mt-2">
+  <p>Unhappy? <%= link_to "Cancel my account", send("#{resource_name}_registration_path"), data: { confirm: "Are you sure?" }, method: :delete, class: 'ml-auto' %></p>
+</div>

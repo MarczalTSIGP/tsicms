@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-body p-6">
+    <div class="card-title">Login to your account</div>
+
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= f.input :email,
+        required: false,
+        autofocus: true,
+        input_html: { autocomplete: "email" } %>
+
+      <%= f.input :password,
+        required: false,
+        input_html: { autocomplete: "current-password" } %>
+
+      <%= link_to "Forgot your password?", new_password_path(resource_name), class: 'float-right small' %><br />
+
+      <%= f.input :remember_me, as: :checkbox_tabler if devise_mapping.rememberable? %>
+
+      <div class="form-footer">
+        <%= f.button :submit, 'Entrar', class: 'btn btn-primary btn-block' %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
