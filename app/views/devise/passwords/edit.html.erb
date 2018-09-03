@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body p-6">
-    <div class="card-title">Change your password</div>
+    <div class="card-title">Mude sua senha</div>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
       <%= f.error_notification %>
@@ -9,20 +9,20 @@
       <%= f.full_error :reset_password_token %>
 
       <%= f.input :password,
-        label: "New password",
+        label: "Nova senha",
         required: true,
         autofocus: true,
-        hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+        hint: ("#{@minimum_password_length} caracteres no mínimo" if @minimum_password_length),
         input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation, label: "Confirm your new password", required: true %>
+      <%= f.input :password_confirmation, required: true %>
 
       <div class="form-footer">
-        <%= f.button :submit, "Change my password", class: 'btn btn-primary btn-block' %>
+        <%= f.button :submit, "Mudar minha senha", class: 'btn btn-primary btn-block' %>
       </div>
     <% end %>
 
     <div class="text-right text-muted mt-2">
-      Remembered,
+      Lembrou!
       <%= render "devise/shared/links" %>
     </div>
   </div>
