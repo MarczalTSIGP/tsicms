@@ -1,0 +1,63 @@
+<% provide(:page_title, 'Alterar dados pessoais') %>
+
+<%= simple_form_for(resource, as: resource_name,
+                    url: send("#{resource_name}_registration_path"),
+                    html: { method: :put, multipart: true }) do |f| %>
+
+    <%= f.error_notification %>
+
+    <%= f.input :name, required: true, autofocus: true %>
+    <%= f.input :email, required: true %>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+    <% end %>
+    <%= f.input :password,
+                hint: "deixe em branco se você não quiser mudá-lo",
+                required: false,
+                input_html: { autocomplete: "nova senha" } %>
+
+    <div class="form-row">
+      <div class="col-sm-8">
+
+        <%= f.input :password_confirmation,
+          required: false,
+          input_html: { autocomplete: "nova senha" } %>
+        <%= f.input :current_password,
+          hint: "Precisamos da sua senha atual para confirmar suas alterações",
+          required: true,
+          input_html: { autocomplete: "senha atual" } %>
+      </div>
+
+      <div class="col-4">
+
+        <div id="box-image-preview" data-toggle="tooltip" data-placement="left" title="Clique na imagem para alterá-la">
+          <div class="input-field image_preview">
+            <div class="box-image center">
+              <%= image_tag resource.image, class: 'file_preview active' %>
+              <%= f.input :image, required: false, label: false %>
+            </div>
+          </div>
+          <div class="text-box text-center">
+            <p class="text-input">Clique na imagem para alterá-la</p>
+          </div>
+        </div>
+
+      </div>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", :back, class: 'btn btn-link' %>
+    <%= f.button :submit, 'Atualizar meus dados', class: 'btn btn-primary ml-auto' %>
+  </div>
+
+<% end %>
+
+<div class="d-flex justify-content-end mt-2">
+  <p> 
+    Não está feliz conosco, <%= link_to "cancele sua conta!", 
+      send("#{resource_name}_registration_path"),
+      data: { confirm: t('prompt.confirm') },
+      method: :delete, class: 'ml-auto' %>
+  </p>
+</div>

@@ -32,6 +32,7 @@
 
 /config/application.yml
 
+/coverage
+
 # Ignore JetBrains IDE path
 .idea/
-
