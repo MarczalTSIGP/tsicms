@@ -2,60 +2,64 @@
 
 Content Management System for TSI Course
 
-
 ## Run locally
 
 To install TSICMS locally follow these instructions:
-
 
 1. **Prerequisite**
 
 	First you need to install the follow packages
 
-	```
-	nodejs
-	libpq-dev
-	postgresql
-	postgresql-contrib
-	```
+ 	```
+ 	nodejs
+ 	libpq-dev
+ 	postgresql
+ 	postgresql-contrib
+ 	imagemagick
+ 	```
 
 	Its necessary to install the Bundler and the Rails gems
 
-    ```
-    gem install bundler
-    gem install rails
-    ```
-
+ 	```
+ 	gem install bundler
+ 	gem install rails
+ 	```
 
 2. **Clone the project**
 
 	Clone the project repository using the command
 
 	`git clone git@github.com:TSIDW5/tsicms.git`
-    `cd tsicms`
-
+	`cd tsicms`
 
 3. **Install dependencies**
 
 	`bundle install`
 
-
 4. **Set up postgres password**
 
-    `cp config/application.yml.example config/application.yml`
+	`cp config/application.yml.example config/application.yml`
 
 	In this file change postgres username and password
-    ```
-    database: &database
+    	```
+	database: &database
   		db.username: postgres
   		db.password: postgres
-    ```
+    	```
+
+	After change mailer host and port
+	```
+	mailer: &mailer
+		mailer.host: localhost
+		mailer.port: '3000'
+	```
 
 5.  **Create the database and the tables**
 
 	```
 	$ rails db:create
 	$ rails db:migrate
+	$ rails db:seed
 	```
 
 6. **Run the application**
@@ -64,7 +68,9 @@ To install TSICMS locally follow these instructions:
 	$ rails s
 	```
 
-    Access the url [http://localhost:3000](http://localhost:3000)
+	Access the public namespace url [http://localhost:3000](http://localhost:3000)
+
+	Access the url admin namespace [http://localhost:3000/admins](http://localhost:3000/admins)
 
 
 ## Contribute
@@ -73,20 +79,22 @@ We hope that you will consider contributing to TSICMS.
 
 
 ### Fork
-	First perform the fork of the [repository](https://github.com/TSIDW5/tsicms.git)
+
+First perform the fork of the [https://github.com/TSIDW5/tsicms.git](repository)
 
 
 ### Get your fork
-	Access your profile https://github.com/YourUser
-	Find repository TSICMS
+
+Access your profile https://github.com/YourUser
+Find repository TSICMS
 
 ### Clone it
 
-	Run `git clone https://github.com/YourUser/tsicms.git`
+Run `git clone https://github.com/YourUser/tsicms.git`
 
 ### Enter directory
 
-	`cd tsicms`
+`cd tsicms`
 
 ### Point to original repository
 
@@ -102,20 +110,19 @@ Now we have two repositories on disk:
 
 1. Go to the master branch
 
-	Run `git checkout master`
+    Run `git checkout master`
 
 2. Update the two repositories
 
-	Run `git pull upstream master && git push origin master`
+    Run `git pull upstream master && git push origin master`
 
 3. Create your branch to develop your contributions, define a name that reminds you of what you are eveloping.
 
-	Run `git checkout -b name-your-branch`
+    Run `git checkout -b name-your-branch`
 
 4.  Run the test and ensure that all test are green. We just accpeted functionaly, bug fix, etc. with its respective test.
 
-	Run `Bundle exec rspec`
-
+    Run `Bundle exec rspec`
 
 ### Creating Pull Request
 
@@ -123,15 +130,15 @@ After finishing developing you need to submit a request for your contribution to
 
 1. First add your changes
 
-	Run `git add .`
+    Run `git add .`
 
-	First commit your changes, put a message to define what was done
+    First commit your changes, put a message to define what was done
 
- 	Run `git commit -m "Your message"`
+    Run `git commit -m "Your message"`
 
 2. Send your changes
 
- 	Run `git pull upstream master && git push -u origin name-your-branch`
+    Run `git pull upstream master && git push -u origin name-your-branch`
 
 
 The command creates a branch in your project / fork in GitHub. The -u flag binds this branch to its remote; so in the future, you can simply type git push origin.
