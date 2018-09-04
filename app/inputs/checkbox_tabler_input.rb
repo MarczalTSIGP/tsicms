@@ -1,8 +1,3 @@
-# <div>
-#  <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
-#  <label for="filled-in-box">Filled in</label>
-# <div>
-#
 # <label class="custom-control custom-checkbox">
 #   <input type="checkbox" class="custom-control-input">
 #   <span class="custom-control-label">Remember me</span>
@@ -27,11 +22,3 @@ class CheckboxTablerInput < SimpleForm::Inputs::Base
     ''
   end
 end
-
-#  def input(wrapper_options)
-#    template.content_tag(:p, {class: 'checkbox-wrapper'}) do
-#      template.concat @builder.check_box(attribute_name, {class: 'filled-in'})
-#      template.concat @builder.label(attribute_name)
-#    end
-#  end
-

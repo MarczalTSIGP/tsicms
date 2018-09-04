@@ -4,7 +4,7 @@ TSICMS.imagePreview = (el) ->
       reader = new FileReader()
       reader.onload = (e) ->
         $('.file_preview').attr 'src', e.target.result
-        $('.file_preview').addClass('active');
+        $('.file_preview').addClass('active')
 
       reader.readAsDataURL input.files[0]
 
