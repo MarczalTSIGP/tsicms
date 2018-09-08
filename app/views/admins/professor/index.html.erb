@@ -1,5 +1,51 @@
 <div>
-  <% @professors.each do | professor | %>
-  <h1><%= professor.name %></h1>
-  <% end %>
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Professores</h3>
+    </div>
+    <div class="table-responsive">
+      <table class="table card-table table-vcenter text-nowrap">
+        <thead>
+        <tr>
+          <th class="w-1">No.</th>
+          <th>Nome</th>
+          <th>Criado</th>
+          <th>Atualidado</th>
+          <th>destroy</th>
+          <th>edit</th>
+          <th>show</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @professors.each do |professor| %>
+          <tr>
+            <td>
+              <%= professor.id %>
+            </td>
+            <td>
+              <%= professor.name %>
+            </td>
+            <td>
+              <%= professor.created_at.strftime("%d/%m/%Y - %H:%M:%S") %>
+            </td>
+            <td>
+              <%= professor.updated_at.strftime("%d/%m/%Y - %H:%M:%S") %>
+            </td>
+            <td><%= link_to  admins_professor_show_path(professor)  do %>
+                <span class="icon mr-3"><i class="fa fa-trash-o" data-toggle="tooltip" title="Remover"></i></span>
+              <% end %></td>
+            <td><%= link_to  admins_professor_show_path(professor)  do %>
+                <span class="icon mr-3"><i class="fa fa-pencil" data-toggle="tooltip" title="Editar"></i></span>
+              <% end %></td>
+            <td>
+              <%= link_to  admins_professor_show_path(professor)  do %>
+                <span class="icon mr-3"><i class="fa fa-eye" data-toggle="tooltip" title="Mostrar"></i></span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
