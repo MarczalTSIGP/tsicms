@@ -2,6 +2,9 @@
   <div class="card">
     <div class="card-header">
       <h3 class="card-title">Professores</h3>
+      <div class="text-right">
+        <%= link_to "NOVO", new_admins_professor_path, class: 'btn btn-primary' %>
+      </div>
     </div>
     <div class="table-responsive">
       <table class="table card-table table-vcenter text-nowrap">
@@ -31,15 +34,18 @@
             <td>
               <%= professor.updated_at.strftime("%d/%m/%Y - %H:%M:%S") %>
             </td>
-            <td><%= link_to  admins_professor_show_path(professor)  do %>
-                <span class="icon mr-3"><i class="fa fa-trash-o" data-toggle="tooltip" title="Remover"></i></span>
-              <% end %></td>
-            <td><%= link_to  admins_professor_show_path(professor)  do %>
-                <span class="icon mr-3"><i class="fa fa-pencil" data-toggle="tooltip" title="Editar"></i></span>
+
+            <td><%= link_to admins_professor_path(professor), method: :delete, data: {confirm: "Deseja Remover?"} do %>
+                <span><i class="fa fa-pencil" title="Remover"></i>Remover</span>
               <% end %></td>
             <td>
-              <%= link_to  admins_professor_show_path(professor)  do %>
-                <span class="icon mr-3"><i class="fa fa-eye" data-toggle="tooltip" title="Mostrar"></i></span>
+              <%= link_to edit_admins_professor_path(professor) do %>
+                <span><i class="fa fa-pencil" title="Editar"></i>Editar</span>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to admins_professor_path(professor) do %>
+                <span><i class="fa fa-eye" data-toggle="tooltip" title="Mostrar"></i></span>
               <% end %>
             </td>
           </tr>

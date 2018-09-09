@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :professor do
+  factory :professors do
     sequence(:name) { |n| "Name#{n}" }
     sequence(:lattes) { |n| "lates#{n}" }
     sequence(:occupation_area) { |n| "area de ocupacao #{n}" }
