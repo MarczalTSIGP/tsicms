@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_08_124152) do
+ActiveRecord::Schema.define(version: 2018_09_09_204545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,19 @@ ActiveRecord::Schema.define(version: 2018_09_08_124152) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "professor_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "professor_titles", force: :cascade do |t|
+    t.string "description"
+    t.string "abbrev"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "professors", force: :cascade do |t|
     t.string "name"
     t.string "lattes"
@@ -56,6 +69,12 @@ ActiveRecord::Schema.define(version: 2018_09_08_124152) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "professor_titles_id"
+    t.bigint "professor_categories_id"
+    t.index ["professor_categories_id"], name: "index_professors_on_professor_categories_id"
+    t.index ["professor_titles_id"], name: "index_professors_on_professor_titles_id"
   end
 
+  add_foreign_key "professors", "professor_categories", column: "professor_categories_id"
+  add_foreign_key "professors", "professor_titles", column: "professor_titles_id"
 end
