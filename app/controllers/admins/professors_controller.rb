@@ -6,40 +6,57 @@ class Admins::ProfessorsController < Admins::BaseController
     @professors = Professor.all
   end
 
-  def new;
+  def new
+    @professor = Professor.new
   end
 
   def create
-    @professor = Professor.new(params[:professors])
+    @professor = Professor.new(professor_params)
     if @professor.save
-      redirect_to @professor
+      redirect_to admins_professor_path(@professor)
     else
-      redirect_to 'new'
+      redirect_to new_admins_professor_path
     end
   end
 
   def edit;
   end
 
-  def update;
+  def update
+    if @professor.update(professor_params)
+      redirect_to admins_professor_path(@professor)
+    else
+      render edit_admins_professor_path(@professor)
+    end
   end
 
   def destroy
-    Professor.find(params[:id]).destroy
+    find_user.destroy
     respond_to do |format|
-      format.html { redirect_to 'index', notice: 'Professor removido com sucesso!' }
-      format.json { head :no_content }
+      format.html {redirect_to 'index', notice: 'Professor removido com sucesso!'}
+      format.json {head :no_content}
     end
   end
 
   def show;
   end
 
-  private def mount_professor
+
+  private
+
+  def mount_professor
     @professor = if params[:id].nil?
                    Professor.new
                  else
-                   Professor.find(params[:id])
+                   find_user
                  end
+  end
+
+  def professor_params
+    params.require(:professor).permit(:name, :lattes, :occupation_area, :email)
+  end
+
+  def find_user
+    Professor.find(params[:id])
   end
 end
