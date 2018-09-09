@@ -23,7 +23,8 @@ class Admins::ProfessorsController < Admins::BaseController
   end
 
   def update
-    if @professor.update(professor_params)
+    @professor = find_user
+    if @professor.update_attributes(professor_params)
       redirect_to admins_professor_path(@professor)
     else
       render edit_admins_professor_path(@professor)
@@ -33,8 +34,8 @@ class Admins::ProfessorsController < Admins::BaseController
   def destroy
     find_user.destroy
     respond_to do |format|
-      format.html {redirect_to 'index', notice: 'Professor removido com sucesso!'}
-      format.json {head :no_content}
+      format.html { redirect_to 'index', notice: 'Professor removido com sucesso!' }
+      format.json { head :no_content }
     end
   end
 

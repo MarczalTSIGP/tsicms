@@ -1,2 +1,8 @@
 <h1>ATUALIZAR</h1>
-<%= render 'form', locals: {professor: @professor} %>
+<%= simple_form_for @professor, url: admins_professors_path(@professor), method: :patch do |f| %>
+  <%= f.input :name, required: true %>
+  <%= f.input :lattes, required: true %>
+  <%= f.input :occupation_area, required: true %>
+  <%= f.input :email, required: true %>
+  <%= f.button :submit %>
+<% end %>
