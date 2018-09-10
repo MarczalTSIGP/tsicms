@@ -1,8 +1,14 @@
-<h1>CRIAR</h1>
+<h1>Novo Professor</h1>
 <%= simple_form_for @professor, url: admins_professors_path, method: :post do |f| %>
   <%= f.input :name, required: true %>
   <%= f.input :lattes, required: true %>
   <%= f.input :occupation_area, required: true %>
   <%= f.input :email, required: true %>
+  <%= f.input :professor_title do %>
+    <%= f.select :professor_title, ProfessorTitle.all.map {|title| [title.description, title]} %>
+  <% end %>
+  <%= f.input :professor_category do %>
+    <%= f.select :professor_category, ProfessorCategory.all.map {|category| [category.name, category]} %>
+  <% end %>
   <%= f.button :submit %>
 <% end %>

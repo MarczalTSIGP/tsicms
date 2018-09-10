@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :professor_title do
-    description "MyString"
-    abbrev "MyString"
+    sequence(:description) { |n| "desc#{n}" }
+    sequence(:abbrev) { |n| "abbrev#{n}" }
   end
 end

@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :professor_category do
-    name "MyString"
+    sequence(:name) { |n| "desc#{n}" }
   end
 end

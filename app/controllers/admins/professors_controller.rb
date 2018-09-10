@@ -34,8 +34,8 @@ class Admins::ProfessorsController < Admins::BaseController
   def destroy
     find_user.destroy
     respond_to do |format|
-      format.html { redirect_to 'index', notice: 'Professor removido com sucesso!' }
-      format.json { head :no_content }
+      format.html {redirect_to 'index', notice: 'Professor removido com sucesso!'}
+      format.json {head :no_content}
     end
   end
 
@@ -54,7 +54,10 @@ class Admins::ProfessorsController < Admins::BaseController
   end
 
   def professor_params
-    params.require(:professor).permit(:name, :lattes, :occupation_area, :email)
+    params.require(:professor).permit(:name, :lattes,
+                                      :occupation_area,
+                                      :email, :professor_title, :professor_category
+    )
   end
 
   def find_user
