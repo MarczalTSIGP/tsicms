@@ -1,14 +1,14 @@
-<% provide(:page_title, 'Categorias de recomendações') %>
+<% provide(:page_title, 'Recomendações de conteúdo') %>
 
 <div class="row">
   <div class="col-sm-12 col-md-6">
     <div class="btn-list text-md-left text-center">
-      <%= link_to "Voltar para recomendações", admins_recommendations_path, class: 'btn btn-primary' %>
+      <%= link_to "Categorias", admins_category_recommendations_path, class: 'btn btn-primary' %>
     </div>
   </div>
   <div class="col-sm-12 col-md-6">
     <div class="btn-list text-md-right text-center">
-      <%= link_to 'Nova categoria', new_admins_category_recommendation_path, class: 'btn btn-primary' %>
+      <%= link_to 'Nova recomendação', new_admins_recommendation_path, class: 'btn btn-primary' %>
     </div>
   </div>
 </div>
@@ -16,16 +16,18 @@
 <table class="table card-table table-vcenter text-nowrap">
   <thead>
     <tr>
-      <th>Nome</th>
+      <th>Título</th>
+      <th>Categoria</th>
       <th>Data de criação</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <% @categories.each do |category| %>
+    <% @recommendations.each do |recommendation| %>
       <tr>
-        <td><%= category.name %></td>
-        <td><%= l(category.created_at, format: :long) %></td>
+        <td><%= recommendation.title %></td>
+        <td><%= recommendation.category_recommendation.name %></td>
+        <td><%= l(recommendation.created_at, format: :long) %></td>
         <td>
           <div class="dropdown">
             <button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -33,8 +35,8 @@
             </button>
 
             <div class="dropdown-menu">
-              <%= link_to 'Editar', edit_admins_category_recommendation_path(category), class: 'dropdown-item' %>
-              <%= link_to 'Remover', [:admins, category],
+              <%= link_to 'Editar', edit_admins_recommendation_path(recommendation), class: 'dropdown-item' %>
+              <%= link_to 'Remover', [:admins, recommendation],
                                     method: :delete,
                                     data: { confirm: 'Tem certeza?' },
                                     class: 'dropdown-item' %>

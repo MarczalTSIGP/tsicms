@@ -1,0 +1,22 @@
+<%= simple_form_for [:admins, @recommendation] do |f| %>
+  <%= f.input :title %>
+  <%= f.association :category_recommendation %>
+  <%= f.input :description %>
+
+  <div id="box-image-preview" data-toggle="tooltip" data-placement="left" title="Clique na imagem para alterá-la">
+    <div class="input-field image_preview">
+      <div class="box-image center">
+        <%= image_tag @recommendation.new_record? ? 'logo-tsi-text.png' : @recommendation.image, class: 'file_preview active' %>
+        <%= f.input :image, required: false, label: false %>
+      </div>
+    </div>
+    <div class="text-box text-center">
+      <p class="text-input">Clique na imagem para alterá-la</p>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_recommendations_path, class: 'btn btn-primary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

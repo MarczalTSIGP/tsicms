@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :category_recommendations
+      resources :recommendations
     end
   end
   #========================================
