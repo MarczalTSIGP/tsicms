@@ -46,4 +46,12 @@ ActiveRecord::Schema.define(version: 2018_09_10_005111) do
     t.index ["category_recommendation_id"], name: "index_recommendations_on_category_recommendation_id"
   end
 
+  create_table "academics", force: :cascade do |t|
+    t.string "name"
+    t.text "contact"
+    t.boolean "graduated", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end

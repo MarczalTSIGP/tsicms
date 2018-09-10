@@ -1,0 +1,29 @@
+<% provide(:page_title, 'Acadêmicos') %>
+
+
+<table class="table card-table table-vcenter text-nowrap">
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Está formado?</th>
+        <th>Data de criação</th>
+        <th>Gerenciar</th>
+    </tr>
+    </thead>
+
+    <tbody>
+        <%@academics.each do |academic| %>
+            <tr>
+                <td><%= academic.name %></td>
+                <td><%= academic.graduated? %></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">Gerenciar</button> 
+                
+                
+                </td>
+
+    </tbody>
+
+
+</table>
