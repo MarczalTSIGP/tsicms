@@ -1,0 +1,40 @@
+<% provide(:page_title, 'Categorias de indicações') %>
+
+<div class="btn-list text-right">
+  <%= link_to 'Nova categoria', new_admins_category_recommendation_path, class: 'btn btn-primary' %>
+</div>
+
+<table class="table card-table table-vcenter text-nowrap">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Data de criação</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= l(category.created_at, format: :long) %></td>
+        <td>
+          <div class="dropdown">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
+              Gerenciar
+            </button>
+
+            <div class="dropdown-menu">
+              <%= link_to 'Editar', edit_admins_category_recommendation_path(category), class: 'dropdown-item' %>
+              <%= link_to 'Remover', [:admins, category],
+                                    method: :delete,
+                                    data: { confirm: 'Tem certeza?' },
+                                    class: 'dropdown-item' %>
+            </div>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Voltar para listagem de indicações", admins_category_recommendations_path, class: 'btn btn-primary' %>

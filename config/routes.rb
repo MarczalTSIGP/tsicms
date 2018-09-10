@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   authenticate :admin do
     namespace :admins do
       root to: 'dashboard#index'
+
+      resources :category_recommendations
     end
   end
   #========================================
