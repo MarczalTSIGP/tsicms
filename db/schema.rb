@@ -69,12 +69,12 @@ ActiveRecord::Schema.define(version: 2018_09_09_204545) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "professor_titles_id"
-    t.bigint "professor_categories_id"
-    t.index ["professor_categories_id"], name: "index_professors_on_professor_categories_id"
-    t.index ["professor_titles_id"], name: "index_professors_on_professor_titles_id"
+    t.bigint "professor_title_id"
+    t.bigint "professor_category_id"
+    t.index ["professor_category_id"], name: "index_professors_on_professor_category_id"
+    t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
   end
 
-  add_foreign_key "professors", "professor_categories", column: "professor_categories_id"
-  add_foreign_key "professors", "professor_titles", column: "professor_titles_id"
+  add_foreign_key "professors", "professor_categories"
+  add_foreign_key "professors", "professor_titles"
 end

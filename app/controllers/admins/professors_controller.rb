@@ -1,5 +1,4 @@
 class Admins::ProfessorsController < Admins::BaseController
-
   before_action :mount_professor, only: [:edit, :new, :show]
 
   def index
@@ -13,14 +12,14 @@ class Admins::ProfessorsController < Admins::BaseController
   def create
     @professor = Professor.new(professor_params)
     if @professor.save
-      redirect_to admins_professor_path(@professor)
+      redirect_to admins_professors_path
     else
-      redirect_to new_admins_professor_path
+      flash[:error] = 'Erro ao criar professor'
+      redirect_to :new
     end
   end
 
-  def edit;
-  end
+  def edit; end
 
   def update
     @professor = find_user
@@ -33,15 +32,11 @@ class Admins::ProfessorsController < Admins::BaseController
 
   def destroy
     find_user.destroy
-    respond_to do |format|
-      format.html {redirect_to 'index', notice: 'Professor removido com sucesso!'}
-      format.json {head :no_content}
-    end
+    flash[:success] = 'Professor removido com sucesso!'
+    redirect_to admins_professors_path
   end
 
-  def show;
-  end
-
+  def show; end
 
   private
 
@@ -56,8 +51,7 @@ class Admins::ProfessorsController < Admins::BaseController
   def professor_params
     params.require(:professor).permit(:name, :lattes,
                                       :occupation_area,
-                                      :email, :professor_title, :professor_category
-    )
+                                      :email, :professor_title_id, :professor_category_id)
   end
 
   def find_user
