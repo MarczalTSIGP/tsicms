@@ -1,6 +1,6 @@
 <%= simple_form_for [:admins, @recommendation] do |f| %>
   <%= f.input :title %>
-  <%= f.association :category_recommendation %>
+  <%= f.association :category_recommendation, collection: CategoryRecommendation.order(name: :asc), selected: 1 %>
   <%= f.input :description %>
 
   <div id="box-image-preview" data-toggle="tooltip" data-placement="left" title="Clique na imagem para alterá-la">
