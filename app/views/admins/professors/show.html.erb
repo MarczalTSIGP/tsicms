@@ -1,1 +1,24 @@
-<h1>Olá <%= @professor.name %></h1>
+<div class="container">
+  <h1>Detalhes do professor: <%= @professor.name %></h1>
+
+  <div class="container">
+
+    <div>
+      <h3>Titulação</h3>
+      <p><%= @professor.professor_title.description %> - <%= @professor.professor_title.abbrev %></p>
+    </div>
+    <div>
+      <h3>Categoria</h3>
+      <p><%= @professor.professor_category.name %></p>
+    </div>
+    <div>
+      <h3>Area de Estudo</h3>
+      <p> <%= @professor.occupation_area %></p>
+    </div>
+    <div>
+      <h3>Contato</h3>
+      <p>Email: <%= @professor.email %></p>
+    </div>
+
+  </div>
+</div>

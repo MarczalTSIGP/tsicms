@@ -6,7 +6,7 @@ RSpec.describe Professor, type: :model do
     it { is_expected.to validate_presence_of(:lattes) }
     it { is_expected.to validate_presence_of(:occupation_area) }
     it { is_expected.to validate_presence_of(:email) }
-    it { is_expected.to validate_presence_of(:professor_title) }
-    it { is_expected.to validate_presence_of(:professor_category) }
+    it { is_expected.to belong_to(:professor_title) }
+    it { is_expected.to belong_to(:professor_category) }
   end
 end
