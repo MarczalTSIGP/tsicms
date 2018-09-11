@@ -11,7 +11,6 @@ class Admins::RecommendationsController < Admins::BaseController
 
   def create
     @recommendation = Recommendation.new(recommendation_params)
-    # @recommendation.image.attach(params[:recommendation][:image])
 
     if @recommendation.save
       flash[:success] = 'Recomendação criada com sucesso!'

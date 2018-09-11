@@ -6,7 +6,7 @@
   <div id="box-image-preview" data-toggle="tooltip" data-placement="left" title="Clique na imagem para alterá-la">
     <div class="input-field image_preview">
       <div class="box-image center">
-        <%= image_tag @recommendation.new_record? ? 'logo-tsi-text.png' : @recommendation.image, class: 'file_preview active' %>
+        <%= image_tag_preview @recommendation %>
         <%= f.input :image, required: false, label: false %>
       </div>
     </div>
