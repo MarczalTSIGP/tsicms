@@ -9,6 +9,9 @@ pt-BR:
       category_recommendation:
         one: 'Categoria'
         other: 'Categorias'
+      recommendation:
+        one: 'Recomendação'
+        other: 'Recomendações'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -21,3 +24,8 @@ pt-BR:
         remember_me: 'Lembre-me'
       category_recommendation:
         <<: *commons
+      recommendation:
+        title: 'Título'
+        description: 'Descrição'
+        image: 'Imagem'
+        category_recommendation: 'Categoria'
