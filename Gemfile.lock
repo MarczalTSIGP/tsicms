@@ -106,6 +106,8 @@ GEM
     factory_bot_rails (4.11.0)
       factory_bot (~> 4.11.0)
       railties (>= 3.0.0)
+    faker (1.9.1)
+      i18n (>= 0.7)
     ffi (1.9.25)
     formatador (0.2.5)
     fuubar (2.3.2)
@@ -320,6 +322,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_bot_rails
+  faker
   fuubar
   guard-rspec
   jquery-rails
@@ -346,4 +349,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.2
+   1.16.3
