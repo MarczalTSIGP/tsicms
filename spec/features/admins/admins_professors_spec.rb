@@ -1,88 +1,84 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin Professors', type: :feature do
-
-  before(:all) do
-    @title = create(:professor_title)
-    @category = create(:professor_category)
-    @professor = create(:professors)
+  before(:each) do
+    admin = create :admin
+    login_as admin, scope: :admin
   end
 
   describe '#edit' do
+    before(:each) do
+      @professor = create :professor
+      visit edit_admins_professor_path(@professor)
+    end
     context 'with valid fields' do
-      it "update professor's fields asd" do
-        admin = create(:admin)
-        login_as(admin, scope: :admin)
+      it "update professor's fields" do
         new_name = 'Lucas Sartori'
-
-        visit edit_admins_professor_path
         fill_in 'professor_name', with: new_name
-
         find('input[name="commit"]').click
-
-        expect(page).to include("Detalhes do professor: #{new_name}")
+        expect(page).to have_content("Detalhes do professor: #{new_name}")
       end
     end
 
-    # context 'when invalid fields' do
-    #   xit "update professors' name" do
-    #     admin = create(:admin)
-    #     login_as(admin, scope: :admin)
-    #   end
-    # end
+    context 'when invalid fields' do
+      it 'cannot update professor' do
+        fill_in 'professor_name', with: ''
+        find('input[name="commit"]').click
+        expect(page).to have_selector('div.invalid-feedback',
+                                      text: 'Name não pode ficar em branco')
+      end
+    end
   end
 
-=begin
   describe '#create' do
+    before(:each) do
+      @category = create_list(:professor_category, 2).sample
+      @title = create_list(:professor_title, 3).sample
+      visit new_admins_professor_path
+    end
     context 'with valid fields' do
-      xit "create professor' name" do
-        admin = create(:admin)
-        login_as(admin, scope: :admin)
-
-        visit new_admins_professor_path
-
+      it 'create professor' do
+        new_name = 'Lucas Sartori'
+        new_email = 'email@gmail.com'
+        fill_in 'professor_name', with: new_name
+        fill_in 'professor_lattes', with: new_name
+        fill_in 'professor_occupation_area', with: new_name
+        fill_in 'professor_email', with: new_email
+        select @category.name, from: 'professor[professor_category_id]'
+        select @title.description, from: 'professor[professor_title_id]'
+        find('input[name="commit"]').click
       end
     end
     context 'when invalid fields' do
-      xit "create professor' name" do
-        admin = create(:admin)
-        login_as(admin, scope: :admin)
-
-        visit new_admins_professor_path
-
+      it 'cannot create professor' do
+        find('input[name="commit"]').click
+        expect(page).to have_selector('div.alert.alert-danger',
+                                      text: I18n.t('simple_form.error_notification.default_message'))
       end
     end
   end
 
-  xdescribe '#destroy' do
+  describe '#destroy' do
     context 'must be destroy professor' do
-      xit "destroy professor' name" do
-        admin = create(:admin)
-        login_as(admin, scope: :admin)
+      it 'destroy professor' do
+        @professor = create :professor
+        visit admins_professors_path
+        expect {click_link '', href: admins_professor_path(@professor)}.to change(Professor, :count).by(0)
       end
     end
   end
 
   describe '#show' do
-    context 'with valid fields' do
-      xit 'show professor' do
-        admin = create(:admin)
-        login_as(admin, scope: :admin)
-
-        visit admins_professor_path
-
+    context 'show professors' do
+      it 'show all professors' do
+        visit admins_professors_path
+        expect(page).to have_content('Professores')
       end
-    end
-
-    context 'when invalid fields' do
-      xit 'show professor' do
-        admin = create(:admin)
-        login_as(admin, scope: :admin)
-
-        visit admins_professor_path
-
+      it 'show professor page' do
+        @professor = create :professor
+        visit admins_professor_path(@professor)
+        expect(page).to have_content("Detalhes do professor: #{@professor.name}")
       end
     end
   end
-=end
 end

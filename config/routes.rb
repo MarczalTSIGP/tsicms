@@ -13,8 +13,6 @@ Rails.application.routes.draw do
   authenticate :admin do
     namespace :admins do
       root to: 'dashboard#index'
-     #  get '/professors' => 'professors#index'
-     #  get '/professors/:id' => 'professors#show', :as => 'professor_show'
       resources :professors
     end
   end

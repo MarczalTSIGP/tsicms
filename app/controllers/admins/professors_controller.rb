@@ -12,10 +12,11 @@ class Admins::ProfessorsController < Admins::BaseController
   def create
     @professor = Professor.new(professor_params)
     if @professor.save
+      flash[:success] = 'Professor criado com sucesso'
       redirect_to admins_professors_path
     else
-      flash[:error] = 'Erro ao criar professor'
-      redirect_to :new
+      flash[:error] = I18n.t('simple_form.error_notification.default_message')
+      render :new
     end
   end
 
@@ -26,7 +27,7 @@ class Admins::ProfessorsController < Admins::BaseController
     if @professor.update_attributes(professor_params)
       redirect_to admins_professor_path(@professor)
     else
-      render edit_admins_professor_path(@professor)
+      render :edit
     end
   end
 
