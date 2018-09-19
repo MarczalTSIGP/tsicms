@@ -42,7 +42,7 @@ class Admins::RecommendationsController < Admins::BaseController
   protected
 
   def recommendation_params
-    params.require(:recommendation).permit(:title, :description, :image, :category_recommendation_id)
+    params.require(:recommendation).permit(:title, :description, :image, :image_cache, :category_recommendation_id)
   end
 
   def set_recommendation

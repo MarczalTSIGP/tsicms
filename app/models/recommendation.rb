@@ -5,5 +5,5 @@ class Recommendation < ApplicationRecord
 
   belongs_to :category_recommendation
 
-  has_one_attached :image
+  mount_uploader :image, RecommendationImageUploader
 end

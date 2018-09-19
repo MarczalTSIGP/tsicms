@@ -34,8 +34,9 @@
         <div id="box-image-preview" data-toggle="tooltip" data-placement="left" title="Clique na imagem para alterá-la">
           <div class="input-field image_preview">
             <div class="box-image center">
-              <%= image_tag resource.image, class: 'file_preview active' %>
+              <%= image_tag resource.image.url, class: 'file_preview active' %>
               <%= f.input :image, required: false, label: false %>
+              <%= f.hidden_field :image_cache %>
             </div>
           </div>
           <div class="text-box text-center">
