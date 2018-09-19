@@ -1,6 +1,9 @@
 pt-BR:
   prompt:
     confirm: 'Tem certeza?'
+    select: 
+      m: 'Selecione um %{name}'
+      f: 'Selecione uma %{name}'
   activerecord:
     models:
       admin:

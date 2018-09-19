@@ -1,5 +1,6 @@
 class Admins::RecommendationsController < Admins::BaseController
   before_action :set_recommendation, only: [:edit, :update, :destroy]
+  before_action :load_categories, only: [:new, :create, :edit, :update]
 
   def index
     @recommendations = Recommendation.order(created_at: :asc)
@@ -47,5 +48,9 @@ class Admins::RecommendationsController < Admins::BaseController
 
   def set_recommendation
     @recommendation = Recommendation.find(params[:id])
+  end
+
+  def load_categories
+    @categories = CategoryRecommendation.all.order(name: :asc)
   end
 end

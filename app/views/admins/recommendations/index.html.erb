@@ -1,16 +1,12 @@
 <% provide(:page_title, 'Recomendações de conteúdo') %>
 
-<div class="row">
-  <div class="col-sm-12 col-md-6">
-    <div class="btn-list text-md-left text-center">
-      <%= link_to "Categorias", admins_category_recommendations_path, class: 'btn btn-primary' %>
-    </div>
-  </div>
-  <div class="col-sm-12 col-md-6">
-    <div class="btn-list text-md-right text-center">
-      <%= link_to 'Nova recomendação', new_admins_recommendation_path, class: 'btn btn-primary' %>
-    </div>
-  </div>
+<div class="text-right">
+  <%= link_to new_admins_recommendation_path,
+    class: 'btn btn-secondary',
+    title: 'Nova recomendação',
+    data: { toggle: 'tooltip', placement: 'top' } do %>
+    <i class="fas fa-plus"></i>
+  <% end %>
 </div>
 
 <table class="table card-table table-vcenter text-nowrap" id="recommendations_table">
@@ -23,27 +19,6 @@
     </tr>
   </thead>
   <tbody>
-    <% @recommendations.each do |recommendation| %>
-      <tr>
-        <td><%= recommendation.title %></td>
-        <td><%= recommendation.category_recommendation.name %></td>
-        <td><%= l(recommendation.created_at, format: :long) %></td>
-        <td>
-          <div class="dropdown">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
-              Gerenciar
-            </button>
-
-            <div class="dropdown-menu">
-              <%= link_to 'Editar', edit_admins_recommendation_path(recommendation), class: 'dropdown-item' %>
-              <%= link_to 'Remover', [:admins, recommendation],
-                                    method: :delete,
-                                    data: { confirm: 'Tem certeza?' },
-                                    class: 'dropdown-item' %>
-            </div>
-          </div>
-        </td>
-      </tr>
-    <% end %>
+    <%= render @recommendations %>
   </tbody>
 </table>

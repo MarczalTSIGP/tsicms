@@ -1,19 +1,15 @@
 <% provide(:page_title, 'Categorias de recomendações') %>
 
-<div class="row">
-  <div class="col-sm-12 col-md-6">
-    <div class="btn-list text-md-left text-center">
-      <%= link_to "Voltar para recomendações", admins_recommendations_path, class: 'btn btn-primary' %>
-    </div>
-  </div>
-  <div class="col-sm-12 col-md-6">
-    <div class="btn-list text-md-right text-center">
-      <%= link_to 'Nova categoria', new_admins_category_recommendation_path, class: 'btn btn-primary' %>
-    </div>
-  </div>
+<div class="text-right">
+  <%= link_to new_admins_category_recommendation_path,
+    class: 'btn btn-secondary',
+    title: 'Nova categoria',
+    data: { toggle: 'tooltip', placement: 'top' } do %>
+    <i class="fas fa-plus"></i>
+  <% end %>
 </div>
 
-<table class="table card-table table-vcenter text-nowrap" id="category_recommendations_table">
+<table class="table table-data card-table table-vcenter text-nowrap">
   <thead>
     <tr>
       <th>Nome</th>
@@ -22,26 +18,6 @@
     </tr>
   </thead>
   <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= category.name %></td>
-        <td><%= l(category.created_at, format: :long) %></td>
-        <td>
-          <div class="dropdown">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
-              Gerenciar
-            </button>
-
-            <div class="dropdown-menu">
-              <%= link_to 'Editar', edit_admins_category_recommendation_path(category), class: 'dropdown-item' %>
-              <%= link_to 'Remover', [:admins, category],
-                                    method: :delete,
-                                    data: { confirm: 'Tem certeza?' },
-                                    class: 'dropdown-item' %>
-            </div>
-          </div>
-        </td>
-      </tr>
-    <% end %>
+    <%= render @categories %>
   </tbody>
 </table>
