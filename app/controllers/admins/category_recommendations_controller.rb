@@ -13,10 +13,11 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
     @category = CategoryRecommendation.new(category_recommendation_params)
 
     if @category.save
-      flash[:success] = 'Categoria criada com sucesso!'
+      flash[:success] = I18n.t('flash.actions.create.f',
+                               resource_name: CategoryRecommendation.model_name.human)
       redirect_to admins_category_recommendations_path
     else
-      flash[:error] = 'Existem dados incorretos!'
+      flash.now[:error] = I18n.t('flash.actions.errors')
       render :new
     end
   end
@@ -25,17 +26,19 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
 
   def update
     if @category.update_attributes(category_recommendation_params)
-      flash[:success] = 'Categoria atualizada com sucesso!'
+      flash[:success] = I18n.t('flash.actions.update.f',
+                               resource_name: CategoryRecommendation.model_name.human)
       redirect_to admins_category_recommendations_path
     else
-      flash[:error] = 'Existem dados incorretos!'
+      flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end
   end
 
   def destroy
     @category.destroy
-    flash[:success] = 'Categoria removida com sucesso!'
+    flash[:success] = I18n.t('flash.actions.destroy.f',
+                               resource_name: CategoryRecommendation.model_name.human)
     redirect_to admins_category_recommendations_path
   end
 
