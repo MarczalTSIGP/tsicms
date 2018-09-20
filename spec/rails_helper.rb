@@ -11,6 +11,9 @@ require 'support/shoulda'
 require 'support/factory_bot'
 require 'support/database_cleaner'
 require 'support/simplecov'
+require 'support/helpers/form'
+require 'support/file_spec_helper'
+require 'support/carrier_wave'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -21,7 +24,11 @@ end
 
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
-  config.infer_spec_type_from_file_location!
+  config.include Helpers::Form, type: :feature
 
+  config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
 end

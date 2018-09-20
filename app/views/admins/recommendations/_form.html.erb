@@ -14,7 +14,7 @@
         <div class="input-field image_preview">
           <div class="box-image center">
             <%= image_tag @recommendation.image.url, class: 'file_preview active' %>
-            <%= f.input :image, required: false, label: false %>
+            <%= f.input :image, label: false %>
             <%= f.hidden_field :image_cache %>
           </div>
         </div>
