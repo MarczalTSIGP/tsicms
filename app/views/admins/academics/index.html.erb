@@ -1,8 +1,12 @@
 <% provide(:page_title, 'Acadêmicos') %>
 
+<div class="btn-list text-right">
+    <%= link_to 'Novo Acadêmico', new_admins_academic_path, class: 'btn btn-primary' %>
+</div>
 
 <table class="table card-table table-vcenter text-nowrap">
-    <thead>
+    <thead></thead>
+    
     <tr>
         <th>Nome</th>
         <th>Está formado?</th>
@@ -15,15 +19,19 @@
         <%@academics.each do |academic| %>
             <tr>
                 <td><%= academic.name %></td>
-                <td><%= academic.graduated? %></td>
+                <td><%= academic_graduated(academic.graduated?) %></td>
+                <td><%= l(academic.created_at, format: :long  ) %></td>
                 <td>
                     <div class="dropdown">
                         <button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">Gerenciar</button> 
-                
-                
+                        <div class="dropdown-menu">
+                        <%= link_to 'Editar', edit_admins_academic_path(academic), class: 'dropdown-item' %>
+                        <%= link_to 'Visualizar', admins_academic_path(academic), class: 'dropdown-item' %>
+                        <%= link_to 'Deletar', [:admins, academic], method: :delete, data: {confirm: 'Tem certeza?'}, class: 'dropdown-item' %> 
+                        </div>             
+                    </div>
                 </td>
-
+        <% end %>
     </tbody>
-
 
 </table>

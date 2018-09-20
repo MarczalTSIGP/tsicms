@@ -1,7 +1,7 @@
 namespace :db do
   desc 'Erase and fill database'
   task populate: :environment do
-    [CategoryRecommendation, Recommendation].each(&:destroy_all)
+    [CategoryRecommendation, Recommendation, Academic].each(&:destroy_all)
 
     categories = %w(Documentário Filme Livro Seriado)
     categories.each do |category|
@@ -14,6 +14,14 @@ namespace :db do
           description: Faker::Lorem.paragraph(2),
           image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample)
       end
+    end
+
+    10.times do
+      Academic.create!(
+        name: Faker::Name.name,
+        contact: Faker::Internet.url,
+        graduated: [true, false].sample
+      )
     end
   end
 end

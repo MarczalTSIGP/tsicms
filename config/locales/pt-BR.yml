@@ -13,7 +13,7 @@ pt-BR:
       errors: 'Existem dados incorretos!'
   prompt:
     confirm: 'Tem certeza?'
-    select: 
+    select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
   activerecord:
@@ -27,10 +27,14 @@ pt-BR:
       recommendation:
         one: 'Recomendação'
         other: 'Recomendações'
+      academic:
+        one: 'Acadêmico'
+        other: 'Acadêmicos'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
         email: 'Email'
+        image: 'Imagem'
       admin:
         <<: *commons
         password: 'Senha'
@@ -45,3 +49,7 @@ pt-BR:
         description: 'Descrição'
         image: 'Imagem'
         category_recommendation: 'Categoria'
+      academic:
+        <<: *commons
+        graduated: 'Graduado'
+        contact: 'Contato'

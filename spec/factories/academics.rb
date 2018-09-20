@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :academic do
-    name { "José Carlos" }
-    contact { "MyText" }
+    name { Faker::Name.name }
+    contact { Faker::Internet.url }
     graduated { false }
   end
 end

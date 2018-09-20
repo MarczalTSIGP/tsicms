@@ -1,0 +1,13 @@
+<%= simple_form_for [:admins, @academic] do |f| %>
+
+  <%= f.input :name %>
+  <%= f.file_field(:image) %>
+    <br>
+    <br>
+  <%= f.input :contact %>
+  <%= f.input :graduated, as: :checkbox_tabler %>
+  <div class="btn-list text-right">
+    <%= link_to "Voltar", admins_academics_path, class: 'btn btn-secondary btn-lg' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>    
