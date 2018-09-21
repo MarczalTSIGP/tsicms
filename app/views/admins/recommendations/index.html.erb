@@ -9,16 +9,18 @@
   <% end %>
 </div>
 
-<table class="table card-table table-vcenter text-nowrap" id="recommendations_table">
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Categoria</th>
-      <th>Data de criação</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @recommendations %>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table card-table table-vcenter text-nowrap" id="recommendations_table">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Categoria</th>
+        <th>Data de criação</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @recommendations %>
+    </tbody>
+  </table>
+</div>

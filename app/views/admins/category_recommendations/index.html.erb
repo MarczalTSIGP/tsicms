@@ -9,15 +9,17 @@
   <% end %>
 </div>
 
-<table class="table table-data card-table table-vcenter text-nowrap">
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Data de criação</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @categories %>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Data de criação</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @categories %>
+    </tbody>
+  </table>
+</div>
