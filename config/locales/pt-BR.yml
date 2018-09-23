@@ -1,4 +1,16 @@
 pt-BR:
+  flash:
+    actions:
+      errors: 'Existem dados incorretos!'
+      update:
+        m: '%{resource_name} Atualizado com sucesso!'
+        f: '%{resource_name} Atualizada com sucesso!'
+      create:
+        m: '%{resource_name} criado com sucesso!'
+        f: '%{resource_name} criada com sucesso!'
+      destroy:
+        m: '%{resource_name} removido com sucesso!'
+        f: '%{resource_name} removida com sucesso!'
   prompt:
     confirm: 'Tem certeza?'
   activerecord:
