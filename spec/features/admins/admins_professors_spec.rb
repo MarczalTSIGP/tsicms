@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin Professors', type: :feature do
+
+  let(:admin) { create :admin}
+
   before(:each) do
-    admin = create :admin
     login_as admin, scope: :admin
   end
 
@@ -15,7 +17,7 @@ RSpec.feature 'Admin Professors', type: :feature do
       it "update professor's fields" do
         new_name = 'Lucas Sartori'
         fill_in 'professor_name', with: new_name
-        find('input[name="commit"]').click
+        submit_form
         expect(page).to have_content("Detalhes do professor: #{new_name}")
       end
     end
@@ -23,9 +25,9 @@ RSpec.feature 'Admin Professors', type: :feature do
     context 'when invalid fields' do
       it 'cannot update professor' do
         fill_in 'professor_name', with: ''
-        find('input[name="commit"]').click
-        expect(page).to have_selector('div.invalid-feedback',
-                                      text: 'Name não pode ficar em branco')
+        submit_form
+        expect(page).to have_selector('div.alert.alert-danger',
+                                      text: I18n.t('flash.actions.errors'))
       end
     end
   end
@@ -46,14 +48,14 @@ RSpec.feature 'Admin Professors', type: :feature do
         fill_in 'professor_email', with: new_email
         select @category.name, from: 'professor[professor_category_id]'
         select @title.description, from: 'professor[professor_title_id]'
-        find('input[name="commit"]').click
+        submit_form
       end
     end
     context 'when invalid fields' do
       it 'cannot create professor' do
-        find('input[name="commit"]').click
+        submit_form
         expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('simple_form.error_notification.default_message'))
+                                      text: I18n.t('flash.actions.errors'))
       end
     end
   end
