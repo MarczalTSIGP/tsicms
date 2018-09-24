@@ -32,8 +32,7 @@ class Admins::AcademicsController < Admins::BaseController
     def update
         if set_academic.update_attributes(academic_params)
             flash[:success] = "Acadêmico: #{@academic.name} atualizado com sucesso."
-            redirect_to action: 'index'
-            
+            redirect_to action: 'index'     
         else 
             flash[:error]="Existem dados incorretos."
             render :edit  
@@ -49,7 +48,7 @@ class Admins::AcademicsController < Admins::BaseController
 
     protected
     def academic_params
-        params.require(:academic).permit(:name, :image, :contact, :graduated)
+        params.require(:academic).permit(:name, :image, :image_cache, :contact, :graduated)
     end    
 
     def set_academic

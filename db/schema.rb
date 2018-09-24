@@ -15,12 +15,20 @@ ActiveRecord::Schema.define(version: 2018_09_10_005111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+=======
+  create_table "academics", force: :cascade do |t|
+    t.string "name"
+    t.string "image"
+    t.string "contact"
+    t.boolean "graduated", default: false
+>>>>>>> Altered ActiveStorage to carrierwave
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
@@ -29,6 +37,7 @@ ActiveRecord::Schema.define(version: 2018_09_10_005111) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+<<<<<<< HEAD
   create_table "category_recommendations", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -52,6 +61,20 @@ ActiveRecord::Schema.define(version: 2018_09_10_005111) do
     t.boolean "graduated", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+=======
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "image"
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+>>>>>>> Altered ActiveStorage to carrierwave
   end
 
 end
