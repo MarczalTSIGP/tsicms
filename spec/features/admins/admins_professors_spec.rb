@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Admin Professors', type: :feature do
 
-  let(:admin) { create :admin}
+  let(:admin) {create :admin}
 
   before(:each) do
     login_as admin, scope: :admin
@@ -63,9 +63,9 @@ RSpec.feature 'Admin Professors', type: :feature do
   describe '#destroy' do
     context 'must be destroy professor' do
       it 'destroy professor' do
-        @professor = create :professor
+        professor = create :professor
         visit admins_professors_path
-        expect {click_link '', href: admins_professor_path(@professor)}.to change(Professor, :count).by(0)
+        expect {click_link '', href: admins_professor_path(professor)}.to change(Professor, :count).by(0)
       end
     end
   end
@@ -77,9 +77,9 @@ RSpec.feature 'Admin Professors', type: :feature do
         expect(page).to have_content('Professores')
       end
       it 'show professor page' do
-        @professor = create :professor
-        visit admins_professor_path(@professor)
-        expect(page).to have_content("Detalhes do professor: #{@professor.name}")
+        professor = create :professor
+        visit admins_professor_path(professor)
+        expect(page).to have_content(professor.name)
       end
     end
   end
