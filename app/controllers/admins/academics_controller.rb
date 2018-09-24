@@ -3,7 +3,7 @@ class Admins::AcademicsController < Admins::BaseController
     before_action :set_academic, only: [:edit, :update, :destroy]
 
     def index
-        @academics = Academic.all.order(created_at: :ASC)
+        @academics = Academic.all.order(created_at: :desc)
     end
 
     def show
@@ -17,10 +17,10 @@ class Admins::AcademicsController < Admins::BaseController
     def create
         @academic = Academic.new(academic_params)
         if @academic.save
-            flash[:success]="Acadêmico: #{@academic.name} criado com sucesso."
+            flash[:success] = I18n.t('flash.actions.create.m', resource_name: Academic.model_name.human)
             redirect_to action: 'index'
         else 
-            flash[:error]="Existem dados incorretos!"
+            flash.now[:error] = I18n.t('flash.actions.errors')
             render :new  
         end  
     end
@@ -31,10 +31,10 @@ class Admins::AcademicsController < Admins::BaseController
     
     def update
         if set_academic.update_attributes(academic_params)
-            flash[:success] = "Acadêmico: #{@academic.name} atualizado com sucesso."
+            flash[:success] = I18n.t('flash.actions.update.m', resource_name: Academic.model_name.human)
             redirect_to action: 'index'     
         else 
-            flash[:error]="Existem dados incorretos."
+            flash.now[:error] = I18n.t('flash.actions.errors')
             render :edit  
             
         end      
@@ -42,11 +42,12 @@ class Admins::AcademicsController < Admins::BaseController
 
     def destroy
         @academic.destroy
-        flash[:success]="Acadêmico: #{@academic.name} deletado com sucesso."
+        flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: Academic.model_name.human)
         redirect_back fallback_location: @get
     end
 
     protected
+
     def academic_params
         params.require(:academic).permit(:name, :image, :image_cache, :contact, :graduated)
     end    
