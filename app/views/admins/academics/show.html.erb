@@ -7,7 +7,11 @@
                     
     <div class="card-body">
         <p>
-            <%= image_tag @academic.image.url %>
+            <div class="form-row">
+                <div class="col-4">
+                    <%= image_tag @academic.image.url %>
+                </div>
+            </div>
         </p>
         <p>
             <strong>Acadêmico:</strong>

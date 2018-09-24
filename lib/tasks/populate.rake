@@ -16,13 +16,13 @@ namespace :db do
       end
     end
 
-    10.times do
+    6.times do
       Academic.create!(
         name: Faker::Name.name,
+        image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample),
         contact: Faker::Internet.url,
         graduated: [true, false].sample
       )
     end
   end
 end
-
