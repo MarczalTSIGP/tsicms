@@ -6,7 +6,12 @@ FactoryBot.define do
     password_confirmation { 'password' }
 
     trait :with_image do
+<<<<<<< HEAD
       image { FileSpecHelper.image }
     end
+=======
+      image { File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample) }
+    end  
+>>>>>>> Feature to create academic
   end
 end

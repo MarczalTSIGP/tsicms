@@ -8,7 +8,7 @@ RSpec.describe Academic, type: :model do
     it { expect(academic).to respond_to(:graduated) }
 
     it { is_expected.to validate_presence_of(:name) }
-    it { should validate_uniqueness_of(:name).case_insensitive }
+    it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
     it { is_expected.to validate_presence_of(:contact) }
     it { is_expected.to allow_value('http://foo.com').for(:contact) }
 
