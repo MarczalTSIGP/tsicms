@@ -36,3 +36,4 @@
 # Ignore JetBrains IDE's hidden path
 .idea/
 
+public/uploads/*

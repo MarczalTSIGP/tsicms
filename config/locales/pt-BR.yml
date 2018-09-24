@@ -1,7 +1,6 @@
 pt-BR:
   flash:
     actions:
-      errors: 'Existem dados incorretos!'
       update:
         m: '%{resource_name} Atualizado com sucesso!'
         f: '%{resource_name} Atualizada com sucesso!'
@@ -11,13 +10,24 @@ pt-BR:
       destroy:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
+
+      errors: 'Existem dados incorretos!'
   prompt:
     confirm: 'Tem certeza?'
+    select:
+      m: 'Selecione um %{name}'
+      f: 'Selecione uma %{name}'
   activerecord:
     models:
       admin:
         one: 'Administrador'
         other: 'Administradores'
+      category_recommendation:
+        one: 'Categoria'
+        other: 'Categorias'
+      recommendation:
+        one: 'Recomendação'
+        other: 'Recomendações'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -28,3 +38,11 @@ pt-BR:
         password_confirmation: 'Confirmação de senha'
         current_password: 'Senha atual'
         remember_me: 'Lembre-me'
+        image: 'Imagem'
+      category_recommendation:
+        <<: *commons
+      recommendation:
+        title: 'Título'
+        description: 'Descrição'
+        image: 'Imagem'
+        category_recommendation: 'Categoria'
