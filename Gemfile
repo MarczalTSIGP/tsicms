@@ -18,12 +18,16 @@ gem 'devise'
 gem 'simple_form'
 gem 'rails-i18n', '~> 5.1'
 
+gem 'simplemde-rails', '~> 1.11.2'
+gem 'redcarpet', '~> 3.4'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
   gem 'rspec-rails', '~> 3.7'
   gem 'fuubar'
   gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do

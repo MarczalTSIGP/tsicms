@@ -1,0 +1,11 @@
+<% provide(:page_title, "Editar - #{@faq.title}") %>
+
+<%= simple_form_for [:admins, @faq] do |f| %>
+  <%= f.input :title %>
+  <%= f.input :answer %>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_faqs_path, class: 'btn btn-link' %>
+    <%= f.button :submit, 'Atualizar', class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

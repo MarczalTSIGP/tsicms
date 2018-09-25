@@ -12,9 +12,9 @@ RSpec.feature "Admins", type: :feature do
 
         visit edit_admin_registration_path
         fill_in 'admin_name', with: new_name
-        fill_in 'admin_current_password', with: 'password'
+          fill_in 'admin_current_password', with: 'password'
 
-        find('input[name="commit"]').click
+          find('input[name="commit"]').click
 
         expect(page.current_path).to eq edit_admin_registration_path
         expect(page).to have_selector('div.alert.alert-info',

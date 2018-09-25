@@ -1,0 +1,28 @@
+<% provide(:page_title, 'FAQ') %>
+
+<div class="btn-list text-right">
+  <%= link_to 'Nova Pergunta', new_admins_faq_path, class: 'btn btn-primary' %>
+</div>
+<br>
+<div id="accordion">
+  <% @faqs.each do |faq| %>
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= faq.id %>" aria-expanded="true" aria-controls="collapse<%= faq.id %>>">
+            <%= faq.title %>
+          </button>
+        </h5>
+        <%= link_to 'Editar', edit_admins_faq_path(faq),
+                    class: 'btn btn-info ml-auto'%>
+        <%= link_to 'Remover', [:admins, faq], method: :delete, data: {confirm: 'Tem certeza que deseja remover?'},
+                    class: 'btn btn-danger'%>
+      </div>
+
+      <div id="collapse<%= faq.id %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body apply-markdown" data-markdown="<%= faq.answer %>">
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

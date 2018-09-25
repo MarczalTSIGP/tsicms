@@ -16,7 +16,7 @@
 // Config files
 //--------------------
 //= require config/namespace
-
+//= require config/simplemde
 
 // App files
 //--------------------

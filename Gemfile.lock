@@ -106,6 +106,8 @@ GEM
     factory_bot_rails (4.11.0)
       factory_bot (~> 4.11.0)
       railties (>= 3.0.0)
+    faker (1.9.1)
+      i18n (>= 0.7)
     ffi (1.9.25)
     formatador (0.2.5)
     fuubar (2.3.2)
@@ -208,6 +210,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    redcarpet (3.4.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -242,7 +245,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
-    rubyzip (1.2.1)
+    rubyzip (1.2.2)
     sass (3.5.7)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -268,6 +271,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
+    simplemde-rails (1.11.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -293,7 +297,7 @@ GEM
     unicode-display_width (1.4.0)
     warden (1.2.7)
       rack (>= 1.0)
-    web-console (3.6.2)
+    web-console (3.7.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
@@ -320,6 +324,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_bot_rails
+  faker
   fuubar
   guard-rspec
   jquery-rails
@@ -328,6 +333,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.1)
   rails-i18n (~> 5.1)
+  redcarpet (~> 3.4)
   rspec-rails (~> 3.7)
   rubocop
   sass-rails (~> 5.0)
@@ -335,6 +341,7 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   simple_form
   simplecov
+  simplemde-rails (~> 1.11.2)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
@@ -346,4 +353,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.2
+   1.16.4
