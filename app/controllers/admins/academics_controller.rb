@@ -1,59 +1,60 @@
 class Admins::AcademicsController < Admins::BaseController
-    
     before_action :set_academic, only: [:edit, :update, :destroy]
 
     def index
         @academics = Academic.all.order(created_at: :desc)
     end
 
-    def show
-        set_academic
-    end
-
-    def new 
+    def new
         @academic = Academic.new
-    end    
+    end
 
     def create
         @academic = Academic.new(academic_params)
         if @academic.save
-            flash[:success] = I18n.t('flash.actions.create.m', resource_name: Academic.model_name.human)
-            redirect_to action: 'index'
-        else 
+            flash[:success] = I18n.t('flash.actions.create.m',
+                                     resource_name: Academic.model_name.human)
+            redirect_to admins_recommendations_path
+        else
             flash.now[:error] = I18n.t('flash.actions.errors')
-            render :new  
-        end  
+            render :new
+        end
     end
 
     def edit
         set_academic
-    end   
-    
+    end
+
     def update
         if set_academic.update_attributes(academic_params)
-            flash[:success] = I18n.t('flash.actions.update.m', resource_name: Academic.model_name.human)
-            redirect_to action: 'index'     
-        else 
+            flash[:success] = I18n.t('flash.actions.update.m',
+                                     resource_name: Academic.model_name.human)
+            redirect_to action: 'index'
+        else
             flash.now[:error] = I18n.t('flash.actions.errors')
-            render :edit  
-            
-        end      
+            render :edit
+        end
     end
 
     def destroy
         @academic.destroy
-        flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: Academic.model_name.human)
+        flash[:success] = I18n.t('flash.actions.destroy.m',
+                                 resource_name: Academic.model_name.human)
         redirect_back fallback_location: @get
     end
 
     protected
 
     def academic_params
-        params.require(:academic).permit(:name, :image, :image_cache, :contact, :graduated)
-    end    
+        params.require(:academic).permit(:name,
+                                         :image,
+                                         :image_cache,
+                                         :contact,
+                                         :graduated)
+    end
 
     def set_academic
         @academic = Academic.find(params[:id])
-    end    
+    end
 
-end   
+end
