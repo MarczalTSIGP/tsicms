@@ -14,7 +14,7 @@ class Admins::AcademicsController < Admins::BaseController
         if @academic.save
             flash[:success] = I18n.t('flash.actions.create.m',
                                      resource_name: Academic.model_name.human)
-            redirect_to admins_recommendations_path
+            redirect_to admins_academics_path
         else
             flash.now[:error] = I18n.t('flash.actions.errors')
             render :new
@@ -29,7 +29,7 @@ class Admins::AcademicsController < Admins::BaseController
         if set_academic.update_attributes(academic_params)
             flash[:success] = I18n.t('flash.actions.update.m',
                                      resource_name: Academic.model_name.human)
-            redirect_to action: 'index'
+        redirect_to admins_academics_path
         else
             flash.now[:error] = I18n.t('flash.actions.errors')
             render :edit
@@ -40,7 +40,8 @@ class Admins::AcademicsController < Admins::BaseController
         @academic.destroy
         flash[:success] = I18n.t('flash.actions.destroy.m',
                                  resource_name: Academic.model_name.human)
-        redirect_back fallback_location: @get
+        redirect_to admins_academics_path
+
     end
 
     protected
