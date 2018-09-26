@@ -41,7 +41,6 @@ class Admins::AcademicsController < Admins::BaseController
         flash[:success] = I18n.t('flash.actions.destroy.m',
                                  resource_name: Academic.model_name.human)
         redirect_to admins_academics_path
-
     end
 
     protected

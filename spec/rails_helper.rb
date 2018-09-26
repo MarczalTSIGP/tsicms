@@ -15,6 +15,7 @@ require 'support/helpers/form'
 require 'support/file_spec_helper'
 require 'support/carrier_wave'
 
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
@@ -31,4 +32,6 @@ RSpec.configure do |config|
 
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
+
+  config.include ApplicationHelper
 end
