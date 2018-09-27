@@ -1,2 +1,3 @@
-<h1>Atualizar Professor: <%= @professor.name %></h1>
+<% provide(:page_title, "Editar Professor #{@professor.id}") %>
+
 <%= render 'form' %>

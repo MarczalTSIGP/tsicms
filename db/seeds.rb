@@ -7,7 +7,7 @@ categories.each do |category|
 end
 
 
-professorCategories = %w[Efetivo Temporario]
+professorCategories = %w[Efetivo Temporário]
 
 professorCategories.each do |category|
   ProfessorCategory.find_or_create_by!(name: category)

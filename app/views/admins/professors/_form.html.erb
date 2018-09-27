@@ -5,5 +5,9 @@
   <%= f.input :email, required: true %>
   <%= f.association :professor_title, label_method: :description %>
   <%= f.association :professor_category %>
-  <%= f.button :submit,  class: 'btn btn-primary ml-auto' %>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_professors_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
 <% end %>

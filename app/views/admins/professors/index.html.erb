@@ -1,57 +1,27 @@
-<div>
-  <div class="card">
-    <div class="card-header">
-      <h3 class="card-title">Professores</h3>
-      <div class="text-right">
-        <%= link_to "NOVO", new_admins_professor_path, class: 'btn btn-primary' %>
-      </div>
-    </div>
-    <div class="table-responsive">
-      <table class="table card-table table-vcenter text-nowrap">
-        <thead>
-        <tr>
-          <th class="w-1">No.</th>
-          <th>Nome</th>
-          <th>Criado</th>
-          <th>Atualidado</th>
-          <th>destroy</th>
-          <th>edit</th>
-          <th>show</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @professors.each do |professor| %>
-          <tr>
-            <td>
-              <%= professor.id %>
-            </td>
-            <td>
-              <%= professor.name %>
-            </td>
-            <td>
-              <%= professor.created_at.strftime("%d/%m/%Y - %H:%M:%S") %>
-            </td>
-            <td>
-              <%= professor.updated_at.strftime("%d/%m/%Y - %H:%M:%S") %>
-            </td>
+<% provide(:page_title, 'Professores') %>
 
-            <td><%= link_to admins_professor_path(professor), method: :delete, data: {confirm: "Deseja Remover?"} do %>
-                <span><i class="fa fa-pencil" title="Remover"></i>Remover</span>
-              <% end %></td>
-            <td>
-              <%= link_to edit_admins_professor_path(professor) do %>
-                <span><i class="fa fa-pencil" title="Editar"></i>Editar</span>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to admins_professor_path(professor) do %>
-                <span><i class="fa fa-eye" data-toggle="tooltip" title="Mostrar"></i></span>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="text-right">
+  <%= link_to new_admins_professor_path,
+              class: 'btn btn-secondary',
+              title: 'Novo Professor',
+              data: { toggle: 'tooltip', placement: 'top' } do %>
+    <i class="fas fa-plus"></i>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table card-table table-vcenter text-nowrap" id="professors_table">
+    <thead>
+    <tr>
+      <th class="w-1">No.</th>
+      <th>Nome</th>
+      <th>Criado</th>
+      <th>Atualidado</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= render @professors %>
+    </tbody>
+  </table>
 </div>
