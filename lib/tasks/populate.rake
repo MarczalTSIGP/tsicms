@@ -1,7 +1,8 @@
 namespace :db do
   desc 'Erase and Fill database'
   task populate: :environment do
-    [CategoryRecommendation, Recommendation, ProfessorCategory, ProfessorTitle, Professor].each(&:destroy_all)
+    [CategoryRecommendation, Recommendation, Professor, ProfessorCategory,
+     ProfessorTitle].each(&:destroy_all)
 
     categories = %w(Documentário Filme Livro Seriado)
     categories.each do |category|
@@ -16,26 +17,27 @@ namespace :db do
       end
     end
 
-    categories = %w[Efetivo Temporario]
+    categories = %w[Efetivo Temporário]
 
     categories.each do |category|
-      ProfessorCategory.create(name: category)
+      ProfessorCategory.create!(name: category)
     end
 
     titles = [
-      {description: 'Especialista', abbrev: 'Esp.'},
-      {description: 'Mestre', abbrev: 'Me.'},
-      {description: 'Doutor', abbrev: 'Dr.'}
+      {name: 'Especialista', abbrev: 'Esp.'},
+      {name: 'Mestre', abbrev: 'Me.'},
+      {name: 'Doutor', abbrev: 'Dr.'}
     ]
 
     titles.each do |title|
-      ProfessorTitle.create(description: title[:description], abbrev: title[:abbrev])
+      ProfessorTitle.create!(name: title[:name], abbrev: title[:abbrev])
     end
 
     10.times do
-      Professor.create(name: Faker::Name.name, lattes: Faker::Job.education_level,
+      Professor.create!(name: Faker::Name.name, lattes: Faker::Internet.url,
                        occupation_area: Faker::Job.title, email: Faker::Internet.email,
-                       professor_title: ProfessorTitle.all.sample, professor_category: ProfessorCategory.all.sample)
+                       professor_title: ProfessorTitle.all.sample,
+                       professor_category: ProfessorCategory.all.sample)
     end
   end
 end

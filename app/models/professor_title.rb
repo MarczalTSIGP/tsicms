@@ -1,6 +1,5 @@
 class ProfessorTitle < ApplicationRecord
-  validates :description, presence: true
-  validates :abbrev, presence: true
+  validates :name, :abbrev, presence: true, uniqueness: { case_sensitive: false }
 
   has_many :professors, dependent: :destroy
 end

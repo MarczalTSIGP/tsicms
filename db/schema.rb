@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2018_09_10_005111) do
   end
 
   create_table "professor_titles", force: :cascade do |t|
-    t.string "description"
+    t.string "name"
     t.string "abbrev"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -52,12 +52,12 @@ ActiveRecord::Schema.define(version: 2018_09_10_005111) do
   create_table "professors", force: :cascade do |t|
     t.string "name"
     t.string "lattes"
-    t.string "occupation_area"
+    t.text "occupation_area"
     t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "professor_title_id"
     t.bigint "professor_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["professor_category_id"], name: "index_professors_on_professor_category_id"
     t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
   end

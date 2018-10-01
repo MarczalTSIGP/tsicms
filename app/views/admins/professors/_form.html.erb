@@ -1,10 +1,12 @@
 <%= simple_form_for [:admins, @professor] do |f| %>
-  <%= f.input :name, required: true %>
-  <%= f.input :lattes, required: true %>
-  <%= f.input :occupation_area, required: true %>
-  <%= f.input :email, required: true %>
-  <%= f.association :professor_title, label_method: :description %>
-  <%= f.association :professor_category %>
+  <%= f.input :name %>
+  <%= f.input :lattes %>
+  <%= f.input :occupation_area %>
+  <%= f.input :email %>
+  <%= f.association :professor_title,
+    prompt: t('prompt.select.m', name: 'título') %>
+  <%= f.association :professor_category,
+    prompt: t('prompt.select.m', name: 'tipo') %>
 
   <div class="d-flex">
     <%= link_to "Voltar", admins_professors_path, class: 'btn btn-secondary' %>

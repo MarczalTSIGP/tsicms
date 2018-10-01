@@ -23,7 +23,7 @@ class Admins::ProfessorsController < Admins::BaseController
   def edit; end
 
   def update
-    if @professor.update_attributes(professor_params)
+    if @professor.update(professor_params)
       flash[:success] = I18n.t('flash.actions.update.m', resource_name: Professor.model_name.human)
       redirect_to admins_professor_path(@professor)
     else

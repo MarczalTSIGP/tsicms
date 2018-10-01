@@ -6,19 +6,17 @@ categories.each do |category|
 
 end
 
-
 professorCategories = %w[Efetivo Temporário]
-
 professorCategories.each do |category|
   ProfessorCategory.find_or_create_by!(name: category)
 end
 
 titles = [
-  {description: 'Especialista', abbrev: 'Esp.'},
-  {description: 'Mestre', abbrev: 'Me.'},
-  {description: 'Doutor', abbrev: 'Dr.'}
+  {name: 'Especialista', abbrev: 'Esp.'},
+  {name: 'Mestre', abbrev: 'Me.'},
+  {name: 'Doutor', abbrev: 'Dr.'}
 ]
 
 titles.each do |title|
-  ProfessorTitle.find_or_create_by!(description: title[:description], abbrev: title[:abbrev])
+  ProfessorTitle.find_or_create_by!(name: title[:name], abbrev: title[:abbrev])
 end

@@ -10,7 +10,6 @@ pt-BR:
       destroy:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
-
       errors: 'Existem dados incorretos!'
   prompt:
     confirm: 'Tem certeza?'
@@ -46,3 +45,8 @@ pt-BR:
         description: 'Descrição'
         image: 'Imagem'
         category_recommendation: 'Categoria'
+      professor:
+        <<: *commons
+        occupation_area: 'Área de atuação'
+        professor_title: 'Título'
+        professor_category: 'Tipo'
