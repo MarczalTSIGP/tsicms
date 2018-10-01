@@ -112,7 +112,7 @@ RSpec.feature 'Category Recommendations', type: :feature do
 
         within('div.category_recommendation_name') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+      end
       end
     end
 

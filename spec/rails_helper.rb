@@ -12,6 +12,7 @@ require 'support/factory_bot'
 require 'support/database_cleaner'
 require 'support/simplecov'
 require 'support/helpers/form'
+
 require 'support/file_spec_helper'
 require 'support/carrier_wave'
 
@@ -31,4 +32,5 @@ RSpec.configure do |config|
 
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
+
 end

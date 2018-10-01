@@ -2,8 +2,8 @@ pt-BR:
   flash:
     actions:
       update:
-        m: '%{resource_name} atualizado com sucesso!'
-        f: '%{resource_name} atualizada com sucesso!'
+        m: '%{resource_name} Atualizado com sucesso!'
+        f: '%{resource_name} Atualizada com sucesso!'
       create:
         m: '%{resource_name} criado com sucesso!'
         f: '%{resource_name} criada com sucesso!'
@@ -13,7 +13,7 @@ pt-BR:
       errors: 'Existem dados incorretos!'
   prompt:
     confirm: 'Tem certeza?'
-    select: 
+    select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
   activerecord:
@@ -45,3 +45,8 @@ pt-BR:
         description: 'Descrição'
         image: 'Imagem'
         category_recommendation: 'Categoria'
+      professor:
+        <<: *commons
+        occupation_area: 'Área de atuação'
+        professor_title: 'Título'
+        professor_category: 'Tipo'

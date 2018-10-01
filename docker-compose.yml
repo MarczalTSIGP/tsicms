@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  webapp:
+    image: lucassartori/web5:1.0
+    container_name: web5_app
+    ports:
+      - 3000:3000    # share ports, localhost:docker
+#    restart: always  # start when computer start
+    volumes:
+      - .:/var/www  # share volumes current:docker
+    tty: true
+    links:
+      - db
+
+  db:
+    image: postgres
+    container_name: web5_db
+    ports:
+      - 5432:5432    # share ports, localhost:docker
+    tty: true
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+        
+  

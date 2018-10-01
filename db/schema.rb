@@ -36,6 +36,32 @@ ActiveRecord::Schema.define(version: 2018_09_10_005111) do
     t.index ["name"], name: "index_category_recommendations_on_name", unique: true
   end
 
+  create_table "professor_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "professor_titles", force: :cascade do |t|
+    t.string "name"
+    t.string "abbrev"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "professors", force: :cascade do |t|
+    t.string "name"
+    t.string "lattes"
+    t.text "occupation_area"
+    t.string "email"
+    t.bigint "professor_title_id"
+    t.bigint "professor_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professor_category_id"], name: "index_professors_on_professor_category_id"
+    t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
+  end
+
   create_table "recommendations", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -46,4 +72,6 @@ ActiveRecord::Schema.define(version: 2018_09_10_005111) do
     t.index ["category_recommendation_id"], name: "index_recommendations_on_category_recommendation_id"
   end
 
+  add_foreign_key "professors", "professor_categories"
+  add_foreign_key "professors", "professor_titles"
 end

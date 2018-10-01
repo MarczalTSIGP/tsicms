@@ -40,11 +40,12 @@ To install TSICMS locally follow these instructions:
 
 	`cp config/application.yml.example config/application.yml`
 
-	In this file change postgres username and password
+	In this file change postgres username and password and host
     	```
 	database: &database
   		db.username: postgres
   		db.password: postgres
+  		db.host: localhost
     	```
 
 	After change mailer host and port
@@ -123,6 +124,32 @@ Now we have two repositories on disk:
 4.  Run the test and ensure that all test are green. We just accpeted functionaly, bug fix, etc. with its respective test.
 
     Run `Bundle exec rspec`
+
+### Developing with Docker
+
+1. **Prerequisites**
+ 	```
+ 	docker
+ 	docker-compose
+ 	```
+2. **How to Use**
+
++ Run `docker-compose up -d`
++ Run `docker exec -it web5_app /bin/bash`
++ Run `cd /var/www`
+
+3. **Set up postgres password**
+
+	`cp config/application.yml.example config/application.yml`
+
+	In this file change postgres username and password and host
+    	```
+	database: &database
+  		db.username: postgres
+  		db.password: postgres
+  		db.host: db
+    	```
+
 
 ### Creating Pull Request
 
