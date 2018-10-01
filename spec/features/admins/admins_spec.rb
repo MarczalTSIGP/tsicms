@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.feature "Admins", type: :feature do
 
   describe "#edit" do
-
     let(:admin) { create(:admin) }
 
     before(:each) do

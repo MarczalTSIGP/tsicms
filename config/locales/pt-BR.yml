@@ -1,4 +1,8 @@
 pt-BR:
+  helpers:
+    boolean:
+      'true': 'Sim'
+      'false': 'Não'
   flash:
     actions:
       update:
@@ -27,10 +31,14 @@ pt-BR:
       recommendation:
         one: 'Recomendação'
         other: 'Recomendações'
+      academic:
+        one: 'Acadêmico'
+        other: 'Acadêmicos'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
         email: 'Email'
+        image: 'Imagem'
       admin:
         <<: *commons
         password: 'Senha'
@@ -50,3 +58,7 @@ pt-BR:
         occupation_area: 'Área de atuação'
         professor_title: 'Título'
         professor_category: 'Tipo'
+      academic:
+        <<: *commons
+        graduated: 'Graduado'
+        contact: 'Contato'

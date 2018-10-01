@@ -55,8 +55,8 @@
 <% end %>
 
 <div class="d-flex justify-content-end mt-2">
-  <p> 
-    Não está feliz conosco, <%= link_to "cancele sua conta!", 
+  <p>
+    Não está feliz conosco, <%= link_to "cancele sua conta!",
       send("#{resource_name}_registration_path"),
       data: { confirm: t('prompt.confirm') },
       method: :delete, class: 'ml-auto' %>
