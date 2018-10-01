@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :professors
       resources :category_recommendations
       resources :recommendations
+      resources :academics
     end
   end
   #========================================
