@@ -28,7 +28,7 @@ class Admins::ActivitiesController < Admins::BaseController
 
   def update
     if @activity.update(activity_params)
-      flash[:success] = I18n.t('flash.actions.update.m', resource_name: Activity.model_name.human)
+      flash[:success] = I18n.t('flash.actions.update.f', resource_name: Activity.model_name.human)
       redirect_to admins_activities_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -38,7 +38,7 @@ class Admins::ActivitiesController < Admins::BaseController
 
   def destroy
     @activity.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: Activity.model_name.human)
+    flash[:success] = I18n.t('flash.actions.destroy.f', resource_name: Activity.model_name.human)
     redirect_to admins_activities_path
   end
 
