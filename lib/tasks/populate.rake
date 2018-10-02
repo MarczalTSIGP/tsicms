@@ -59,5 +59,12 @@ namespace :db do
         description: Faker::Name.name
       )
     end
+
+    10.times do
+      ActivityProfessor.create!(
+        professor: Professor.all.sample,
+        activity: Activity.all.sample
+      )
+    end
   end
 end
