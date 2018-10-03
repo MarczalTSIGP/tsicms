@@ -3,7 +3,7 @@ class Admins::DisciplinesController < Admins::BaseController
     before_action :set_discipline, only: [ :edit, :update, :destroy, :show]
     
     def index
-      @disciplines = Discipline.all.paginate(:page => params[:page], :per_page =>8).order(name: :asc)
+      @disciplines = Discipline.all.paginate(:page => params[:page], :per_page =>13).order(name: :asc)
     end
   
     def new
