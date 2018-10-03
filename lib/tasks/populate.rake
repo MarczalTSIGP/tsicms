@@ -2,7 +2,7 @@ namespace :db do
   desc 'Erase and Fill database'
   task populate: :environment do
     [CategoryRecommendation, Recommendation, Professor, ProfessorCategory,
-     ProfessorTitle, Academic].each(&:destroy_all)
+     ProfessorTitle, Academic, Matrix, Period, Discipline].each(&:destroy_all)
 
     categories = %w(Documentário Filme Livro Seriado)
     categories.each do |category|
@@ -47,5 +47,30 @@ namespace :db do
         graduated: [true, false].sample
       )
     end
+
+    5. times do
+      Matrix.create!(
+        name: Faker::Company.name
+      )
+      
+      10.times do
+      Period.create!(
+        name: Faker::Company.suffix,
+        matrix: Matrix.all.sample
+      )
+
+        15.times do
+        Discipline.create!(
+          name: Faker::Company.industry,
+          code: Faker::Code.nric(27, 34),
+          hours: Faker::Number.number(2),
+          period: Period.all.sample,
+          menu: Faker::Lorem.paragraphs(3)
+
+        )
+        end
+      end
+    end
+
   end
 end

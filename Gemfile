@@ -20,6 +20,10 @@ gem 'rails-i18n', '~> 5.1'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-i18n'
 gem 'active_link_to'
+gem 'will_paginate-bootstrap4'
+gem 'gretel', '~> 3.0', '>= 3.0.9'
+gem 'simplemde-rails'
+
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
