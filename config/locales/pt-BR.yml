@@ -62,3 +62,16 @@ pt-BR:
         <<: *commons
         graduated: 'Graduado'
         contact: 'Contato'
+        
+      discipline:
+        <<: *commons
+        code: 'Código'
+        workload: 'Horas'
+        menu: 'Ementa'
+        period: 'Periodo'
+        matrix: 'Matriz'
+      matrix:
+        <<: *commons
+      period:
+        <<: *commons
+        matrix: 'Matriz'  
