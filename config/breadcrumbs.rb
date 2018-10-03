@@ -166,18 +166,45 @@ crumb :show_gallery do |pk|
   link " #{pk.name}", pk
   parent :galleries, pk
 end
-# crumb :project_issues do |project|
-#   link "Issues", project_issues_path(project)
-#   parent :project, project
-# end
 
-# crumb :issue do |issue|
-#   link issue.title, issue_path(issue)
-#   parent :project_issues, issue.project
-# end
+###############
 
-# If you want to split your breadcrumbs configuration over multiple files, you
-# can create a folder named `config/breadcrumbs` and put your configuration
-# files there. All *.rb files (e.g. `frontend.rb` or `products.rb`) in that
-# folder are loaded and reloaded automatically when you change them, just like
-# this file (`config/breadcrumbs.rb`).
+crumb :categories do
+  link "Categorias de Recomendações", admins_category_recommendations_path
+end
+
+crumb :edit_categories do |cr|
+  link "Editar Categoria", cr
+  parent :categories, cr
+end
+
+crumb :new_categories do |cr|
+  link "Nova Categoria", cr
+  parent :categories, cr
+end
+
+crumb :show_categories do |cr|
+  link "Visualizar Categoria", cr
+  parent :categories, cr
+end
+
+###############
+
+crumb :recomendations do
+  link "Recomendações de Conteúdo", admins_recommendations_path
+end
+
+crumb :edit_recomendations do |cr|
+  link "Editar Recomendação", cr
+  parent :recomendations, cr
+end
+
+crumb :new_recomendations do |cr|
+  link "Nova Recomendação", cr
+  parent :recomendations, cr
+end
+
+crumb :show_recommendations do |cr|
+  link "Visualizar Recomendação", cr
+  parent :recomendations, cr
+end
