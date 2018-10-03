@@ -79,7 +79,7 @@ crumb :new_teacher do |pk|
 end
 
 crumb :show_teacher do |pk|
-  link " #{pk.name}", pk
+  link "Visualizar Professor", pk
   parent :teachers, pk
 end
 

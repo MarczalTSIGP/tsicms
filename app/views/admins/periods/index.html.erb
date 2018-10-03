@@ -24,32 +24,7 @@
     </thead>
 
     <tbody>
-      <% @periods.each do |period| %>
-        <tr>
-          <td><%= period.name %></td>
-          <td><%= period.matrix.name %></td>
-          <td><%= period.created_at %></td>
-
-          <td>
-          <%= link_to admins_period_path(period) do%>
-            <span class="icon mr-3"><i class="fas fa-folder-open" 
-            data-toggle="tooltip" data-placement="top" title="Visualizar"></i></span>
-          <% end %>
-
-          <%= link_to edit_admins_period_path(period) do%>
-            <span class="icon mr-3"><i class="fas fa-edit"
-            data-toggle="tooltip" data-placement="top" title="Editar"></i></span>
-          <% end %>
-
-          <%= link_to [:admins, period], method: :delete, data: { confirm: t('prompt.confirm')} do%>
-            <span class="icon mr-3"><i class="fas fa-trash-alt"
-            data-toggle="tooltip" data-placement="top" title="Remover"></i></span>
-          <% end %>
-          </td>
-          
-          
-        </tr>
-      <% end %>
+      <%= render @periods %>
     </tbody>
 
   </table>
