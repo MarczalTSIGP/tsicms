@@ -2,6 +2,9 @@ crumb :root do
   link "Admins", admins_root_path
 end
 
+crumb :dashboard do
+  link "Dashboard", admins_root_path
+end
 ###############
 crumb :matrices do
   link "Matrizes", admins_matrices_path

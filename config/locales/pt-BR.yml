@@ -34,6 +34,15 @@ pt-BR:
       academic:
         one: 'Acadêmico'
         other: 'Acadêmicos'
+      matrix:
+        one: 'Matriz'
+        other: 'Matrizes'
+      period:
+        one: 'Período'
+        other: 'Períodos'
+      discipline:
+        one: 'Disciplina'
+        other: 'Disciplinas'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
