@@ -10,6 +10,11 @@ professorCategories.each do |category|
   ProfessorCategory.find_or_create_by!(name: category)
 end
 
+professorGenres = %w[Masculino Feminino Outros]
+professorGenres.each do |selectSexo|
+  ProfessorGenre.find_or_create_by!(name: selectSexo)
+end
+
 titles = [
   {name: 'Especialista', abbrev: 'Esp.'},
   {name: 'Mestre', abbrev: 'Me.'},

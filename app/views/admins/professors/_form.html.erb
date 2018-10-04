@@ -3,10 +3,21 @@
   <%= simple_form_for [:admins, @professor] do |f| %>
 
     <div class="form-row">
-    <div class="col-sm-9">
-        <%= f.input :name %>
-        <%= f.input :lattes %>
-        <%= f.input :email %>
+      <div class="col-sm-9">
+          <%= f.input :name, autofocus: true %>
+          
+          <div class="form-row">
+            <div class="col-sm-8">
+            <%= f.input :email %>
+            </div>
+            <div class="col-sm-4">
+              <%= f.association :professor_genre,
+                  prompt: t('prompt.select.m', name: 'sexo') %>
+            </div>
+          </div>
+
+          <%= f.input :lattes %>
+
       </div>
     
       <div class="col-sm-3">
@@ -24,8 +35,6 @@
       </div>
       </div>
     </div>
-   
-    <%= f.input :occupation_area %>
 
     <div class="form-row">
       <div class="col-sm-6">
@@ -38,6 +47,8 @@
           prompt: t('prompt.select.m', name: 'tipo') %>
       </div>
     </div>
+
+    <%= f.input :occupation_area %>
 
     <div class="d-flex">
       <%= link_to "Voltar", admins_professors_path, class: 'btn btn-secondary' %>

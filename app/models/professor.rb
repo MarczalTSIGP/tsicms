@@ -9,6 +9,7 @@ class Professor < ApplicationRecord
 
   belongs_to :professor_title
   belongs_to :professor_category
+  belongs_to :professor_genre
   
   mount_uploader :image, ProfessorImageUploader
 end

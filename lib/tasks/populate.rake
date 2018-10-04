@@ -22,6 +22,11 @@ namespace :db do
       ProfessorCategory.create!(name: category)
     end
 
+    professorGenres = %w[Masculino Feminino Outros]
+    professorGenres.each do |selectSexo|
+    ProfessorGenre.find_or_create_by!(name: selectSexo)
+    end
+
     titles = [
       {name: 'Especialista', abbrev: 'Esp.'},
       {name: 'Mestre', abbrev: 'Me.'},
@@ -34,9 +39,11 @@ namespace :db do
 
     10.times do
       Professor.create!(name: Faker::Name.name, lattes: Faker::Internet.url,
+                        image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample),
                         occupation_area: Faker::Job.title, email: Faker::Internet.email,
                         professor_title: ProfessorTitle.all.sample,
-                        professor_category: ProfessorCategory.all.sample)
+                        professor_category: ProfessorCategory.all.sample,
+                        professor_genre: ProfessorGenre.all.sample)
     end
 
     6.times do
@@ -48,7 +55,7 @@ namespace :db do
       )
     end
 
-    5. times do
+    5.times do
       Matrix.create!(
         name: Faker::Company.name
       )
