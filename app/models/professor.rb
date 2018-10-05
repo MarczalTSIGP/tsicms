@@ -3,13 +3,10 @@ class Professor < ApplicationRecord
   validates :lattes, presence: true, format: { with: URI.regexp }
   validates :occupation_area, presence: true
   validates :email, presence: true, format: { with: Devise.email_regexp }
-
   validates :professor_title, presence: true
   validates :professor_category, presence: true
-
   belongs_to :professor_title
   belongs_to :professor_category
   belongs_to :professor_genre
-  
   mount_uploader :image, ProfessorImageUploader
 end

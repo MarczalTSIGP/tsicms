@@ -1,28 +1,18 @@
-
 <%= simple_form_for [:admins, @period] do |f| %>
-    
   <div class="card-body">
     <div class="row">
-
       <div class="col-sm-6 col-md-8">
         <%= f.input :name, autofocus: true %>
       </div>
-
       <div class="col-sm-6 col-md-4">
-        <%= f.association :matrix, label_method: :name, 
-            value_method: :id, prompt: "Escolha uma Matriz"  %>
+        <%= f.association :matrix, prompt: "Escolha uma Matriz"  %>
       </div>
     </div>
-
   </div>
-    
   <div class="card-footer text-right">
-  
     <div class="d-flex">
       <%= link_to "Voltar", admins_periods_path, class: 'btn btn-secondary', title: 'Voltar para lista de Períodos' %>
       <%= f.button :submit, class: 'btn btn-primary ml-auto', title: 'Cadastrar/Atualizar Período' %>
     </div>
-
   </div>
-      
 <% end %>

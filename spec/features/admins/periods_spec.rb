@@ -164,7 +164,7 @@ RSpec.feature 'Period', type: :feature do
 
       periods.each do |period|
         expect(page).to have_content(period.name)
-        expect(page).to have_content(period.created_at)
+        expect(page).to have_content(I18n.l(period.created_at, format: :long))
 
         expect(page).to have_link(href: edit_admins_period_path(period))
         destroy_link = "a[href='#{admins_period_path(period)}'][data-method='delete']"

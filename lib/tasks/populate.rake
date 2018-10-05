@@ -12,8 +12,8 @@ namespace :db do
     CategoryRecommendation.all.each do |category|
       5.times do
         category.recommendations.create! title: Faker::Name.name,
-          description: Faker::Lorem.paragraph(2),
-          image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample)
+                                         description: Faker::Lorem.paragraph(2),
+                                         image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample)
       end
     end
 
@@ -24,7 +24,7 @@ namespace :db do
 
     professorGenres = %w[Masculino Feminino Outros]
     professorGenres.each do |selectSexo|
-    ProfessorGenre.find_or_create_by!(name: selectSexo)
+      ProfessorGenre.find_or_create_by!(name: selectSexo)
     end
 
     titles = [
@@ -55,29 +55,26 @@ namespace :db do
       )
     end
 
-    5.times do
+    10.times do
       Matrix.create!(
-        name: Faker::Company.name
+        name: Faker::Artist.name
       )
-      
       10.times do
-      Period.create!(
-        name: Faker::Company.suffix,
-        matrix: Matrix.all.sample
-      )
-
-        15.times do
-        Discipline.create!(
-          name: Faker::Company.industry,
-          code: Faker::Code.nric(27, 34),
-          hours: Faker::Number.number(2),
-          period: Period.all.sample,
-          menu: Faker::Lorem.paragraphs(3)
-
+        Period.create!(
+          name: Faker::Company.suffix,
+          matrix: Matrix.all.sample
         )
+        10.times do
+          Discipline.create!(
+            name: Faker::Company.industry,
+            code: Faker::Code.nric(27, 34),
+            hours: Faker::Number.number(2),
+            period: Period.all.sample,
+            menu: Faker::Lorem.paragraphs(3)
+
+          )
         end
       end
     end
-
   end
 end

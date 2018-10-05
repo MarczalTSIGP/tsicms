@@ -28,9 +28,10 @@ RSpec.feature 'Discipline', type: :feature do
 
         expect(page.current_path).to eq admins_disciplines_path
 
-        
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
+          expect(page).to have_content(attributes[:code])
+          expect(page).to have_content(attributes[:hours])
         end
       end
     end
@@ -87,15 +88,17 @@ RSpec.feature 'Discipline', type: :feature do
     context 'with valid fields' do
       it 'update discipline' do
         new_name = 'DWW5'
+        new_code = 'DW5550000'
+        new_hours = '55'
         fill_in 'discipline_name', with: new_name
-
+        fill_in 'discipline_code', with: new_code
+        fill_in 'discipline_hours', with: new_hours
         submit_form
 
         expect(page.current_path).to eq admins_disciplines_path
-
         expect(page).to have_selector('div.alert.alert-success',
-                                     text: I18n.t('flash.actions.update.f',
-                                                resource_name: resource_name))
+                                      text: I18n.t('flash.actions.update.f',
+                                                   resource_name: resource_name))
 
         within('table tbody') do
           expect(page).to have_content(new_name)
@@ -110,7 +113,6 @@ RSpec.feature 'Discipline', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
         within('div.discipline_name') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
@@ -119,7 +121,6 @@ RSpec.feature 'Discipline', type: :feature do
 
     context 'when has same name'  do
       let(:other_discipline) { create(:discipline) }
-
       it 'show errors' do
         fill_in 'discipline_name', with: other_discipline.name
         submit_form
@@ -144,14 +145,11 @@ RSpec.feature 'Discipline', type: :feature do
     it 'discipline' do
       discipline = create(:discipline)
       visit admins_disciplines_path
-
       destroy_link = "a[href='#{admins_discipline_path(discipline)}'][data-method='delete']"
       find(destroy_link).click
-
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.f',
-                                                resource_name: resource_name))
-
+                                                 resource_name: resource_name))
       within('table tbody') do
         expect(page).not_to have_content(discipline.name)
       end
@@ -160,20 +158,16 @@ RSpec.feature 'Discipline', type: :feature do
 
   describe '#index' do
     let!(:disciplines) { create_list(:discipline, 3) }
-
     it 'show all discipline with options' do
       visit admins_disciplines_path
-
       disciplines.each do |discipline|
         expect(page).to have_content(discipline.name)
         expect(page).to have_content(discipline.code)
-        
-
+        expect(page).to have_content(discipline.hours)
         expect(page).to have_link(href: edit_admins_discipline_path(discipline))
         destroy_link = "a[href='#{admins_discipline_path(discipline)}'][data-method='delete']"
         expect(page).to have_css(destroy_link)
       end
-    end 
+    end
   end
-
 end

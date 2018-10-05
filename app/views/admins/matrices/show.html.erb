@@ -1,17 +1,13 @@
- <% provide(:page_title, 'Visualizar Matriz ') %>
- 
- <% breadcrumb :show_matrix, @matrices %>
-
+<% provide(:page_title, 'Visualizar Matriz ') %>
+<% breadcrumb :show_matrix, @matrices %>
 <p>
   <strong>Name:</strong>
   <%= @matrix.name %>
 </p>
-
 <p>
   <strong>Created_at:</strong>
   <%= @matrix.created_at %>
 </p>
-
- <div class="d-flex">
-    <%= link_to "Voltar", admins_matrices_path, class: 'btn btn-secondary' , title: 'Voltar para lista de Matrizes' %>
-  </div>
+<div class="d-flex">
+  <%= link_to "Voltar", admins_matrices_path, class: 'btn btn-secondary' , title: 'Voltar para lista de Matrizes' %>
+</div>
