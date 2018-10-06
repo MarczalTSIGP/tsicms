@@ -54,6 +54,5 @@ class Admins::ActivitiesController < Admins::BaseController
 
   def set_activity
     @activity = Activity.find(params[:id])
-    puts @activity.inspect
   end
 end

@@ -7,19 +7,19 @@
     <thead>
     <tr>
       <th class="w-1">Id</th>
-      <th>Nome</th>
-      <th>Data de inicio</th>
+      <th>Professor</th>
+      <th>Data de início</th>
       <th>Data de fim</th>
       <th></th>
     </tr>
     </thead>
     <tbody>
-    <% @activity.professors do |professor| %>
+    <% @activity.activity_professors.each do |professor| %>
       <tr>
-        <td>Prof:<%= professor.profesor.name %></td>
-        <td>Prof:<%= professor.name %></td>
-        <td>Prof:<%= l(professor.start_date, format: :long) %></td>
-        <td>Prof:<%= l(professor.end_date, format: :long) %></td>
+        <td><%= professor.professor.id %></td>
+        <td><%= professor.professor.name %></td>
+        <td><%= l(professor.start_date, format: :long) %></td>
+        <td><%= current_date(professor.end_date) %></td>
         <td>
           <%= link_to admins_professor_path(professor) do %>
                 <span class="icon mr-3">
