@@ -1,0 +1,17 @@
+<% provide(:page_title, "Adicionar Atividade") %>
+<%= simple_form_for [:admins, @activity_professor] do |f| %>
+
+  <%= f.association :professor,
+                    prompt: t('prompt.select.m', name: 'Professor') %>
+  <%= f.association :activity,
+                    prompt: t('prompt.select.m', name: 'Atividade') %>
+
+  <%= f.input :start_date, as: :date %>
+
+  <%= f.input :end_date, as: :date %>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_professors_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
