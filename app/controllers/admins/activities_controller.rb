@@ -1,6 +1,6 @@
 class Admins::ActivitiesController < Admins::BaseController
 
-  before_action :set_activity, only: [:edit, :update, :destroy]
+  before_action :set_activity, only: [:edit, :update, :destroy, :show]
 
   def index
     @activities = Activity.order(name: :asc)
@@ -11,6 +11,9 @@ class Admins::ActivitiesController < Admins::BaseController
   end
 
   def edit;
+  end
+
+  def show;
   end
 
   def create
@@ -51,5 +54,6 @@ class Admins::ActivitiesController < Admins::BaseController
 
   def set_activity
     @activity = Activity.find(params[:id])
+    puts @activity.inspect
   end
 end

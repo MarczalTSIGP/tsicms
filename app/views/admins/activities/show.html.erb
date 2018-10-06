@@ -1,0 +1,34 @@
+<h3 class="mb-3">Nome: <%= @activity.name %></h3>
+<h3 class="mb-3">Descricao: <%= @activity.description %></h3>
+
+
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter text-nowrap">
+    <thead>
+    <tr>
+      <th class="w-1">Id</th>
+      <th>Nome</th>
+      <th>Data de inicio</th>
+      <th>Data de fim</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @activity.professors do |professor| %>
+      <tr>
+        <td>Prof:<%= professor.profesor.name %></td>
+        <td>Prof:<%= professor.name %></td>
+        <td>Prof:<%= l(professor.start_date, format: :long) %></td>
+        <td>Prof:<%= l(professor.end_date, format: :long) %></td>
+        <td>
+          <%= link_to admins_professor_path(professor) do %>
+                <span class="icon mr-3">
+                    <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
+                </span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

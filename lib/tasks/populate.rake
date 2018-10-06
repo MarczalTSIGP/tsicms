@@ -9,7 +9,7 @@ namespace :db do
      Academic,
      Activity].each(&:destroy_all)
 
-    categories = %w(Documentário Filme Livro Seriado)
+    categories = %w[Documentário Filme Livro Seriado]
     categories.each do |category|
       CategoryRecommendation.create!(name: category)
     end
@@ -63,7 +63,8 @@ namespace :db do
     10.times do
       ActivityProfessor.create!(
         professor: Professor.all.sample,
-        activity: Activity.all.sample
+        activity: Activity.all.sample,
+        start_date: '2018-10-01 21:46:22'.to_date
       )
     end
   end

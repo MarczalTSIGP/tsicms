@@ -10,6 +10,9 @@
     <p class="mb-4"><%= @professor.email %></p>
     <p class="mb-4"><%= link_to @professor.lattes, @professor.lattes, target: '_blank' %></p>
     <p class="mb-4">Professor(a) <%= @professor.professor_category.name %></p>
+
+    <% render @professor.activities %>
+
   </div>
 </div>
 
