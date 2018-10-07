@@ -3,6 +3,7 @@ class Admins::ActivityProfessorsController < Admins::BaseController
 
   def new
     @activity_professor = ActivityProfessor.new
+    @activity_professor.professor = params[:professor]
   end
 
   def create
