@@ -18,7 +18,24 @@ RSpec.feature 'Activity Professors', type: :feature do
     end
 
     context 'with valid fields' do
-      it 'add activity to professor' do
+      it 'add activity to professor with out and date' do
+        attributes = attributes_for(:activity_professor)
+
+        select @professor.name, from: 'activity_professor[professor_id]'
+        select @activity.name, from: 'activity_professor[activity_id]'
+
+# todo falta selecionar data
+        submit_form
+
+        expect(page.current_path).to eq admins_professor_path(@professor)
+
+        expect(page).to have_selector('div.alert.alert-success',
+                                      text: I18n.t('flash.actions.create.f',
+                                                   resource_name: resource_name))
+
+        within_blank_field('table tbody', attributes[:name])
+      end
+      it 'add activity to professor with and date' do
         attributes = attributes_for(:activity_professor)
 
         select @professor.name, from: 'activity_professor[professor_id]'
