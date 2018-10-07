@@ -29,11 +29,7 @@ RSpec.feature 'Academics', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-
-        end
+        within_blank_field('table tbody', attributes[:name])
       end
     end
     context 'with invalid fields' do
@@ -43,12 +39,8 @@ RSpec.feature 'Academics', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within('div.activity_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.activity_description') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        within_blank_field('div.activity_name', I18n.t('errors.messages.blank'))
+        within_blank_field('div.activity_description', I18n.t('errors.messages.blank'))
       end
     end
   end
@@ -84,10 +76,7 @@ RSpec.feature 'Academics', type: :feature do
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).to have_content(new_name)
-
-        end
+        within_blank_field('table tbody', new_name)
       end
     end
   end
@@ -104,9 +93,10 @@ RSpec.feature 'Academics', type: :feature do
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
 
-      within('table tbody') do
-        expect(page).not_to have_content(activity.name)
-      end
+      within_blank_field('table tbody', activity.name)
+    end
+    it 'professor of activity' do
+
     end
   end
 
@@ -124,6 +114,17 @@ RSpec.feature 'Academics', type: :feature do
         expect(page).to have_link(href: edit_admins_activity_path(a))
         destroy_link = "a[href='#{admins_activity_path(a)}'][data-method='delete']"
         expect(page).to have_css(destroy_link)
+      end
+    end
+  end
+  describe '#show' do
+    context 'show activity' do
+      it 'show activity page' do
+        activity = create(:activity)
+        visit admins_activity_path(activity)
+
+        expect(page).to have_content(activity.name)
+        expect(page).to have_content(activity.description)
       end
     end
   end

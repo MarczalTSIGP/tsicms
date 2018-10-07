@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Admin Professors', type: :feature do
 
   let(:admin) {create :admin}
-  let(:resource_name) { Professor.model_name.human }
+  let(:resource_name) {Professor.model_name.human}
 
   before(:each) do
     login_as admin, scope: :admin
@@ -76,7 +76,7 @@ RSpec.feature 'Admin Professors', type: :feature do
         submit_form
 
         expect(page.current_path).to eq admins_professor_path(@professor)
-        expect(page).to have_content("#{new_name}")
+        expect(page).to have_content(new_name.to_s)
       end
     end
 
@@ -107,6 +107,9 @@ RSpec.feature 'Admin Professors', type: :feature do
       end
     end
 
+    it 'activity of professor' do
+
+    end
   end
 
   describe '#index' do
