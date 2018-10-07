@@ -1,6 +1,6 @@
 require 'rspec'
 
-RSpec.feature 'Academics', type: :feature do
+RSpec.feature 'Activities', type: :feature do
 
   let(:admin) {create(:admin)}
   let(:resource_name) {Activity.model_name.human}
@@ -29,7 +29,7 @@ RSpec.feature 'Academics', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
-        within_blank_field('table tbody', attributes[:name])
+        within_have_content('table tbody', attributes[:name])
       end
     end
     context 'with invalid fields' do
@@ -39,8 +39,8 @@ RSpec.feature 'Academics', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within_blank_field('div.activity_name', I18n.t('errors.messages.blank'))
-        within_blank_field('div.activity_description', I18n.t('errors.messages.blank'))
+        within_have_content('div.activity_name', I18n.t('errors.messages.blank'))
+        within_have_content('div.activity_description', I18n.t('errors.messages.blank'))
       end
     end
   end
@@ -76,7 +76,7 @@ RSpec.feature 'Academics', type: :feature do
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
 
-        within_blank_field('table tbody', new_name)
+        within_have_content('table tbody', new_name)
       end
     end
   end
@@ -85,18 +85,17 @@ RSpec.feature 'Academics', type: :feature do
     it 'activity' do
       activity = create(:activity)
       visit admins_activities_path
-
-      destroy_path = "/admins/activities/#{activity.id}"
-      click_link href: destroy_path
+      destroy_link = "a[href='#{admins_activity_path(activity)}'][data-method='delete']"
+      find(destroy_link).click
 
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
 
-      within_blank_field('table tbody', activity.name)
+      within_not_have_content('table tbody', activity.name)
     end
     it 'professor of activity' do
-
+      # admins_activity_path(@activity)
     end
   end
 
@@ -125,6 +124,9 @@ RSpec.feature 'Academics', type: :feature do
 
         expect(page).to have_content(activity.name)
         expect(page).to have_content(activity.description)
+      end
+      it 'with professors history' do
+
       end
     end
   end

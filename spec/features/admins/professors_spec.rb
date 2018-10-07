@@ -35,9 +35,7 @@ RSpec.feature 'Admin Professors', type: :feature do
                                       text: I18n.t('flash.actions.create.m',
                                                    resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-        end
+        within_have_content('table tbody', attributes[:name])
       end
     end
     context 'when invalid fields' do
@@ -45,21 +43,11 @@ RSpec.feature 'Admin Professors', type: :feature do
         submit_form
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-        within('div.professor_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_occupation_area') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_email') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_professor_category') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_professor_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        within_have_content('div.professor_name', I18n.t('errors.messages.blank'))
+        within_have_content('div.professor_occupation_area', I18n.t('errors.messages.blank'))
+        within_have_content('div.professor_email', I18n.t('errors.messages.blank'))
+        within_have_content('div.professor_professor_category', I18n.t('errors.messages.blank'))
+        within_have_content('div.professor_professor_title', I18n.t('errors.messages.blank'))
       end
     end
   end
@@ -102,12 +90,10 @@ RSpec.feature 'Admin Professors', type: :feature do
                                     text: I18n.t('flash.actions.destroy.m',
                                                  resource_name: resource_name))
 
-      within('table tbody') do
-        expect(page).not_to have_content(professor.name)
-      end
+      within_not_have_content('table tbody', professor.name)
     end
 
-    it 'activity of professor' do
+    it 'activity from professor' do
 
     end
   end
@@ -141,6 +127,9 @@ RSpec.feature 'Admin Professors', type: :feature do
         expect(page).to have_content(professor.occupation_area)
         expect(page).to have_content(professor.professor_category.name)
         expect(page).to have_content(professor.professor_title.name)
+      end
+      it 'with activities history' do
+
       end
     end
   end

@@ -1,7 +1,12 @@
 require 'rspec'
 
-RSpec.feature 'Activity Professors', type: :feature do
+def select_start_date
+  select '1', from: 'activity_professor[start_date(3i)]'
+  select 'Janeiro', from: 'activity_professor[start_date(2i)]'
+  select '2018', from: 'activity_professor[start_date(1i)]'
+end
 
+RSpec.feature 'Activity Professors', type: :feature do
   let(:admin) {create(:admin)}
   let(:resource_name) {ActivityProfessor.model_name.human}
 
@@ -10,7 +15,6 @@ RSpec.feature 'Activity Professors', type: :feature do
   end
 
   describe '#create' do
-
     before(:each) do
       @professor = create_list(:professor, 5).sample
       @activity = create_list(:activity, 5).sample
@@ -24,7 +28,8 @@ RSpec.feature 'Activity Professors', type: :feature do
         select @professor.name, from: 'activity_professor[professor_id]'
         select @activity.name, from: 'activity_professor[activity_id]'
 
-# todo falta selecionar data
+        select_start_date
+
         submit_form
 
         expect(page.current_path).to eq admins_professor_path(@professor)
@@ -33,7 +38,7 @@ RSpec.feature 'Activity Professors', type: :feature do
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
 
-        within_blank_field('table tbody', attributes[:name])
+        within_have_content('table tbody', attributes[:name])
       end
       it 'add activity to professor with and date' do
         attributes = attributes_for(:activity_professor)
@@ -41,7 +46,11 @@ RSpec.feature 'Activity Professors', type: :feature do
         select @professor.name, from: 'activity_professor[professor_id]'
         select @activity.name, from: 'activity_professor[activity_id]'
 
-# todo falta selecionar data
+        select_start_date
+
+        select '1', from: 'activity_professor[end_date(3i)]'
+        select 'Janeiro', from: 'activity_professor[end_date(2i)]'
+        select '2019', from: 'activity_professor[end_date(1i)]'
         submit_form
 
         expect(page.current_path).to eq admins_professor_path(@professor)
@@ -50,7 +59,7 @@ RSpec.feature 'Activity Professors', type: :feature do
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
 
-        within_blank_field('table tbody', attributes[:name])
+        within_have_content('table tbody', attributes[:name])
       end
     end
     context 'with invalid fields' do
@@ -60,9 +69,9 @@ RSpec.feature 'Activity Professors', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within_blank_field('div.activity_name', I18n.t('errors.messages.blank'))
-        within_blank_field('div.activity_description', I18n.t('errors.messages.blank'))
-        within_blank_field('div.activity_start_date', I18n.t('errors.messages.blank'))
+        within_have_content('div.activity_professor_professor', I18n.t('errors.messages.blank'))
+        within_have_content('div.activity_professor_activity', I18n.t('errors.messages.blank'))
+        within_have_content('div.activity_professor_start_date', I18n.t('errors.messages.blank'))
       end
     end
   end
@@ -76,10 +85,8 @@ RSpec.feature 'Activity Professors', type: :feature do
 
     context 'fill fields' do
       it 'with correct values' do
-
       end
       it 'with incorrect values' do
-
       end
     end
   end

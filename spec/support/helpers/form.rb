@@ -4,9 +4,14 @@ module Helpers
       find(submit).click
     end
 
-    def within_blank_field(field, content)
+    def within_have_content(field, content)
       within(field) do
         expect(page).to have_content(content)
+      end
+    end
+    def within_not_have_content(field, content)
+      within(field) do
+        expect(page).not_to have_content(content)
       end
     end
   end
