@@ -15,7 +15,7 @@
     <div class="table-responsive">
       <h4 class="text-center">Atividades do professor</h4>
       <div class="text-right">
-        <%= link_to new_admins_activity_professor_path,
+        <%= link_to new_admins_activity_professor_path(:professor => @professor.id),
                     class: 'btn btn-secondary',
                     title: 'Adicionar Atividade',
                     data: {toggle: 'tooltip', placement: 'top'} do %>

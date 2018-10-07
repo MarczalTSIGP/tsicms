@@ -35,12 +35,6 @@ RSpec.feature 'Academics', type: :feature do
 
         end
       end
-      #
-      # context 'with invalid fields' do
-      #   it 'show errors' do
-      #
-      #   end
-      # end
     end
     context 'with invalid fields' do
       it 'show errors' do

@@ -16,11 +16,11 @@ RSpec.feature 'Activity Professors', type: :feature do
     end
 
     context 'with valid fields' do
-      it 'create activity' do
-        attributes = attributes_for(:activity)
+      it 'add activity to professor' do
+        attributes = attributes_for(:activity_professor)
 
-        fill_in 'activity_name', with: attributes[:name]
-        fill_in 'activity_description', with: attributes[:description]
+        fill_in 'activity_professor_professor_id', with: attributes[:professor]
+        fill_in 'activity_professor_activity_id', with: attributes[:activity]
 
         submit_form
 
@@ -35,12 +35,6 @@ RSpec.feature 'Activity Professors', type: :feature do
 
         end
       end
-      #
-      # context 'with invalid fields' do
-      #   it 'show errors' do
-      #
-      #   end
-      # end
     end
     context 'with invalid fields' do
       it 'show errors' do

@@ -3,7 +3,8 @@ class Admins::ActivityProfessorsController < Admins::BaseController
 
   def new
     @activity_professor = ActivityProfessor.new
-    @activity_professor.professor = params[:professor]
+    add_professor(params[:professor])
+    add_activity(params[:activity])
   end
 
   def create
@@ -47,5 +48,21 @@ class Admins::ActivityProfessorsController < Admins::BaseController
 
   def set_activity_professor
     @activity_professor = ActivityProfessor.find(params[:id])
+  end
+
+  private
+
+  def add_professor(professor_id)
+    if professor_id
+      @professor = Professor.find(professor_id)
+      @activity_professor.professor = @professor if @professor
+    end
+  end
+
+  def add_activity(activity_id)
+    if activity_id
+      @activity = Activity.find(activity_id)
+      @activity_professor.activity = @activity if @activity
+    end
   end
 end
