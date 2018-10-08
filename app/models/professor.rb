@@ -5,7 +5,7 @@ class Professor < ApplicationRecord
   validates :email, presence: true, format: { with: Devise.email_regexp }
   validates :professor_title, presence: true
   validates :professor_category, presence: true
-  enum gender: [:undisclosed, :female, :male, :other]
+  validates :gender, presence: true
   belongs_to :professor_title
   belongs_to :professor_category
   mount_uploader :image, ProfessorImageUploader

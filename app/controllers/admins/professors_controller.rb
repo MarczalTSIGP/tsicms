@@ -46,6 +46,7 @@ class Admins::ProfessorsController < Admins::BaseController
     params.require(:professor).permit(:name,
                                       :lattes,
                                       :occupation_area,
+                                      :gender,
                                       :image,
                                       :image_cache,
                                       :email,

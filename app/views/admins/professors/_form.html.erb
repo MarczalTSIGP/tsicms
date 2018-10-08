@@ -1,22 +1,20 @@
 <%= simple_form_for [:admins, @professor] do |f| %>
   <div class="form-row">
     <div class="col-sm-9">
-      <%= f.input :name, autofocus: true %>
       <div class="form-row">
         <div class="col-sm-8">
-          <%= f.input :email %>
+          <%= f.input :name, autofocus: true %>
         </div>
         <div class="col-sm-4 custom-controls-stacked">
-         
-          <label class="custom-control custom-radio custom-control-inline">
-           
-              <%= radio_button_tag(:gender, "male") %>
-              <%= label_tag(:gender_male,   "Male") %>
-              <%= radio_button_tag(:gender, "female") %>
-              <%= label_tag(:gender_female, "Female") %>
-          </label>
+          <% genders = {'Male' => 'Masculino', 'Female' => 'Feminino', 'Other'=> 'Outros'} %>
+          <% lista = genders.sort %>
+          <% lista.each do |gender| %>
+            <%= f.radio_button :gender, gender[1] %>
+            <label for="<%= gender[0] %>"><%= gender[1] %></label>
+          <% end %>
         </div>
       </div>
+      <%= f.input :email %>
       <%= f.input :lattes %>
     </div>
     <div class="col-sm-3">

@@ -4,12 +4,11 @@ class CreateProfessors < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :lattes
       t.text :occupation_area
+      t.string :gender
       t.string :email
       t.string :image
-
       t.belongs_to :professor_title, index: true, foreign_key: true
       t.belongs_to :professor_category, index: true, foreign_key: true
-      
       t.timestamps
     end
   end
