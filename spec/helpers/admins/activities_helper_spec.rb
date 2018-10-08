@@ -8,7 +8,7 @@ RSpec.describe Admins::ActivitiesHelper, type: :helper do
     end
     it 'with out date' do
       date = current_date(nil)
-      expect(date).to have_content(t('currently'))
+      expect(date).to have_content(I18n.t('helpers.currently'))
     end
   end
 end

@@ -85,10 +85,23 @@ RSpec.feature 'Activity Professors', type: :feature do
 
     context 'fill fields' do
       it 'with correct values' do
-        # TODO: teste para fazer
+        new_year = '2019'
+        select new_year, from: 'activity_professor[start_date(1i)]'
+
+        submit_form
+
+        expect(page.current_path).to eq admins_professor_path(activity_professor.professor)
+
+        expect(page).to have_content(new_year.to_s)
       end
       it 'with incorrect values' do
-        # TODO: teste para fazer
+        select '', from: 'activity_professor[start_date(3i)]'
+        select '', from: 'activity_professor[start_date(2i)]'
+        select '', from: 'activity_professor[start_date(1i)]'
+        submit_form
+
+        expect(page).to have_selector('div.alert.alert-danger',
+                                      text: I18n.t('flash.actions.errors'))
       end
     end
   end
@@ -126,7 +139,9 @@ RSpec.feature 'Activity Professors', type: :feature do
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
 
-      not_have_equals('table tbody tr td', @activity_professor.id)
+      within('tbody[professor_activity]') do
+        expect(page).not_to eq(@activity_professor.id)
+      end
     end
     it 'professor from activity' do
 
@@ -139,7 +154,9 @@ RSpec.feature 'Activity Professors', type: :feature do
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
 
-      not_have_equals('table tbody tr td', @activity_professor.id)
+      within('tbody[]') do
+        expect(page).not_to eq(@activity_professor.id)
+      end
     end
   end
 end

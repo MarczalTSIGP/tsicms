@@ -34,7 +34,7 @@
         </thead>
         <tbody>
         <% @professor.activity_professors.each do |act_prof| %>
-          <tr>
+          <tr id="professor_activity">
             <td><%= act_prof.activity.id %></td>
             <td><%= act_prof.activity.name %></td>
             <td><%= l(act_prof.start_date, format: :long) %></td>

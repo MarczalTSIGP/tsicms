@@ -1,5 +1,6 @@
 pt-BR:
   helpers:
+    currently: 'Atualmente'
     boolean:
       'true': 'Sim'
       'false': 'Não'
