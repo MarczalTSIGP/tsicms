@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2018_09_11_145011) do
     t.string "name"
     t.string "lattes"
     t.text "occupation_area"
+    t.string "gender"
     t.string "email"
     t.string "image"
     t.bigint "professor_title_id"
