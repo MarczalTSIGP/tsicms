@@ -38,7 +38,7 @@ RSpec.feature 'Activity Professors', type: :feature do
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
 
-        within_have_content('table tbody', attributes[:name])
+        have_contains('table tbody', attributes[:name])
       end
       it 'add activity to professor with and date' do
         attributes = attributes_for(:activity_professor)
@@ -59,7 +59,7 @@ RSpec.feature 'Activity Professors', type: :feature do
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
 
-        within_have_content('table tbody', attributes[:name])
+        have_contains('table tbody', attributes[:name])
       end
     end
     context 'with invalid fields' do
@@ -69,9 +69,9 @@ RSpec.feature 'Activity Professors', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within_have_content('div.activity_professor_professor', I18n.t('errors.messages.blank'))
-        within_have_content('div.activity_professor_activity', I18n.t('errors.messages.blank'))
-        within_have_content('div.activity_professor_start_date', I18n.t('errors.messages.blank'))
+        have_contains('div.activity_professor_professor', I18n.t('errors.messages.blank'))
+        have_contains('div.activity_professor_activity', I18n.t('errors.messages.blank'))
+        have_contains('div.activity_professor_start_date', I18n.t('errors.messages.blank'))
       end
     end
   end
@@ -85,9 +85,61 @@ RSpec.feature 'Activity Professors', type: :feature do
 
     context 'fill fields' do
       it 'with correct values' do
+        # TODO: teste para fazer
       end
       it 'with incorrect values' do
+        # TODO: teste para fazer
       end
+    end
+  end
+
+  describe '#show' do
+    let(:activity_professor) {create(:activity_professor)}
+    it 'professor with activities history' do
+      visit admins_professor_path(activity_professor.professor)
+
+      expect(page).to have_content(activity_professor.activity.name)
+      expect(page).to have_content(current_date(activity_professor.start_date))
+      expect(page).to have_content(current_date(activity_professor.end_date))
+    end
+    it 'activity with professors history' do
+      visit visit admins_activity_path(activity_professor.activity)
+
+      expect(page).to have_content(activity_professor.professor.name)
+      expect(page).to have_content(current_date(activity_professor.start_date))
+      expect(page).to have_content(current_date(activity_professor.end_date))
+    end
+  end
+
+  describe '#destroy' do
+    before(:each) do
+      @activity_professor = create(:activity_professor)
+    end
+    it 'activity from professor' do
+
+      visit admins_professor_path(@activity_professor.professor)
+
+      destroy_link = "a[href='#{admins_activity_professor_path(@activity_professor)}'][data-method='delete']"
+      find(destroy_link).click
+
+      expect(page).to have_selector('div.alert.alert-success',
+                                    text: I18n.t('flash.actions.destroy.f',
+                                                 resource_name: resource_name))
+
+      not_have_equals('table tbody tr td', @activity_professor.id)
+    end
+    it 'professor from activity' do
+
+      visit admins_activity_path(@activity_professor.activity)
+
+      destroy_link = "a[href='#{admins_activity_professor_path(@activity_professor)}'][data-method='delete']"
+      find(destroy_link).click
+
+      expect(page).to have_selector('div.alert.alert-success',
+                                    text: I18n.t('flash.actions.destroy.f',
+                                                 resource_name: resource_name))
+
+      not_have_equals('table tbody tr td', @activity_professor.id)
     end
   end
 end

@@ -29,7 +29,7 @@ RSpec.feature 'Activities', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
-        within_have_content('table tbody', attributes[:name])
+        have_contains('table tbody', attributes[:name])
       end
     end
     context 'with invalid fields' do
@@ -39,19 +39,17 @@ RSpec.feature 'Activities', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within_have_content('div.activity_name', I18n.t('errors.messages.blank'))
-        within_have_content('div.activity_description', I18n.t('errors.messages.blank'))
+        have_contains('div.activity_name', I18n.t('errors.messages.blank'))
+        have_contains('div.activity_description', I18n.t('errors.messages.blank'))
       end
     end
   end
 
   describe '#update' do
     let(:activity) {create(:activity)}
-
     before(:each) do
       visit edit_admins_activity_path(activity)
     end
-
     context 'fill fields' do
       it 'with correct values' do
         expect(page).to have_field 'activity_name',
@@ -63,7 +61,6 @@ RSpec.feature 'Activities', type: :feature do
     context 'with valid fields' do
       it 'update activity' do
         attributes = attributes_for(:activity)
-
         new_name = 'Estagio'
         fill_in 'activity_name', with: new_name
         fill_in 'activity_description', with: attributes[:description]
@@ -71,12 +68,10 @@ RSpec.feature 'Activities', type: :feature do
         submit_form
 
         expect(page.current_path).to eq admins_activities_path
-
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
-
-        within_have_content('table tbody', new_name)
+        have_contains('table tbody', new_name)
       end
     end
   end
@@ -92,10 +87,7 @@ RSpec.feature 'Activities', type: :feature do
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
 
-      within_not_have_content('table tbody', activity.name)
-    end
-    it 'professor of activity' do
-      # admins_activity_path(@activity)
+      not_have_contains('table tbody', activity.name)
     end
   end
 
@@ -124,9 +116,6 @@ RSpec.feature 'Activities', type: :feature do
 
         expect(page).to have_content(activity.name)
         expect(page).to have_content(activity.description)
-      end
-      it 'with professors history' do
-
       end
     end
   end
