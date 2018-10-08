@@ -14,7 +14,7 @@ RSpec.feature 'Admin Professors', type: :feature do
     before(:each) do
       @category = create_list(:professor_category, 2).sample
       @title = create_list(:professor_title, 3).sample
-      @genre = create_list(:professor_genre, 3).sample
+      
       visit new_admins_professor_path
     end
 
@@ -28,7 +28,7 @@ RSpec.feature 'Admin Professors', type: :feature do
         fill_in 'professor_email', with: attributes[:email]
         select @category.name, from: 'professor[professor_category_id]'
         select @title.name, from: 'professor[professor_title_id]'
-        select @genre.name, from: 'professor[professor_genre_id]'
+       
         attach_file 'professor_image', FileSpecHelper.image.path
         submit_form
 
@@ -142,7 +142,7 @@ RSpec.feature 'Admin Professors', type: :feature do
         expect(page).to have_content(professor.occupation_area)
         expect(page).to have_content(professor.professor_category.name)
         expect(page).to have_content(professor.professor_title.name)
-        expect(page).to have_content(professor.professor_genre.name)
+        
       end
     end
   end

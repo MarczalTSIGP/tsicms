@@ -9,8 +9,7 @@ class CreateProfessors < ActiveRecord::Migration[5.2]
 
       t.belongs_to :professor_title, index: true, foreign_key: true
       t.belongs_to :professor_category, index: true, foreign_key: true
-      t.belongs_to :professor_genre, index: true, foreign_key: true
-
+      
       t.timestamps
     end
   end

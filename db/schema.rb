@@ -76,12 +76,6 @@ ActiveRecord::Schema.define(version: 2018_09_11_145011) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "professor_genres", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "professor_titles", force: :cascade do |t|
     t.string "name"
     t.string "abbrev"
@@ -97,11 +91,9 @@ ActiveRecord::Schema.define(version: 2018_09_11_145011) do
     t.string "image"
     t.bigint "professor_title_id"
     t.bigint "professor_category_id"
-    t.bigint "professor_genre_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["professor_category_id"], name: "index_professors_on_professor_category_id"
-    t.index ["professor_genre_id"], name: "index_professors_on_professor_genre_id"
     t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
   end
 
@@ -118,6 +110,5 @@ ActiveRecord::Schema.define(version: 2018_09_11_145011) do
   add_foreign_key "disciplines", "periods"
   add_foreign_key "periods", "matrices"
   add_foreign_key "professors", "professor_categories"
-  add_foreign_key "professors", "professor_genres"
   add_foreign_key "professors", "professor_titles"
 end

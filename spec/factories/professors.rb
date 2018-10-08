@@ -6,8 +6,7 @@ FactoryBot.define do
     sequence(:email) {|n| "email#{n}@email.com"}
     professor_title
     professor_category
-    professor_genre
-
+    
     image { FileSpecHelper.image }
   end
 end

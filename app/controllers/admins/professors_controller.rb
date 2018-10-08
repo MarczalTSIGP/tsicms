@@ -49,7 +49,6 @@ class Admins::ProfessorsController < Admins::BaseController
                                       :image,
                                       :image_cache,
                                       :email,
-                                      :professor_genre_id,
                                       :professor_title_id,
                                       :professor_category_id)
   end
