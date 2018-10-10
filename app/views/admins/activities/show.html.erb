@@ -25,6 +25,7 @@
         </tr>
         </thead>
         <tbody id="professor_activity">
+        <% store_location %>
         <% @activity.activity_professors.each do |act_prof| %>
           <tr>
             <td><%= act_prof.professor.id %></td>

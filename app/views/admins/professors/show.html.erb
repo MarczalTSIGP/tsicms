@@ -33,6 +33,7 @@
         </tr>
         </thead>
         <tbody>
+        <% store_location %>
         <% @professor.activity_professors.each do |act_prof| %>
           <tr id="professor_activity">
             <td><%= act_prof.activity.id %></td>
@@ -41,24 +42,24 @@
             <td><%= current_date(act_prof.end_date) %></td>
             <td>
               <%= link_to [:admins, act_prof], method: :delete, data: {confirm: t('prompt.confirm')} do %>
-                <span class="icon mr-3">
+              <span class="icon mr-3">
                     <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
                 </span>
-              <% end %>
+        <% end %>
 
-              <%= link_to edit_admins_activity_professor_path(act_prof) do %>
+        <%= link_to edit_admins_activity_professor_path(act_prof) do %>
                 <span class="icon mr-3">
                   <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
                 </span>
-              <% end %>
+        <% end %>
 
-              <%= link_to admins_activity_path(act_prof.activity) do %>
+        <%= link_to admins_activity_path(act_prof.activity) do %>
                 <span class="icon mr-3">
                     <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
                 </span>
-              <% end %>
-            </td>
-          </tr>
+        <% end %>
+        </td>
+        </tr>
         <% end %>
         </tbody>
       </table>

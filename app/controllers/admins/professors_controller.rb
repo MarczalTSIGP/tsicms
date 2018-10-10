@@ -38,7 +38,8 @@ class Admins::ProfessorsController < Admins::BaseController
     redirect_to admins_professors_path
   end
 
-  def show; end
+  def show;
+  end
 
   protected
 

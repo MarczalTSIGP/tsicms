@@ -1,10 +1,5 @@
 require 'rspec'
 
-def select_start_date
-  select '1', from: 'activity_professor[start_date(3i)]'
-  select 'Janeiro', from: 'activity_professor[start_date(2i)]'
-  select '2018', from: 'activity_professor[start_date(1i)]'
-end
 
 RSpec.feature 'Activity Professors', type: :feature do
   let(:admin) {create(:admin)}
@@ -28,11 +23,13 @@ RSpec.feature 'Activity Professors', type: :feature do
         select @professor.name, from: 'activity_professor[professor_id]'
         select @activity.name, from: 'activity_professor[activity_id]'
 
-        select_start_date
+        select '1', from: 'activity_professor[start_date(3i)]'
+        select 'Janeiro', from: 'activity_professor[start_date(2i)]'
+        select '2018', from: 'activity_professor[start_date(1i)]'
 
         submit_form
 
-        expect(page.current_path).to eq admins_professor_path(@professor)
+        expect(page.current_path).to eq admins_activities_path
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
@@ -46,14 +43,17 @@ RSpec.feature 'Activity Professors', type: :feature do
         select @professor.name, from: 'activity_professor[professor_id]'
         select @activity.name, from: 'activity_professor[activity_id]'
 
-        select_start_date
+        select '1', from: 'activity_professor[start_date(3i)]'
+        select 'Janeiro', from: 'activity_professor[start_date(2i)]'
+        select '2018', from: 'activity_professor[start_date(1i)]'
 
         select '1', from: 'activity_professor[end_date(3i)]'
         select 'Janeiro', from: 'activity_professor[end_date(2i)]'
         select '2019', from: 'activity_professor[end_date(1i)]'
+
         submit_form
 
-        expect(page.current_path).to eq admins_professor_path(@professor)
+        expect(page.current_path).to eq admins_activities_path
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
@@ -77,22 +77,41 @@ RSpec.feature 'Activity Professors', type: :feature do
   end
 
   describe '#update' do
-    let(:activity_professor) {create(:activity_professor)}
+    context 'with success' do
+      before(:each) do
+        @activity_professor = create(:activity_professor)
+        @update_link = "a[href='#{edit_admins_activity_professor_path(@activity_professor)}']"
+        @new_year = '2020'
+      end
+      it 'with correct values in professor path' do
+        visit admins_professor_path(@activity_professor.professor)
 
-    before(:each) do
-      visit edit_admins_activity_professor_path(activity_professor)
-    end
+        find(@update_link).click
 
-    context 'fill fields' do
-      it 'with correct values' do
-        new_year = '2019'
-        select new_year, from: 'activity_professor[start_date(1i)]'
+        select @new_year, from: 'activity_professor[start_date(1i)]'
 
         submit_form
 
-        expect(page.current_path).to eq admins_professor_path(activity_professor.professor)
+        expect(page.current_path).to eq admins_professor_path(@activity_professor.professor)
 
-        expect(page).to have_content(new_year.to_s)
+        expect(page).to have_content(@new_year.to_s)
+      end
+      it 'with correct values in activity path' do
+        visit admins_activity_path(@activity_professor.activity)
+        find(@update_link).click
+        select @new_year, from: 'activity_professor[start_date(1i)]'
+
+        submit_form
+
+        expect(page.current_path).to eq admins_activity_path(@activity_professor.activity)
+
+        expect(page).to have_content(@new_year.to_s)
+      end
+    end
+    context 'with invalid fields' do
+      before(:each) do
+        @activity_professor = create(:activity_professor)
+        visit edit_admins_activity_professor_path(@activity_professor)
       end
       it 'with incorrect values' do
         select '', from: 'activity_professor[start_date(3i)]'
@@ -139,9 +158,7 @@ RSpec.feature 'Activity Professors', type: :feature do
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
 
-      within('tbody[professor_activity]') do
-        expect(page).not_to eq(@activity_professor.id)
-      end
+      not_have_contains('table tbody', @activity_professor.activity.name)
     end
     it 'professor from activity' do
 
@@ -154,9 +171,7 @@ RSpec.feature 'Activity Professors', type: :feature do
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
 
-      within('tbody[]') do
-        expect(page).not_to eq(@activity_professor.id)
-      end
+      not_have_contains('table tbody', @activity_professor.professor.name)
     end
   end
 end
