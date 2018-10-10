@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Admin Professors', type: :feature do
 
   let(:admin) {create :admin}
-  let(:resource_name) { Professor.model_name.human }
+  let(:resource_name) {Professor.model_name.human}
 
   before(:each) do
     login_as admin, scope: :admin
@@ -35,9 +35,7 @@ RSpec.feature 'Admin Professors', type: :feature do
                                       text: I18n.t('flash.actions.create.m',
                                                    resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-        end
+        have_contains('table tbody', attributes[:name])
       end
     end
     context 'when invalid fields' do
@@ -45,21 +43,11 @@ RSpec.feature 'Admin Professors', type: :feature do
         submit_form
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-        within('div.professor_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_occupation_area') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_email') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_professor_category') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_professor_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        have_contains('div.professor_name', I18n.t('errors.messages.blank'))
+        have_contains('div.professor_occupation_area', I18n.t('errors.messages.blank'))
+        have_contains('div.professor_email', I18n.t('errors.messages.blank'))
+        have_contains('div.professor_professor_category', I18n.t('errors.messages.blank'))
+        have_contains('div.professor_professor_title', I18n.t('errors.messages.blank'))
       end
     end
   end
@@ -76,7 +64,7 @@ RSpec.feature 'Admin Professors', type: :feature do
         submit_form
 
         expect(page.current_path).to eq admins_professor_path(@professor)
-        expect(page).to have_content("#{new_name}")
+        expect(page).to have_content(new_name.to_s)
       end
     end
 
@@ -102,11 +90,8 @@ RSpec.feature 'Admin Professors', type: :feature do
                                     text: I18n.t('flash.actions.destroy.m',
                                                  resource_name: resource_name))
 
-      within('table tbody') do
-        expect(page).not_to have_content(professor.name)
-      end
+      not_have_contains('table tbody', professor.name)
     end
-
   end
 
   describe '#index' do
