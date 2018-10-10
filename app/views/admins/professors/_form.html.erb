@@ -5,15 +5,17 @@
         <div class="col-sm-8">
           <%= f.input :name, autofocus: true %>
         </div>
-        <div class="col-sm-4 custom-controls-stacked">
-          <fieldset>
-            <% genders = {'Male' => 'Masculino', 'Female' => 'Feminino', 'Other'=> 'Outros'} %>
-            <% lista = genders.sort %>
-            <% lista.each do |gender| %>
-              <%= f.radio_button :gender, gender[1] %>
-              <label for="<%= gender[0] %>"><%= gender[1] %></label>
-            <% end %>
-          </fieldset>
+        <div class="form-label col-sm-4">
+          <div class="custom-controls-stacked">
+            <label class="custom-control custom-radio custom-control-inline">
+                <% genders = {'Male' => 'Masculino', 'Female' => 'Feminino'} %>
+                <% lista = genders.sort %>
+                <% lista.each do |gender| %>
+                  <%= f.radio_button :gender, gender[1] %>
+                  <label for="<%= gender[0] %>"><%= gender[1] %></label>
+                <% end %>
+            </label>
+          </div>
         </div>
       </div>
       <%= f.input :email %>

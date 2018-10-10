@@ -23,6 +23,7 @@ RSpec.feature 'Admin Professors', type: :feature do
         attributes = attributes_for(:professor)
 
         fill_in 'professor_name', with: attributes[:name]
+        fill_in 'professor_gender', with: attributes[:gender]
         fill_in 'professor_lattes', with: attributes[:lattes]
         fill_in 'professor_occupation_area', with: attributes[:occupation_area]
         fill_in 'professor_email', with: attributes[:email]
@@ -121,6 +122,7 @@ RSpec.feature 'Admin Professors', type: :feature do
 
       professors.each do |professor|
         expect(page).to have_content(professor.name)
+        expect(page).to have_content(professor.gender)
         expect(page).to have_content(I18n.l(professor.created_at, format: :long))
 
         expect(page).to have_link(href: edit_admins_professor_path(professor))
@@ -137,6 +139,7 @@ RSpec.feature 'Admin Professors', type: :feature do
         visit admins_professor_path(professor)
 
         expect(page).to have_content(professor.name)
+        expect(page).to have_content(professor.gender)
         expect(page).to have_content(professor.email)
         expect(page).to have_content(professor.lattes)
         expect(page).to have_content(professor.occupation_area)

@@ -1,5 +1,6 @@
 class Professor < ApplicationRecord
   validates :name, presence: true
+  validates :gender, presence: true
   validates :lattes, presence: true, format: { with: URI.regexp }
   validates :occupation_area, presence: true
   validates :email, presence: true, format: { with: Devise.email_regexp }

@@ -64,10 +64,10 @@ pt-BR:
         category_recommendation: 'Categoria'
       professor:
         <<: *commons
+        gender: 'Sexo'
         occupation_area: 'Área de atuação'
         professor_title: 'Título'
         professor_category: 'Tipo'
-        professor_genre: 'Sexo'
       academic:
         <<: *commons
         graduated: 'Graduado'
