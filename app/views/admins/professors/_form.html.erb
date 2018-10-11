@@ -7,14 +7,9 @@
         </div>
         <div class="form-label col-sm-4">
           <div class="custom-controls-stacked">
-            <label class="custom-control custom-radio custom-control-inline">
-                <% genders = {'Male' => 'Masculino', 'Female' => 'Feminino'} %>
-                <% lista = genders.sort %>
-                <% lista.each do |gender| %>
-                  <%= f.radio_button :gender, gender[1] %>
-                  <label for="<%= gender[0] %>"><%= gender[1] %></label>
-                <% end %>
-            </label>
+            <%= f.label :gender, class:'custom-control custom-radio custom-control-inline'%>
+            <%= f.collection_radio_buttons :gender, Professor.genders, :second, :second,
+                                           class:'custom-control-input custom-control-label'%>
           </div>
         </div>
       </div>

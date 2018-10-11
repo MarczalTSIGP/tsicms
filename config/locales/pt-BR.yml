@@ -3,6 +3,10 @@ pt-BR:
     boolean:
       'true': 'Sim'
       'false': 'Não'
+  enums:
+    genders:
+      male: 'Masculino'
+      female: 'Feminino'
   flash:
     actions:
       update:
@@ -72,7 +76,6 @@ pt-BR:
         <<: *commons
         graduated: 'Graduado'
         contact: 'Contato'
-        
       discipline:
         <<: *commons
         code: 'Código'
