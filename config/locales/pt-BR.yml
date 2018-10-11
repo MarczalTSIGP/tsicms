@@ -1,6 +1,25 @@
 pt-BR:
+  helpers:
+    boolean:
+      'true': 'Sim'
+      'false': 'Não'
+  flash:
+    actions:
+      update:
+        m: '%{resource_name} Atualizado com sucesso!'
+        f: '%{resource_name} Atualizada com sucesso!'
+      create:
+        m: '%{resource_name} criado com sucesso!'
+        f: '%{resource_name} criada com sucesso!'
+      destroy:
+        m: '%{resource_name} removido com sucesso!'
+        f: '%{resource_name} removida com sucesso!'
+      errors: 'Existem dados incorretos!'
   prompt:
     confirm: 'Tem certeza?'
+    select:
+      m: 'Selecione um %{name}'
+      f: 'Selecione uma %{name}'
   activerecord:
     models:
       admin:
@@ -9,10 +28,20 @@ pt-BR:
       faq:
         one: 'Pergunta'
         other: 'Perguntas'
+      category_recommendation:
+        one: 'Categoria'
+        other: 'Categorias'
+      recommendation:
+        one: 'Recomendação'
+        other: 'Recomendações'
+      academic:
+        one: 'Acadêmico'
+        other: 'Acadêmicos'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
         email: 'Email'
+        image: 'Imagem'
       admin:
         <<: *commons
         password: 'Senha'
@@ -23,3 +52,20 @@ pt-BR:
         <<: *commons
         title: Título
         answer: Resposta
+        image: 'Imagem'
+      category_recommendation:
+        <<: *commons
+      recommendation:
+        title: 'Título'
+        description: 'Descrição'
+        image: 'Imagem'
+        category_recommendation: 'Categoria'
+      professor:
+        <<: *commons
+        occupation_area: 'Área de atuação'
+        professor_title: 'Título'
+        professor_category: 'Tipo'
+      academic:
+        <<: *commons
+        graduated: 'Graduado'
+        contact: 'Contato'

@@ -12,12 +12,12 @@
   .box-image {
     position: relative;
     width: 100%;
-    height: 200px;
   }
 
   .box-image img {
     width: 100%;
     height: 100%;
+    margin-bottom: -15px;
   }
 
   .file_preview {
@@ -42,6 +42,11 @@
   .text-box {
     padding: 5px;
     color: #8da0aa;
+  }
+
+  .invalid-feedback {
+    position: relative;
+    top: 15px;
   }
 }
 

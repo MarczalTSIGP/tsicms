@@ -1,0 +1,23 @@
+<tr>
+  <td><%= professor.id %></td>
+  <td><%= professor.name %></td>
+  <td><%= l(professor.created_at, format: :long) %></td>
+  <td>
+    <%= link_to [:admins, professor], method: :delete, data: {confirm: t('prompt.confirm')} do %>
+      <span class="icon mr-3">
+        <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
+      </span>
+    <% end %>
+
+    <%= link_to edit_admins_professor_path(professor) do %>
+      <span class="icon mr-3">
+        <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+      </span>
+    <% end %>
+    <%= link_to admins_professor_path(professor) do %>
+      <span class="icon mr-3">
+        <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
+      </span>
+    <% end %>
+  </td>
+</tr>

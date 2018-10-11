@@ -17,3 +17,7 @@
 
 // App files
 //--------------------
+
+// Vendors
+//--------------------
+//= require  config/selectize

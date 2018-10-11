@@ -1,0 +1,33 @@
+<%= simple_form_for [:admins, @recommendation] do |f| %>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <%= f.input :title %>
+      <%= f.association :category_recommendation,
+        collection: @categories,
+        prompt: t('prompt.select.f', name: 'categoria') %>
+      <%= f.input :description %>
+    </div>
+
+    <div class="col-sm-6">
+      <div id="box-image-preview" data-toggle="tooltip" data-placement="left" title="Clique na imagem para alterá-la">
+        <div class="input-field image_preview">
+          <div class="box-image center">
+            <%= image_tag @recommendation.image.url, class: 'file_preview active' %>
+            <%= f.input :image, label: false, input_html: { accept: 'image/*' }  %>
+            <%= f.hidden_field :image_cache %>
+          </div>
+        </div>
+        <div class="text-box text-center">
+          <p class="text-input">Clique na imagem para alterá-la</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_recommendations_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

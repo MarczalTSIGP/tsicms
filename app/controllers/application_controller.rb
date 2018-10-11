@@ -31,6 +31,6 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :image])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :image, :image_cache])
   end
 end

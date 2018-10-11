@@ -15,6 +15,10 @@ Rails.application.routes.draw do
       root to: 'dashboard#index'
 
       resources :faqs
+      resources :professors
+      resources :category_recommendations
+      resources :recommendations
+      resources :academics
     end
   end
   #========================================

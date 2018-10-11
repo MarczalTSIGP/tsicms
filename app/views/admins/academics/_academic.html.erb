@@ -1,0 +1,18 @@
+<tr>
+    <td><%= academic.name %></td>
+    <td><%= t("helpers.boolean.#{academic.graduated}") %></td>
+    <td><%= l(academic.created_at, format: :long) %></td>
+    <td>
+        <%= link_to edit_admins_academic_path(academic) do %>
+        <span class="icon mr-3">
+            <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+        </span>
+        <% end %>
+
+        <%= link_to [:admins, academic], method: :delete, data: { confirm: t('prompt.confirm') } do %>
+        <span class="icon mr-3">
+            <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
+        </span>
+        <% end %>
+    </td>
+</tr>

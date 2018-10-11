@@ -1,0 +1,25 @@
+<% provide(:page_title, 'Categorias de recomendações') %>
+
+<div class="text-right">
+  <%= link_to new_admins_category_recommendation_path,
+    class: 'btn btn-secondary',
+    title: 'Nova categoria',
+    data: { toggle: 'tooltip', placement: 'top' } do %>
+    <i class="fas fa-plus"></i>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter text-nowrap">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Data de criação</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @categories %>
+    </tbody>
+  </table>
+</div>

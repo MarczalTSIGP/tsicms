@@ -1,0 +1,18 @@
+<div class="card card-profile">
+  <div class="card-header profile-bg"></div>
+  <div class="card-body text-center">
+    <%= image_tag 'profile-avatar', class: "card-profile-img" %>
+
+    <h3 class="mb-3"><%= @professor.name %></h3>
+
+    <p class="mb-4"><%= @professor.professor_title.name %> - <%= @professor.professor_title.abbrev %></p>
+    <p class="mb-4"> <%= @professor.occupation_area %></p>
+    <p class="mb-4"><%= @professor.email %></p>
+    <p class="mb-4"><%= link_to @professor.lattes, @professor.lattes, target: '_blank' %></p>
+    <p class="mb-4">Professor(a) <%= @professor.professor_category.name %></p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to "Voltar", admins_professors_path, class: 'btn btn-secondary' %>
+</div>
