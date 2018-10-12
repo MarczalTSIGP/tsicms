@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_10_084001) do
+ActiveRecord::Schema.define(version: 2018_10_02_004622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,24 @@ ActiveRecord::Schema.define(version: 2018_09_10_084001) do
     t.boolean "graduated", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "activity_professors", force: :cascade do |t|
+    t.bigint "professor_id"
+    t.bigint "activity_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_activity_professors_on_activity_id"
+    t.index ["professor_id"], name: "index_activity_professors_on_professor_id"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -43,6 +61,31 @@ ActiveRecord::Schema.define(version: 2018_09_10_084001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_category_recommendations_on_name", unique: true
+  end
+
+  create_table "disciplines", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.integer "hours"
+    t.string "menu"
+    t.bigint "period_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["period_id"], name: "index_disciplines_on_period_id"
+  end
+
+  create_table "matrices", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "periods", force: :cascade do |t|
+    t.string "name"
+    t.bigint "matrix_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matrix_id"], name: "index_periods_on_matrix_id"
   end
 
   create_table "professor_categories", force: :cascade do |t|
@@ -81,6 +124,8 @@ ActiveRecord::Schema.define(version: 2018_09_10_084001) do
     t.index ["category_recommendation_id"], name: "index_recommendations_on_category_recommendation_id"
   end
 
+  add_foreign_key "disciplines", "periods"
+  add_foreign_key "periods", "matrices"
   add_foreign_key "professors", "professor_categories"
   add_foreign_key "professors", "professor_titles"
 end
