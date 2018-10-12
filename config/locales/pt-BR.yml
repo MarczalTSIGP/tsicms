@@ -35,11 +35,16 @@ pt-BR:
       academic:
         one: 'Acadêmico'
         other: 'Acadêmicos'
+      activity:
+        one: 'Atividade docente'
+        other: 'Atividades docente'
+      activity_professor: 'Vículo de Atividade Docente'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
         email: 'Email'
         image: 'Imagem'
+        description: 'Descrição'
       admin:
         <<: *commons
         password: 'Senha'
@@ -63,3 +68,10 @@ pt-BR:
         <<: *commons
         graduated: 'Graduado'
         contact: 'Contato'
+      activity:
+        <<: *commons
+      activity_professor:
+        professor: 'Professor'
+        activity: 'Atividade docente'
+        start_date: 'Data de ínicio'
+        end_date: 'Data de fim'

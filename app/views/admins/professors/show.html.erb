@@ -33,13 +33,12 @@
         </tr>
         </thead>
         <tbody>
-        <% store_location %>
         <% @professor.activity_professors.each do |act_prof| %>
           <tr id="professor_activity">
             <td><%= act_prof.activity.id %></td>
             <td><%= act_prof.activity.name %></td>
             <td><%= l(act_prof.start_date, format: :long) %></td>
-            <td><%= current_date(act_prof.end_date) %></td>
+            <td><%= act_prof.end_date_human %></td>
             <td>
               <%= link_to [:admins, act_prof], method: :delete, data: {confirm: t('prompt.confirm')} do %>
               <span class="icon mr-3">

@@ -33,12 +33,17 @@ class Admins::ProfessorsController < Admins::BaseController
   end
 
   def destroy
-    @professor.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: Professor.model_name.human)
+    if @professor.destroy
+      flash[:success] = I18n.t('flash.actions.destroy.m',
+                               resource_name: Professor.model_name.human)
+    else
+      flash[:alert] = 'Não é possível remover professores com vínculos!'
+    end
     redirect_to admins_professors_path
   end
 
-  def show;
+  def show
+    store_location
   end
 
   protected

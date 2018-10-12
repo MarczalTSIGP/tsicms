@@ -1,4 +1,4 @@
-require 'rspec'
+require 'rails_helper'
 
 RSpec.feature 'Activities', type: :feature do
 
@@ -29,7 +29,7 @@ RSpec.feature 'Activities', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
-        have_contains('table tbody', attributes[:name])
+        expect_page_have_in('table tbody', attributes[:name])
       end
     end
     context 'with invalid fields' do
@@ -39,8 +39,8 @@ RSpec.feature 'Activities', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        have_contains('div.activity_name', I18n.t('errors.messages.blank'))
-        have_contains('div.activity_description', I18n.t('errors.messages.blank'))
+        expect_page_have_in('div.activity_name', I18n.t('errors.messages.blank'))
+        expect_page_have_in('div.activity_description', I18n.t('errors.messages.blank'))
       end
     end
   end
@@ -53,9 +53,9 @@ RSpec.feature 'Activities', type: :feature do
     context 'fill fields' do
       it 'with correct values' do
         expect(page).to have_field 'activity_name',
-                                   with: activity.name
+          with: activity.name
         expect(page).to have_field 'activity_description',
-                                   with: activity.description
+          with: activity.description
       end
     end
     context 'with valid fields' do
@@ -71,7 +71,7 @@ RSpec.feature 'Activities', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
-        have_contains('table tbody', new_name)
+        expect_page_have_in('table tbody', new_name)
       end
     end
   end
@@ -87,7 +87,19 @@ RSpec.feature 'Activities', type: :feature do
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
 
-      not_have_contains('table tbody', activity.name)
+      expect_page_not_have_in('table tbody', activity.name)
+    end
+
+    it 'activity unless has dependet' do
+      ap = create(:activity_professor)
+      visit admins_activities_path
+      destroy_link = "a[href='#{admins_activity_path(ap.activity)}'][data-method='delete']"
+      find(destroy_link).click
+
+      expect(page).to have_selector('div.alert.alert-warning',
+                                    text: 'Não é possível remover atividades que possuem professores vinculados!')
+
+      expect(page).to have_content('table tbody', ap.activity.name)
     end
   end
 
@@ -99,8 +111,6 @@ RSpec.feature 'Activities', type: :feature do
 
       activities.each do |a|
         expect(page).to have_content(a.name)
-        expect(page).to have_content(a.description)
-        expect(page).to have_content(I18n.l(a.created_at, format: :long))
 
         expect(page).to have_link(href: edit_admins_activity_path(a))
         destroy_link = "a[href='#{admins_activity_path(a)}'][data-method='delete']"

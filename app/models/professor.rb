@@ -10,6 +10,6 @@ class Professor < ApplicationRecord
   belongs_to :professor_title
   belongs_to :professor_category
 
-  has_many :activity_professors
+  has_many :activity_professors, dependent: :restrict_with_error
   has_many :activities, :through => :activity_professors
 end

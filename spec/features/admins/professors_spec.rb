@@ -35,7 +35,7 @@ RSpec.feature 'Admin Professors', type: :feature do
                                       text: I18n.t('flash.actions.create.m',
                                                    resource_name: resource_name))
 
-        have_contains('table tbody', attributes[:name])
+        expect_page_have_in('table tbody', attributes[:name])
       end
     end
     context 'when invalid fields' do
@@ -90,7 +90,19 @@ RSpec.feature 'Admin Professors', type: :feature do
                                     text: I18n.t('flash.actions.destroy.m',
                                                  resource_name: resource_name))
 
-      not_have_contains('table tbody', professor.name)
+      expect_page_not_have_in('table tbody', professor.name)
+    end
+
+    it 'professor unless has dependet' do
+      ap = create(:activity_professor)
+      visit admins_professors_path
+      destroy_link = "a[href='#{admins_professor_path(ap.professor)}'][data-method='delete']"
+      find(destroy_link).click
+
+      expect(page).to have_selector('div.alert.alert-warning',
+                                    text: 'Não é possível remover professores com vínculos!')
+
+      expect(page).to have_content('table tbody', ap.professor.name)
     end
   end
 

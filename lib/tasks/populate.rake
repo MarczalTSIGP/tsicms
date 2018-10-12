@@ -55,16 +55,21 @@ namespace :db do
 
     10.times do
       Activity.create!(
-        name: Faker::Name.name,
-        description: Faker::Name.name
+        name: Faker::Job.title,
+        description: Faker::Lorem.paragraph(2)
       )
     end
 
     10.times do
+      start_date = Faker::Date.between(1.year.ago, 5.months.ago)
+      end_date = Faker::Date.between(5.months.ago, Date.today)
+      end_date = [nil, end_date].sample
+
       ActivityProfessor.create!(
         professor: Professor.all.sample,
         activity: Activity.all.sample,
-        start_date: '2018-10-01 21:46:22'.to_date
+        start_date: start_date,
+        end_date: end_date
       )
     end
   end

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       resources :recommendations
       resources :academics
       resources :activities
-      resources :activity_professors
+      resources :activity_professors, excepty: [:show]
     end
   end
   #========================================

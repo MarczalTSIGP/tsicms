@@ -10,7 +10,8 @@ class Admins::ActivityProfessorsController < Admins::BaseController
   def create
     @activity_professor = ActivityProfessor.new(activity_professor_params)
     if @activity_professor.save
-      flash[:success] = I18n.t('flash.actions.create.f', resource_name: ActivityProfessor.model_name.human)
+      flash[:success] = I18n.t('flash.actions.create.f',
+                               resource_name: ActivityProfessor.model_name.human)
       redirect_back_or(admins_activities_path)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -23,7 +24,8 @@ class Admins::ActivityProfessorsController < Admins::BaseController
 
   def update
     if @activity_professor.update(activity_professor_params)
-      flash[:success] = I18n.t('flash.actions.update.f', resource_name: ActivityProfessor.model_name.human)
+      flash[:success] = I18n.t('flash.actions.update.f',
+                               resource_name: ActivityProfessor.model_name.human)
       redirect_back_or(admins_activities_path)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -33,7 +35,8 @@ class Admins::ActivityProfessorsController < Admins::BaseController
 
   def destroy
     @activity_professor.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.f', resource_name: ActivityProfessor.model_name.human)
+    flash[:success] = I18n.t('flash.actions.destroy.f',
+                             resource_name: ActivityProfessor.model_name.human)
     redirect_back_or(admins_activities_path)
   end
 
@@ -48,11 +51,6 @@ class Admins::ActivityProfessorsController < Admins::BaseController
 
   def set_activity_professor
     @activity_professor = ActivityProfessor.find(params[:id])
-  end
-
-  def redirect_back_or(default)
-    redirect_to(session[:forwarding_url] || default)
-    session.delete(:forwarding_url)
   end
 
   private
