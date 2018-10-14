@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :professor do
-    sequence(:name) {|n| "Name#{n}"}
+    sequence(:name) {|n| "ProfessorName#{n}"}
     sequence(:lattes) {|n| "http://lattes.com.#{n}"}
     sequence(:occupation_area) {|n| "Artificial Inteligence #{n}"}
     sequence(:email) {|n| "email#{n}@email.com"}
