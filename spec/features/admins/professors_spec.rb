@@ -21,9 +21,9 @@ RSpec.feature 'Admin Professors', type: :feature do
     context 'with valid fields' do
       it 'create professor' do
         attributes = attributes_for(:professor)
-
+        choose ("professor_gender_feminino")
         fill_in 'professor_name', with: attributes[:name]
-        fill_in 'professor_gender', with: attributes[:gender]
+        attach_file 'professor_image', FileSpecHelper.image.path
         fill_in 'professor_lattes', with: attributes[:lattes]
         fill_in 'professor_occupation_area', with: attributes[:occupation_area]
         fill_in 'professor_email', with: attributes[:email]
