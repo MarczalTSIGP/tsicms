@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :faq do
-    title { "Duvida Sobre Salas de Aula" }
-    answer { "Novas Salas" }
+    sequence(:title) { |n| "Nova_duvida_#{n}" }
+    sequence(:answer) { |n| "Nova_resposta_#{n}" }
   end
 end

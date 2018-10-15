@@ -1,6 +1,11 @@
 <%= simple_form_for [:admins, @faq] do |f| %>
-  <%= f.input :title %>
-  <%= f.input :answer %>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <%= f.input :title %>
+      <%= f.input :answer %>
+    </div>
+  </div>
 
   <div class="d-flex">
     <%= link_to "Voltar", admins_faqs_path, class: 'btn btn-secondary' %>

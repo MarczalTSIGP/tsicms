@@ -14,7 +14,7 @@ namespace :db do
 
     10.times do
       Faq.create!(
-        title: Faker::Name.name,
+        title: Faker::Name.unique.name,
         answer: Faker::Markdown.random
       )
     end
