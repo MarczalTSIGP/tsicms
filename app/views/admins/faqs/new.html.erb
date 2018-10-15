@@ -1,11 +1,3 @@
 <% provide(:page_title, "Nova Pergunta") %>
 
-<%= simple_form_for [:admins, @faq] do |f| %>
-  <%= f.input :title %>
-  <%= f.input :answer %>
-
-  <div class="d-flex">
-    <%= link_to "Voltar", admins_faqs_path, class: 'btn btn-link' %>
-    <%= f.button :submit, class: 'btn btn-success ml-auto' %>
-  </div>
-<% end %>
+<%= render 'form' %>
