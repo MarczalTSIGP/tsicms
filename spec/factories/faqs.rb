@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :faq do
-    title { "Primeira Duvida" }
-    answer { "Ta" }
+    title { "Duvida Sobre Salas de Aula" }
+    answer { "Novas Salas" }
   end
 end
