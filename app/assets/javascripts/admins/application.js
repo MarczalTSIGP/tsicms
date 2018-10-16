@@ -17,8 +17,8 @@
 //--------------------
 //= require config/namespace
 
-
 // App files
 //--------------------
 //= require lib/image_preview
 //= require admins/loads
+//= require admins/static_pages.js
