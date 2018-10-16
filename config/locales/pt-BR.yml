@@ -21,6 +21,8 @@ pt-BR:
     select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
+  validation:
+    permalink: 'permite apenas letras, números e traços.'
   activerecord:
     models:
       admin:
@@ -39,6 +41,9 @@ pt-BR:
         one: 'Atividade docente'
         other: 'Atividades docente'
       activity_professor: 'Vículo de Atividade Docente'
+      static_page:
+        one: 'Página estática'
+        other: 'Páginas estáticas'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -75,3 +80,7 @@ pt-BR:
         activity: 'Atividade docente'
         start_date: 'Data de ínicio'
         end_date: 'Data de fim'
+      static_page:
+        title: 'Título'
+        permalink: 'Link permanente'
+        content: 'Conteúdo'
