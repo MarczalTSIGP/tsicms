@@ -1,0 +1,23 @@
+<tr>
+  <td><%= static_page.title %></td>
+  <td><%= l(static_page.created_at, format: :long) %></td>
+  <td>
+    <%= link_to static_page_path(static_page.permalink), target: '_blank' do %>
+      <span class="icon mr-3">
+        <i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Visualizar"></i>
+      </span>
+    <% end %>
+
+    <%= link_to edit_admins_static_page_path(static_page) do %>
+      <span class="icon mr-3">
+        <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+      </span>
+    <% end %>
+
+    <%= link_to [:admins, static_page], method: :delete, data: { confirm: t('prompt.confirm') } do %>
+      <span class="icon mr-3">
+        <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
+      </span>
+    <% end %>
+  </td>
+</tr>
