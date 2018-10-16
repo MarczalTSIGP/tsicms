@@ -7,7 +7,8 @@ namespace :db do
      ProfessorCategory,
      ProfessorTitle,
      Academic,
-     Activity].each(&:destroy_all)
+     Activity,
+     StaticPage].each(&:destroy_all)
 
     categories = %w[Documentário Filme Livro Seriado]
     categories.each do |category|
@@ -46,7 +47,7 @@ namespace :db do
 
     6.times do
       Academic.create!(
-        name: Faker::Name.name,
+        name: Faker::Name.unique.name,
         image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample),
         contact: Faker::Internet.url,
         graduated: [true, false].sample
@@ -55,7 +56,7 @@ namespace :db do
 
     10.times do
       Activity.create!(
-        name: Faker::Job.title,
+        name: Faker::Job.unique.title,
         description: Faker::Lorem.paragraph(2)
       )
     end
@@ -70,6 +71,14 @@ namespace :db do
         activity: Activity.all.sample,
         start_date: start_date,
         end_date: end_date
+      )
+    end
+
+    10.times do
+      StaticPage.create!(
+        title: Faker::Name.unique.name,
+        permalink: Faker::Name.unique.name.parameterize,
+        content: Faker::Markdown.unique.sandwich
       )
     end
   end
