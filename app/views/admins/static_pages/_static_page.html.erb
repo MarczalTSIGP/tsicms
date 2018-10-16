@@ -1,5 +1,6 @@
 <tr>
   <td><%= static_page.title %></td>
+  <td><%= static_page.sub_title %></td>
   <td><%= l(static_page.created_at, format: :long) %></td>
   <td>
     <%= link_to static_page_path(static_page.permalink), target: '_blank' do %>

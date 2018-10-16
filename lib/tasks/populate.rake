@@ -76,9 +76,10 @@ namespace :db do
 
     10.times do
       StaticPage.create!(
-        title: Faker::Name.unique.name,
+        title: Faker::Name.name,
+        sub_title: Faker::Name.name,
         permalink: Faker::Name.unique.name.parameterize,
-        content: Faker::Markdown.unique.sandwich
+        content: Faker::Markdown.sandwich
       )
     end
   end

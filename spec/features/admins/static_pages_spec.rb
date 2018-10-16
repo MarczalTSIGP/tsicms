@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'StaticPages', type: :feature do
+RSpec.feature 'Admins::StaticPages', type: :feature do
 
   let(:admin) { create(:admin) }
   let(:resource_name) { StaticPage.model_name.human }
@@ -20,6 +20,7 @@ RSpec.feature 'StaticPages', type: :feature do
         attributes = attributes_for(:static_page)
 
         fill_in 'static_page_title', with: attributes[:title]
+        fill_in 'static_page_sub_title', with: attributes[:sub_title]
         fill_in 'static_page_permalink', with: attributes[:permalink]
         fill_in 'static_page_content', with: attributes[:content]
         submit_form
@@ -32,6 +33,7 @@ RSpec.feature 'StaticPages', type: :feature do
 
         within('table tbody') do
           expect(page).to have_content(attributes[:title])
+          expect(page).to have_content(attributes[:sub_title])
           expect(page).to have_link(href: static_page_path(attributes[:permalink]))
         end
       end
@@ -67,6 +69,8 @@ RSpec.feature 'StaticPages', type: :feature do
       it 'with correct values' do
         expect(page).to have_field 'static_page_title',
                                    with: static_page.title
+        expect(page).to have_field 'static_page_sub_title',
+                                   with: static_page.sub_title
         expect(page).to have_field 'static_page_permalink',
                                    with: static_page.permalink
         expect(page).to have_field 'static_page_content',
@@ -78,6 +82,7 @@ RSpec.feature 'StaticPages', type: :feature do
         attributes = attributes_for(:static_page)
 
         fill_in 'static_page_title', with: attributes[:title]
+        fill_in 'static_page_sub_title', with: attributes[:sub_title]
         fill_in 'static_page_permalink', with: attributes[:permalink]
         fill_in 'static_page_content', with: attributes[:content]
         submit_form
@@ -89,6 +94,7 @@ RSpec.feature 'StaticPages', type: :feature do
 
         within('table tbody') do
           expect(page).to have_content(attributes[:title])
+          expect(page).to have_content(attributes[:sub_title])
           expect(page).to have_link(href: static_page_path(attributes[:permalink]))
         end
       end
@@ -145,6 +151,7 @@ RSpec.feature 'StaticPages', type: :feature do
 
       static_pages.each do |s|
         expect(page).to have_content(s.title)
+        expect(page).to have_content(s.sub_title)
         expect(page).to have_content(I18n.l(s.created_at, format: :long))
 
         expect(page).to have_link(href: static_page_path(s.permalink))

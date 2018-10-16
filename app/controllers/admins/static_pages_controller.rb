@@ -45,7 +45,7 @@ class Admins::StaticPagesController < Admins::BaseController
   protected
 
   def static_page_params
-    params.require(:static_page).permit(:title, :content, :permalink)
+    params.require(:static_page).permit(:title, :sub_title, :content, :permalink)
   end
 
   def set_static_page
