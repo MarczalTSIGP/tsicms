@@ -3,5 +3,5 @@ class StaticPage < ApplicationRecord
   validates :content, presence: true
   validates :permalink, presence: true,
                         uniqueness: { case_sensitive: false },
-                        format: { with: /\A[\w\.\-]+\z/, message: I18n.t('validation.permalink') }
+                        format: { with: /\A[\w\.\-]+\z/, message: I18n.t('errors.messages.permalink') }
 end

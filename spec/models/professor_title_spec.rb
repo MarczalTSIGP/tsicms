@@ -8,6 +8,6 @@ RSpec.describe ProfessorTitle, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:professors).dependent(:destroy) }
+    it { is_expected.to have_many(:professors).dependent(:delete_all) }
   end
 end

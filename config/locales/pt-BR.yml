@@ -21,8 +21,9 @@ pt-BR:
     select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
-  validation:
-    permalink: 'permite apenas letras, números e traços.'
+  errors:
+    messages:
+      permalink: 'permite apenas letras, números e traços.'
   activerecord:
     models:
       admin:
