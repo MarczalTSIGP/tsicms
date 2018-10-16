@@ -83,5 +83,6 @@ pt-BR:
         end_date: 'Data de fim'
       static_page:
         title: 'Título'
+        sub_title: 'Subtítulo'
         permalink: 'Link permanente'
         content: 'Conteúdo'
