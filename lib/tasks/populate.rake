@@ -8,7 +8,7 @@ namespace :db do
      ProfessorTitle,
      Academic,
      Activity,
-     StaticPage].each(&:destroy_all)
+     StaticPage].each(&:delete_all)
 
     categories = %w[Documentário Filme Livro Seriado]
     categories.each do |category|
