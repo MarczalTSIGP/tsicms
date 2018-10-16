@@ -5,4 +5,7 @@ class Academic < ApplicationRecord
     validates :contact, format: { with: URI.regexp }
 
     mount_uploader :image, AcademicImageUploader
+
+    has_many :discipline_monitors, dependent: :destroy
+
 end

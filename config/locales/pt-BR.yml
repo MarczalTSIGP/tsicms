@@ -34,6 +34,8 @@ pt-BR:
       academic:
         one: 'Acadêmico'
         other: 'Acadêmicos'
+      discipline_monitor:
+        one: 'Monitoria de disciplina'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -62,3 +64,11 @@ pt-BR:
         <<: *commons
         graduated: 'Graduado'
         contact: 'Contato'
+      discipline_monitor:
+        <<: *commons
+        year: 'Ano'
+        semester: 'Semestre'
+        academic: 'Acadêmico'
+        description: 'Descrição'
+        monitor_type: 'Tipo da monitoria'
+

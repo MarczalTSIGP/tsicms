@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_10_084001) do
+ActiveRecord::Schema.define(version: 2018_10_11_032949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,31 @@ ActiveRecord::Schema.define(version: 2018_09_10_084001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_category_recommendations_on_name", unique: true
+  end
+
+  create_table "discipline_monitor_professors", force: :cascade do |t|
+    t.integer "professor_id"
+    t.integer "discipline_monitor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "discipline_monitors", force: :cascade do |t|
+    t.integer "year"
+    t.string "semester"
+    t.text "description"
+    t.bigint "academic_id"
+    t.bigint "monitor_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["academic_id"], name: "index_discipline_monitors_on_academic_id"
+    t.index ["monitor_type_id"], name: "index_discipline_monitors_on_monitor_type_id"
+  end
+
+  create_table "monitor_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "professor_categories", force: :cascade do |t|
@@ -81,6 +106,8 @@ ActiveRecord::Schema.define(version: 2018_09_10_084001) do
     t.index ["category_recommendation_id"], name: "index_recommendations_on_category_recommendation_id"
   end
 
+  add_foreign_key "discipline_monitors", "academics"
+  add_foreign_key "discipline_monitors", "monitor_types"
   add_foreign_key "professors", "professor_categories"
   add_foreign_key "professors", "professor_titles"
 end

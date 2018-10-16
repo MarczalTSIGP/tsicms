@@ -1,0 +1,45 @@
+<%= simple_form_for [:admins, @discipline_monitor] do |f| %>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <%= f.input :year, collection: Date.today.year - 5 .. Date.today.year + 1, prompt: "Selecione o ano", selected: Date.today.year %>
+      <%= f.input :semester, collection: [ "1º", "2º"]%>
+    </div>
+    <div class="col-sm-6">
+      <%= f.association :academic,
+        collection: @academics,
+        prompt: t('prompt.select.f', name: 'Academico') %>
+      <%= f.association :monitor_type,
+        collection: @monitor_types,
+        prompt: t('prompt.select.f', name: 'Tipo de monitoria') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <%=f.input :description %>
+      <%= link_to_add_association 'Adicionar professor', f, :discipline_monitor_professors,
+                                  'data-association-insertion-node' => "#mtp ol",
+                                  'data-association-insertion-method' => "append",
+                                  :wrap_object => Proc.new { |discipline_monitor_professor|
+                                  discipline_monitor_professor.build_professor; discipline_monitor_professor }%>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <fieldset id="mtp">
+        <ol>
+          <%= f.fields_for :discipline_monitor_professors do |discipline_monitor_professor|%>
+            <%= render partial: "discipline_monitor_professor_fields", locals: { f: discipline_monitor_professor }%>
+          <% end %>
+        </ol>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_discipline_monitors_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

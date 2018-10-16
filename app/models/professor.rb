@@ -9,4 +9,7 @@ class Professor < ApplicationRecord
 
   belongs_to :professor_title
   belongs_to :professor_category
+
+  has_many :discipline_monitor_professors
+  has_many :discipline_monitors, through: :discipline_monitor_professors
 end

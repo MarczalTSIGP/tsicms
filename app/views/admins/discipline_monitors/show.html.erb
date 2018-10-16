@@ -1,0 +1,32 @@
+<% provide(:page_title, "Monitoria de disciplina ##{@discipline_monitor.id}") %>
+
+<div class="col-lg-12 col-xl-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Informações </h3>
+        </div>
+    </div>
+    <strong>Monitor: </Strong><%= @discipline_monitor.academic.name%>
+    <br>
+    <strong>Ano: </Strong><%= @discipline_monitor.year%>
+    <br>
+    <strong>Semestre: </Strong><%= @discipline_monitor.semester%>
+    <br>
+    <strong>Tipo da monitoria: </Strong><%= @discipline_monitor.monitor_type.name%>
+    <br>
+    <strong>Descrição: </Strong><%= @discipline_monitor.description%>
+    <br>
+    <strong>Professores responsáveis:</strong>
+
+    <% @discipline_monitor.discipline_monitor_professors.each do |d| %>
+        <br><%= d.professor.name %>
+    <% end %>
+    <br><br>
+
+    <div class="d-flex">
+    <%= link_to "Voltar", admins_discipline_monitors_path, class: 'btn btn-secondary' %>
+</div>
+</div>
+
+
+

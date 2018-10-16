@@ -1,0 +1,16 @@
+<hr>
+<div class="card align-items-center">
+    <div class='nested-fields align-items-center'>
+        <div class="row">
+            <div class="col-sm-9">
+                <%= f.association :professor,
+                    collection: @professors,
+                    prompt: t('prompt.select.f', name: 'professor') %>
+            </div>
+            <div class="col-sm-3">
+                <br>
+                <%= link_to_remove_association "Remover", f, class: 'btn btn btn-info btn-lg' %>
+            </div>
+        </div>
+    </div>
+</div>

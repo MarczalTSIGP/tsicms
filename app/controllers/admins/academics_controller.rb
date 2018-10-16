@@ -57,4 +57,9 @@ class Admins::AcademicsController < Admins::BaseController
         @academic = Academic.find(params[:id])
     end
 
+    def academic_params
+        params.require(:academic).permit(:name)
+    end
+
+
 end
