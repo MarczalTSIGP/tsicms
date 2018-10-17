@@ -17,10 +17,10 @@ Rails.application.routes.draw do
       resources :academics
       resources :activities
       resources :activity_professors, excepty: [:show]
-      resources :category_recommendations
-      resources :recommendations
+      resources :category_recommendations, excepty: [:show]
+      resources :recommendations, excepty: [:show]
       resources :professors
-      resources :static_pages
+      resources :static_pages, excepty: [:show]
     end
   end
   #========================================
