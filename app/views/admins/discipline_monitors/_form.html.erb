@@ -2,16 +2,17 @@
 
   <div class="row">
     <div class="col-sm-6">
-      <%= f.input :year, collection: Date.today.year - 5 .. Date.today.year + 1, prompt: "Selecione o ano", selected: Date.today.year %>
-      <%= f.input :semester, collection: [ "1º", "2º"]%>
+      <%= f.input :year,  collection: Date.today.year - 5 .. Date.today.year + 1, selected: Date.today.year %>
+      <%= f.input :semester, collection: [ "1º", "2º"], prompt: t('prompt.select.m', name: 'semestre')%>
     </div>
+
     <div class="col-sm-6">
       <%= f.association :academic,
-        collection: @academics,
-        prompt: t('prompt.select.f', name: 'Academico') %>
+          collection: @academics,
+          prompt: t('prompt.select.m', name: 'acadêmico') %>
       <%= f.association :monitor_type,
-        collection: @monitor_types,
-        prompt: t('prompt.select.f', name: 'Tipo de monitoria') %>
+          collection: @monitor_types,
+          prompt: t('prompt.select.m', name: 'tipo de monitoria') %>
     </div>
   </div>
 
@@ -30,6 +31,7 @@
     <div class="col-sm-12">
       <fieldset id="mtp">
         <ol>
+          <hr>
           <%= f.fields_for :discipline_monitor_professors do |discipline_monitor_professor|%>
             <%= render partial: "discipline_monitor_professor_fields", locals: { f: discipline_monitor_professor }%>
           <% end %>

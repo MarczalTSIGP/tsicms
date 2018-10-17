@@ -47,5 +47,14 @@ namespace :db do
         graduated: [true, false].sample
       )
     end
+
+    3.times do
+      DisciplineMonitor.create!(semester: Faker::Number.between(1, 2),
+                        year: Faker::Number.between(2015, 2018),
+                        description: Faker::Lorem.characters(10),
+                        academic: Academic.all.sample,
+                        monitor_type: MonitorType.all.sample
+      )
+    end
   end
 end

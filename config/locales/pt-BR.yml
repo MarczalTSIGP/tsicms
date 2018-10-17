@@ -36,6 +36,7 @@ pt-BR:
         other: 'Acadêmicos'
       discipline_monitor:
         one: 'Monitoria de disciplina'
+        other: 'Monitorias de disciplina'
     attributes:
       attribute_commons: &commons
         name: 'Nome'

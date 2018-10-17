@@ -18,7 +18,6 @@ class Admins::DisciplineMonitorsController < Admins::BaseController
 
   def create
     @discipline_monitor = DisciplineMonitor.new(monitor_params)
-
     if @discipline_monitor.save
       flash[:success] = I18n.t('flash.actions.create.f',
                               resource_name: DisciplineMonitor.model_name.human)
@@ -28,6 +27,7 @@ class Admins::DisciplineMonitorsController < Admins::BaseController
       render :new
     end
   end
+
 
   def edit
     set_monitor

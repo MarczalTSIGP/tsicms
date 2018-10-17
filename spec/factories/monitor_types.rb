@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :monitor_type do
-    name { "Remunerada" }
+    sequence(:name) { |n| "name#{n}" }
   end
 end

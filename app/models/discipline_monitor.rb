@@ -12,5 +12,5 @@ class DisciplineMonitor < ApplicationRecord
   has_many :discipline_monitor_professors
   has_many :professors, through: :discipline_monitor_professors
 
-  accepts_nested_attributes_for :discipline_monitor_professors, :allow_destroy => true
+  accepts_nested_attributes_for :discipline_monitor_professors, allow_destroy: true
 end
