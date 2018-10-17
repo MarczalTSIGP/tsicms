@@ -1,20 +1,32 @@
 //= require simplemde/simplemde.min
 
 $(document).on('turbolinks:load', function() {
-  var simplemde = new SimpleMDE({ element: document.getElementById('static_page_content') });
+  loadMarkdownEditor();
+  permalinkGenerator();
+});
 
+function loadMarkdownEditor() {
+  var element = document.getElementById('static_page_content');
+
+  if (! element) {
+    return;
+  }
+
+  new SimpleMDE({ element: element });
+}
+
+function permalinkGenerator() {
   $('#static_page_title').on('blur', function () {
-    var content = $(this).val();
-
     var permalinkElement = $('#static_page_permalink');
     var permalink = permalinkElement.val();
 
     if (permalink === "") {
+      var content = $(this).val();
       var slug = generateSlug(content);
       permalinkElement.val(slug);
     }
-  })
-});
+  });
+}
 
 function generateSlug(string) {
   return normalizeCharacters(string).replace(/\s/gi, '-')
