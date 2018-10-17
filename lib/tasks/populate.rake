@@ -2,7 +2,7 @@ namespace :db do
   desc 'Erase and Fill database'
   task populate: :environment do
     [CategoryRecommendation, Recommendation, Professor, ProfessorCategory,
-     ProfessorTitle, Academic].each(&:destroy_all)
+     ProfessorTitle, Academic, DisciplineMonitor].each(&:destroy_all)
 
     categories = %w(Documentário Filme Livro Seriado)
     categories.each do |category|
@@ -48,9 +48,11 @@ namespace :db do
       )
     end
 
+    semesters = %w(1º 2º)
+
     3.times do
-      DisciplineMonitor.create!(semester: Faker::Number.between(1, 2),
-                        year: Faker::Number.between(2015, 2018),
+      DisciplineMonitor.create!(semester: ['1º', '2º'].sample,
+                        year: [Faker::Number.between(2015, 2018)],
                         description: Faker::Lorem.characters(10),
                         academic: Academic.all.sample,
                         monitor_type: MonitorType.all.sample
