@@ -10,14 +10,22 @@ $(document).on('turbolinks:load', function() {
     var permalink = permalinkElement.val();
 
     if (permalink === "") {
-      generateSlug(permalinkElement, content);
+      var slug = generateSlug(content);
+      permalinkElement.val(slug);
     }
   })
 });
 
-function generateSlug(permalinkElement, content) {
-  content = content.replace(/\s/gi, '-');
-  var slug = content.replace(/[^\w\.\-]/gi, '');
+function generateSlug(string) {
+  return normalizeCharacters(string).replace(/\s/gi, '-')
+                                    .replace(/[^\w\.\-]/gi, '')
+                                    .toLowerCase();
+}
 
-  permalinkElement.val(slug.toLowerCase());
+/**
+ * @see https://stackoverflow.com/a/37511463
+ */
+function normalizeCharacters(string) {
+  return string.normalize('NFD')
+               .replace(/[\u0300-\u036f]/g, '');
 }
