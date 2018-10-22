@@ -30,6 +30,9 @@ pt-BR:
       admin:
         one: 'Administrador'
         other: 'Administradores'
+      faq:
+        one: 'Pergunta'
+        other: 'Perguntas'
       category_recommendation:
         one: 'Categoria'
         other: 'Categorias'
@@ -66,6 +69,10 @@ pt-BR:
         password_confirmation: 'Confirmação de senha'
         current_password: 'Senha atual'
         remember_me: 'Lembre-me'
+      faq:
+        <<: *commons
+        title: Título
+        answer: Resposta
         image: 'Imagem'
       category_recommendation:
         <<: *commons

@@ -18,7 +18,6 @@
 //= require config/namespace
 //= require config/simplemde
 
-
 // App files
 //--------------------
 //= require lib/image_preview

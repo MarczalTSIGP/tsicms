@@ -1,6 +1,8 @@
 namespace :db do
+
   desc 'Erase and Fill database'
   task populate: :environment do
+
     [CategoryRecommendation,
      Recommendation,
      Activity,
@@ -10,7 +12,14 @@ namespace :db do
      Academic,
      Discipline,
      Period,
-     Matrix].each(&:delete_all)
+     Matrix, Faq].each(&:delete_all)
+
+    10.times do
+      Faq.create!(
+        title: Faker::Name.unique.name,
+        answer: Faker::Markdown.random
+      )
+    end
 
     categories = %w[Documentário Filme Livro Seriado]
     categories.each do |category|

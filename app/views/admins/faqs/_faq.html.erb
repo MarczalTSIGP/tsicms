@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-header" id="headingOne">
+    <h5 class="mb-0">
+      <button class="btn btn-link" data-toggle="collapse"
+        data-target="#collapse<%= faq.id %>" aria-expanded="true"
+        aria-controls="collapse<%= faq.id %>>">
+        <%= faq.title %>
+      </button>
+    </h5>
+
+    <%= link_to edit_admins_faq_path(faq), class: 'ml-auto' do %>
+      <span class="icon mr-3">
+        <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+      </span>
+    <% end %>
+
+    <%= link_to [:admins, faq], method: :delete, data: { confirm: t('prompt.confirm')} do %>
+      <span class="icon mr-3">
+        <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
+      </span>
+    <% end %>
+  </div>
+
+  <div id="collapse<%= faq.id %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+    <div class="card-body apply-markdown" data-markdown="<%= faq.answer %>">
+    </div>
+  </div>
+</div>
