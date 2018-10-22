@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(version: 2018_10_20_113211) do
     t.index ["period_id"], name: "index_disciplines_on_period_id"
   end
 
+  create_table "faqs", force: :cascade do |t|
+    t.string "title"
+    t.text "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "matrices", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
