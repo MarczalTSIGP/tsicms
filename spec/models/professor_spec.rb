@@ -9,11 +9,13 @@ RSpec.describe Professor, type: :model do
     it {is_expected.to validate_presence_of(:professor_title)}
     it {is_expected.to validate_presence_of(:professor_category)}
 
-    it { is_expected.to allow_value('email@addresse.foo').for(:email) }
-    it { is_expected.to_not allow_value('foo').for(:email) }
+    context 'email' do
+      it { is_expected.to allow_value('email@addresse.foo').for(:email) }
+      it { is_expected.to_not allow_value('foo').for(:email) }
 
-    it { is_expected.to allow_value('https://google.com').for(:lattes) }
-    it { is_expected.to_not allow_value('google.com').for(:lattes) }
+      it { is_expected.to allow_value('https://google.com').for(:lattes) }
+      it { is_expected.to_not allow_value('google.com').for(:lattes) }
+    end
   end
 
   describe 'associations' do

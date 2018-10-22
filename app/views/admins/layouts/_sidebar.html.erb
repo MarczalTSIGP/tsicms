@@ -41,9 +41,23 @@
       <span class="icon mr-3"><i class="fas fa-building"></i></span>Empresas parceiras
     <% end %>
 
-    <%= link_to '#', class: 'list-group-item list-group-item-action' do %>
-      <span class="icon mr-3"><i class="fas fa-book-open"></i></span>Matriz do curso
-    <% end %>
+    <div class="list-group-item list-group-item-action pb-0">
+      <span class="icon mr-3"><i class="fas fa-book-open"></i></span>Matriz do Curso
+
+      <div class="list-group list-group-transparent mb-0">
+        <%= active_link_to admins_matrices_path, class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Matrizes
+        <% end %>
+
+        <%= active_link_to admins_periods_path, class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Períodos
+        <% end %>
+
+        <%= active_link_to admins_disciplines_path, class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Disciplinas
+        <% end %>
+      </div>
+    </div>
 
     <%= link_to '#', class: 'list-group-item list-group-item-action' do %>
       <span class="icon mr-3"><i class="fas fa-question"></i></span>FAQ
@@ -56,7 +70,6 @@
         <%= active_link_to admins_recommendations_path, class: 'list-group-item list-group-item-action' do %>
           <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Conteúdo
         <% end %>
-
         <%= active_link_to admins_category_recommendations_path, class: 'list-group-item list-group-item-action' do %>
           <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Categoria
         <% end %>
@@ -66,5 +79,6 @@
     <%= link_to '#', class: 'list-group-item list-group-item-action' do %>
       <span class="icon mr-3"><i class="fas fa-images"></i></span>Galeria
     <% end %>
+
   </div>
 </div>

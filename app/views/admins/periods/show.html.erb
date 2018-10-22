@@ -1,0 +1,21 @@
+<% provide(:page_title, "Visualizar Período ##{@period.id}") %>
+
+<div class="card">
+  <div class="card-header">
+    <h3><%= @period.name %></h3>
+  </div>
+  <div class="card-body">
+    <p>
+      <strong><%= t('activerecord.attributes.period.matrix') %></strong>:
+      <%= @period.matrix.name %>
+    </p>
+    <p>
+      <strong><%= t('activerecord.attributes.period.created_at') %></strong>:
+      <%= l(@period.matrix.created_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to "Voltar", admins_periods_path, class: 'btn btn-secondary' , title: 'Voltar para lista de Períodos'%>
+</div>

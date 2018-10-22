@@ -1,0 +1,16 @@
+<%= simple_form_for [:admins, @period] do |f| %>
+  <div class="row">
+    <div class="col-sm-6 col-md-8">
+      <%= f.input :name, autofocus: true %>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <%= f.association :matrix, collection: Matrix.order(:name),
+        prompt: "Escolha uma Matriz"  %>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_periods_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

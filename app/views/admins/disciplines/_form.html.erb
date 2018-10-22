@@ -1,0 +1,28 @@
+<%= simple_form_for [:admins, @discipline] do |f| %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= f.input :name, autofocus: true%>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <%= f.input :code %>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <%= f.input :hours %>
+    </div>
+    <div class="col-sm-6 col-md-5">
+      <%= f.association :period,
+        prompt: "Escolha o período",
+        collection: Period.periods_to_select %>
+    </div>
+    <div class="col-md-12" id="content">
+      <label>Ementa</label>
+      <%= f.text_area :menu, :placeholder => "Digite a Ementa da Disciplina",
+        :class => "form-control", :rows => 8, :cols => 84 %>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_disciplines_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
