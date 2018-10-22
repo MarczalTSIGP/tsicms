@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_02_004622) do
+ActiveRecord::Schema.define(version: 2018_10_20_113211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,18 +101,8 @@ ActiveRecord::Schema.define(version: 2018_10_02_004622) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "professors", force: :cascade do |t|
-    t.string "name"
-    t.string "lattes"
-    t.text "occupation_area"
-    t.string "email"
-    t.bigint "professor_title_id"
-    t.bigint "professor_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["professor_category_id"], name: "index_professors_on_professor_category_id"
-    t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
-  end
+# Could not dump table "professors" because of following StandardError
+#   Unknown type 'professor_genders' for column 'gender'
 
   create_table "recommendations", force: :cascade do |t|
     t.string "title"

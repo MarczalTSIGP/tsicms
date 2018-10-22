@@ -10,6 +10,7 @@ professorCategories.each do |category|
   ProfessorCategory.find_or_create_by!(name: category)
 end
 
+
 titles = [
   {name: 'Especialista', abbrev: 'Esp.'},
   {name: 'Mestre', abbrev: 'Me.'},

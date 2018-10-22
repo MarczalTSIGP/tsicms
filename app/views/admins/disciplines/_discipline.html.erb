@@ -1,0 +1,27 @@
+<tr>
+  <td><%= discipline.id %></td>
+  <td><%= discipline.name %></td>
+  <td><%= discipline.code %></td>
+  <td><%= discipline.period.name %></td>
+  <td><%= discipline.period.matrix.name %></td>
+  <td>
+    <%= link_to edit_admins_discipline_path(discipline) do%>
+      <span class="icon mr-3">
+        <i class="fas fa-edit" data-toggle="tooltip"
+                               data-placement="top" title="Editar"></i>
+      </span>
+    <% end %>
+    <%= link_to [:admins, discipline], method: :delete,
+      data: { confirm: t('prompt.confirm')} do%>
+      <span class="icon mr-3">
+        <i class="fas fa-trash-alt" data-toggle="tooltip"
+                                    data-placement="top" title="Remover"></i>
+      </span>
+    <% end %>
+    <%= link_to admins_discipline_path(discipline) do%>
+      <span class="icon mr-3"><i class="fas fa-eye" data-toggle="tooltip"
+                                                    data-placement="top" title="Mostrar"></i>
+      </span>
+    <% end %>
+  </td>
+</tr>

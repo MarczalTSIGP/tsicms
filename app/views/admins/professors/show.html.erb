@@ -1,72 +1,75 @@
+<% provide(:page_title, "Visualizar Professor") %>,
+
 <div class="card card-profile">
   <div class="card-header profile-bg"></div>
   <div class="card-body text-center">
-    <%= image_tag 'profile-avatar', class: "card-profile-img" %>
+    <%= image_tag @professor.image.url, class: 'card-profile-img' %>
 
     <h3 class="mb-3"><%= @professor.name %></h3>
-
-    <p class="mb-4"><%= @professor.professor_title.name %> - <%= @professor.professor_title.abbrev %></p>
-    <p class="mb-4"> <%= @professor.occupation_area %></p>
+    <p class="mb-4"><%= @professor.gender %></p>
+    <p class="mb-4">
+      <%= @professor.professor_title.name %> - <%= @professor.professor_title.abbrev %>
+    </p>
+    <p class="mb-4"><%= @professor.occupation_area %></p>
     <p class="mb-4"><%= @professor.email %></p>
     <p class="mb-4"><%= link_to @professor.lattes, @professor.lattes, target: '_blank' %></p>
     <p class="mb-4">Professor(a) <%= @professor.professor_category.name %></p>
-
     <p>
-    <div class="table-responsive">
-      <h4 class="text-center">Atividades do professor</h4>
-      <div class="text-right">
-        <%= link_to new_admins_activity_professor_path(:professor => @professor.id),
-                    class: 'btn btn-secondary',
-                    title: 'Adicionar Atividade',
-                    data: {toggle: 'tooltip', placement: 'top'} do %>
-          <i class="fas fa-plus"></i>
-        <% end %>
+      <div class="table-responsive">
+        <h4 class="text-center">Atividades do professor</h4>
+        <div class="text-right">
+          <%= link_to new_admins_activity_professor_path(:professor => @professor.id),
+            class: 'btn btn-secondary',
+            title: 'Adicionar Atividade',
+            data: {toggle: 'tooltip', placement: 'top'} do %>
+            <i class="fas fa-plus"></i>
+          <% end %>
+        </div>
+        <table class="table table-data card-table table-vcenter text-nowrap">
+          <thead>
+            <tr>
+              <th class="w-1">Id</th>
+              <th>Atividade</th>
+              <th>Data de início</th>
+              <th>Data de fim</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @professor.activity_professors.each do |act_prof| %>
+              <tr id="professor_activity">
+                <td><%= act_prof.activity.id %></td>
+                <td><%= act_prof.activity.name %></td>
+                <td><%= l(act_prof.start_date, format: :long) %></td>
+                <td><%= act_prof.end_date_human %></td>
+                <td>
+                  <%= link_to [:admins, act_prof], method: :delete, data: {confirm: t('prompt.confirm')} do %>
+                    <span class="icon mr-3">
+                      <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
+                    </span>
+                  <% end %>
+
+                  <%= link_to edit_admins_activity_professor_path(act_prof) do %>
+                    <span class="icon mr-3">
+                      <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+                    </span>
+                  <% end %>
+
+                  <%= link_to admins_activity_path(act_prof.activity) do %>
+                    <span class="icon mr-3">
+                      <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
+                    </span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
-      <table class="table table-data card-table table-vcenter text-nowrap">
-        <thead>
-        <tr>
-          <th class="w-1">Id</th>
-          <th>Atividade</th>
-          <th>Data de início</th>
-          <th>Data de fim</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @professor.activity_professors.each do |act_prof| %>
-          <tr id="professor_activity">
-            <td><%= act_prof.activity.id %></td>
-            <td><%= act_prof.activity.name %></td>
-            <td><%= l(act_prof.start_date, format: :long) %></td>
-            <td><%= act_prof.end_date_human %></td>
-            <td>
-              <%= link_to [:admins, act_prof], method: :delete, data: {confirm: t('prompt.confirm')} do %>
-              <span class="icon mr-3">
-                    <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
-                </span>
-        <% end %>
-
-        <%= link_to edit_admins_activity_professor_path(act_prof) do %>
-                <span class="icon mr-3">
-                  <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
-                </span>
-        <% end %>
-
-        <%= link_to admins_activity_path(act_prof.activity) do %>
-                <span class="icon mr-3">
-                    <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
-                </span>
-        <% end %>
-        </td>
-        </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
     </p>
+
   </div>
 </div>
-
 <div class="d-flex">
   <%= link_to "Voltar", admins_professors_path, class: 'btn btn-secondary' %>
 </div>
