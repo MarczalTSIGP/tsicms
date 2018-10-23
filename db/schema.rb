@@ -63,6 +63,25 @@ ActiveRecord::Schema.define(version: 2018_10_20_113211) do
     t.index ["name"], name: "index_category_recommendations_on_name", unique: true
   end
 
+  create_table "discipline_monitor_professors", force: :cascade do |t|
+    t.integer "professor_id"
+    t.integer "discipline_monitor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "discipline_monitors", force: :cascade do |t|
+    t.integer "year"
+    t.integer "semester"
+    t.text "description"
+    t.bigint "academic_id"
+    t.bigint "monitor_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["academic_id"], name: "index_discipline_monitors_on_academic_id"
+    t.index ["monitor_type_id"], name: "index_discipline_monitors_on_monitor_type_id"
+  end
+
   create_table "disciplines", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -82,6 +101,12 @@ ActiveRecord::Schema.define(version: 2018_10_20_113211) do
   end
 
   create_table "matrices", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "monitor_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -131,6 +156,8 @@ ActiveRecord::Schema.define(version: 2018_10_20_113211) do
     t.index ["permalink"], name: "index_static_pages_on_permalink", unique: true
   end
 
+  add_foreign_key "discipline_monitors", "academics"
+  add_foreign_key "discipline_monitors", "monitor_types"
   add_foreign_key "disciplines", "periods"
   add_foreign_key "periods", "matrices"
   add_foreign_key "professors", "professor_categories"

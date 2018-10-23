@@ -5,7 +5,10 @@ class Professor < ApplicationRecord
   belongs_to :professor_category
 
   has_many :activity_professors, dependent: :restrict_with_error
-  has_many :activities, :through => :activity_professors
+  has_many :activities, through: :activity_professors
+
+  has_many :discipline_monitor_professors
+  has_many :discipline_monitors, through: :discipline_monitor_professors
 
   validates :name, presence: true
   validates :lattes, presence: true, format: { with: URI.regexp }
@@ -22,4 +25,5 @@ class Professor < ApplicationRecord
     genders.keys.each { |key| hash[I18n.t("enums.genders.#{key}")] = key }
     hash
   end
+
 end

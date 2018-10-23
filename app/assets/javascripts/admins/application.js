@@ -8,6 +8,7 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require cocoon
 
 // Vendors
 //--------------------
@@ -25,3 +26,4 @@
 //= require admins/static_pages.js
 
 //= require admins/loads
+
