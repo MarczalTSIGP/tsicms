@@ -25,6 +25,9 @@ pt-BR:
     select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
+  errors:
+    messages:
+      permalink: 'permite apenas letras, números e traços.'
   activerecord:
     models:
       admin:
@@ -55,6 +58,9 @@ pt-BR:
       discipline:
         one: 'Disciplina'
         other: 'Disciplinas'
+      static_page:
+        one: 'Página estática'
+        other: 'Páginas estáticas'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -110,3 +116,8 @@ pt-BR:
       period:
         <<: *commons
         matrix: 'Matriz'
+      static_page:
+        title: 'Título'
+        sub_title: 'Subtítulo'
+        permalink: 'Link permanente'
+        content: 'Conteúdo'

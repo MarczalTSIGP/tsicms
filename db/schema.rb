@@ -121,6 +121,16 @@ ActiveRecord::Schema.define(version: 2018_10_20_113211) do
     t.index ["category_recommendation_id"], name: "index_recommendations_on_category_recommendation_id"
   end
 
+  create_table "static_pages", force: :cascade do |t|
+    t.string "title"
+    t.string "sub_title"
+    t.text "content"
+    t.string "permalink"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["permalink"], name: "index_static_pages_on_permalink", unique: true
+  end
+
   add_foreign_key "disciplines", "periods"
   add_foreign_key "periods", "matrices"
   add_foreign_key "professors", "professor_categories"

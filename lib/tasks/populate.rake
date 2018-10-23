@@ -12,7 +12,8 @@ namespace :db do
      Academic,
      Discipline,
      Period,
-     Matrix, Faq].each(&:delete_all)
+     Matrix, Faq,
+     StaticPage].each(&:delete_all)
 
     10.times do
       Faq.create!(
@@ -105,6 +106,15 @@ namespace :db do
           )
         end
       end
+    end
+
+    10.times do
+      StaticPage.create!(
+        title: Faker::Name.name,
+        sub_title: Faker::Name.name,
+        permalink: Faker::Name.unique.name.parameterize,
+        content: Faker::Markdown.sandwich
+      )
     end
   end
 end
