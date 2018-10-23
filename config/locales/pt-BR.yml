@@ -8,6 +8,9 @@ pt-BR:
     genders:
       male: 'Masculino'
       female: 'Feminino'
+    semesters:
+      first: '1º'
+      second: '2º'
   flash:
     actions:
       update:
@@ -61,6 +64,9 @@ pt-BR:
       static_page:
         one: 'Página estática'
         other: 'Páginas estáticas'
+      discipline_monitor:
+        one: 'Monitoria de disciplina'
+        other: 'Monitorias de disciplina'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -121,3 +127,10 @@ pt-BR:
         sub_title: 'Subtítulo'
         permalink: 'Link permanente'
         content: 'Conteúdo'
+      discipline_monitor:
+        <<: *commons
+        year: 'Ano'
+        semester: 'Semestre'
+        academic: 'Acadêmico'
+        description: 'Descrição'
+        monitor_type: 'Tipo da monitoria'

@@ -48,8 +48,8 @@ class Admins::AcademicsController < Admins::BaseController
     def academic_params
         params.require(:academic).permit(:name,
                                          :image,
-                                         :image_cache,
                                          :contact,
+                                         :image_cache,
                                          :graduated)
     end
 
