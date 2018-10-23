@@ -1,5 +1,6 @@
 pt-BR:
   helpers:
+    currently: 'Atualmente'
     boolean:
       'true': 'Sim'
       'false': 'Não'
@@ -24,11 +25,17 @@ pt-BR:
     select:
       m: 'Selecione um %{name}'
       f: 'Selecione uma %{name}'
+  errors:
+    messages:
+      permalink: 'permite apenas letras, números e traços.'
   activerecord:
     models:
       admin:
         one: 'Administrador'
         other: 'Administradores'
+      faq:
+        one: 'Pergunta'
+        other: 'Perguntas'
       category_recommendation:
         one: 'Categoria'
         other: 'Categorias'
@@ -38,6 +45,10 @@ pt-BR:
       academic:
         one: 'Acadêmico'
         other: 'Acadêmicos'
+      activity:
+        one: 'Atividade docente'
+        other: 'Atividades docente'
+      activity_professor: 'Vículo de Atividade Docente'
       matrix:
         one: 'Matriz'
         other: 'Matrizes'
@@ -47,17 +58,27 @@ pt-BR:
       discipline:
         one: 'Disciplina'
         other: 'Disciplinas'
+      static_page:
+        one: 'Página estática'
+        other: 'Páginas estáticas'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
         email: 'Email'
         image: 'Imagem'
+        description: 'Descrição'
+        created_at: 'Criado em'
+        updated_at: 'Atualizado em'
       admin:
         <<: *commons
         password: 'Senha'
         password_confirmation: 'Confirmação de senha'
         current_password: 'Senha atual'
         remember_me: 'Lembre-me'
+      faq:
+        <<: *commons
+        title: Título
+        answer: Resposta
         image: 'Imagem'
       category_recommendation:
         <<: *commons
@@ -76,15 +97,27 @@ pt-BR:
         <<: *commons
         graduated: 'Graduado'
         contact: 'Contato'
+      activity:
+        <<: *commons
+      activity_professor:
+        professor: 'Professor'
+        activity: 'Atividade docente'
+        start_date: 'Data de ínicio'
+        end_date: 'Data de fim'
       discipline:
         <<: *commons
         code: 'Código'
-        workload: 'Horas'
+        hours: 'Carga horária'
         menu: 'Ementa'
-        period: 'Periodo'
+        period: 'Período'
         matrix: 'Matriz'
       matrix:
         <<: *commons
       period:
         <<: *commons
-        matrix: 'Matriz'  
+        matrix: 'Matriz'
+      static_page:
+        title: 'Título'
+        sub_title: 'Subtítulo'
+        permalink: 'Link permanente'
+        content: 'Conteúdo'

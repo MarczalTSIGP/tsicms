@@ -1,21 +1,14 @@
 <%= simple_form_for [:admins, @professor] do |f| %>
+  
   <div class="form-row">
     <div class="col-sm-9">
-      <div class="form-row">
-        <div class="col-sm-8">
-          <%= f.input :name, autofocus: true %>
-        </div>
-        <div class="form-label col-sm-4">
-          <div class="custom-controls-stacked">
-            <%= f.label :gender, class:'custom-control custom-radio custom-control-inline'%>
-            <%= f.collection_radio_buttons :gender, Professor.genders, :second, :second,
-                                           class:'custom-control-input custom-control-label'%>
-          </div>
-        </div>
-      </div>
+      <%= f.input :name, autofocus: true %>
       <%= f.input :email %>
-      <%= f.input :lattes %>
+      <%= f.input :gender, as: :radio_buttons, collection: Professor.human_genders,
+          item_wrapper_class: 'inline custom-control custom-radio custom-control-inline' %>
+
     </div>
+
     <div class="col-sm-3">
       <div id="box-image-preview" data-toggle="tooltip" data-placement="left" title="Clique na imagem para alterá-la">
         <div class="input-field image_preview">
@@ -31,17 +24,22 @@
       </div>
     </div>
   </div>
+    
+  <%= f.input :lattes %>
+
   <div class="form-row">
     <div class="col-sm-6">
       <%= f.association :professor_title,
-                        prompt: t('prompt.select.m', name: 'título') %>
-    </div>
-    <div class="col-sm-6">
-      <%= f.association :professor_category,
-                        prompt: t('prompt.select.m', name: 'tipo') %>
-    </div>
+        prompt: t('prompt.select.m', name: 'título') %>
   </div>
+  <div class="col-sm-6">
+    <%= f.association :professor_category,
+      prompt: t('prompt.select.m', name: 'tipo') %>
+</div>
+  </div>
+
   <%= f.input :occupation_area %>
+
   <div class="d-flex">
     <%= link_to "Voltar", admins_professors_path, class: 'btn btn-secondary' %>
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>

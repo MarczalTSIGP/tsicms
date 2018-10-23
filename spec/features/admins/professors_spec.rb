@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Admin Professors', type: :feature do
 
   let(:admin) {create :admin}
-  let(:resource_name) { Professor.model_name.human }
+  let(:resource_name) {Professor.model_name.human}
 
   before(:each) do
     login_as admin, scope: :admin
@@ -14,7 +14,7 @@ RSpec.feature 'Admin Professors', type: :feature do
     before(:each) do
       @category = create_list(:professor_category, 2).sample
       @title = create_list(:professor_title, 3).sample
-      
+
       visit new_admins_professor_path
     end
 
@@ -22,13 +22,13 @@ RSpec.feature 'Admin Professors', type: :feature do
       it 'create professor' do
         attributes = attributes_for(:professor)
         fill_in 'professor_name', with: attributes[:name]
-        fill_in 'professor_gender', with: attributes[:gender]
-        fill_in 'professor_lattes', with: attributes[:lattes]
-        fill_in 'professor_occupation_area', with: attributes[:occupation_area]
         fill_in 'professor_email', with: attributes[:email]
+        choose 'professor_gender_male'
+        fill_in 'professor_lattes', with: attributes[:lattes]
         select @category.name, from: 'professor[professor_category_id]'
         select @title.name, from: 'professor[professor_title_id]'
-       
+        fill_in 'professor_occupation_area', with: attributes[:occupation_area]
+
         attach_file 'professor_image', FileSpecHelper.image.path
         submit_form
 
@@ -38,32 +38,20 @@ RSpec.feature 'Admin Professors', type: :feature do
                                       text: I18n.t('flash.actions.create.m',
                                                    resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-        end
+        expect_page_have_in('table tbody', attributes[:name])
       end
     end
-    
+
     context 'when invalid fields' do
       it 'cannot create professor' do
         submit_form
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-        within('div.professor_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_occupation_area') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_email') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_professor_category') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.professor_professor_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        have_contains('div.professor_name', I18n.t('errors.messages.blank'))
+        have_contains('div.professor_occupation_area', I18n.t('errors.messages.blank'))
+        have_contains('div.professor_email', I18n.t('errors.messages.blank'))
+        have_contains('div.professor_professor_category', I18n.t('errors.messages.blank'))
+        have_contains('div.professor_professor_title', I18n.t('errors.messages.blank'))
       end
     end
   end
@@ -80,7 +68,7 @@ RSpec.feature 'Admin Professors', type: :feature do
         submit_form
 
         expect(page.current_path).to eq admins_professor_path(@professor)
-        expect(page).to have_content("#{new_name}")
+        expect(page).to have_content(new_name.to_s)
       end
     end
 
@@ -106,11 +94,20 @@ RSpec.feature 'Admin Professors', type: :feature do
                                     text: I18n.t('flash.actions.destroy.m',
                                                  resource_name: resource_name))
 
-      within('table tbody') do
-        expect(page).not_to have_content(professor.name)
-      end
+      expect_page_not_have_in('table tbody', professor.name)
     end
 
+    it 'professor unless has dependet' do
+      ap = create(:activity_professor)
+      visit admins_professors_path
+      destroy_link = "a[href='#{admins_professor_path(ap.professor)}'][data-method='delete']"
+      find(destroy_link).click
+
+      expect(page).to have_selector('div.alert.alert-warning',
+                                    text: 'Não é possível remover professores com vínculos!')
+
+      expect(page).to have_content('table tbody', ap.professor.name)
+    end
   end
 
   describe '#index' do
@@ -121,9 +118,9 @@ RSpec.feature 'Admin Professors', type: :feature do
 
       professors.each do |professor|
         expect(page).to have_content(professor.name)
-        expect(page).to have_content(professor.gender)
         expect(page).to have_content(I18n.l(professor.created_at, format: :long))
 
+        expect(page).to have_link(href: admins_professor_path(professor))
         expect(page).to have_link(href: edit_admins_professor_path(professor))
         destroy_link = "a[href='#{admins_professor_path(professor)}'][data-method='delete']"
         expect(page).to have_css(destroy_link)
@@ -144,7 +141,7 @@ RSpec.feature 'Admin Professors', type: :feature do
         expect(page).to have_content(professor.occupation_area)
         expect(page).to have_content(professor.professor_category.name)
         expect(page).to have_content(professor.professor_title.name)
-        
+
       end
     end
   end

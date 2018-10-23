@@ -1,12 +1,25 @@
 class Professor < ApplicationRecord
+  enum gender: { male: 'male', female: 'female'}, _prefix: :gender
+
+  belongs_to :professor_title
+  belongs_to :professor_category
+
+  has_many :activity_professors, dependent: :restrict_with_error
+  has_many :activities, :through => :activity_professors
+
   validates :name, presence: true
   validates :lattes, presence: true, format: { with: URI.regexp }
   validates :occupation_area, presence: true
   validates :email, presence: true, format: { with: Devise.email_regexp }
   validates :professor_title, presence: true
   validates :professor_category, presence: true
-  enum genders: { male: 'Masculino', female: 'Feminino'}
-  belongs_to :professor_title
-  belongs_to :professor_category
+  validates :gender, inclusion: { in: Professor.genders.values }
+
   mount_uploader :image, ProfessorImageUploader
+
+  def self.human_genders
+    hash = {}
+    genders.keys.each { |key| hash[I18n.t("enums.genders.#{key}")] = key }
+    hash
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_11_145011) do
+ActiveRecord::Schema.define(version: 2018_10_20_113211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,24 @@ ActiveRecord::Schema.define(version: 2018_09_11_145011) do
     t.boolean "graduated", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "activity_professors", force: :cascade do |t|
+    t.bigint "professor_id"
+    t.bigint "activity_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_activity_professors_on_activity_id"
+    t.index ["professor_id"], name: "index_activity_professors_on_professor_id"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -56,6 +74,13 @@ ActiveRecord::Schema.define(version: 2018_09_11_145011) do
     t.index ["period_id"], name: "index_disciplines_on_period_id"
   end
 
+  create_table "faqs", force: :cascade do |t|
+    t.string "title"
+    t.text "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "matrices", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -83,20 +108,8 @@ ActiveRecord::Schema.define(version: 2018_09_11_145011) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "professors", force: :cascade do |t|
-    t.string "name"
-    t.string "lattes"
-    t.text "occupation_area"
-    t.string "gender"
-    t.string "email"
-    t.string "image"
-    t.bigint "professor_title_id"
-    t.bigint "professor_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["professor_category_id"], name: "index_professors_on_professor_category_id"
-    t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
-  end
+# Could not dump table "professors" because of following StandardError
+#   Unknown type 'professor_genders' for column 'gender'
 
   create_table "recommendations", force: :cascade do |t|
     t.string "title"
@@ -106,6 +119,16 @@ ActiveRecord::Schema.define(version: 2018_09_11_145011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_recommendation_id"], name: "index_recommendations_on_category_recommendation_id"
+  end
+
+  create_table "static_pages", force: :cascade do |t|
+    t.string "title"
+    t.string "sub_title"
+    t.text "content"
+    t.string "permalink"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["permalink"], name: "index_static_pages_on_permalink", unique: true
   end
 
   add_foreign_key "disciplines", "periods"

@@ -26,7 +26,6 @@ RSpec.feature 'Period', type: :feature do
 
         expect(page.current_path).to eq admins_periods_path
 
-        
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
         end
@@ -43,14 +42,18 @@ RSpec.feature 'Period', type: :feature do
         within('div.period_name') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
+        within('div.period_matrix') do
+          expect(page).to have_content(I18n.t('errors.messages.required'))
+        end
       end
     end
 
-    context 'when has same name'  do
-      let(:period) { create(:period) }
+    context 'when has same name to same matrix' do
+      let(:period) { create(:period, matrix: matrix) }
 
       it 'show errors' do
         fill_in 'period_name', with: period.name
+        select matrix.name, from: 'period_matrix_id'
         submit_form
 
         within('div.period_name') do
@@ -60,6 +63,7 @@ RSpec.feature 'Period', type: :feature do
 
       it 'show errors considering insensitive case' do
         fill_in 'period_name', with: period.name.downcase
+        select matrix.name, from: 'period_matrix_id'
         submit_form
 
         within('div.period_name') do
@@ -92,8 +96,8 @@ RSpec.feature 'Period', type: :feature do
         expect(page.current_path).to eq admins_periods_path
 
         expect(page).to have_selector('div.alert.alert-success',
-                                     text: I18n.t('flash.actions.update.m',
-                                                  resource_name: resource_name))
+                                      text: I18n.t('flash.actions.update.m',
+                                                   resource_name: resource_name))
 
         within('table tbody') do
           expect(page).to have_content(new_name)
@@ -116,10 +120,11 @@ RSpec.feature 'Period', type: :feature do
     end
 
     context 'when has same name'  do
-      let(:other_period) { create(:period) }
+      let(:other_period) { create(:period, matrix: matrix) }
 
       it 'show errors' do
         fill_in 'period_name', with: other_period.name
+        select matrix.name, from: 'period_matrix_id'
         submit_form
 
         within('div.period_name') do
@@ -129,6 +134,7 @@ RSpec.feature 'Period', type: :feature do
 
       it 'show errors cosidering insensitive case' do
         fill_in 'period_name', with: other_period.name.downcase
+        select matrix.name, from: 'period_matrix_id'
         submit_form
 
         within('div.period_name') do
@@ -148,7 +154,7 @@ RSpec.feature 'Period', type: :feature do
 
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.m',
-                                                resource_name: resource_name))
+                                                 resource_name: resource_name))
 
       within('table tbody') do
         expect(page).not_to have_content(period.name)
@@ -170,7 +176,7 @@ RSpec.feature 'Period', type: :feature do
         destroy_link = "a[href='#{admins_period_path(period)}'][data-method='delete']"
         expect(page).to have_css(destroy_link)
       end
-    end 
+    end
   end
 
 end

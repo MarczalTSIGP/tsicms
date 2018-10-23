@@ -1,9 +1,8 @@
 <%= simple_form_for [:admins, @matrix] do |f| %>
-  <div class="card-footer text-right">
-    <%= f.input :name, autofocus: true%>
-  </div>
+  <%= f.input :name, autofocus: true%>
+
   <div class="d-flex">
     <%= link_to "Voltar", admins_matrices_path, class: 'btn btn-secondary' %>
-    <%= f.button :submit, class: 'btn btn-primary ml-auto', title: 'Cadastrar/Atualizar'%>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
   </div>
 <% end %>

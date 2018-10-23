@@ -1,7 +1,9 @@
 class Admins::PeriodsController < Admins::BaseController
   before_action :set_period, only: [:edit, :update, :destroy, :show ]
+
   def index
-    @periods = Period.order(name: :asc)
+    @periods = Period.includes(:matrix).
+      order('matrices.name ASC', 'periods.name ASC')
   end
 
   def new
@@ -15,8 +17,10 @@ class Admins::PeriodsController < Admins::BaseController
   end
 
   def update
-    if @period.update_attributes(period_params)
-      flash[:success] = I18n.t('flash.actions.update.m', resource_name: Period.model_name.human)
+    if @period.update(period_params)
+      flash[:success] = I18n.t('flash.actions.update.m',
+                               resource_name: Period.model_name.human)
+
       redirect_to admins_periods_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -27,7 +31,8 @@ class Admins::PeriodsController < Admins::BaseController
   def create
     @period = Period.new(period_params)
     if @period.save
-      flash[:success] = I18n.t('flash.actions.create.m', resource_name: Period.model_name.human)
+      flash[:success] = I18n.t('flash.actions.create.m',
+                               resource_name: Period.model_name.human)
       redirect_to admins_periods_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -37,7 +42,8 @@ class Admins::PeriodsController < Admins::BaseController
 
   def destroy
     @period.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.m', resource_name: Period.model_name.human)
+    flash[:success] = I18n.t('flash.actions.destroy.m',
+                             resource_name: Period.model_name.human)
     redirect_to admins_periods_path
   end
 

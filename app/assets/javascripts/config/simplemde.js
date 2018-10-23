@@ -1,12 +1,15 @@
-//=require simplemde.min
-$(document).on('turbolinks:load', function() {
-//var simplemde = new SimpleMDE();
-  if ($("#discipline_menu").length > 0)
-    var simplemde = new SimpleMDE({ element: $("#discipline_menu")[0] });
-  $('.apply-markdown').each( function (index, el) {
-    console.log(el);
-    data = $(el).data('markdown');
-    html = SimpleMDE.prototype.markdown(data);
-    $(el).html(html);
-  });
-});
+//= require simplemde/simplemde.min
+
+TSICMS.loadMarkdownEditor = function () {
+   $('.markdown-editor').each(function () {
+      var id = $(this).attr('id');
+      new SimpleMDE({ element: document.getElementById(id) });
+   });
+
+   $('.markdown-content').each(function () {
+      var markdown = $(this).data('markdown');
+      var html = SimpleMDE.prototype.markdown(markdown);
+
+      $(this).html(html);
+   })
+}

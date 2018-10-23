@@ -9,6 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.1.0', require: false
+
 gem 'pg', '0.20.0'
 gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'
@@ -18,8 +19,7 @@ gem 'rails-i18n', '~> 5.1'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-i18n'
 gem 'active_link_to'
-gem 'gretel', '~> 3.0', '>= 3.0.9'
-gem 'simplemde-rails'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 

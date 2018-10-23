@@ -17,13 +17,15 @@ RSpec.feature 'Discipline', type: :feature do
     end
 
     context 'with valid fields' do
-      it 'create discipline' do
+      it 'discipline' do
         attributes = attributes_for(:discipline)
 
         fill_in 'discipline_name', with: attributes[:name]
         fill_in 'discipline_code', with: attributes[:code]
         fill_in 'discipline_hours', with: attributes[:hours]
-        select period.name, from: 'discipline_period_id'
+        fill_in 'discipline_menu', with: attributes[:menu]
+        select "#{period.matrix.name} - #{period.name}", from: 'discipline_period_id'
+
         submit_form
 
         expect(page.current_path).to eq admins_disciplines_path
@@ -31,7 +33,7 @@ RSpec.feature 'Discipline', type: :feature do
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
           expect(page).to have_content(attributes[:code])
-          expect(page).to have_content(attributes[:hours])
+          expect(page).to have_content(period.name)
         end
       end
     end
@@ -46,27 +48,15 @@ RSpec.feature 'Discipline', type: :feature do
         within('div.discipline_name') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
-      end
-    end
-
-    context 'when has same name'  do
-      let(:discipline) { create(:discipline) }
-
-      it 'show errors' do
-        fill_in 'discipline_name', with: discipline.name
-        submit_form
-
-        within('div.discipline_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
+        within('div.discipline_code') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
-      end
-
-      it 'show errors considering insensitive case' do
-        fill_in 'discipline_name', with: discipline.name.downcase
-        submit_form
-
-        within('div.discipline_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
+        within('div.discipline_hours') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+          expect(page).to have_content(I18n.t('errors.messages.not_a_number'))
+        end
+        within('div.discipline_period') do
+          expect(page).to have_content(I18n.t('errors.messages.required'))
         end
       end
     end
@@ -82,14 +72,19 @@ RSpec.feature 'Discipline', type: :feature do
     context 'fill fields' do
       it 'with correct values' do
         expect(page).to have_field 'discipline_name', with: discipline.name
+        expect(page).to have_field 'discipline_hours', with: discipline.hours
+        expect(page).to have_field 'discipline_code', with: discipline.code
+        expect(page).to have_select 'discipline_period_id',
+          selected: "#{discipline.period.matrix.name} - #{discipline.period.name}"
       end
     end
 
     context 'with valid fields' do
-      it 'update discipline' do
-        new_name = 'DWW5'
-        new_code = 'DW5550000'
-        new_hours = '55'
+      it 'discipline' do
+        new_name = 'new name'
+        new_code = 'new code'
+        new_hours = 70
+
         fill_in 'discipline_name', with: new_name
         fill_in 'discipline_code', with: new_code
         fill_in 'discipline_hours', with: new_hours
@@ -102,6 +97,7 @@ RSpec.feature 'Discipline', type: :feature do
 
         within('table tbody') do
           expect(page).to have_content(new_name)
+          expect(page).to have_content(new_code)
         end
       end
     end
@@ -109,35 +105,41 @@ RSpec.feature 'Discipline', type: :feature do
     context 'when invalid fields' do
       it 'show errors' do
         fill_in 'discipline_name', with: ''
+        fill_in 'discipline_code', with: ''
+        fill_in 'discipline_hours', with: ''
+        fill_in 'discipline_menu', with: ''
         submit_form
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
+
         within('div.discipline_name') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
+        within('div.discipline_code') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+        end
+        within('div.discipline_hours') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+          expect(page).to have_content(I18n.t('errors.messages.not_a_number'))
+        end
       end
     end
+  end
 
-    context 'when has same name'  do
-      let(:other_discipline) { create(:discipline) }
-      it 'show errors' do
-        fill_in 'discipline_name', with: other_discipline.name
-        submit_form
+  describe '#show' do
+    let(:discipline) { create(:discipline) }
 
-        within('div.discipline_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
-      end
+    it 'show all discipline with options' do
+      visit admins_discipline_path(discipline)
 
-      it 'show errors cosidering insensitive case' do
-        fill_in 'discipline_name', with: other_discipline.name.downcase
-        submit_form
+        expect(page).to have_content(discipline.name)
+        expect(page).to have_content(discipline.code)
+        expect(page).to have_content(discipline.hours)
+        expect(page).to have_content(discipline.period.name)
+        expect(page).to have_content(discipline.period.matrix.name)
 
-        within('div.discipline_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
-      end
+        expect(page).to have_link(href: admins_disciplines_path)
     end
   end
 
@@ -158,13 +160,20 @@ RSpec.feature 'Discipline', type: :feature do
 
   describe '#index' do
     let!(:disciplines) { create_list(:discipline, 3) }
+
     it 'show all discipline with options' do
       visit admins_disciplines_path
+
+      expect(page).to have_link(href: new_admins_discipline_path)
+
       disciplines.each do |discipline|
         expect(page).to have_content(discipline.name)
         expect(page).to have_content(discipline.code)
-        expect(page).to have_content(discipline.hours)
+        expect(page).to have_content(discipline.period.name)
+        expect(page).to have_content(discipline.period.matrix.name)
+
         expect(page).to have_link(href: edit_admins_discipline_path(discipline))
+        expect(page).to have_link(href: admins_discipline_path(discipline))
         destroy_link = "a[href='#{admins_discipline_path(discipline)}'][data-method='delete']"
         expect(page).to have_css(destroy_link)
       end
