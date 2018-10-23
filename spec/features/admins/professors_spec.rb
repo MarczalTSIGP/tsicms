@@ -21,7 +21,6 @@ RSpec.feature 'Admin Professors', type: :feature do
     context 'with valid fields' do
       it 'create professor' do
         attributes = attributes_for(:professor)
-
         fill_in 'professor_name', with: attributes[:name]
         fill_in 'professor_gender', with: attributes[:gender]
         fill_in 'professor_lattes', with: attributes[:lattes]
