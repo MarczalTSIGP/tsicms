@@ -133,7 +133,7 @@ RSpec.feature 'Faqs', type: :feature do
 
       faqs.each do |f|
         expect(page).to have_content(f.title)
-        # expect(page).to have_css("#collapse#{f.id}", text: f.answer)
+        expect(page).to have_css("#collapse#{f.id}", text: f.answer)
 
         expect(page).to have_link(href: edit_admins_faq_path(f))
         destroy_link = "a[href='#{admins_faq_path(f)}'][data-method='delete']"

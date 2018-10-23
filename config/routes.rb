@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: 'home#index'
+  get '/static_pages/:permalink', to: 'static_pages#index', as: 'static_page'
 
   #========================================
   # Admin
@@ -14,14 +15,15 @@ Rails.application.routes.draw do
     namespace :admins do
       root to: 'dashboard#index'
 
-      resources :faqs
-      resources :professors
-      resources :category_recommendations
-      resources :recommendations
+      resources :category_recommendations, excepty: [:show]
+      resources :recommendations, excepty: [:show]
       resources :academics
+      resources :professors
       resources :activities
       resources :activity_professors, excepty: [:show]
       resources :matrices, :periods, :disciplines 
+      resources :faqs
+      resources :static_pages, excepty: [:show]
     end
   end
   #========================================
