@@ -1,4 +1,7 @@
 class Admins::PeriodsController < Admins::BaseController
+
+  add_breadcrumb "Períodos", :admins_periods_path
+
   before_action :set_period, only: [:edit, :update, :destroy, :show ]
 
   def index
@@ -7,6 +10,7 @@ class Admins::PeriodsController < Admins::BaseController
   end
 
   def new
+    add_breadcrumb "Novo Período", :new_admins_period_path
     @period = Period.new
   end
 
@@ -14,6 +18,7 @@ class Admins::PeriodsController < Admins::BaseController
   end
 
   def edit
+    add_breadcrumb "Editar Período: #{@period.name}", :edit_admins_period_path
   end
 
   def update

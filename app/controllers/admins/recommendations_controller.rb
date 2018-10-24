@@ -1,4 +1,7 @@
 class Admins::RecommendationsController < Admins::BaseController
+
+  add_breadcrumb "Recomendações de Conteúdo", :admins_recommendations_path
+
   before_action :set_recommendation, only: [:edit, :update, :destroy]
   before_action :load_categories, only: [:new, :create, :edit, :update]
 
@@ -7,6 +10,7 @@ class Admins::RecommendationsController < Admins::BaseController
   end
 
   def new
+    add_breadcrumb "Nova Recomendação", :new_admins_recommendation_path
     @recommendation = Recommendation.new
   end
 
@@ -23,7 +27,9 @@ class Admins::RecommendationsController < Admins::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    add_breadcrumb "Editar Recomendação: #{@recommendation.title}", :edit_admins_recommendation_path
+  end
 
   def update
     if @recommendation.update_attributes(recommendation_params)

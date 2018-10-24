@@ -1,4 +1,7 @@
 class Admins::ProfessorsController < Admins::BaseController
+
+  add_breadcrumb "Professores", :admins_professors_path
+
   before_action :set_professor, only: [:edit, :update, :destroy, :show]
 
   def index
@@ -6,6 +9,7 @@ class Admins::ProfessorsController < Admins::BaseController
   end
 
   def new
+    add_breadcrumb "Novo Professor", :new_admins_professor_path
     @professor = Professor.new
   end
 
@@ -20,7 +24,9 @@ class Admins::ProfessorsController < Admins::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    add_breadcrumb "Editar Professor: #{@professor.name}", :edit_admins_professor_path 
+  end
 
   def update
     if @professor.update(professor_params)

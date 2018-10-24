@@ -1,4 +1,7 @@
 class Admins::MatricesController < Admins::BaseController
+
+  add_breadcrumb "Matrizes", :admins_matrices_path
+
   before_action :set_matrix, only: [ :edit, :update, :destroy, :show]
 
   def index
@@ -6,10 +9,12 @@ class Admins::MatricesController < Admins::BaseController
   end
 
   def new
+    add_breadcrumb "Nova Matriz", :new_admins_matrix_path
     @matrix = Matrix.new
   end
 
   def edit
+    add_breadcrumb "Editar Matriz: #{@matrix.name}", :edit_admins_matrix_path
   end
 
   def create

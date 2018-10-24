@@ -1,4 +1,7 @@
 class Admins::DisciplinesController < Admins::BaseController
+
+  add_breadcrumb "Disciplinas", :admins_disciplines_path
+  
   before_action :set_discipline, only: [:edit, :update, :destroy, :show]
   
   def index
@@ -7,13 +10,16 @@ class Admins::DisciplinesController < Admins::BaseController
   end
 
   def new
+    add_breadcrumb "Nova Disciplina", :new_admins_discipline_path
     @discipline = Discipline.new
   end
 
   def edit
+    add_breadcrumb "Editar Disciplina: #{@discipline.name} ", :edit_admins_discipline_path
   end
 
   def show
+    add_breadcrumb "Visualizando Disciplina: #{@discipline.name} ", :admins_academic_path
   end
 
   def create

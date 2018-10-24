@@ -1,4 +1,7 @@
 class Admins::CategoryRecommendationsController < Admins::BaseController
+
+  add_breadcrumb "Categoria de Recomendações", :admins_category_recommendations_path
+
   before_action :set_category_recommendation, only: [:edit, :update, :destroy]
 
   def index
@@ -6,6 +9,7 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
   end
 
   def new
+    add_breadcrumb "Nova Categoria", :new_admins_category_recommendation_path
     @category = CategoryRecommendation.new
   end
 
@@ -22,7 +26,9 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    add_breadcrumb "Editar Categoria", :edit_admins_category_recommendation_path
+  end
 
   def update
     if @category.update_attributes(category_recommendation_params)

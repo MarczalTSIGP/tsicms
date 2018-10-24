@@ -1,7 +1,11 @@
 class Admins::ActivityProfessorsController < Admins::BaseController
+
+  add_breadcrumb "Atividades", :admins_activities_path
+
   before_action :set_activity_professor, only: [:edit, :update, :destroy]
 
   def new
+    add_breadcrumb "Adicionar Atividade ao Professor", :new_admins_activity_professor_path
     @activity_professor = ActivityProfessor.new
     add_professor(params[:professor])
     add_activity(params[:activity])

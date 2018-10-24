@@ -1,4 +1,7 @@
 class Admins::StaticPagesController < Admins::BaseController
+
+  add_breadcrumb "Páginas Estáticas", :admins_static_pages_path
+
   before_action :set_static_page, only: [:edit, :update, :destroy]
 
   def index
@@ -6,6 +9,7 @@ class Admins::StaticPagesController < Admins::BaseController
   end
 
   def new
+    add_breadcrumb "Nova Página Estática", :new_admins_static_page_path
     @static_page = StaticPage.new
   end
 
@@ -22,7 +26,9 @@ class Admins::StaticPagesController < Admins::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    add_breadcrumb "Editar Página Estática", :edit_admins_static_page_path
+  end
 
   def update
     if @static_page.update_attributes(static_page_params)

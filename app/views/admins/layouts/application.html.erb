@@ -29,10 +29,12 @@
               <%= render 'admins/layouts/sidebar' %>
             </div>
             <div class="col-lg-9 order-lg-1">
+              <ol class="breadcrumb">
+                <%= render_breadcrumbs %>
+              </ol>
               <div class="card">
                 <div class="card-body">
                   <%= render 'shared/flash_messages' %>
-                  <%= render_breadcrumbs :separator => ' / ' %>
                   <%= yield %>
                 </div>
               </div>

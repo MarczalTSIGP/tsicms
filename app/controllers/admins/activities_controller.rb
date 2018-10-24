@@ -1,5 +1,7 @@
 class Admins::ActivitiesController < Admins::BaseController
 
+  add_breadcrumb "Atividades", :admins_activities_path
+
   before_action :set_activity, only: [:edit, :update, :destroy, :show]
 
   def index
@@ -7,10 +9,13 @@ class Admins::ActivitiesController < Admins::BaseController
   end
 
   def new
+    add_breadcrumb "Nova Atividade", :new_admins_activity_path
     @activity = Activity.new
   end
 
-  def edit; end
+  def edit
+    add_breadcrumb "Editar Atividade: #{@activity.name}", :edit_admins_activity_path
+  end
 
   def show
     store_location

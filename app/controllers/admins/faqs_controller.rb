@@ -1,5 +1,7 @@
 class Admins::FaqsController < Admins::BaseController
 
+  add_breadcrumb "Perguntas Frequentes", :admins_faqs_path
+
   before_action :set_faq, only: [:edit, :update, :destroy, :show]
 
   def index
@@ -7,6 +9,7 @@ class Admins::FaqsController < Admins::BaseController
   end
 
   def new
+    add_breadcrumb "Nova Pergunta", :new_admins_faq_path
     @faq = Faq.new
   end
 
@@ -24,6 +27,7 @@ class Admins::FaqsController < Admins::BaseController
   end
 
   def edit
+    add_breadcrumb "Editar Pergunta: #{@faq.title}", :edit_admins_faq_path
   end
 
   def update
