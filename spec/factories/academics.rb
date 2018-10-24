@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :academic do
-    name { 'name' }
+    sequence(:name) { |n| "name #{n}" }
     contact { 'https://www.google.com' }
     graduated { false }
 

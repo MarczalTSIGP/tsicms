@@ -1,0 +1,9 @@
+fieldset#mtp {
+  ol {
+    padding-left: 0;
+
+    .nested-fields:first-child a.remove_fields {
+      display: none;
+    }
+  }
+}
