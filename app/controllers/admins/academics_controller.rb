@@ -3,10 +3,12 @@ class Admins::AcademicsController < Admins::BaseController
 
     def index
         @academics = Academic.order(created_at: :desc)
+        add_breadcrumb "Acadêmicos", :admins_academics_path
     end
 
     def new
         @academic = Academic.new
+        add_breadcrumb "Novo Acadêmico", :new_admins_academic_path
     end
 
     def create
