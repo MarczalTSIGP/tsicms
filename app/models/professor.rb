@@ -6,6 +6,7 @@ class Professor < ApplicationRecord
 
   has_many :activity_professors, dependent: :restrict_with_error
   has_many :activities, :through => :activity_professors
+  has_many :period_professors, dependent: :destroy
 
   validates :name, presence: true
   validates :lattes, presence: true, format: { with: URI.regexp }

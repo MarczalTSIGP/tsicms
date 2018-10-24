@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_20_113211) do
+ActiveRecord::Schema.define(version: 2018_10_24_183906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(version: 2018_10_20_113211) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "period_professors", force: :cascade do |t|
+    t.date "date_entry"
+    t.date "date_out"
+    t.string "type_contract"
+    t.bigint "professor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professor_id"], name: "index_period_professors_on_professor_id"
+  end
+
   create_table "periods", force: :cascade do |t|
     t.string "name"
     t.bigint "matrix_id"
@@ -132,6 +142,7 @@ ActiveRecord::Schema.define(version: 2018_10_20_113211) do
   end
 
   add_foreign_key "disciplines", "periods"
+  add_foreign_key "period_professors", "professors"
   add_foreign_key "periods", "matrices"
   add_foreign_key "professors", "professor_categories"
   add_foreign_key "professors", "professor_titles"

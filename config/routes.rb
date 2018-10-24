@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       resources :matrices, :periods, :disciplines 
       resources :faqs
       resources :static_pages, excepty: [:show]
+      resources :periods_professors
     end
   end
   #========================================
