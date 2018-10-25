@@ -1,4 +1,23 @@
 pt-BR:
+  ordinal_numbers:
+    1st:
+      m: 'Primeiro'
+      f: 'Primeira'
+    2nd:
+      m: 'Segundo'
+      f: 'Segunda'
+    3rd:
+      m: 'Terceiro'
+      f: 'Terceira'
+    4th:
+      m: 'Quarto'
+      f: 'Quarta'
+    5th:
+      m: 'Quinto'
+      f: 'Quinta'
+    6th:
+      m: 'Sexto'
+      f: 'Sexta'
   helpers:
     currently: 'Atualmente'
     boolean:
