@@ -4,7 +4,7 @@ class Admins::PeriodsProfessorsController < Admins::BaseController
   before_action :set_period_professor, only: [:edit, :update, :destroy, :show ]
 
   def index
-    @periods_professors = PeriodProfessor.order(date_entry: :desc)
+    @periods_professor = PeriodProfessor.order(:date_entry)
   end
 
   def new
