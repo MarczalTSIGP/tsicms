@@ -61,6 +61,9 @@ pt-BR:
       static_page:
         one: 'Página estática'
         other: 'Páginas estáticas'
+      period_professor:
+        one: 'Período do Professor'
+        other: 'Períodos do Professor'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -121,3 +124,8 @@ pt-BR:
         sub_title: 'Subtítulo'
         permalink: 'Link permanente'
         content: 'Conteúdo'
+      period_professor:
+        <<: *commons
+        data_entry: 'Data de entrada'
+        data_out: 'Data de Saída'
+        type_contract: 'Tipo de Contrato'

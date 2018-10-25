@@ -1,11 +1,10 @@
-class Admins::PeriodsProfessorsController < ApplicationController
+class Admins::PeriodsProfessorsController < Admins::BaseController
 
   add_breadcrumb "Períodos do Professor", :admins_periods_professors_path
   before_action :set_period_professor, only: [:edit, :update, :destroy, :show ]
 
   def index
-    @periods_professors = PeriodProfessor.includes(:professor).
-      order('professor.name ASC', 'periods_professors.name ASC')
+    @periods_professors = PeriodProfessor.order(date_entry: :desc)
   end
 
   def new
@@ -32,7 +31,7 @@ class Admins::PeriodsProfessorsController < ApplicationController
   end
 
   def create
-    @period = PeriodProfessor.new(period_professor_params)
+    @period_professor = PeriodProfessor.new(period_professor_params)
     if @period_professor.save
       flash[:success] = I18n.t('flash.actions.create.m',
                                resource_name: Period.model_name.human)
@@ -52,11 +51,11 @@ class Admins::PeriodsProfessorsController < ApplicationController
 
   private
   def period_professor_params
-    params.require(:period_professor).permit(:date_entry, :date_out, :professor)
+    params.require(:period_professor).permit(:date_entry, :date_out, :type_contract,:professor)
   end
 
   def set_period_professor
-    @period = PeriodProfessor.find(params[:id])
+    @period_professor = PeriodProfessor.find(params[:id])
   end
 
 end
