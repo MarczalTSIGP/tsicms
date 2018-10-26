@@ -21,5 +21,14 @@ module Helpers
         expect(page).not_to eq(content)
       end
     end
+
+    def destroy_model(url, resource_name, message)
+      destroy_link = "a[href='#{url}'][data-method='delete']"
+      find(destroy_link).click
+
+      expect(page).to have_selector('div.alert.alert-success',
+                                    text: I18n.t(message,
+                                                 resource_name: resource_name))
+    end
   end
 end

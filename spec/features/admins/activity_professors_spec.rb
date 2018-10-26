@@ -151,12 +151,7 @@ RSpec.feature 'Activity Professors', type: :feature do
 
       visit admins_professor_path(@activity_professor.professor)
 
-      destroy_link = "a[href='#{admins_activity_professor_path(@activity_professor)}'][data-method='delete']"
-      find(destroy_link).click
-
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      destroy_model(admins_activity_professor_path(@activity_professor), resource_name, 'flash.actions.destroy.f')
 
       not_have_contains('table tbody', @activity_professor.activity.name)
     end
@@ -164,12 +159,7 @@ RSpec.feature 'Activity Professors', type: :feature do
 
       visit admins_activity_path(@activity_professor.activity)
 
-      destroy_link = "a[href='#{admins_activity_professor_path(@activity_professor)}'][data-method='delete']"
-      find(destroy_link).click
-
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      destroy_model(admins_activity_professor_path(@activity_professor), resource_name, 'flash.actions.destroy.f')
 
       not_have_contains('table tbody', @activity_professor.professor.name)
     end

@@ -80,12 +80,8 @@ RSpec.feature 'Activities', type: :feature do
     it 'activity' do
       activity = create(:activity)
       visit admins_activities_path
-      destroy_link = "a[href='#{admins_activity_path(activity)}'][data-method='delete']"
-      find(destroy_link).click
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      destroy_model(admins_activity_path(activity), resource_name, 'flash.actions.destroy.f')
 
       not_have_contains('table tbody', activity.name)
     end

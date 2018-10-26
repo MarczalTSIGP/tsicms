@@ -83,12 +83,7 @@ RSpec.feature 'Admin Professors', type: :feature do
       professor = create(:professor)
       visit admins_professors_path
 
-      destroy_link = "a[href='#{admins_professor_path(professor)}'][data-method='delete']"
-      find(destroy_link).click
-
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.m',
-                                                 resource_name: resource_name))
+      destroy_model(admins_professor_path(professor), resource_name, 'flash.actions.destroy.m')
 
       not_have_contains('table tbody', professor.name)
     end
