@@ -1,4 +1,60 @@
 pt-BR:
+  breadcrumbs:
+    homepage: 'Página Inicial'
+    academics:
+      name: 'Acadêmicos'
+      new: 'Novo Acadêmico'
+      edit: 'Editar Acadêmico %{name}'
+      show: 'Visualizar Acadêmico %{name}'
+    activities:
+      name: 'Atividades'
+      new: 'Nova Atividade'
+      edit: 'Editar Atividade %{name}'
+      show: 'Visualizar Atividade %{name}'
+    activity_professors:
+      name: 'Atividades do Professor'
+      new: 'Nova Atividade'
+      edit: 'Editar Atividade %{name}'
+      show: 'Visualizar Atividade %{name}'
+    category_recommendations:
+      name: 'Categoria de Recomendações'
+      new: 'Nova Categoria'
+      edit: 'Editar Categoria %{name}'
+      show: 'Visualizar Categoria %{name}'
+    disciplines:
+      name: 'Disciplinas'
+      new: 'Nova Disciplina'
+      edit: 'Editar Disciplina %{name}'
+      show: 'Visualizar Disciplina %{name}'
+    faqs:
+      name: 'Perguntas Frequentes'
+      new: 'Nova Pergunta'
+      edit: 'Editar Pergunta %{title}'
+      show: 'Visualizar Pergunta %{title}'
+    matrices:
+      name: 'Matrizes'
+      new: 'Nova Matriz'
+      edit: 'Editar Matriz %{name}'
+      show: 'Visualizar Matriz %{name}'
+    periods:
+      name: 'Períodos'
+      new: 'Novo Período'
+      edit: 'Editar Período %{name}'
+      show: 'Visualizar Período %{name}'
+    professors:
+      name: 'Professores'
+      new: 'Novo Professor'
+      edit: 'Editar Professor %{name}'
+      show: 'Visualizar Professor %{name}'
+    recommendations:
+      name: 'Recomendações'
+      new: 'Nova Recomendação'
+      edit: 'Editar Recomendação %{name}'
+      show: 'Visualizar Recomendação %{name}'
+    static_pages:
+      name: 'Páginas Estáticas'
+      new: 'Nova Página'
+      edit: 'Editar Página %{title}'
   helpers:
     currently: 'Atualmente'
     boolean:

@@ -1,23 +1,25 @@
 class Admins::ActivitiesController < Admins::BaseController
-
-  add_breadcrumb "Atividades", :admins_activities_path
-
   before_action :set_activity, only: [:edit, :update, :destroy, :show]
+
+  add_breadcrumb I18n.t('breadcrumbs.activities.name'), :admins_activities_path
+  add_breadcrumb I18n.t('breadcrumbs.activities.new'), :new_admins_activity_path, only: [:new, :create]
 
   def index
     @activities = Activity.order(name: :asc)
   end
 
   def new
-    add_breadcrumb "Nova Atividade", :new_admins_activity_path
     @activity = Activity.new
   end
 
   def edit
-    add_breadcrumb "Editar Atividade: #{@activity.name}", :edit_admins_activity_path
+    add_breadcrumb I18n.t('breadcrumbs.activities.edit', name: "##{@activity.name}"),
+                   :edit_admins_activity_path
   end
 
   def show
+    add_breadcrumb I18n.t('breadcrumbs.activities.show', name: "##{@activity.name}"), :admins_activity_path
+
     store_location
   end
 
@@ -40,6 +42,9 @@ class Admins::ActivitiesController < Admins::BaseController
                                resource_name: Activity.model_name.human)
       redirect_to admins_activities_path
     else
+      add_breadcrumb I18n.t('breadcrumbs.activities.edit', name: "##{@activity.name}"),
+                   :edit_admins_activity_path
+
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :new
     end

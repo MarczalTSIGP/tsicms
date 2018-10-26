@@ -1,8 +1,8 @@
 class Admins::PeriodsController < Admins::BaseController
-
-  add_breadcrumb "Períodos", :admins_periods_path
-
   before_action :set_period, only: [:edit, :update, :destroy, :show ]
+
+  add_breadcrumb I18n.t('breadcrumbs.periods.name'), :admins_periods_path
+  add_breadcrumb I18n.t('breadcrumbs.periods.new'), :new_admins_period_path, only: [:new, :create]
 
   def index
     @periods = Period.includes(:matrix).
@@ -10,15 +10,17 @@ class Admins::PeriodsController < Admins::BaseController
   end
 
   def new
-    add_breadcrumb "Novo Período", :new_admins_period_path
     @period = Period.new
   end
 
   def show
+    add_breadcrumb I18n.t('breadcrumbs.periods.show', name: "##{@period.name}"), 
+                    :admins_period_path
   end
 
   def edit
-    add_breadcrumb "Editar Período: #{@period.name}", :edit_admins_period_path
+    add_breadcrumb I18n.t('breadcrumbs.periods.edit', name: "##{@period.name}"),
+                   :edit_admins_period_path
   end
 
   def update
@@ -28,6 +30,9 @@ class Admins::PeriodsController < Admins::BaseController
 
       redirect_to admins_periods_path
     else
+      add_breadcrumb I18n.t('breadcrumbs.periods.edit', name: "##{@period.name}"),
+                   :edit_admins_period_path
+                   
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end

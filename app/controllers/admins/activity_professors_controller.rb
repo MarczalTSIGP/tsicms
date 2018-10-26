@@ -1,11 +1,10 @@
 class Admins::ActivityProfessorsController < Admins::BaseController
-
-  add_breadcrumb "Atividades", :admins_activities_path
-
   before_action :set_activity_professor, only: [:edit, :update, :destroy]
 
+  add_breadcrumb I18n.t('breadcrumbs.activity_professors.name'), :admins_activities_path
+  add_breadcrumb I18n.t('breadcrumbs.activity_professors.new'), :new_admins_activity_professor_path, only: [:new, :create]
+
   def new
-    add_breadcrumb "Adicionar Atividade ao Professor", :new_admins_activity_professor_path
     @activity_professor = ActivityProfessor.new
     add_professor(params[:professor])
     add_activity(params[:activity])
@@ -23,7 +22,13 @@ class Admins::ActivityProfessorsController < Admins::BaseController
     end
   end
 
-  def edit;
+  def edit
+    add_breadcrumb I18n.t('breadcrumbs.activity_professors.edit'),
+                  :edit_admins_activity_professor_path
+  end
+
+  def show
+    add_breadcrumb I18n.t('breadcrumbs.activity_professors.show'), :admins_activity_professor_path
   end
 
   def update
@@ -32,6 +37,9 @@ class Admins::ActivityProfessorsController < Admins::BaseController
                                resource_name: ActivityProfessor.model_name.human)
       redirect_back_or(admins_activities_path)
     else
+      add_breadcrumb I18n.t('breadcrumbs.activity_professors.edit'),
+                  :edit_admins_activity_professor_path
+
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end
