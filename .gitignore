@@ -35,5 +35,14 @@
 
 # Ignore JetBrains IDE's hidden path
 .idea/
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+/public/uploads
+=======
+/public/uploads/*
+>>>>>>> master
+=======
 /public/uploads/*
 .vscode
+>>>>>>> master

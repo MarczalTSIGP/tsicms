@@ -17,6 +17,10 @@ RSpec.feature "Admins", type: :feature do
 
         fill_in 'admin_name', with: new_name
         fill_in 'admin_current_password', with: 'password'
+
+        find('input[name="commit"]').click
+
+        fill_in 'admin_current_password', with: 'password'
         attach_file 'admin_image', FileSpecHelper.image.path
         submit_form
 

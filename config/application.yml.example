@@ -18,4 +18,4 @@ test:
 production:
   <<: *database
   mailer.host: tsi.gp.utfpr.edu.br
-  mailer..port: '80'
+  mailer.port: '80'

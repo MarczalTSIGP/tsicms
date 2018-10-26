@@ -4,13 +4,13 @@ module Helpers
       find(submit).click
     end
 
-    def have_contains(field, content)
+    def expect_page_have_in(field, content)
       within(field) do
         expect(page).to have_content(content)
       end
     end
 
-    def not_have_contains(field, content)
+    def expect_page_not_have_in(field, content)
       within(field) do
         expect(page).not_to have_content(content)
       end

@@ -10,6 +10,7 @@ professorCategories.each do |category|
   ProfessorCategory.find_or_create_by!(name: category)
 end
 
+
 titles = [
   {name: 'Especialista', abbrev: 'Esp.'},
   {name: 'Mestre', abbrev: 'Me.'},
@@ -18,4 +19,9 @@ titles = [
 
 titles.each do |title|
   ProfessorTitle.find_or_create_by!(name: title[:name], abbrev: title[:abbrev])
+end
+
+monitor_types = %w(Remunerada Gratuita)
+monitor_types.each do |type|
+  MonitorType.find_or_create_by!(name: type)
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_02_004622) do
+ActiveRecord::Schema.define(version: 2018_10_20_113211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2018_10_02_004622) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
-    t.string "description"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 2018_10_02_004622) do
   create_table "activity_professors", force: :cascade do |t|
     t.bigint "professor_id"
     t.bigint "activity_id"
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.date "start_date"
+    t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["activity_id"], name: "index_activity_professors_on_activity_id"
@@ -63,6 +63,63 @@ ActiveRecord::Schema.define(version: 2018_10_02_004622) do
     t.index ["name"], name: "index_category_recommendations_on_name", unique: true
   end
 
+  create_table "discipline_monitor_professors", force: :cascade do |t|
+    t.integer "professor_id"
+    t.integer "discipline_monitor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "discipline_monitors", force: :cascade do |t|
+    t.integer "year"
+    t.integer "semester"
+    t.text "description"
+    t.bigint "academic_id"
+    t.bigint "monitor_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["academic_id"], name: "index_discipline_monitors_on_academic_id"
+    t.index ["monitor_type_id"], name: "index_discipline_monitors_on_monitor_type_id"
+  end
+
+  create_table "disciplines", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.integer "hours"
+    t.string "menu"
+    t.bigint "period_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["period_id"], name: "index_disciplines_on_period_id"
+  end
+
+  create_table "faqs", force: :cascade do |t|
+    t.string "title"
+    t.text "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "matrices", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "monitor_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "periods", force: :cascade do |t|
+    t.string "name"
+    t.bigint "matrix_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matrix_id"], name: "index_periods_on_matrix_id"
+  end
+
   create_table "professor_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -76,18 +133,8 @@ ActiveRecord::Schema.define(version: 2018_10_02_004622) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "professors", force: :cascade do |t|
-    t.string "name"
-    t.string "lattes"
-    t.text "occupation_area"
-    t.string "email"
-    t.bigint "professor_title_id"
-    t.bigint "professor_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["professor_category_id"], name: "index_professors_on_professor_category_id"
-    t.index ["professor_title_id"], name: "index_professors_on_professor_title_id"
-  end
+# Could not dump table "professors" because of following StandardError
+#   Unknown type 'professor_genders' for column 'gender'
 
   create_table "recommendations", force: :cascade do |t|
     t.string "title"
@@ -99,6 +146,20 @@ ActiveRecord::Schema.define(version: 2018_10_02_004622) do
     t.index ["category_recommendation_id"], name: "index_recommendations_on_category_recommendation_id"
   end
 
+  create_table "static_pages", force: :cascade do |t|
+    t.string "title"
+    t.string "sub_title"
+    t.text "content"
+    t.string "permalink"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["permalink"], name: "index_static_pages_on_permalink", unique: true
+  end
+
+  add_foreign_key "discipline_monitors", "academics"
+  add_foreign_key "discipline_monitors", "monitor_types"
+  add_foreign_key "disciplines", "periods"
+  add_foreign_key "periods", "matrices"
   add_foreign_key "professors", "professor_categories"
   add_foreign_key "professors", "professor_titles"
 end

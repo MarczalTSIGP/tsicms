@@ -14,10 +14,11 @@
 //--------------------
 //= require config/namespace
 //= require config/jquery.mask
+//= require config/simplemde
 
 // App files
 //--------------------
 
 // Vendors
 //--------------------
-//= require  config/selectize
+//= require loads 

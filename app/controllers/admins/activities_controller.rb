@@ -10,10 +10,10 @@ class Admins::ActivitiesController < Admins::BaseController
     @activity = Activity.new
   end
 
-  def edit;
-  end
+  def edit; end
 
-  def show;
+  def show
+    store_location
   end
 
   def create
@@ -31,7 +31,8 @@ class Admins::ActivitiesController < Admins::BaseController
 
   def update
     if @activity.update(activity_params)
-      flash[:success] = I18n.t('flash.actions.update.f', resource_name: Activity.model_name.human)
+      flash[:success] = I18n.t('flash.actions.update.f',
+                               resource_name: Activity.model_name.human)
       redirect_to admins_activities_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -40,8 +41,13 @@ class Admins::ActivitiesController < Admins::BaseController
   end
 
   def destroy
-    @activity.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.f', resource_name: Activity.model_name.human)
+    if @activity.destroy
+      flash[:success] = I18n.t('flash.actions.destroy.f',
+                               resource_name: Activity.model_name.human)
+    else
+      flash[:alert] = 'Não é possível remover atividades que
+      possuem professores vinculados!'
+    end
     redirect_to admins_activities_path
   end
 
