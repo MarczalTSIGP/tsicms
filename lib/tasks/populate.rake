@@ -31,8 +31,8 @@ namespace :db do
     CategoryRecommendation.all.each do |category|
       5.times do
         category.recommendations.create! title: Faker::Name.name,
-          description: Faker::Lorem.paragraph(2),
-          image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample)
+                                         description: Faker::Lorem.paragraph(2),
+                                         image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample)
       end
     end
 
@@ -119,12 +119,18 @@ namespace :db do
 
     3.times do
       dm = DisciplineMonitor.create!(semester: DisciplineMonitor.semesters.values.sample,
-                                year: Faker::Number.between(2015, 2018),
-                                description: Faker::Lorem.characters(10),
-                                academic: Academic.all.sample,
-                                monitor_type: MonitorType.all.sample)
+                                     year: Faker::Number.between(2015, 2018),
+                                     description: Faker::Lorem.characters(10),
+                                     academic: Academic.all.sample,
+                                     monitor_type: MonitorType.all.sample)
 
       dm.discipline_monitor_professors.create professor: Professor.all.sample
+    end
+    10.times do
+      Company.create!(name: Faker::Name.name,
+                      image: Faker::Avatar.image,
+                      operation: Faker::Markdown.sandwich,
+                      site: Faker::Internet.url)
     end
   end
 end

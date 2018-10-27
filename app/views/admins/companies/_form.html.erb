@@ -1,0 +1,33 @@
+<%= simple_form_for [:admins, @company] do |f| %>
+
+  <div class="form-row">
+    <div class="col-sm-9">
+      <%= f.input :name, autofocus: true %>
+      <%= f.input :site %>
+      <%= f.input :operation, input_html: {class: 'markdown-editor'} %>
+    </div>
+
+
+    <div class="col-sm-3">
+      <div id="box-image-preview" data-toggle="tooltip" data-placement="left" title="Clique na imagem para alterá-la">
+        <div class="input-field image_preview">
+          <div class="box-image center">
+            <%= image_tag @company.image.url, class: 'file_preview active' %>
+            <%= f.input :image, label: false, input_html: { accept: 'image/*' }  %>
+            <%= f.hidden_field :image_cache %>
+          </div>
+        </div>
+        <div class="text-box text-center">
+          <p class="text-input">Clique na imagem para alterá-la</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_companies_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
+
