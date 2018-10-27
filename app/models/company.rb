@@ -1,6 +1,7 @@
 class Company < ApplicationRecord
   validates :name, presence: true
-  validates :site, presence: true
+  validates :site, presence: true, format: { with: URI.regexp }
   validates :operation, presence: true
-  validates :image, presence: true
+
+  mount_uploader :image, CompanyUploader
 end

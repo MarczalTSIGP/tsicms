@@ -88,9 +88,12 @@ RSpec.feature 'Admin Professors', type: :feature do
       professor = create(:professor)
       visit admins_professors_path
 
-      destroy_model(admins_professor_path(professor), resource_name, 'flash.actions.destroy.m')
+      click_on_destroy_link(admins_professor_path(professor))
+
+      expect_alert('div.alert.alert-success', resource_name, 'flash.actions.destroy.m')
 
       expect_page_not_have_in('table tbody', professor.name)
+
     end
 
     it 'professor unless has dependet' do
