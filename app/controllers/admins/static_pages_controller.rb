@@ -1,6 +1,9 @@
 class Admins::StaticPagesController < Admins::BaseController
   before_action :set_static_page, only: [:edit, :update, :destroy]
 
+  add_breadcrumb I18n.t('breadcrumbs.static_pages.name'), :admins_static_pages_path
+  add_breadcrumb I18n.t('breadcrumbs.static_pages.new'), :new_admins_static_page_path, only: [:new, :create]
+
   def index
     @static_pages = StaticPage.order(created_at: :desc)
   end
@@ -22,7 +25,10 @@ class Admins::StaticPagesController < Admins::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    add_breadcrumb I18n.t('breadcrumbs.static_pages.edit'),
+                   :edit_admins_static_page_path
+  end
 
   def update
     if @static_page.update_attributes(static_page_params)
@@ -30,6 +36,9 @@ class Admins::StaticPagesController < Admins::BaseController
                                resource_name: StaticPage.model_name.human)
       redirect_to admins_static_pages_path
     else
+      add_breadcrumb I18n.t('breadcrumbs.static_pages.edit'),
+                   :edit_admins_static_page_path
+                   
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end

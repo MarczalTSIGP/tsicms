@@ -1,6 +1,9 @@
 class Admins::AcademicsController < Admins::BaseController
     before_action :set_academic, only: [:edit, :update, :destroy]
 
+    add_breadcrumb I18n.t('breadcrumbs.academics.name'), :admins_academics_path
+    add_breadcrumb I18n.t('breadcrumbs.academics.new'), :new_admins_academic_path, only: [:new, :create]
+
     def index
         @academics = Academic.order(created_at: :desc)
     end
@@ -22,6 +25,9 @@ class Admins::AcademicsController < Admins::BaseController
     end
 
     def edit
+        add_breadcrumb I18n.t('breadcrumbs.academics.edit', name: "##{@academic.id}"),
+                   :edit_admins_academic_path
+                   
         set_academic
     end
 
@@ -31,6 +37,9 @@ class Admins::AcademicsController < Admins::BaseController
                                      resource_name: Academic.model_name.human)
             redirect_to admins_academics_path
         else
+            add_breadcrumb I18n.t('breadcrumbs.academics.edit', name: "##{@recommendation.title}"),
+                        :edit_admins_academic_path
+
             flash.now[:error] = I18n.t('flash.actions.errors')
             render :edit
         end
@@ -41,6 +50,10 @@ class Admins::AcademicsController < Admins::BaseController
         flash[:success] = I18n.t('flash.actions.destroy.m',
                                  resource_name: Academic.model_name.human)
         redirect_to admins_academics_path
+    end
+
+    def show
+        add_breadcrumb I18n.t('breadcrumbs.academics.show', name: "##{@academic.id}"), :admins_academic_path
     end
 
     protected

@@ -1,6 +1,9 @@
 class Admins::MatricesController < Admins::BaseController
   before_action :set_matrix, only: [ :edit, :update, :destroy, :show]
 
+  add_breadcrumb I18n.t('breadcrumbs.matrices.name'), :admins_matrices_path
+  add_breadcrumb I18n.t('breadcrumbs.matrices.new'), :new_admins_matrix_path, only: [:new, :create]
+
   def index
     @matrices = Matrix.order(:name)
   end
@@ -10,6 +13,8 @@ class Admins::MatricesController < Admins::BaseController
   end
 
   def edit
+    add_breadcrumb I18n.t('breadcrumbs.matrices.edit', name: "##{@matrix.name}"),
+                   :edit_admins_matrix_path
   end
 
   def create
@@ -30,6 +35,9 @@ class Admins::MatricesController < Admins::BaseController
                                resource_name: Matrix.model_name.human)
       redirect_to admins_matrices_path
     else
+      add_breadcrumb I18n.t('breadcrumbs.matrices.edit', name: "##{@matrix.name}"),
+                   :edit_admins_matrix_path
+
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end
@@ -40,6 +48,10 @@ class Admins::MatricesController < Admins::BaseController
     flash[:success] = I18n.t('flash.actions.destroy.f',
                              resource_name: Matrix.model_name.human)
     redirect_to admins_matrices_path
+  end
+
+  def show
+    add_breadcrumb I18n.t('breadcrumbs.matrices.show', name: "##{@matrix.name}"), :admins_matrix_path
   end
 
   private
