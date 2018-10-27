@@ -1,15 +1,15 @@
 class Admins::CategoryRecommendationsController < Admins::BaseController
-
-  add_breadcrumb "Categoria de Recomendações", :admins_category_recommendations_path
-
   before_action :set_category_recommendation, only: [:edit, :update, :destroy]
+
+  add_breadcrumb I18n.t('breadcrumbs.category_recommendations.name'), :admins_category_recommendations_path
+  add_breadcrumb I18n.t('breadcrumbs.category_recommendations.new'), 
+                  :new_admins_category_recommendation_path, only: [:new, :create]
 
   def index
     @categories = CategoryRecommendation.order(name: :asc)
   end
 
   def new
-    add_breadcrumb "Nova Categoria", :new_admins_category_recommendation_path
     @category = CategoryRecommendation.new
   end
 
@@ -27,7 +27,13 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
   end
 
   def edit
-    add_breadcrumb "Editar Categoria", :edit_admins_category_recommendation_path
+    add_breadcrumb I18n.t('breadcrumbs.category_recommendations.edit', name: "##{@category.name}"),
+                   :edit_admins_category_recommendation_path
+  end
+  
+  def show
+     add_breadcrumb I18n.t('breadcrumbs.category_recommendations.show', name: "##{@category.name}"), 
+                    :admins_category_recommendation_path
   end
 
   def update
@@ -36,6 +42,9 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
                                resource_name: CategoryRecommendation.model_name.human)
       redirect_to admins_category_recommendations_path
     else
+      add_breadcrumb I18n.t('breadcrumbs.category_recommendations.edit', name: "##{@category.name}"),
+                   :edit_admins_category_recommendation_path
+
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end

@@ -1,16 +1,15 @@
 class Admins::RecommendationsController < Admins::BaseController
-
-  add_breadcrumb "Recomendações de Conteúdo", :admins_recommendations_path
-
   before_action :set_recommendation, only: [:edit, :update, :destroy]
   before_action :load_categories, only: [:new, :create, :edit, :update]
+
+  add_breadcrumb I18n.t('breadcrumbs.recommendations.name'), :admins_recommendations_path
+  add_breadcrumb I18n.t('breadcrumbs.recommendations.new'), :new_admins_recommendation_path, only: [:new, :create]
 
   def index
     @recommendations = Recommendation.order(created_at: :desc)
   end
 
   def new
-    add_breadcrumb "Nova Recomendação", :new_admins_recommendation_path
     @recommendation = Recommendation.new
   end
 
@@ -28,7 +27,13 @@ class Admins::RecommendationsController < Admins::BaseController
   end
 
   def edit
-    add_breadcrumb "Editar Recomendação: #{@recommendation.title}", :edit_admins_recommendation_path
+    add_breadcrumb I18n.t('breadcrumbs.recommendations.edit', name: "##{@recommendation.title}"),
+                  :edit_admins_recommendation_path
+  end
+
+  def show
+    add_breadcrumb I18n.t('breadcrumbs.recommendations.show', name: "##{@recommendation.title}"), 
+                  :admins_category_recommendation_path
   end
 
   def update
@@ -37,6 +42,9 @@ class Admins::RecommendationsController < Admins::BaseController
                                resource_name: Recommendation.model_name.human)
       redirect_to admins_recommendations_path
     else
+      add_breadcrumb I18n.t('breadcrumbs.recommendations.edit', name: "##{@recommendation.title}"),
+                    :edit_admins_recommendation_path
+
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end
