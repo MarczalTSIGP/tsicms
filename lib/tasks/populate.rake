@@ -14,7 +14,9 @@ namespace :db do
      Discipline,
      Period,
      Matrix, Faq,
-     StaticPage].each(&:delete_all)
+     StaticPage,
+     Trainee,
+     TraineeStatus].each(&:delete_all)
 
     10.times do
       Faq.create!(
@@ -131,6 +133,17 @@ namespace :db do
                       image: Faker::Avatar.image,
                       operation: Faker::Markdown.sandwich,
                       site: Faker::Internet.url)
+    end
+
+    ts = %w[Preenchida Disponivel Cancelada]
+    ts.each do |status|
+      TraineeStatus.create!(description: status)
+    end
+    10.times do
+      Trainee.create!(title: Faker::Name.name,
+                      description: Faker::Markdown.sandwich,
+                      company: Company.all.sample,
+                      trainee_statuses: TraineeStatus.all.sample)
     end
   end
 end
