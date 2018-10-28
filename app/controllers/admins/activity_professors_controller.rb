@@ -19,8 +19,7 @@ class Admins::ActivityProfessorsController < Admins::BaseController
     end
   end
 
-  def edit;
-  end
+  def edit; end
 
   def update
     if @activity_professor.update(activity_professor_params)

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       resources :static_pages, excepty: [:show]
       resources :discipline_monitors
       resources :monitor_types
+      resources :trainees
     end
   end
   #========================================
