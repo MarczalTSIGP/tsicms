@@ -13,7 +13,7 @@ class Admins::MatricesController < Admins::BaseController
   end
 
   def edit
-    add_breadcrumb I18n.t('breadcrumbs.matrices.edit', name: "##{@matrix.name}"),
+    add_breadcrumb I18n.t('breadcrumbs.matrices.edit', name: "##{@matrix.id}"),
                    :edit_admins_matrix_path
   end
 
@@ -35,7 +35,7 @@ class Admins::MatricesController < Admins::BaseController
                                resource_name: Matrix.model_name.human)
       redirect_to admins_matrices_path
     else
-      add_breadcrumb I18n.t('breadcrumbs.matrices.edit', name: "##{@matrix.name}"),
+      add_breadcrumb I18n.t('breadcrumbs.matrices.edit', name: "##{@matrix.id}"),
                    :edit_admins_matrix_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -51,7 +51,8 @@ class Admins::MatricesController < Admins::BaseController
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.matrices.show', name: "##{@matrix.name}"), :admins_matrix_path
+    add_breadcrumb I18n.t('breadcrumbs.matrices.show', name: "##{@matrix.id}"),
+                   :admins_matrix_path
   end
 
   private

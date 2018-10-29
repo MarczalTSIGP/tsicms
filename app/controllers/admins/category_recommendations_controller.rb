@@ -27,23 +27,18 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
   end
 
   def edit
-    add_breadcrumb I18n.t('breadcrumbs.category_recommendations.edit', name: "##{@category.name}"),
+    add_breadcrumb I18n.t('breadcrumbs.category_recommendations.edit', name: "##{@category.id}"),
                    :edit_admins_category_recommendation_path
-  end
-  
-  def show
-     add_breadcrumb I18n.t('breadcrumbs.category_recommendations.show', name: "##{@category.name}"), 
-                    :admins_category_recommendation_path
   end
 
   def update
     if @category.update_attributes(category_recommendation_params)
       flash[:success] = I18n.t('flash.actions.update.f',
-                               resource_name: CategoryRecommendation.model_name.human)
+                        resource_name: CategoryRecommendation.model_name.human)
       redirect_to admins_category_recommendations_path
     else
-      add_breadcrumb I18n.t('breadcrumbs.category_recommendations.edit', name: "##{@category.name}"),
-                   :edit_admins_category_recommendation_path
+      add_breadcrumb I18n.t('breadcrumbs.category_recommendations.edit', name: "##{@category.id}"),
+                     :edit_admins_category_recommendation_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit

@@ -26,12 +26,13 @@ class Admins::FaqsController < Admins::BaseController
   end
 
   def edit
-    add_breadcrumb I18n.t('breadcrumbs.faqs.edit', name: "##{@faq.title}"),
+    add_breadcrumb I18n.t('breadcrumbs.faqs.edit', name: "##{@faq.id}"),
                    :edit_admins_faq_path
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.faqs.show', name: "##{@faq.title}"), :admins_faq_path
+    add_breadcrumb I18n.t('breadcrumbs.faqs.show', name: "##{@faq.id}"),
+                   :admins_faq_path
   end
 
   def update

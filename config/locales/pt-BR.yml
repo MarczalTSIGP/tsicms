@@ -29,8 +29,8 @@ pt-BR:
     faqs:
       name: 'Perguntas Frequentes'
       new: 'Nova Pergunta'
-      edit: 'Editar Pergunta %{title}'
-      show: 'Visualizar Pergunta %{title}'
+      edit: 'Editar Pergunta %{name}'
+      show: 'Visualizar Pergunta %{name}'
     matrices:
       name: 'Matrizes'
       new: 'Nova Matriz'
@@ -54,7 +54,12 @@ pt-BR:
     static_pages:
       name: 'Páginas Estáticas'
       new: 'Nova Página'
-      edit: 'Editar Página %{title}'
+      edit: 'Editar Página %{name}'
+    discipline_monitors:
+      name: 'Monitorias'
+      new: 'Nova Monitoria'
+      edit: 'Editar Monitoria %{name}'
+      show: 'Visualizar Monitoria %{name}'
   helpers:
     currently: 'Atualmente'
     boolean:

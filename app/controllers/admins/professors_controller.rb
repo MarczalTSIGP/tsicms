@@ -24,7 +24,7 @@ class Admins::ProfessorsController < Admins::BaseController
   end
 
   def edit
-    add_breadcrumb I18n.t('breadcrumbs.professors.edit', name: "##{@professor.name}"),
+    add_breadcrumb I18n.t('breadcrumbs.professors.edit', name: "##{@professor.id}"),
                    :edit_admins_professor_path 
   end
 
@@ -33,7 +33,7 @@ class Admins::ProfessorsController < Admins::BaseController
       flash[:success] = I18n.t('flash.actions.update.m', resource_name: Professor.model_name.human)
       redirect_to admins_professor_path(@professor)
     else
-      add_breadcrumb I18n.t('breadcrumbs.professors.edit', name: "##{@professor.name}"),
+      add_breadcrumb I18n.t('breadcrumbs.professors.edit', name: "##{@professor.id}"),
                    :edit_admins_professor_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')

@@ -14,12 +14,13 @@ class Admins::DisciplinesController < Admins::BaseController
   end
 
   def edit
-    add_breadcrumb I18n.t('breadcrumbs.disciplines.edit', name: "##{@discipline.name}"),
+    add_breadcrumb I18n.t('breadcrumbs.disciplines.edit', name: "##{@discipline.id}"),
                    :edit_admins_discipline_path
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.disciplines.show', name: "##{@discipline.name}"), :admins_discipline_path
+    add_breadcrumb I18n.t('breadcrumbs.disciplines.show', name: "##{@discipline.id}"),
+                   :admins_discipline_path
   end
 
   def create
@@ -40,7 +41,7 @@ class Admins::DisciplinesController < Admins::BaseController
       flash[:success] = I18n.t('flash.actions.update.f',
                                resource_name: Discipline.model_name.human)
     else
-      add_breadcrumb I18n.t('breadcrumbs.disciplines.edit', name: "##{@discipline.name}"),
+      add_breadcrumb I18n.t('breadcrumbs.disciplines.edit', name: "##{@discipline.id}"),
                         :edit_admins_discipline_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')

@@ -14,12 +14,12 @@ class Admins::PeriodsController < Admins::BaseController
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.periods.show', name: "##{@period.name}"), 
+    add_breadcrumb I18n.t('breadcrumbs.periods.show', name: "##{@period.id}"), 
                     :admins_period_path
   end
 
   def edit
-    add_breadcrumb I18n.t('breadcrumbs.periods.edit', name: "##{@period.name}"),
+    add_breadcrumb I18n.t('breadcrumbs.periods.edit', name: "##{@period.id}"),
                    :edit_admins_period_path
   end
 
@@ -30,7 +30,7 @@ class Admins::PeriodsController < Admins::BaseController
 
       redirect_to admins_periods_path
     else
-      add_breadcrumb I18n.t('breadcrumbs.periods.edit', name: "##{@period.name}"),
+      add_breadcrumb I18n.t('breadcrumbs.periods.edit', name: "##{@period.id}"),
                    :edit_admins_period_path
                    
       flash.now[:error] = I18n.t('flash.actions.errors')

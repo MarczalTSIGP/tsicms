@@ -27,8 +27,6 @@ class Admins::AcademicsController < Admins::BaseController
     def edit
         add_breadcrumb I18n.t('breadcrumbs.academics.edit', name: "##{@academic.id}"),
                    :edit_admins_academic_path
-                   
-        set_academic
     end
 
     def update
@@ -37,7 +35,7 @@ class Admins::AcademicsController < Admins::BaseController
                                      resource_name: Academic.model_name.human)
             redirect_to admins_academics_path
         else
-            add_breadcrumb I18n.t('breadcrumbs.academics.edit', name: "##{@recommendation.title}"),
+            add_breadcrumb I18n.t('breadcrumbs.academics.edit', name: "##{@recommendation.id}"),
                         :edit_admins_academic_path
 
             flash.now[:error] = I18n.t('flash.actions.errors')
