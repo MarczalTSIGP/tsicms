@@ -64,7 +64,7 @@ RSpec.feature 'Companies', type: :feature do
       it 'cannot update company' do
         fill_in 'company_name', with: ''
         submit_form
-
+        expect_page_have_in('div.company_name', I18n.t('errors.messages.blank'))
         expect_alert_error('flash.actions.errors')
       end
     end
