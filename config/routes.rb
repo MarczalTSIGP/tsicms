@@ -30,6 +30,11 @@ Rails.application.routes.draw do
       resources :discipline_monitors
       resources :monitor_types
       resources :trainees
+
+      get '/gallery/:context/' => 'galleries#index', :as => 'gallery'
+      post '/gallery/:context/picture' => 'galleries#addPicture', :as => 'gallery_add_picture'
+      delete '/gallery/:context/picture/:id' => 'galleries#removePicture', :as => 'gallery_remove_picture'
+      patch '/gallery/:context/picture/:id' => 'galleries#updatePicture', :as => 'gallery_update_picture'
     end
   end
   #========================================
