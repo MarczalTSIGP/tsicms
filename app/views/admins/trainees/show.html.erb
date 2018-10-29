@@ -4,8 +4,8 @@
   <div class="card-header profile-bg"></div>
   <div class="card-body text-center">
     <h3 class="mb-3"><%= @trainee.title %></h3>
-    <p class="mb-4"><%= @trainee.company %></p>
-    <p class="mb-4"><%= @trainee.treinee_status %></p>
+    <p class="mb-4"><%= @trainee.company.name %></p>
+    <p class="mb-4"><%= @trainee.trainee_status.name %></p>
     <span class="markdown-content" data-markdown="<%= @trainee.description %>">
       <%= @trainee.description %>
     </span>

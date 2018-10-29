@@ -27,5 +27,5 @@ end
 
 treinee_status = %w[Preenchida Disponivel Cancelada]
 treinee_status.each do |status|
-  TraineeStatus.find_or_create_by!(description: status)
+  TraineeStatus.find_or_create_by!(name: status)
 end

@@ -1,7 +1,7 @@
 <% provide(:page_title, 'Vagas de estagio') %>
 
 <div class="text-right">
-  <%= link_to new_admins_trainees_path,
+  <%= link_to new_admins_trainee_path,
               class: 'btn btn-secondary',
               title: 'Nova Vaga de estagio',
               data: { toggle: 'tooltip', placement: 'top' } do %>
@@ -20,7 +20,7 @@
     </tr>
     </thead>
     <tbody>
-    <%= render @trainee %>
+    <%= render @trainees %>
     </tbody>
   </table>
 </div>

@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 2018_10_27_024948) do
   end
 
   create_table "trainee_statuses", force: :cascade do |t|
-    t.string "description"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -175,11 +175,11 @@ ActiveRecord::Schema.define(version: 2018_10_27_024948) do
     t.string "title"
     t.text "description"
     t.bigint "company_id"
-    t.bigint "trainee_statuses_id"
+    t.bigint "trainee_status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_trainees_on_company_id"
-    t.index ["trainee_statuses_id"], name: "index_trainees_on_trainee_statuses_id"
+    t.index ["trainee_status_id"], name: "index_trainees_on_trainee_status_id"
   end
 
   add_foreign_key "discipline_monitors", "academics"
@@ -189,5 +189,5 @@ ActiveRecord::Schema.define(version: 2018_10_27_024948) do
   add_foreign_key "professors", "professor_categories"
   add_foreign_key "professors", "professor_titles"
   add_foreign_key "trainees", "companies"
-  add_foreign_key "trainees", "trainee_statuses", column: "trainee_statuses_id"
+  add_foreign_key "trainees", "trainee_statuses"
 end

@@ -55,7 +55,10 @@ class Admins::TraineesController < Admins::BaseController
   end
 
   def trainee_params
-    params.require(:trainee).permit(:title, :description, :company, :treinee_statuses)
+    params.require(:trainee).permit(:title,
+                                    :description,
+                                    :company_id,
+                                    :trainee_status_id)
   end
 
   def set_trainee

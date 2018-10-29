@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Trainees', type: :feature do
+RSpec.feature 'Admin Trainees', type: :feature do
 
   let(:admin) {create(:admin)}
   let(:resource_name) {Trainee.model_name.human}

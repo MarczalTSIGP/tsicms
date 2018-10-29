@@ -137,13 +137,14 @@ namespace :db do
 
     ts = %w[Preenchida Disponivel Cancelada]
     ts.each do |status|
-      TraineeStatus.create!(description: status)
+      TraineeStatus.create!(name: status)
     end
+
     10.times do
       Trainee.create!(title: Faker::Name.name,
                       description: Faker::Markdown.sandwich,
                       company: Company.all.sample,
-                      trainee_statuses: TraineeStatus.all.sample)
+                      trainee_status: TraineeStatus.all.sample)
     end
   end
 end

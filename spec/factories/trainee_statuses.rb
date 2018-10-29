@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :trainee_status do
-    sequence(:description) {|n| "MyString#{n}"}
+    sequence(:name) {|n| "MyString#{n}"}
   end
 end
