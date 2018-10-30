@@ -3,7 +3,7 @@ $(document).on "turbolinks:load", ->
   img_ids = "#admin_image,
              #recommendation_image,
              #academic_image,
-             #company_image
+             #company_image,
              #professor_image"
   TSICMS.imagePreview(img_ids)
   TSICMS.loadMarkdownEditor()

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :trainee do
-    sequence(:title) {|n| "MyString#{n}"}
-    sequence(:description) {|n| "MyString#{n}"}
+    sequence(:title) {|n| "TraineeTitle#{n}"}
+    sequence(:description) {|n| "TraineDescription#{n}"}
     company
     trainee_status
   end

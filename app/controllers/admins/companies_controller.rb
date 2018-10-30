@@ -15,7 +15,7 @@ class Admins::CompaniesController < Admins::BaseController
   def create
     @company = Company.new(company_params)
     if @company.save
-      flash[:success] = I18n.t('flash.actions.create.m', resource_name: Company.model_name.human)
+      flash[:success] = I18n.t('flash.actions.create.f', resource_name: Company.model_name.human)
       redirect_to admins_companies_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -28,7 +28,7 @@ class Admins::CompaniesController < Admins::BaseController
 
   def update
     if @company.update(company_params)
-      flash[:success] = I18n.t('flash.actions.update.m', resource_name: Company.model_name.human)
+      flash[:success] = I18n.t('flash.actions.update.f', resource_name: Company.model_name.human)
       redirect_to admins_company_path(@company)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -38,7 +38,7 @@ class Admins::CompaniesController < Admins::BaseController
 
   def destroy
     if @company.destroy
-      flash[:success] = I18n.t('flash.actions.destroy.m',
+      flash[:success] = I18n.t('flash.actions.destroy.f',
                                resource_name: Company.model_name.human)
     else
       flash[:alert] = 'Não é possível remover Empresas com vínculos!'
