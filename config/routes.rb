@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       resources :category_recommendations, excepty: [:show]
       resources :recommendations, excepty: [:show]
       resources :academics
-      resources :professors
+      resources :professors 
       resources :activities
       resources :activity_professors, excepty: [:show]
       resources :matrices, :periods, :disciplines 

@@ -1,22 +1,25 @@
 class Admins::PeriodsProfessorsController < Admins::BaseController
+  before_action :set_period_professor, only: [:edit, :update, :destroy, :show]
 
-  add_breadcrumb "Períodos do Professor", :admins_periods_professors_path
-  before_action :set_period_professor, only: [:edit, :update, :destroy, :show ]
+  add_breadcrumb I18n.t('breadcrumbs.periods_professors:.name'), :admins_periods_professors_path
+  add_breadcrumb I18n.t('breadcrumbs.periods_professors:.new'), :new_admins_periods_professors_path, only: [:new, :create]
 
   def index
     @periods_professor = PeriodProfessor.order(:date_entry)
   end
 
   def new
-    add_breadcrumb "Novo Período", :new_admins_periods_professor_path
     @period_professor = PeriodProfessor.new
   end
 
   def show
+    add_breadcrumb I18n.t('breadcrumbs.periods_professors.show', name: "##{@period_professor.id}"), 
+                    :admins_periods_professor_path
   end
 
   def edit
-    add_breadcrumb "Editar Período", :edit_admins_periods_professor_path
+    add_breadcrumb I18n.t('breadcrumbs.periods_professors.edit', name: "##{@period_professor.id}"),
+                  :edit_admins_periods_professors_path
   end
 
   def update
@@ -25,6 +28,9 @@ class Admins::PeriodsProfessorsController < Admins::BaseController
                                resource_name: Period.model_name.human)
       redirect_to admins_periods_professors_path
     else
+      add_breadcrumb I18n.t('breadcrumbs.periods_professors.edit', name: "##{@period_professor.id}"),
+                  :edit_admins_periods_professors_path
+
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end

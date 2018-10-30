@@ -41,6 +41,11 @@ pt-BR:
       new: 'Novo Período'
       edit: 'Editar Período %{name}'
       show: 'Visualizar Período %{name}'
+    periods_professors:
+      name: 'Períodos dos Professores'
+      new: 'Novo Período do Professor'
+      edit: 'Editar Período do Professor'
+      show: 'Visualizar Período do Professor'
     professors:
       name: 'Professores'
       new: 'Novo Professor'
