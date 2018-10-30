@@ -20,11 +20,9 @@ RSpec.feature 'Companies', type: :feature do
         fill_in 'company_site', with: attributes[:site]
         fill_in 'company_operation', with: attributes[:operation]
 
-        attach_file 'company_image', FileSpecHelper.image.path
-
         submit_form
 
-        expect(page.current_path).to eq admins_acompanies_path
+        expect(page.current_path).to eq admins_companies_path
 
         expect_alert_success(resource_name, 'flash.actions.create.f')
 
@@ -32,23 +30,23 @@ RSpec.feature 'Companies', type: :feature do
       end
     end
     context 'with invalid fields' do
-      it 'show errors'
+      it 'show errors' do
 
-      submit_form
+        submit_form
 
-      expect_alert_error('flash.actions.errors')
+        expect_alert_error('flash.actions.errors')
 
-      expect_page_have_in('div.company_name', I18n.t('errors.messages.blank'))
-      expect_page_have_in('div.company_site', I18n.t('errors.messages.blank'))
-      expect_page_have_in('div.company_operation', I18n.t('errors.messages.blank'))
-      expect_page_have_in('div.company_image', I18n.t('errors.messages.blank'))
+        expect_page_have_in('div.company_name', I18n.t('errors.messages.blank'))
+        expect_page_have_in('div.company_site', I18n.t('errors.messages.blank'))
+        expect_page_have_in('div.company_operation', I18n.t('errors.messages.blank'))
+      end
     end
   end
 
   describe '#update' do
-    before(:all) do
-      @company = create :company
-      visit edit_admins_company_path(@company)
+    let(:company) {create :company}
+    before(:each) do
+      visit edit_admins_company_path(company)
     end
     context 'with valid fields' do
       it 'update company' do
@@ -56,7 +54,7 @@ RSpec.feature 'Companies', type: :feature do
         fill_in 'company_name', with: new_name
         submit_form
 
-        expect(page.current_path).to eq admins_company_path(@company)
+        expect(page.current_path).to eq admins_company_path(company)
         expect(page).to have_content(new_name.to_s)
       end
     end
@@ -71,10 +69,10 @@ RSpec.feature 'Companies', type: :feature do
   end
 
   describe '#index' do
-    let!(:companies) {create_list(:coampany, 2)}
+    let!(:companies) {create_list(:company, 2)}
 
     it 'show all companies' do
-      visit admins_activities_path
+      visit admins_companies_path
 
       companies.each do |company|
         expect(page).to have_content(company.name)
@@ -86,21 +84,16 @@ RSpec.feature 'Companies', type: :feature do
         expect(page).to have_css(destroy_link)
       end
     end
-  end
+    it 'show company page' do
+      company = create(:company)
+      visit admins_company_path(company)
 
-  describe '#show' do
-    context 'show companies' do
-      it 'show company page' do
-        company = create(:company)
-        visit admins_company_path(company)
-
-        expect(page).to have_content(company.name)
-        expect(page).to have_content(company.operation)
-        expect(page).to have_content(company.site)
-        expect(page).to have_content(company.lattes)
-      end
+      expect(page).to have_content(company.name)
+      expect(page).to have_content(company.operation)
+      expect(page).to have_content(company.site)
     end
   end
+
   describe '#destroy' do
     it 'company' do
       company = create(:company)
@@ -108,7 +101,7 @@ RSpec.feature 'Companies', type: :feature do
 
       click_on_destroy_link(admins_company_path(company))
 
-      expect_alert('div.alert.alert-success', resource_name, 'flash.actions.destroy.f')
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
 
       expect_page_not_have_in('table tbody', company.name)
 

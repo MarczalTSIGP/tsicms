@@ -16,7 +16,7 @@ class Admins::TraineesController < Admins::BaseController
   def create
     @trainee = Trainee.new(trainee_params)
     if @trainee.save
-      flash[:success] = I18n.t('flash.actions.create.m', resource_name: Trainee.model_name.human)
+      flash[:success] = I18n.t('flash.actions.create.f', resource_name: Trainee.model_name.human)
       redirect_to admins_trainees_path
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -29,7 +29,7 @@ class Admins::TraineesController < Admins::BaseController
 
   def update
     if @trainee.update(trainee_params)
-      flash[:success] = I18n.t('flash.actions.update.m', resource_name: Trainee.model_name.human)
+      flash[:success] = I18n.t('flash.actions.update.f', resource_name: Trainee.model_name.human)
       redirect_to admins_trainee_path(@trainee)
     else
       flash.now[:error] = I18n.t('flash.actions.errors')
@@ -39,10 +39,10 @@ class Admins::TraineesController < Admins::BaseController
 
   def destroy
     if @trainee.destroy
-      flash[:success] = I18n.t('flash.actions.destroy.m',
+      flash[:success] = I18n.t('flash.actions.destroy.f',
                                resource_name: Trainee.model_name.human)
     end
-    redirect_to admins_treinees_path
+    redirect_to admins_trainees_path
   end
 
   protected

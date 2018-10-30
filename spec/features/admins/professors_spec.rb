@@ -89,7 +89,7 @@ RSpec.feature 'Admin Professors', type: :feature do
 
       click_on_destroy_link(admins_professor_path(professor))
 
-      expect_alert('div.alert.alert-success', resource_name, 'flash.actions.destroy.m')
+      expect_alert_success(resource_name, 'flash.actions.destroy.m')
 
       expect_page_not_have_in('table tbody', professor.name)
 
@@ -98,8 +98,8 @@ RSpec.feature 'Admin Professors', type: :feature do
     it 'professor unless has dependet' do
       ap = create(:activity_professor)
       visit admins_professors_path
-      destroy_link = "a[href='#{admins_professor_path(ap.professor)}'][data-method='delete']"
-      find(destroy_link).click
+
+      click_on_destroy_link(admins_professor_path(ap.professor))
 
       expect(page).to have_selector('div.alert.alert-warning',
                                     text: 'Não é possível remover professores com vínculos!')
