@@ -1,8 +1,8 @@
 class Admins::PeriodsProfessorsController < Admins::BaseController
   before_action :set_period_professor, only: [:edit, :update, :destroy, :show]
 
-  add_breadcrumb I18n.t('breadcrumbs.periods_professors:.name'), :admins_periods_professors_path
-  add_breadcrumb I18n.t('breadcrumbs.periods_professors:.new'), :new_admins_periods_professors_path, only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.periods_professors.name'), :admins_periods_professors_path
+  add_breadcrumb I18n.t('breadcrumbs.periods_professors.new'), :new_admins_periods_professors_path, only: [:new, :create]
 
   def index
     @periods_professor = PeriodProfessor.order(:date_entry)
