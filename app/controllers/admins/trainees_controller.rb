@@ -41,7 +41,6 @@ class Admins::TraineesController < Admins::BaseController
     else
       add_breadcrumb I18n.t('breadcrumbs.trainees.edit', name: "##{@trainee.id}"),
                      :edit_admins_trainee_path
-
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end
