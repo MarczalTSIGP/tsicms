@@ -1,6 +1,9 @@
 class Admins::TraineesController < Admins::BaseController
   before_action :set_trainee, only: [:edit, :update, :destroy, :show]
 
+  add_breadcrumb I18n.t('breadcrumbs.trainees.name'), :admins_trainees_path
+  add_breadcrumb I18n.t('breadcrumbs.trainees.new'), :new_admins_trainee_path, only: [:new, :create]
+
   def index
     @trainees = Trainee.order(created_at: :desc)
   end
@@ -10,7 +13,9 @@ class Admins::TraineesController < Admins::BaseController
     add_company(params[:company])
   end
 
-  def show;
+  def show
+    add_breadcrumb I18n.t('breadcrumbs.trainees.show', name: "##{@trainee.id}"),
+                   :admins_trainee_path
   end
 
   def create
@@ -24,7 +29,9 @@ class Admins::TraineesController < Admins::BaseController
     end
   end
 
-  def edit;
+  def edit
+    add_breadcrumb I18n.t('breadcrumbs.trainees.edit', name: "##{@trainee.id}"),
+                   :edit_admins_trainee_path
   end
 
   def update
@@ -32,6 +39,9 @@ class Admins::TraineesController < Admins::BaseController
       flash[:success] = I18n.t('flash.actions.update.f', resource_name: Trainee.model_name.human)
       redirect_to admins_trainee_path(@trainee)
     else
+      add_breadcrumb I18n.t('breadcrumbs.trainees.edit', name: "##{@trainee.id}"),
+                     :edit_admins_trainee_path
+
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end

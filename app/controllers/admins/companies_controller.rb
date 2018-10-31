@@ -1,6 +1,9 @@
 class Admins::CompaniesController < Admins::BaseController
   before_action :set_company, only: [:edit, :update, :destroy, :show]
 
+  add_breadcrumb I18n.t('breadcrumbs.companies.name'), :admins_companies_path
+  add_breadcrumb I18n.t('breadcrumbs.companies.new'), :new_admins_company_path, only: [:new, :create]
+
   def index
     @companies = Company.order(name: :asc)
   end
@@ -9,7 +12,9 @@ class Admins::CompaniesController < Admins::BaseController
     @company = Company.new
   end
 
-  def show;
+  def show
+    add_breadcrumb I18n.t('breadcrumbs.companies.show', name: "##{@company.id}"),
+                   :admins_activity_path
   end
 
   def create
@@ -23,7 +28,9 @@ class Admins::CompaniesController < Admins::BaseController
     end
   end
 
-  def edit;
+  def edit
+    add_breadcrumb I18n.t('breadcrumbs.companies.edit', name: "##{@company.id}"),
+                   :edit_admins_company_path
   end
 
   def update
@@ -31,6 +38,9 @@ class Admins::CompaniesController < Admins::BaseController
       flash[:success] = I18n.t('flash.actions.update.f', resource_name: Company.model_name.human)
       redirect_to admins_company_path(@company)
     else
+      add_breadcrumb I18n.t('breadcrumbs.companies.edit', name: "##{@company.id}"),
+                     :edit_admins_company_path
+
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end
@@ -41,7 +51,8 @@ class Admins::CompaniesController < Admins::BaseController
       flash[:success] = I18n.t('flash.actions.destroy.f',
                                resource_name: Company.model_name.human)
     else
-      flash[:alert] = 'Não é possível remover Empresas com vínculos!'
+      flash[:alert] = I18n.t('flash.actions.destroy.bond',
+                             resource_name: Company.model_name.human)
     end
     redirect_to admins_companies_path
   end

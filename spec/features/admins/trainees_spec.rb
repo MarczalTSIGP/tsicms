@@ -10,9 +10,9 @@ RSpec.feature 'Admin Trainees', type: :feature do
   end
 
   describe '#create' do
+    let!(:company){create_list(:company, 3).sample}
+    let!(:trainee_status){create_list(:trainee_status, 3).sample}
     before(:each) do
-      @company = create_list(:company, 3).sample
-      @trainee_status = create_list(:trainee_status, 3).sample
       visit new_admins_trainee_path
     end
     context 'with valid fields' do
@@ -20,8 +20,8 @@ RSpec.feature 'Admin Trainees', type: :feature do
         attributes = attributes_for(:trainee)
         fill_in 'trainee_title', with: attributes[:title]
         fill_in 'trainee_description', with: attributes[:description]
-        select @company.name, from: 'trainee[company_id]'
-        select @trainee_status.name, from: 'trainee[trainee_status_id]'
+        select company.name, from: 'trainee[company_id]'
+        select trainee_status.name, from: 'trainee[trainee_status_id]'
 
         submit_form
 
