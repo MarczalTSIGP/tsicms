@@ -1,6 +1,7 @@
 database: &database
   db.username: postgres
   db.password: postgres
+  db.host: db
 
 mailer: &mailer
   mailer.host: localhost

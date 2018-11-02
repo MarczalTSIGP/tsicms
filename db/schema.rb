@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_20_113211) do
+ActiveRecord::Schema.define(version: 2018_10_27_024948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,15 @@ ActiveRecord::Schema.define(version: 2018_10_20_113211) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_category_recommendations_on_name", unique: true
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.text "operation"
+    t.string "site"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "discipline_monitor_professors", force: :cascade do |t|
@@ -156,10 +165,29 @@ ActiveRecord::Schema.define(version: 2018_10_20_113211) do
     t.index ["permalink"], name: "index_static_pages_on_permalink", unique: true
   end
 
+  create_table "trainee_statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trainees", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.bigint "company_id"
+    t.bigint "trainee_status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_trainees_on_company_id"
+    t.index ["trainee_status_id"], name: "index_trainees_on_trainee_status_id"
+  end
+
   add_foreign_key "discipline_monitors", "academics"
   add_foreign_key "discipline_monitors", "monitor_types"
   add_foreign_key "disciplines", "periods"
   add_foreign_key "periods", "matrices"
   add_foreign_key "professors", "professor_categories"
   add_foreign_key "professors", "professor_titles"
+  add_foreign_key "trainees", "companies"
+  add_foreign_key "trainees", "trainee_statuses"
 end

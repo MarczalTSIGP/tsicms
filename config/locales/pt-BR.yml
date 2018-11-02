@@ -21,6 +21,11 @@ pt-BR:
       new: 'Nova Categoria'
       edit: 'Editar Categoria %{name}'
       show: 'Visualizar Categoria %{name}'
+    companies:
+      name: 'Empresas'
+      new: 'Nova Empresa'
+      edit: 'Editar Empresa %{name}'
+      show: 'Visualizar Empresa %{name}'
     disciplines:
       name: 'Disciplinas'
       new: 'Nova Disciplina'
@@ -60,6 +65,11 @@ pt-BR:
       new: 'Nova Monitoria'
       edit: 'Editar Monitoria %{name}'
       show: 'Visualizar Monitoria %{name}'
+    trainees:
+      name: 'Vagas de estagio'
+      new: 'Nova Vaga de estagio'
+      edit: 'Editar Vaga de estagio %{name}'
+      show: 'Visualizar Vaga de estagio %{name}'
   helpers:
     currently: 'Atualmente'
     boolean:
@@ -83,6 +93,7 @@ pt-BR:
       destroy:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
+        bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Existem dados incorretos!'
   prompt:
     confirm: 'Tem certeza?'
@@ -128,6 +139,9 @@ pt-BR:
       discipline_monitor:
         one: 'Monitoria de disciplina'
         other: 'Monitorias de disciplina'
+      company:
+        one: 'Empresa'
+        other: 'Empresas'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -195,3 +209,12 @@ pt-BR:
         academic: 'Acadêmico'
         description: 'Descrição'
         monitor_type: 'Tipo da monitoria'
+      company:
+        <<: *commons
+        operation: 'Atuação'
+      trainee:
+        <<: *commons
+        title: 'Título'
+        company: 'Empresa'
+        trainee_status: 'Status'
+

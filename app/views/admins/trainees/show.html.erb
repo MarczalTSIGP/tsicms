@@ -1,0 +1,16 @@
+<% provide(:page_title, "Visualizar Vaga de estagio") %>
+
+<div class="card card-profile">
+  <div class="card-body">
+    <h3 class="mb-3"><%= @trainee.title %></h3>
+    <p class="mb-4"><%= @trainee.company.name %></p>
+    <p class="mb-4"><%= @trainee.trainee_status.name %></p>
+    <span class="markdown-content" data-markdown="<%= @trainee.description %>">
+      <%= @trainee.description %>
+    </span>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to "Voltar", admins_trainees_path, class: 'btn btn-secondary' %>
+</div>
