@@ -14,7 +14,7 @@ class Admins::CompaniesController < Admins::BaseController
 
   def show
     add_breadcrumb I18n.t('breadcrumbs.companies.show', name: "##{@company.id}"),
-                   :admins_activity_path
+                   :admins_company_path
   end
 
   def create

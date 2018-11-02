@@ -4,9 +4,7 @@
     <div class="col-sm-9">
       <%= f.input :name, autofocus: true %>
       <%= f.input :site %>
-      <%= f.input :operation, input_html: {class: 'markdown-editor'} %>
     </div>
-
 
     <div class="col-sm-3">
       <div id="box-image-preview" data-toggle="tooltip" data-placement="left" title="Clique na imagem para alterá-la">
@@ -24,6 +22,7 @@
     </div>
   </div>
 
+  <%= f.input :operation, input_html: {class: 'markdown-editor'} %>
 
   <div class="d-flex">
     <%= link_to "Voltar", admins_companies_path, class: 'btn btn-secondary' %>

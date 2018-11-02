@@ -139,6 +139,9 @@ pt-BR:
       discipline_monitor:
         one: 'Monitoria de disciplina'
         other: 'Monitorias de disciplina'
+      company:
+        one: 'Empresa'
+        other: 'Empresas'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -206,3 +209,12 @@ pt-BR:
         academic: 'Acadêmico'
         description: 'Descrição'
         monitor_type: 'Tipo da monitoria'
+      company:
+        <<: *commons
+        operation: 'Atuação'
+      trainee:
+        <<: *commons
+        title: 'Título'
+        company: 'Empresa'
+        trainee_status: 'Status'
+

@@ -1,11 +1,7 @@
 <%= simple_form_for [:admins, @trainee] do |f| %>
 
-  <div class="form-row">
-    <div class="col-sm-9">
-      <%= f.input :title, autofocus: true %>
-      <%= f.input :description, input_html: {class: 'markdown-editor'} %>
-    </div>
-  </div>
+  <%= f.input :title, autofocus: true %>
+  <%= f.input :description, input_html: {class: 'markdown-editor'} %>
 
   <div class="form-row">
     <div class="col-sm-6">

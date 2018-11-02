@@ -135,7 +135,7 @@ namespace :db do
                       site: Faker::Internet.url)
     end
 
-    ts = %w[Preenchida Disponivel Cancelada]
+    ts = %w[Preenchida Dispónivel Cancelada]
     ts.each do |status|
       TraineeStatus.create!(name: status)
     end

@@ -4,5 +4,6 @@ class Company < ApplicationRecord
   validates :operation, presence: true
 
   has_many :trainees, dependent: :restrict_with_error
+
   mount_uploader :image, CompanyUploader
 end
