@@ -104,6 +104,7 @@ pt-BR:
       show: 'Visualizar Vaga de estagio %{name}'
   helpers:
     currently: 'Atualmente'
+    trainee: 'Estágio'
     boolean:
       'true': 'Sim'
       'false': 'Não'
