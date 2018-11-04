@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>TSICMS</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>TSICMS</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= favicon_link_tag %>
+</head>
+<body id="<%= controller_name %>-<%= action_name %>">
+<div class="page">
+  <div class="page-main">
+    <%= render 'layouts/header' %>
+    <div class="container">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-    <%= favicon_link_tag %>
-  </head>
-
-  <body>
-    <div class="page">
-      <div class="page-main">
-        <div class="container">
-          <%= yield %>
+      <div class="page-header">
+        <div class="page-options d-flex">
+          <h1 class="page-title">
+            <%= yield(:page_title) %>
+          </h1>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-lg-3 mb-4">
+          <%= render 'layouts/sidebar' %>
+        </div>
+        <div class="col-lg-9 order-lg-1">
+
+          <%= render_breadcrumbs builder: ::BootstrapBreadcrumbsBuilder %>
+
+          <div class="card">
+            <div class="card-body">
+              <%= render 'shared/flash_messages' %>
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- .container -->
     </div>
-  </body>
+  </div>
+  <%= render 'layouts/footer' %>
+</div>
+</body>
 </html>

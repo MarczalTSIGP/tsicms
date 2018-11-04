@@ -1,16 +1,19 @@
 pt-BR:
   routes:
+    admin: administrador
+    admins: administradores
     academics: academicos
     academic: academico
     activities: atividades
     activity: atividade
     activity_professor: atividades_do_professor
     activity_professors: atividades_dos_professors
+    category_recommendations: categorias_de_recomendacoes
     companies: empresas
     company: empresa
     disciplines: disciplinas
     discipline: disciplina
-    estagio: estagio
+    discipline_monitors: monitores_das_disciplinas
     matrices: matrizes
     matrice: matriz
     monitores: monitorias
@@ -19,10 +22,12 @@ pt-BR:
     period: periodo
     professors: professores
     professor: professor
-    recomendation: recomendacao
-    recomendations: recomendacoes
+    recommendation: recomendacao
+    recommendations: recomendacoes
     static_pages: paginas_estaticas
     static_page: pagina_estatica
+    trainees: estagios
+    trainee: estagio
     tcc: tcc
     new: novo
     edit: editar

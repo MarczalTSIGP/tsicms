@@ -129,7 +129,7 @@ RSpec.feature 'Admins::StaticPages', type: :feature do
       static_page = create(:static_page)
       visit admins_static_pages_path
 
-      destroy_path = "/admins/static_pages/#{static_page.id}"
+      destroy_path = admins_static_page_path(static_page)
       click_link href: destroy_path
 
       expect(page).to have_selector('div.alert.alert-success',

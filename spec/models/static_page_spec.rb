@@ -5,7 +5,6 @@ RSpec.describe StaticPage, type: :model do
     it {is_expected.to validate_presence_of(:title)}
     it {is_expected.to validate_presence_of(:content)}
     it {is_expected.to validate_uniqueness_of(:permalink).case_insensitive}
-    it {is_expected.to validate_presence_of(:fixed)}
   end
 
   describe 'validates permalink pattern' do

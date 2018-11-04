@@ -1,0 +1,13 @@
+<% provide(:page_title, "Atividade ##{@activity.id}") %>
+
+<div class="card card-profile">
+  <div class="card-body text-center">
+    <h2 class="mb-5"> <%= @activity.name %></h2>
+    <p class="mb-5"><%= @activity.description %></p>
+    <%= render 'activity_professors' %>
+  </div>
+</div>
+<div class="d-flex">
+  <%= link_to "Voltar", activities_path, class: 'btn btn-secondary' %>
+</div>
+

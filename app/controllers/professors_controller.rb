@@ -1,0 +1,13 @@
+class ProfessorsController < ApplicationController
+  add_breadcrumb I18n.t('breadcrumbs.professors.name'), :professors_path
+
+  def index
+    @professors = Professor.order(name: :asc)
+  end
+
+  def show
+    @professor = Professor.find(params[:id])
+    add_breadcrumb I18n.t('breadcrumbs.professors.show', name: "##{@professor.id}"),
+                   :professors_path
+  end
+end

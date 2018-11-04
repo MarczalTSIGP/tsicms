@@ -135,7 +135,7 @@ RSpec.feature 'Recommendations', type: :feature do
       recommendation = create(:recommendation)
       visit admins_recommendations_path
 
-      destroy_path = "/admins/recommendations/#{recommendation.id}"
+      destroy_path = admins_recommendation_path(recommendation)
       click_link href: destroy_path
 
       expect(page).to have_selector('div.alert.alert-success',

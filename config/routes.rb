@@ -2,11 +2,16 @@ Rails.application.routes.draw do
   localized do
     root to: 'home#index'
     get '/static_pages/:permalink', to: 'static_pages#index', as: 'static_page'
-    get '/trainee', to: 'static_pages#trainee'
+    get '/activities', to: 'activities#index'
+    get '/activity/:id', to: 'activities#show'
+    get '/trainees', to: 'trainees#index'
+    get '/trainee/:id', to: 'trainees#show'
     get '/tcc', to: 'static_pages#tcc'
     get '/monitors', to: 'static_pages#monitor'
-    get '/company/:id', to: 'static_pages#company'
-    get '/professor/:id', to: 'static_pages#professor'
+    get '/companies', to: 'companies#index'
+    get '/company/:id', to: 'companies#show'
+    get '/professors', to: 'professors#index'
+    get '/professor/:id', to: 'professors#show'
     #========================================
     # Admin
     #========================================

@@ -136,7 +136,7 @@ RSpec.feature 'Academics', type: :feature do
       academic = create(:academic)
       visit admins_academics_path
 
-      destroy_path = "/admins/academics/#{academic.id}"
+      destroy_path = admins_academic_path(academic)
       click_link href: destroy_path
 
       expect(page).to have_selector('div.alert.alert-success',

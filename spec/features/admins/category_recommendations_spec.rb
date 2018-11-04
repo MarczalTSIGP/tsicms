@@ -144,7 +144,7 @@ RSpec.feature 'Category Recommendations', type: :feature do
       category = create(:category_recommendation)
       visit admins_category_recommendations_path
 
-      destroy_path = "/admins/category_recommendations/#{category.id}"
+      destroy_path = admins_category_recommendation_path(category)
       click_link href: destroy_path
 
       expect(page).to have_selector('div.alert.alert-success',
