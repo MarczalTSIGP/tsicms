@@ -1,0 +1,15 @@
+<% @trainees.each do |trainee| %>
+  <div class="media-body">
+    <div class="media-heading">
+      <small class="float-right text-muted"><%= l(trainee.created_at, format: :long) %></small>
+      <h5><%= trainee.title %></h5>
+      <p class="mb-4"><%= link_to trainee.company.name, company_path(trainee.company) %></p>
+      <p class="mb-4"><%= trainee.trainee_status.name %></p>
+    </div>
+    <div>
+    <span class="markdown-content" data-markdown="<%= trainee.description %>">
+      <%= trainee.description %>
+    </span>
+    </div>
+  </div>
+<% end %>

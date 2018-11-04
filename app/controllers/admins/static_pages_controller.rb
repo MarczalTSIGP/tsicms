@@ -51,6 +51,19 @@ class Admins::StaticPagesController < Admins::BaseController
     redirect_to admins_static_pages_path
   end
 
+  def trainee
+    find_static_page 'Estágio'
+    @trainees = Trainee.order(created_at: :desc)
+  end
+
+  def tcc
+    find_static_page 'TCC'
+  end
+
+  def monitor
+    find_static_page 'Monitoria'
+  end
+
   protected
 
   def static_page_params
@@ -59,5 +72,10 @@ class Admins::StaticPagesController < Admins::BaseController
 
   def set_static_page
     @static_page = StaticPage.find(params[:id])
+  end
+  private
+
+  def find_static_page(title)
+    @static_page = StaticPage.find_by!(title: title)
   end
 end

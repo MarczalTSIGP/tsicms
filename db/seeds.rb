@@ -11,9 +11,9 @@ professor_categories.each do |category|
 end
 
 titles = [
-  { name: 'Especialista', abbrev: 'Esp.' },
-  { name: 'Mestre', abbrev: 'Me.' },
-  { name: 'Doutor', abbrev: 'Dr.' }
+  {name: 'Especialista', abbrev: 'Esp.'},
+  {name: 'Mestre', abbrev: 'Me.'},
+  {name: 'Doutor', abbrev: 'Dr.'}
 ]
 
 titles.each do |title|
@@ -29,3 +29,26 @@ treinee_status = %w[Preenchida Disponivel Cancelada]
 treinee_status.each do |status|
   TraineeStatus.find_or_create_by!(name: status)
 end
+
+StaticPage.find_or_create_by!(
+  title: 'Estágio',
+  sub_title: 'Vagas de Estágio',
+  content: '## conteudo',
+  permalink: 'estagio',
+  fixed: true
+)
+
+StaticPage.find_or_create_by!(
+  title: 'Monitoria',
+  sub_title: 'Vagas de Monitoria',
+  content: '## conteudo',
+  permalink: 'monitor',
+  fixed: true
+)
+
+StaticPage.find_or_create_by!(
+  title: 'TCC',
+  content: '## conteudo',
+  permalink: 'tcc',
+  fixed: true
+)

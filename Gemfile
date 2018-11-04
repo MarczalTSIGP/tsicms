@@ -21,6 +21,8 @@ gem 'carrierwave-i18n'
 gem 'active_link_to'
 gem 'cocoon'
 gem 'breadcrumbs_on_rails'
+gem 'kaminari'
+gem 'route_translator'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -146,5 +146,28 @@ namespace :db do
                       company: Company.all.sample,
                       trainee_status: TraineeStatus.all.sample)
     end
+    StaticPage.find_or_create_by!(
+      title: 'Estágio',
+      sub_title: 'Vagas de Estágio',
+      content: '## conteudo',
+      permalink: 'estagio',
+      fixed: true
+    )
+
+    StaticPage.find_or_create_by!(
+      title: 'Monitoria',
+      sub_title: 'Vagas de Monitoria',
+      content: '## conteudo',
+      permalink: 'monitor',
+      fixed: true
+    )
+
+    StaticPage.find_or_create_by!(
+      title: 'TCC',
+      content: '## conteudo',
+      permalink: 'tcc',
+      fixed: true
+    )
+
   end
 end

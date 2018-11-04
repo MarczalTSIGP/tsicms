@@ -1,4 +1,31 @@
 pt-BR:
+  routes:
+    academics: academicos
+    academic: academico
+    activities: atividades
+    activity: atividade
+    activity_professor: atividades_do_professor
+    activity_professors: atividades_dos_professors
+    companies: empresas
+    company: empresa
+    disciplines: disciplinas
+    discipline: disciplina
+    estagio: estagio
+    matrices: matrizes
+    matrice: matriz
+    monitores: monitorias
+    monitor: monitor
+    periods: periodos
+    period: periodo
+    professors: professores
+    professor: professor
+    recomendation: recomendacao
+    recomendations: recomendacoes
+    static_pages: paginas_estaticas
+    static_page: pagina_estatica
+    tcc: tcc
+    new: novo
+    edit: editar
   breadcrumbs:
     homepage: 'Página Inicial'
     academics:
@@ -93,7 +120,7 @@ pt-BR:
       destroy:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
-        bond: 'Não é possível remover %{resource_name} com vínculos!'
+        bTítuloond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Existem dados incorretos!'
   prompt:
     confirm: 'Tem certeza?'
@@ -202,6 +229,7 @@ pt-BR:
         sub_title: 'Subtítulo'
         permalink: 'Link permanente'
         content: 'Conteúdo'
+        fixed: 'Fixo'
       discipline_monitor:
         <<: *commons
         year: 'Ano'

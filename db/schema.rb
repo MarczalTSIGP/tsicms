@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_27_024948) do
+ActiveRecord::Schema.define(version: 2018_11_04_125022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 2018_10_27_024948) do
     t.string "permalink"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "fixed"
     t.index ["permalink"], name: "index_static_pages_on_permalink", unique: true
   end
 
