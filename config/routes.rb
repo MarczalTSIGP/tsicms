@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   localized do
+    #========================================
+    # Public
+    #========================================
     root to: 'home#index'
     get '/pages/:permalink', to: 'static_pages#index', as: 'static_page'
     get '/pages/:static_page_id/history',
@@ -20,6 +23,7 @@ Rails.application.routes.draw do
     resources :discipline_monitors, only: [:index, :show] do
       get 'page/:page', action: :index, on: :collection
     end
+    resources :contacts, only: [:create, :new]
     #========================================
     # Admin
     #========================================
@@ -62,6 +66,7 @@ Rails.application.routes.draw do
           get '/' => 'galleries#index', :as => 'galleries'
           resources :pictures, excepty: [:index, :show]
         end
+        resources :contacts, excepty: [:show]
       end
     end
   end

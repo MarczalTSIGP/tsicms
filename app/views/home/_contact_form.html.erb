@@ -1,0 +1,14 @@
+<%= simple_form_for(@contact) do |f| %>
+ 
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :email %>
+    <%= f.input :phone %>
+    <%= f.input :message %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Enviar", class: 'btn btn-primary' %>
+  </div>
+
+<% end %>

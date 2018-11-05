@@ -78,6 +78,15 @@ ActiveRecord::Schema.define(version: 2018_11_20_220250) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+  
+  create_table "contacts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "discipline_monitor_professors", force: :cascade do |t|
     t.integer "professor_id"
