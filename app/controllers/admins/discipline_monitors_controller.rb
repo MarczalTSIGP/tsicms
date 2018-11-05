@@ -4,18 +4,18 @@ class Admins::DisciplineMonitorsController < Admins::BaseController
   before_action :load_academics, only: [:new, :create, :edit, :update]
   before_action :load_monitor_types, only: [:new, :create, :edit, :update]
   before_action :load_professors, only: [:new, :create, :edit, :update]
+  before_action :load_disciplines, only: [:new, :create, :edit, :update]
   before_action :load_date, only: [:new, :create, :edit, :update]
 
   add_breadcrumb I18n.t('breadcrumbs.discipline_monitors.name'), :admins_discipline_monitors_path
   add_breadcrumb I18n.t('breadcrumbs.discipline_monitors.new'), :new_admins_discipline_monitor_path, only: [:new, :create]
 
   def index
-    @discipline_monitors = DisciplineMonitor.order(created_at: :desc)
+    @discipline_monitors = DisciplineMonitor.order(year: :desc, semester: :desc)
   end
 
   def new
     @discipline_monitor = DisciplineMonitor.new
-    @discipline_monitor.discipline_monitor_professors.build
   end
 
   def show
@@ -71,12 +71,8 @@ class Admins::DisciplineMonitorsController < Admins::BaseController
           :description,
           :monitor_type_id,
           :academic_id,
-          :discipline_monitor_professors_attributes => [:id,
-                                                        :discipline_monitor_id,
-                                                        :professor_id,
-                                                        :_destroy,
-                                                        :professor_attributes => [:id,
-                                                                                  :name]]
+          professor_ids:[],
+          discipline_ids:[]
     ]
 
     unless params[:discipline_monitor][:semester].empty?
@@ -99,6 +95,10 @@ class Admins::DisciplineMonitorsController < Admins::BaseController
 
   def load_professors
     @professors = Professor.order(:name)
+  end
+
+  def load_disciplines
+    @disciplines = Discipline.order(:name)
   end
 
   def load_date

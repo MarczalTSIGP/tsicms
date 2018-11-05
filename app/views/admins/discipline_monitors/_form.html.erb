@@ -18,26 +18,9 @@
     </div>
   </div>
 
+  <%= f.input :discipline_ids, collection: @disciplines, input_html: { multiple: true } %>
+  <%= f.input :professor_ids, collection: @professors, input_html: { multiple: true } %>
   <%= f.input :description, input_html: { class: 'markdown-editor' } %>
-
-  <fieldset id="mtp">
-    <ol>
-      <%= f.fields_for :discipline_monitor_professors do |discipline_monitor_professor|%>
-        <%= render partial: "discipline_monitor_professor_fields", locals: { f: discipline_monitor_professor }%>
-      <% end %>
-    </ol>
-  </fieldset>
-
-  <div class="d-flex">
-    <%= link_to_add_association 'Adicionar professor', f,
-      :discipline_monitor_professors,
-      'data-association-insertion-node' => "#mtp ol",
-      'data-association-insertion-method' => "append",
-      wrap_object: Proc.new { |dmp| dmp.build_professor; dmp },
-      class: 'ml-auto' %>
-  </div>
-
-  <br />
 
   <div class="d-flex">
     <%= link_to "Voltar", admins_discipline_monitors_path, class: 'btn btn-secondary' %>
