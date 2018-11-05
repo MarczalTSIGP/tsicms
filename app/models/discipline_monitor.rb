@@ -19,9 +19,6 @@ class DisciplineMonitor < ApplicationRecord
   has_many :discipline_monitor_disciplines
   has_many :disciplines, through: :discipline_monitor_disciplines
 
-  accepts_nested_attributes_for :discipline_monitor_professors, allow_destroy: true
-  accepts_nested_attributes_for :discipline_monitor_disciplines, allow_destroy: true
-
   def self.human_semesters
     hash = {}
     semesters.each { |key, val| hash[I18n.t("enums.semesters.#{key}")] = val }
