@@ -1,15 +1,16 @@
 class Admins::PeriodsProfessorsController < Admins::BaseController
   before_action :set_period_professor, only: [:edit, :update, :destroy, :show]
 
-  add_breadcrumb I18n.t('breadcrumbs.periods_professors.name'), :admins_periods_professors_path
-  add_breadcrumb I18n.t('breadcrumbs.periods_professors.new'), :new_admins_periods_professors_path, only: [:new, :create]
+  #add_breadcrumb I18n.t('breadcrumbs.periods_professors.name'), :admins_periods_professors_path
+  #add_breadcrumb I18n.t('breadcrumbs.periods_professors.new'), :new_admins_periods_professors_path, only: [:new, :create]
 
   def index
     @periods_professor = PeriodProfessor.order(:date_entry)
   end
 
   def new
-    @period_professor = PeriodProfessor.new
+    @professor = Professor.find(params[:professor_id])
+    @period_professor = @professor.period_professors.new
   end
 
   def show
@@ -37,6 +38,7 @@ class Admins::PeriodsProfessorsController < Admins::BaseController
   end
 
   def create
+    @professor = Professor.find(params[:professor_id])
     @period_professor = PeriodProfessor.new(period_professor_params)
     if @period_professor.save
       flash[:success] = I18n.t('flash.actions.create.m',
@@ -59,9 +61,9 @@ class Admins::PeriodsProfessorsController < Admins::BaseController
   def period_professor_params
     params.require(:period_professor).permit(:date_entry, :date_out, :type_contract,:professor)
   end
-
+  
   def set_period_professor
-    @period_professor = PeriodProfessor.find(params[:id])
+    @professor = Professor.find(params[:professor_id])
   end
 
 end

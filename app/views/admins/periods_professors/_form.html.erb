@@ -1,21 +1,17 @@
-<%= simple_form_for [:admins, @period_professor] do |f| %>
+<%= simple_form_for @period_professor, url: admins_professor_periods_path(@professor) do |f| %>
   <div class="row">
     <div class="col-sm-6 col-md-8">
       <%= f.input :date_entry, as: :date, include_blank: true %>
       <%= f.input :date_out, as: :date, include_blank: true %>
     </div>
     <div class="col-sm-6 col-md-4">
-      <%= f.association :professor, collection: Professor.order(:name),
-        prompt: "Escolha um Professor"  %>
-    </div>
-    <div class="col-sm-6 col-md-4">
-      <%= f.association :professor, collection: Professor.professor_category,
-                        prompt: "Escolha um tipo"  %>
+      <%= f.association :professor_category, collection: ProfessorCategory.order(:name),
+        prompt: "Escolha a Categoria do Professor"  %>
     </div>
   </div>
 
   <div class="d-flex">
-    <%= link_to "Voltar", admins_periods_professors_path class: 'btn btn-secondary' %>
+    <%= link_to "Voltar", admins_professor_path(@professor), class: 'btn btn-secondary' %>
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
   </div>
 <% end %>

@@ -3,6 +3,12 @@
   <td><%= professor.name %></td>
   <td><%= l(professor.created_at, format: :long) %></td>
   <td>
+    <%= link_to admins_professor_path(professor) do %>
+      <span class="icon mr-3">
+        <i class="fe fe-clock" data-toggle="tooltip" data-placement="top" 
+                                  title="Periodo de trabalho do Professor na Universidade"></i>
+      </span>
+    <% end %>
     <%= link_to [:admins, professor], method: :delete, data: {confirm: t('prompt.confirm')} do %>
       <span class="icon mr-3">
         <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>

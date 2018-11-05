@@ -14,6 +14,65 @@
     <p class="mb-4"><%= @professor.email %></p>
     <p class="mb-4"><%= link_to @professor.lattes, @professor.lattes, target: '_blank' %></p>
     <p class="mb-4">Professor(a) <%= @professor.professor_category.name %></p>
+
+    <hr>
+    <!--Tabela do Periodo de Trabalho do Professor-->
+    <p>
+    <div class="table-responsive">
+      <h4 class="text-center">Periodos de trabalho do professor</h4>
+      <div class="text-right">
+        <%= link_to new_admins_professor_period_path(@professor),
+                    class: 'btn btn-secondary',
+                    title: 'Adicionar Período de Trabalho',
+                    data: {toggle: 'tooltip', placement: 'top'} do %>
+          <i class="fas fa-plus"></i>
+        <% end %>
+      </div>
+      <table class="table table-data card-table table-vcenter text-nowrap">
+        <thead>
+        <tr>
+          <th class="w-1">Id</th>
+          <th>Data de início</th>
+          <th>Data de término</th>
+          <th>Categoria</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @professor.period_professors.each do |periods_professors| %>
+          <tr id="periods_professors">
+            <td><%= periods_professors.id %></td>
+            <td><%= l(periods_professors.start_date, format: :long) %></td>
+            <td><%= periods_professors.end_date_human %></td>
+            <td><%= periods_professors.professor.professor_category.name%></td>
+            <td>
+              <%= link_to [:admins, periods_professors], method: :delete, data: {confirm: t('prompt.confirm')} do %>
+                    <span class="icon mr-3">
+                      <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
+                    </span>
+              <% end %>
+
+              <%= link_to edit_admins_professor_period_path(periods_professors) do %>
+                    <span class="icon mr-3">
+                      <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+                    </span>
+              <% end %>
+
+              <%= link_to admins_professor_period_path(periods_professors) do %>
+                    <span class="icon mr-3">
+                      <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
+                    </span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    </p>
+
+    <hr>
+    
     <p>
       <div class="table-responsive">
         <h4 class="text-center">Atividades do professor</h4>

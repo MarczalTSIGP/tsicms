@@ -92,8 +92,10 @@ ActiveRecord::Schema.define(version: 2018_10_24_183906) do
     t.date "date_out"
     t.string "type_contract"
     t.bigint "professor_id"
+    t.bigint "professor_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["professor_category_id"], name: "index_period_professors_on_professor_category_id"
     t.index ["professor_id"], name: "index_period_professors_on_professor_id"
   end
 
@@ -142,6 +144,7 @@ ActiveRecord::Schema.define(version: 2018_10_24_183906) do
   end
 
   add_foreign_key "disciplines", "periods"
+  add_foreign_key "period_professors", "professor_categories"
   add_foreign_key "period_professors", "professors"
   add_foreign_key "periods", "matrices"
   add_foreign_key "professors", "professor_categories"

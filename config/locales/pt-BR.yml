@@ -187,7 +187,6 @@ pt-BR:
         content: 'Conteúdo'
       period_professor:
         <<: *commons
-        data_entry: 'Data de entrada'
-        data_out: 'Data de Saída'
-        type_contract: 'Tipo de Contrato'
-        professor: 'Professor'
+        date_entry: 'Data de Inicio'
+        date_out: 'Data de Término'
+        professor_category: 'Categoria do Professor'
