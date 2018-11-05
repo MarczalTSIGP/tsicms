@@ -1,6 +1,10 @@
 class Admins::CategoryRecommendationsController < Admins::BaseController
   before_action :set_category_recommendation, only: [:edit, :update, :destroy]
 
+  add_breadcrumb I18n.t('breadcrumbs.category_recommendations.name'), :admins_category_recommendations_path
+  add_breadcrumb I18n.t('breadcrumbs.category_recommendations.new'), 
+                  :new_admins_category_recommendation_path, only: [:new, :create]
+
   def index
     @categories = CategoryRecommendation.order(name: :asc)
   end
@@ -22,14 +26,20 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    add_breadcrumb I18n.t('breadcrumbs.category_recommendations.edit', name: "##{@category.id}"),
+                   :edit_admins_category_recommendation_path
+  end
 
   def update
     if @category.update_attributes(category_recommendation_params)
       flash[:success] = I18n.t('flash.actions.update.f',
-                               resource_name: CategoryRecommendation.model_name.human)
+                        resource_name: CategoryRecommendation.model_name.human)
       redirect_to admins_category_recommendations_path
     else
+      add_breadcrumb I18n.t('breadcrumbs.category_recommendations.edit', name: "##{@category.id}"),
+                     :edit_admins_category_recommendation_path
+
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end

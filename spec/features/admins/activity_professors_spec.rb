@@ -30,9 +30,7 @@ RSpec.feature 'Activity Professors', type: :feature do
 
         expect(page.current_path).to eq admins_activities_path
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
+        expect_alert_success(resource_name,'flash.actions.create.f')
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -118,8 +116,7 @@ RSpec.feature 'Activity Professors', type: :feature do
         select '', from: 'activity_professor[start_date(1i)]'
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect_alert_error('flash.actions.errors')
       end
     end
   end
@@ -150,12 +147,9 @@ RSpec.feature 'Activity Professors', type: :feature do
 
       visit admins_professor_path(@activity_professor.professor)
 
-      destroy_link = "a[href='#{admins_activity_professor_path(@activity_professor)}'][data-method='delete']"
-      find(destroy_link).click
+      click_on_destroy_link(admins_activity_professor_path(@activity_professor))
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
 
       expect_page_not_have_in('table tbody', @activity_professor.activity.name)
     end
@@ -163,12 +157,9 @@ RSpec.feature 'Activity Professors', type: :feature do
 
       visit admins_activity_path(@activity_professor.activity)
 
-      destroy_link = "a[href='#{admins_activity_professor_path(@activity_professor)}'][data-method='delete']"
-      find(destroy_link).click
+      click_on_destroy_link(admins_activity_professor_path(@activity_professor))
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
 
       expect_page_not_have_in('table tbody', @activity_professor.professor.name)
     end

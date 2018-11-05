@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :recommendations, excepty: [:show]
       resources :academics
       resources :professors
+      resources :companies
       resources :activities
       resources :activity_professors, excepty: [:show]
       resources :matrices, :periods, :disciplines
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
       resources :static_pages, excepty: [:show]
       resources :discipline_monitors
       resources :monitor_types
+      resources :trainees
     end
   end
   #========================================

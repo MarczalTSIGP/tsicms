@@ -1,4 +1,75 @@
 pt-BR:
+  breadcrumbs:
+    homepage: 'Página Inicial'
+    academics:
+      name: 'Acadêmicos'
+      new: 'Novo Acadêmico'
+      edit: 'Editar Acadêmico %{name}'
+      show: 'Visualizar Acadêmico %{name}'
+    activities:
+      name: 'Atividades'
+      new: 'Nova Atividade'
+      edit: 'Editar Atividade %{name}'
+      show: 'Visualizar Atividade %{name}'
+    activity_professors:
+      name: 'Atividades do Professor'
+      new: 'Nova Atividade'
+      edit: 'Editar Atividade %{name}'
+      show: 'Visualizar Atividade %{name}'
+    category_recommendations:
+      name: 'Categoria de Recomendações'
+      new: 'Nova Categoria'
+      edit: 'Editar Categoria %{name}'
+      show: 'Visualizar Categoria %{name}'
+    companies:
+      name: 'Empresas'
+      new: 'Nova Empresa'
+      edit: 'Editar Empresa %{name}'
+      show: 'Visualizar Empresa %{name}'
+    disciplines:
+      name: 'Disciplinas'
+      new: 'Nova Disciplina'
+      edit: 'Editar Disciplina %{name}'
+      show: 'Visualizar Disciplina %{name}'
+    faqs:
+      name: 'Perguntas Frequentes'
+      new: 'Nova Pergunta'
+      edit: 'Editar Pergunta %{name}'
+      show: 'Visualizar Pergunta %{name}'
+    matrices:
+      name: 'Matrizes'
+      new: 'Nova Matriz'
+      edit: 'Editar Matriz %{name}'
+      show: 'Visualizar Matriz %{name}'
+    periods:
+      name: 'Períodos'
+      new: 'Novo Período'
+      edit: 'Editar Período %{name}'
+      show: 'Visualizar Período %{name}'
+    professors:
+      name: 'Professores'
+      new: 'Novo Professor'
+      edit: 'Editar Professor %{name}'
+      show: 'Visualizar Professor %{name}'
+    recommendations:
+      name: 'Recomendações'
+      new: 'Nova Recomendação'
+      edit: 'Editar Recomendação %{name}'
+      show: 'Visualizar Recomendação %{name}'
+    static_pages:
+      name: 'Páginas Estáticas'
+      new: 'Nova Página'
+      edit: 'Editar Página %{name}'
+    discipline_monitors:
+      name: 'Monitorias'
+      new: 'Nova Monitoria'
+      edit: 'Editar Monitoria %{name}'
+      show: 'Visualizar Monitoria %{name}'
+    trainees:
+      name: 'Vagas de estagio'
+      new: 'Nova Vaga de estagio'
+      edit: 'Editar Vaga de estagio %{name}'
+      show: 'Visualizar Vaga de estagio %{name}'
   helpers:
     currently: 'Atualmente'
     boolean:
@@ -22,6 +93,7 @@ pt-BR:
       destroy:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
+        bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Existem dados incorretos!'
   prompt:
     confirm: 'Tem certeza?'
@@ -67,6 +139,9 @@ pt-BR:
       discipline_monitor:
         one: 'Monitoria de disciplina'
         other: 'Monitorias de disciplina'
+      company:
+        one: 'Empresa'
+        other: 'Empresas'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -136,3 +211,11 @@ pt-BR:
         monitor_type: 'Tipo da monitoria'
         discipline_ids: 'Disciplina'
         professor_ids: 'Professor'
+      company:
+        <<: *commons
+        operation: 'Atuação'
+      trainee:
+        <<: *commons
+        title: 'Título'
+        company: 'Empresa'
+        trainee_status: 'Status'
