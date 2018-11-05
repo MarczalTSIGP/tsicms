@@ -1,0 +1,90 @@
+<div class="page-header">
+
+</div>
+
+<h1>Monitoria Atual</h1>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Ano/Período</th>
+      <th scope="col">Disciplina(s)</th>
+      <th scope="col">Orientador(s)</th>
+      <th scope="col">Monitor</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@discipline_monitors.year_now.semester_now.each do |dm| %>
+      <tr>
+        <td>
+          <%= "#{dm.year} /" %>
+          <%= t("enums.semesters.#{dm.semester}") %>
+        </td>
+        <td>
+          <% dm.discipline_monitor_disciplines.each do |d| %>
+            <%= d.discipline.name %>
+          <% end %>
+        </td>
+        <td>
+          <% dm.discipline_monitor_professors.each do |d| %>
+            <%= d.professor.name %>
+          <% end %>
+        </td>
+        <td>
+          <%= dm.academic.name %>
+        </td>
+        <td>
+          <%= link_to monitors_path(dm) do %>
+            <span class="icon mr-3">
+              <i class="fe fe-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
+            </span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<hr>
+<h1>Histórico de Monitorias</h1>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Ano/Período</th>
+      <th scope="col">Disciplina(s)</th>
+      <th scope="col">Orientador(s)</th>
+      <th scope="col">Monitor</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@discipline_monitors.each.each do |dm| %>
+      <tr>
+        <td>
+          <%= "#{dm.year} /" %>
+          <%= t("enums.semesters.#{dm.semester}") %>
+        </td>
+        <td>
+          <% dm.discipline_monitor_disciplines.each do |d| %>
+            <%= d.discipline.name %>
+          <% end %>
+        </td>
+        <td>
+          <% dm.discipline_monitor_professors.each do |d| %>
+            <%= d.professor.name %>
+          <% end %>
+        </td>
+        <td>
+          <%= dm.academic.name %>
+        </td>
+        <td>
+          <%= link_to monitors_path(dm) do %>
+            <span class="icon mr-3">
+              <i class="fe fe-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
+            </span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

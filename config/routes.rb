@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'home#index'
   get '/static_pages/:permalink', to: 'static_pages#index', as: 'static_page'
+  get '/discipline_monitors/', to: 'discipline_monitors#index'
+  get '/discipline_monitors/:id', to: 'discipline_monitors#show', as: 'monitors'
 
   #========================================
   # Admin
@@ -21,7 +23,7 @@ Rails.application.routes.draw do
       resources :professors
       resources :activities
       resources :activity_professors, excepty: [:show]
-      resources :matrices, :periods, :disciplines 
+      resources :matrices, :periods, :disciplines
       resources :faqs
       resources :static_pages, excepty: [:show]
       resources :discipline_monitors

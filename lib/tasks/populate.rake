@@ -118,13 +118,13 @@ namespace :db do
     end
 
     3.times do
-      dm = DisciplineMonitor.create!(semester: DisciplineMonitor.semesters.values.sample,
+      DisciplineMonitor.create!(semester: DisciplineMonitor.semesters.values.sample,
                                 year: Faker::Number.between(2015, 2018),
                                 description: Faker::Lorem.characters(10),
                                 academic: Academic.all.sample,
-                                monitor_type: MonitorType.all.sample)
-
-      dm.discipline_monitor_professors.create professor: Professor.all.sample
+                                monitor_type: MonitorType.all.sample,
+                                professor_ids: [Professor.all.sample.id],
+                                discipline_ids: [Discipline.all.sample.id])
     end
   end
 end

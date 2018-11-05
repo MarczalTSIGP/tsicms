@@ -19,7 +19,6 @@ gem 'rails-i18n', '~> 5.1'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-i18n'
 gem 'active_link_to'
-gem "cocoon"
 
 
 group :development, :test do

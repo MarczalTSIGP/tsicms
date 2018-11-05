@@ -134,3 +134,5 @@ pt-BR:
         academic: 'Acadêmico'
         description: 'Descrição'
         monitor_type: 'Tipo da monitoria'
+        discipline_ids: 'Disciplina'
+        professor_ids: 'Professor'

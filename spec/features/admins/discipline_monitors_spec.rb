@@ -1,15 +1,24 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin discipline_monitors', type: :feature do
-
+RSpec.feature 'Discipline Monitors', type: :feature do
   let(:admin) {create :admin}
   let(:resource_name) { DisciplineMonitor.model_name.human }
 
+  let!(:academic) {
+    create_list(:academic, 2).sample
+  }
+  let!(:monitor_type) {
+    create_list(:monitor_type, 2).sample
+  }
+  let!(:professor) {
+    create_list(:professor, 2).sample
+  }
+  let!(:discipline) {
+    create_list(:discipline, 2).sample
+  }
+
   before(:each) do
     login_as admin, scope: :admin
-    @academic = create_list(:academic, 2).sample
-    @monitor_type = create_list(:monitor_type, 2).sample
-    @professor = create_list(:professor, 2).sample
   end
 
   describe '#create' do
@@ -25,9 +34,11 @@ RSpec.feature 'Admin discipline_monitors', type: :feature do
         fill_in 'discipline_monitor_description', with: attributes[:description]
         select '2018', from: 'discipline_monitor_year'
         select '1º', from: 'discipline_monitor_semester'
-        select @monitor_type.name, from: 'discipline_monitor_monitor_type_id'
-        select @academic.name, from: 'discipline_monitor_academic_id'
-        select @professor.name, from: 'discipline_monitor_discipline_monitor_professors_attributes_0_professor_id'
+        select monitor_type.name, from: 'discipline_monitor_monitor_type_id'
+        select academic.name, from: 'discipline_monitor_academic_id'
+        select professor.name, from: 'discipline_monitor_professor_ids'
+        select discipline.name, from: 'discipline_monitor_discipline_ids'
+
         submit_form
 
         expect(page.current_path).to eq admins_discipline_monitors_path
@@ -60,14 +71,19 @@ RSpec.feature 'Admin discipline_monitors', type: :feature do
         within('div.discipline_monitor_monitor_type') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
-        within('div.discipline_monitor_discipline_monitor_professors_professor') do
+        within('div.discipline_monitor_discipline_ids') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+        end
+        within('div.discipline_monitor_professor_ids') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
       end
     end
   end
-  describe '#update' do
-    let(:discipline_monitor) { create(:discipline_monitor) }
+
+  describe '#Update' do
+
+    let!(:discipline_monitor) { create(:discipline_monitor) }
 
     before(:each) do
       visit edit_admins_discipline_monitor_path(discipline_monitor)
@@ -83,6 +99,11 @@ RSpec.feature 'Admin discipline_monitors', type: :feature do
           selected: discipline_monitor.academic.name
         expect(page).to have_select 'discipline_monitor_monitor_type_id',
           selected: discipline_monitor.monitor_type.name
+
+        expect(page).to have_select 'discipline_monitor_discipline_ids',
+          selected: discipline_monitor.disciplines.map(&:name)
+        expect(page).to have_select 'discipline_monitor_professor_ids',
+          selected: discipline_monitor.professors.map(&:name)
       end
     end
 
@@ -91,12 +112,16 @@ RSpec.feature 'Admin discipline_monitors', type: :feature do
         attributes = attributes_for(:discipline_monitor)
 
         new_year = 2018
+        new_semester = '2º'
 
         fill_in 'discipline_monitor_description', with: attributes[:description]
         select new_year, from: 'discipline_monitor_year'
-        select '1º', from: 'discipline_monitor_semester'
-        select @monitor_type.name, from: 'discipline_monitor_monitor_type_id'
-        select @academic.name, from: 'discipline_monitor_academic_id'
+        select new_semester, from: 'discipline_monitor_semester'
+        select monitor_type.name, from: 'discipline_monitor_monitor_type_id'
+        select academic.name, from: 'discipline_monitor_academic_id'
+
+        select professor.name, from: 'discipline_monitor_professor_ids'
+        select discipline.name, from: 'discipline_monitor_discipline_ids'
         submit_form
 
         expect(page.current_path).to eq admins_discipline_monitors_path
@@ -106,7 +131,7 @@ RSpec.feature 'Admin discipline_monitors', type: :feature do
                                                     resource_name: resource_name))
 
         within('table tbody') do
-          expect(page).to have_content(new_year)
+          expect(page).to have_content(academic.name)
         end
       end
     end
@@ -130,6 +155,7 @@ RSpec.feature 'Admin discipline_monitors', type: :feature do
   describe '#destroy' do
     it 'discipline_monitor' do
       discipline_monitor = create(:discipline_monitor)
+
       visit admins_discipline_monitors_path
 
       destroy_link = "a[href='#{admins_discipline_monitor_path(discipline_monitor)}'][data-method='delete']"
@@ -148,7 +174,7 @@ RSpec.feature 'Admin discipline_monitors', type: :feature do
   describe  '#index' do
     let!(:discipline_monitors) { create_list(:discipline_monitor, 3) }
 
-    it 'show all academics with options' do
+    it 'show all discipline monitors' do
       visit admins_discipline_monitors_path
 
       discipline_monitors.each do |m|
@@ -156,6 +182,7 @@ RSpec.feature 'Admin discipline_monitors', type: :feature do
         expect(page).to have_content(I18n.t("enums.semesters.#{m.semester}"))
         expect(page).to have_content(m.academic.name)
         expect(page).to have_content(m.monitor_type.name)
+        expect(page).to have_content(m.disciplines.first.code)
 
         expect(page).to have_link(href: edit_admins_discipline_monitor_path(m))
         destroy_link = "a[href='#{admins_discipline_monitor_path(m)}'][data-method='delete']"
