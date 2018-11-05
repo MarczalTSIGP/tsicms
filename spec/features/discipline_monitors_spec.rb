@@ -20,6 +20,7 @@ RSpec.feature 'public discipline monitor', type: :feature do
       end
     end
   end
+
   describe '#show' do
     it 'show discipline monitors selected' do
         discipline_monitor = create(:discipline_monitor)
