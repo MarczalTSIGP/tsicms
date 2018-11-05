@@ -4,7 +4,7 @@
       <h4><%= trainee.title %></h4>
       <div class="d-flex align-items-center pt-5 mt-auto">
         <div>
-          <%= link_to trainee.title, trainees_path(trainee) %>
+          <%= link_to trainee.title, trainee_path(trainee) %>
           <small class="d-block text-muted"><%= l(trainee.created_at, format: :long) %></small>
         </div>
       </div>

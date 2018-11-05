@@ -5,7 +5,7 @@ class Admins::FaqsController < Admins::BaseController
   add_breadcrumb I18n.t('breadcrumbs.faqs.new'), :new_admins_faq_path, only: [:new, :create]
 
   def index
-    @faqs = Faq.order(created_at: :desc)
+    @faqs = Faq.order(created_at: :desc).page params[:page]
   end
 
   def new

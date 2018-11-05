@@ -5,7 +5,7 @@ class Admins::TraineesController < Admins::BaseController
   add_breadcrumb I18n.t('breadcrumbs.trainees.new'), :new_admins_trainee_path, only: [:new, :create]
 
   def index
-    @trainees = Trainee.order(created_at: :desc)
+    @trainees = Trainee.order(created_at: :desc).page params[:page]
   end
 
   def new

@@ -10,7 +10,7 @@ class Admins::DisciplineMonitorsController < Admins::BaseController
   add_breadcrumb I18n.t('breadcrumbs.discipline_monitors.new'), :new_admins_discipline_monitor_path, only: [:new, :create]
 
   def index
-    @discipline_monitors = DisciplineMonitor.order(created_at: :desc)
+    @discipline_monitors = DisciplineMonitor.order(created_at: :desc).page params[:page]
   end
 
   def new

@@ -5,7 +5,7 @@ class Admins::ActivitiesController < Admins::BaseController
   add_breadcrumb I18n.t('breadcrumbs.activities.new'), :new_admins_activity_path, only: [:new, :create]
 
   def index
-    @activities = Activity.order(name: :asc)
+    @activities = Activity.order(name: :asc).page params[:page]
   end
 
   def new

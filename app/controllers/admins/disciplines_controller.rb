@@ -6,7 +6,7 @@ class Admins::DisciplinesController < Admins::BaseController
   
   def index
     @disciplines = Discipline.includes(period: [:matrix]).
-      order('matrices.name ASC', 'periods.name ASC')
+      order('matrices.name ASC', 'periods.name ASC').page params[:page]
   end
 
   def new

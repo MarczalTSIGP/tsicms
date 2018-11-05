@@ -5,7 +5,7 @@ class Admins::AcademicsController < Admins::BaseController
     add_breadcrumb I18n.t('breadcrumbs.academics.new'), :new_admins_academic_path, only: [:new, :create]
 
     def index
-        @academics = Academic.order(created_at: :desc)
+        @academics = Academic.order(created_at: :desc).page params[:page]
     end
 
     def new

@@ -4,7 +4,7 @@
       <h4><%= activity.name %></h4>
       <div class="d-flex align-items-center pt-5 mt-auto">
         <div>
-          <%= link_to activity.name, activities_path(activity) %>
+          <%= link_to activity.name, activity_path(activity) %>
           <small class="d-block text-muted"><%= l(activity.created_at, format: :long) %></small>
         </div>
       </div>

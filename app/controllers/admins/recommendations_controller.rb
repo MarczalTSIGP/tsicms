@@ -6,7 +6,7 @@ class Admins::RecommendationsController < Admins::BaseController
   add_breadcrumb I18n.t('breadcrumbs.recommendations.new'), :new_admins_recommendation_path, only: [:new, :create]
 
   def index
-    @recommendations = Recommendation.order(created_at: :desc)
+    @recommendations = Recommendation.order(created_at: :desc).page params[:page]
   end
 
   def new

@@ -5,7 +5,7 @@ class Admins::CompaniesController < Admins::BaseController
   add_breadcrumb I18n.t('breadcrumbs.companies.new'), :new_admins_company_path, only: [:new, :create]
 
   def index
-    @companies = Company.order(name: :asc)
+    @companies = Company.order(name: :asc).page params[:page]
   end
 
   def new

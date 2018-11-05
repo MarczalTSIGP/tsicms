@@ -2,16 +2,18 @@ Rails.application.routes.draw do
   localized do
     root to: 'home#index'
     get '/static_pages/:permalink', to: 'static_pages#index', as: 'static_page'
-    get '/activities', to: 'activities#index'
-    get '/activity/:id', to: 'activities#show'
-    get '/trainees', to: 'trainees#index'
-    get '/trainee/:id', to: 'trainees#show'
     get '/tcc', to: 'static_pages#tcc'
     get '/monitors', to: 'static_pages#monitor'
-    get '/companies', to: 'companies#index'
-    get '/company/:id', to: 'companies#show'
-    get '/professors', to: 'professors#index'
-    get '/professor/:id', to: 'professors#show'
+
+    resources :professors, only: [:index, :show]
+    resources :companies, only: [:index, :show]
+    resources :trainees, only: [:index, :show]
+    resources :activities, only: [:index, :show]
+
+    resources :professors, :trainees, :companies, :activities do
+      get 'page/:page', action: :index, on: :collection
+    end
+
     #========================================
     # Admin
     #========================================
@@ -41,6 +43,22 @@ Rails.application.routes.draw do
         get '/static_page/trainee', to: 'static_pages#trainee'
         get '/static_page/tcc', to: 'static_pages#tcc'
         get '/static_page/monitor', to: 'static_pages#monitor'
+
+        resources :category_recommendations,
+                  :recommendations,
+                  :academics,
+                  :professors,
+                  :companies,
+                  :activities,
+                  :activity_professors,
+                  :matrices,
+                  :faqs,
+                  :static_pages,
+                  :discipline_monitors,
+                  :monitor_types,
+                  :trainees do
+          get 'page/:page', action: :index, on: :collection
+        end
       end
     end
     #========================================

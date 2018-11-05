@@ -6,7 +6,7 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
                   :new_admins_category_recommendation_path, only: [:new, :create]
 
   def index
-    @categories = CategoryRecommendation.order(name: :asc)
+    @categories = CategoryRecommendation.order(name: :asc).page params[:page]
   end
 
   def new

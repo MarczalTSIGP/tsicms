@@ -5,7 +5,7 @@ class Admins::MatricesController < Admins::BaseController
   add_breadcrumb I18n.t('breadcrumbs.matrices.new'), :new_admins_matrix_path, only: [:new, :create]
 
   def index
-    @matrices = Matrix.order(:name)
+    @matrices = Matrix.order(:name).page params[:page]
   end
 
   def new

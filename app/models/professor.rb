@@ -1,6 +1,5 @@
 class Professor < ApplicationRecord
   enum gender: { male: 'male', female: 'female'}, _prefix: :gender
-
   belongs_to :professor_title
   belongs_to :professor_category
 
