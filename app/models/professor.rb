@@ -3,8 +3,7 @@ class Professor < ApplicationRecord
 
   belongs_to :professor_title
   belongs_to :professor_category
-
-  has_many :activities, :through => :activity_professors
+  
   has_many :period_professors, dependent: :destroy
   has_many :activities, through: :activity_professors
 

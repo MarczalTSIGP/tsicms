@@ -4,6 +4,8 @@ class Admins::PeriodsProfessorsController < Admins::BaseController
   #add_breadcrumb I18n.t('breadcrumbs.periods_professors.name'), :admins_periods_professors_path
   #add_breadcrumb I18n.t('breadcrumbs.periods_professors.new'), :new_admins_periods_professors_path, only: [:new, :create]
 
+  # Breadcrumbs teria que ficar Pagina Inicial / Professor:(id) / Periodo do Professor / Novo Periodo
+
   def index
     @periods_professor = PeriodProfessor.order(:date_entry)
   end
@@ -60,7 +62,7 @@ class Admins::PeriodsProfessorsController < Admins::BaseController
 
   private
   def period_professor_params
-    params.require(:period_professor).permit(:date_entry, :date_out, :type_contract,:professor_category_id)
+    params.require(:period_professor).permit(:date_entry, :date_out, :professor_id,:professor_category_id)
   end
   
   def set_period_professor

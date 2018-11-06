@@ -19,7 +19,7 @@
     <!--Tabela do Periodo de Trabalho do Professor-->
     <p>
     <div class="table-responsive">
-      <h4 class="text-center">Periodos de trabalho do professor</h4>
+      <h4 class="text-center">Periodos de trabalho do professor na Universidade</h4>
       <div class="text-right">
         <%= link_to new_admins_professor_period_path(@professor),
                     class: 'btn btn-secondary',
@@ -32,9 +32,9 @@
         <thead>
         <tr>
           <th class="w-1">Id</th>
-          <th>Data de início</th>
-          <th>Data de término</th>
-          <th>Categoria</th>
+          <th><%= t('activerecord.attributes.period_professor.date_entry')%></th>
+          <th><%= t('activerecord.attributes.period_professor.date_out')%></th>
+          <th><%= t('activerecord.attributes.period_professor.professor_category')%></th>
           <th></th>
         </tr>
         </thead>
@@ -42,8 +42,8 @@
         <% @professor.period_professors.each do |periods_professors| %>
           <tr id="periods_professors">
             <td><%= periods_professors.id %></td>
-            <td><%= l(periods_professors.start_date, format: :long) %></td>
-            <td><%= periods_professors.end_date_human %></td>
+            <td><%= l(periods_professors.date_entry, format: :long) %></td>
+            <td><%= periods_professors.date_out %></td>
             <td><%= periods_professors.professor.professor_category.name%></td>
             <td>
               <%= link_to [:admins, periods_professors], method: :delete, data: {confirm: t('prompt.confirm')} do %>
@@ -72,8 +72,6 @@
     </p>
     <!-- Fim tabela periodos de trabalho do Professor-->
     <hr>
-
-     <!-- Tabela de Atividades do Professor-->
     <p>
       <div class="table-responsive">
         <h4 class="text-center">Atividades do professor</h4>
@@ -127,7 +125,6 @@
         </table>
       </div>
     </p>
-
   </div>
 </div>
 <div class="d-flex">

@@ -3,7 +3,7 @@
   <td><%= professor.name %></td>
   <td><%= l(professor.created_at, format: :long) %></td>
   <td>
-    <%= link_to admins_professor_path(professor) do %>
+    <%= link_to new_admins_professor_period_path(professor.id) do %>
       <span class="icon mr-3">
         <i class="fe fe-clock" data-toggle="tooltip" data-placement="top" 
                                   title="Periodo de trabalho do Professor na Universidade"></i>

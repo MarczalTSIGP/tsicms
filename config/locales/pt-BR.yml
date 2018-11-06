@@ -212,8 +212,8 @@ pt-BR:
         content: 'Conteúdo'
       period_professor:
         <<: *commons
-        data_entry: 'Data de entrada'
-        data_out: 'Data de Saída'
+        date_entry: 'Data de entrada'
+        date_out: 'Data de Saída'
         professor_category: 'Categoria do Professor'
       discipline_monitor:
         <<: *commons
