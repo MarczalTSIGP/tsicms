@@ -21,6 +21,11 @@ pt-BR:
       new: 'Nova Categoria'
       edit: 'Editar Categoria %{name}'
       show: 'Visualizar Categoria %{name}'
+    companies:
+      name: 'Empresas'
+      new: 'Nova Empresa'
+      edit: 'Editar Empresa %{name}'
+      show: 'Visualizar Empresa %{name}'
     disciplines:
       name: 'Disciplinas'
       new: 'Nova Disciplina'
@@ -29,8 +34,8 @@ pt-BR:
     faqs:
       name: 'Perguntas Frequentes'
       new: 'Nova Pergunta'
-      edit: 'Editar Pergunta %{title}'
-      show: 'Visualizar Pergunta %{title}'
+      edit: 'Editar Pergunta %{name}'
+      show: 'Visualizar Pergunta %{name}'
     matrices:
       name: 'Matrizes'
       new: 'Nova Matriz'
@@ -59,7 +64,17 @@ pt-BR:
     static_pages:
       name: 'Páginas Estáticas'
       new: 'Nova Página'
-      edit: 'Editar Página %{title}'
+      edit: 'Editar Página %{name}'
+    discipline_monitors:
+      name: 'Monitorias'
+      new: 'Nova Monitoria'
+      edit: 'Editar Monitoria %{name}'
+      show: 'Visualizar Monitoria %{name}'
+    trainees:
+      name: 'Vagas de estagio'
+      new: 'Nova Vaga de estagio'
+      edit: 'Editar Vaga de estagio %{name}'
+      show: 'Visualizar Vaga de estagio %{name}'
   helpers:
     currently: 'Atualmente'
     boolean:
@@ -69,6 +84,9 @@ pt-BR:
     genders:
       male: 'Masculino'
       female: 'Feminino'
+    semesters:
+      first: '1º'
+      second: '2º'
   flash:
     actions:
       update:
@@ -80,6 +98,7 @@ pt-BR:
       destroy:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
+        bond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Existem dados incorretos!'
   prompt:
     confirm: 'Tem certeza?'
@@ -125,6 +144,12 @@ pt-BR:
       period_professor:
         one: 'Período do Professor'
         other: 'Períodos do Professor'
+      discipline_monitor:
+        one: 'Monitoria de disciplina'
+        other: 'Monitorias de disciplina'
+      company:
+        one: 'Empresa'
+        other: 'Empresas'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -185,8 +210,28 @@ pt-BR:
         sub_title: 'Subtítulo'
         permalink: 'Link permanente'
         content: 'Conteúdo'
+<<<<<<< HEAD
       period_professor:
         <<: *commons
         data_entry: 'Data de entrada'
         data_out: 'Data de Saída'
         type_contract: 'Tipo de Contrato'
+=======
+      discipline_monitor:
+        <<: *commons
+        year: 'Ano'
+        semester: 'Semestre'
+        academic: 'Acadêmico'
+        description: 'Descrição'
+        monitor_type: 'Tipo da monitoria'
+        discipline_ids: 'Disciplina'
+        professor_ids: 'Professor'
+      company:
+        <<: *commons
+        operation: 'Atuação'
+      trainee:
+        <<: *commons
+        title: 'Título'
+        company: 'Empresa'
+        trainee_status: 'Status'
+>>>>>>> master

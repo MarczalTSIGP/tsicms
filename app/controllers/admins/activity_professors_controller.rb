@@ -22,6 +22,7 @@ class Admins::ActivityProfessorsController < Admins::BaseController
     end
   end
 
+
   def edit
     add_breadcrumb I18n.t('breadcrumbs.activity_professors.edit'),
                   :edit_admins_activity_professor_path

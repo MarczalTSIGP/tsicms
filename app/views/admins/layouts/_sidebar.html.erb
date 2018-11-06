@@ -41,9 +41,26 @@
       </div>
     </div>
 
-    <%= link_to '#', class: 'list-group-item list-group-item-action' do %>
-      <span class="icon mr-3"><i class="fas fa-building"></i></span>Empresas parceiras
+    <%= active_link_to admins_discipline_monitors_path, class: 'list-group-item list-group-item-action' do %>
+      <span class="icon mr-3"><i class="fas fa-user-graduate"></i></span>Monitorias
     <% end %>
+
+    <div class="list-group-item list-group-item-action pb-0">
+      <span class="icon mr-3"><i class="fas fa-building"></i></span>Empresas parceiras
+
+      <div class="list-group list-group-transparent mb-0">
+        <%= active_link_to admins_companies_path, class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Todas
+        <% end %>
+
+        <%= active_link_to admins_trainees_path,
+                           class: 'list-group-item list-group-item-action',
+                           active: ['admins/trainees'] do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Vagas de estágio
+        <% end %>
+      </div>
+    </div>
+
 
     <div class="list-group-item list-group-item-action pb-0">
       <span class="icon mr-3"><i class="fas fa-book-open"></i></span>Matriz do Curso

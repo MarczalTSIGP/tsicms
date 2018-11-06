@@ -9,11 +9,14 @@ namespace :db do
      Professor,
      ProfessorCategory,
      ProfessorTitle,
+     DisciplineMonitor,
      Academic,
      Discipline,
      Period,
      Matrix, Faq,
-     StaticPage].each(&:delete_all)
+     StaticPage,
+     Trainee,
+     TraineeStatus].each(&:delete_all)
 
     10.times do
       Faq.create!(
@@ -30,8 +33,8 @@ namespace :db do
     CategoryRecommendation.all.each do |category|
       5.times do
         category.recommendations.create! title: Faker::Name.name,
-          description: Faker::Lorem.paragraph(2),
-          image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample)
+                                         description: Faker::Lorem.paragraph(2),
+                                         image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample)
       end
     end
 
@@ -113,8 +116,35 @@ namespace :db do
         title: Faker::Name.name,
         sub_title: Faker::Name.name,
         permalink: Faker::Name.unique.name.parameterize,
-        content: Faker::Markdown.sandwich
-      )
+        content: Faker::Markdown.sandwich)
+    end
+
+    3.times do
+      DisciplineMonitor.create!(semester: DisciplineMonitor.semesters.values.sample,
+                                year: Faker::Number.between(2015, 2018),
+                                description: Faker::Lorem.characters(10),
+                                academic: Academic.all.sample,
+                                monitor_type: MonitorType.all.sample,
+                                professor_ids: [Professor.all.sample.id],
+                                discipline_ids: [Discipline.all.sample.id])
+    end
+    10.times do
+      Company.create!(name: Faker::Name.name,
+                      image: Faker::Avatar.image,
+                      operation: Faker::Markdown.sandwich,
+                      site: Faker::Internet.url)
+    end
+
+    ts = %w[Preenchida Dispónivel Cancelada]
+    ts.each do |status|
+      TraineeStatus.create!(name: status)
+    end
+
+    10.times do
+      Trainee.create!(title: Faker::Name.name,
+                      description: Faker::Markdown.sandwich,
+                      company: Company.all.sample,
+                      trainee_status: TraineeStatus.all.sample)
     end
   end
 end

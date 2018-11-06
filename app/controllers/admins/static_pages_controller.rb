@@ -26,7 +26,7 @@ class Admins::StaticPagesController < Admins::BaseController
   end
 
   def edit
-    add_breadcrumb I18n.t('breadcrumbs.static_pages.edit'),
+    add_breadcrumb I18n.t('breadcrumbs.static_pages.edit', name: "##{@static_page.id}"),
                    :edit_admins_static_page_path
   end
 
@@ -36,9 +36,9 @@ class Admins::StaticPagesController < Admins::BaseController
                                resource_name: StaticPage.model_name.human)
       redirect_to admins_static_pages_path
     else
-      add_breadcrumb I18n.t('breadcrumbs.static_pages.edit'),
+      add_breadcrumb I18n.t('breadcrumbs.static_pages.edit', name: "##{@static_page.id}"),
                    :edit_admins_static_page_path
-                   
+
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end

@@ -79,13 +79,12 @@ RSpec.feature 'Activities', type: :feature do
   describe '#destroy' do
     it 'activity' do
       activity = create(:activity)
-      visit admins_activities_path
-      destroy_link = "a[href='#{admins_activity_path(activity)}'][data-method='delete']"
-      find(destroy_link).click
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      visit admins_activities_path
+
+      click_on_destroy_link(admins_activity_path(activity))
+
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
 
       expect_page_not_have_in('table tbody', activity.name)
     end
@@ -93,8 +92,8 @@ RSpec.feature 'Activities', type: :feature do
     it 'activity unless has dependet' do
       ap = create(:activity_professor)
       visit admins_activities_path
-      destroy_link = "a[href='#{admins_activity_path(ap.activity)}'][data-method='delete']"
-      find(destroy_link).click
+
+      click_on_destroy_link(admins_activity_path(ap.activity))
 
       expect(page).to have_selector('div.alert.alert-warning',
                                     text: 'Não é possível remover atividades que possuem professores vinculados!')

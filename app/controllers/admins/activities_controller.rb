@@ -13,12 +13,13 @@ class Admins::ActivitiesController < Admins::BaseController
   end
 
   def edit
-    add_breadcrumb I18n.t('breadcrumbs.activities.edit', name: "##{@activity.name}"),
+    add_breadcrumb I18n.t('breadcrumbs.activities.edit', name: "##{@activity.id}"),
                    :edit_admins_activity_path
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.activities.show', name: "##{@activity.name}"), :admins_activity_path
+    add_breadcrumb I18n.t('breadcrumbs.activities.show', name: "##{@activity.id}"),
+                   :admins_activity_path
 
     store_location
   end
@@ -42,7 +43,7 @@ class Admins::ActivitiesController < Admins::BaseController
                                resource_name: Activity.model_name.human)
       redirect_to admins_activities_path
     else
-      add_breadcrumb I18n.t('breadcrumbs.activities.edit', name: "##{@activity.name}"),
+      add_breadcrumb I18n.t('breadcrumbs.activities.edit', name: "##{@activity.id}"),
                    :edit_admins_activity_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')

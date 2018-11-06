@@ -22,6 +22,6 @@
 //--------------------
 //= require lib/image_preview
 //= require lib/permalink_generator
-//= require admins/static_pages.js
+//= require admins/static_pages
 
 //= require admins/loads
