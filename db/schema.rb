@@ -131,7 +131,6 @@ ActiveRecord::Schema.define(version: 2018_10_27_203807) do
   create_table "period_professors", force: :cascade do |t|
     t.date "date_entry"
     t.date "date_out"
-    t.string "type_contract"
     t.bigint "professor_id"
     t.bigint "professor_category_id"
     t.datetime "created_at", null: false

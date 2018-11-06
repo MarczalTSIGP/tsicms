@@ -42,9 +42,10 @@ class Admins::PeriodsProfessorsController < Admins::BaseController
     @period_professor = PeriodProfessor.new(period_professor_params)
     if @period_professor.save
       flash[:success] = I18n.t('flash.actions.create.m',
-                               resource_name: Period.model_name.human)
-      redirect_to admins_periods_professors_path
+                               resource_name: PeriodProfessor.model_name.human)
+      redirect_to admins_professors_path(@professor)
     else
+      p@period_professor.errors
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :new
     end
@@ -59,7 +60,7 @@ class Admins::PeriodsProfessorsController < Admins::BaseController
 
   private
   def period_professor_params
-    params.require(:period_professor).permit(:date_entry, :date_out, :type_contract,:professor)
+    params.require(:period_professor).permit(:date_entry, :date_out, :type_contract,:professor_category_id)
   end
   
   def set_period_professor
