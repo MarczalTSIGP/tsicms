@@ -210,13 +210,11 @@ pt-BR:
         sub_title: 'Subtítulo'
         permalink: 'Link permanente'
         content: 'Conteúdo'
-<<<<<<< HEAD
       period_professor:
         <<: *commons
         data_entry: 'Data de entrada'
         data_out: 'Data de Saída'
-        type_contract: 'Tipo de Contrato'
-=======
+        professor_category: 'Categoria do Professor'
       discipline_monitor:
         <<: *commons
         year: 'Ano'
@@ -234,4 +232,4 @@ pt-BR:
         title: 'Título'
         company: 'Empresa'
         trainee_status: 'Status'
->>>>>>> master
+        

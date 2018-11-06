@@ -4,7 +4,9 @@ class CreatePeriodProfessors < ActiveRecord::Migration[5.2]
       t.date :date_entry
       t.date :date_out
       t.string :type_contract
+
       t.references :professor, foreign_key: true
+      t.references :professor_category, foreign_key: true
 
       t.timestamps
     end
