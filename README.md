@@ -169,13 +169,12 @@ After finishing developing you need to submit a request for your contribution to
     Run `git commit -m "Your message"`
 
 2. Update your repository from upstream
-
-	```
-  $ git checkout master
-  $ git pull upstream master
-  $ git checkout name-your-branch
-  $ git rebase master
-	```
+    ```
+    $ git checkout master
+    $ git pull upstream master
+    $ git checkout name-your-branch
+    $ git rebase master
+    ```
 
 3. Send your changes to your repository
 
