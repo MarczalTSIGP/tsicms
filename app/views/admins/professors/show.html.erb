@@ -43,7 +43,7 @@
           <tr id="periods_professors">
             <td><%= period.id %></td>
             <td><%= l(period.date_entry, format: :long) %></td>
-            <td><%= period.date_out %></td>
+            <td><%= period.date_out_human %></td>
             <td><%= period.professor.professor_category.name%></td>
             <td>
               <%= link_to admins_professor_period_path(@professor, period),  
@@ -53,7 +53,7 @@
                     </span>
               <% end %>
 
-              <%= link_to edit_admins_professor_period_path(period) do %>
+              <%= link_to edit_admins_professor_period_path(@professor, period) do %>
                     <span class="icon mr-3">
                       <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
                     </span>

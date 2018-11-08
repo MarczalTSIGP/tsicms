@@ -1,10 +1,11 @@
 class Admins::PeriodsProfessorsController < Admins::BaseController
-  before_action :set_period_professor, only: [:edit, :update, :destroy, :show]
+  before_action :set_period_professor, only: [:destroy]
 
   #add_breadcrumb I18n.t('breadcrumbs.periods_professors.name'), :admins_periods_professors_path
   #add_breadcrumb I18n.t('breadcrumbs.periods_professors.new'), :new_admins_periods_professors_path, only: [:new, :create]
 
   # Breadcrumbs teria que ficar Pagina Inicial / Professor:(id) / Periodo do Professor / Novo Periodo
+
 
   def new
     @professor = Professor.find(params[:professor_id])
@@ -12,20 +13,6 @@ class Admins::PeriodsProfessorsController < Admins::BaseController
   end
 
   def edit
-  
-  end
-
-  def update
-    @professor = Professor.find(params[:professor_id])
-    
-    if @period_professor.update(period_professor_params)
-      flash[:success] = I18n.t('flash.actions.update.m',
-                               resource_name: Period.model_name.human)
-      redirect_to admins_professor_path(@professor)
-    else
-      flash.now[:error] = I18n.t('flash.actions.errors')
-      render :edit
-    end
   end
 
   def create
@@ -47,6 +34,20 @@ class Admins::PeriodsProfessorsController < Admins::BaseController
     flash[:success] = I18n.t('flash.actions.destroy.m',
                              resource_name: Period.model_name.human)
     redirect_to admins_professor_path(@professor)
+  end
+
+  def update
+     if @period_professor.update(period_professor_params)
+      flash[:success] = I18n.t('flash.actions.update.m',
+                               resource_name: PeriodProfessor.model_name.human)
+      redirect_to admins_professor_path(@professor)
+    else
+      #add_breadcrumb I18n.t('breadcrumbs.recommendations.edit', name: "##{@recommendation.id}"),
+       #             :edit_admins_recommendation_path
+
+      flash.now[:error] = I18n.t('flash.actions.errors')
+      render :edit
+    end
   end
 
   private
