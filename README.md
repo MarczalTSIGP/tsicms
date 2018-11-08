@@ -41,12 +41,12 @@ To install TSICMS locally follow these instructions:
 	`cp config/application.yml.example config/application.yml`
 
 	In this file change postgres username and password and host
-    	```
+	```
 	database: &database
   		db.username: postgres
   		db.password: postgres
   		db.host: localhost
-    	```
+	```
 
 	After change mailer host and port
 	```
@@ -63,7 +63,13 @@ To install TSICMS locally follow these instructions:
 	$ rails db:seed
 	```
 
-6. **Run the application**
+6. **Populate the application**
+
+	```
+	$ rails db:populate
+	```
+
+7. **Run the application**
 
 	```
 	$ rails s
@@ -143,13 +149,12 @@ Now we have two repositories on disk:
 	`cp config/application.yml.example config/application.yml`
 
 	In this file change postgres username and password and host
-    	```
+	```
 	database: &database
   		db.username: postgres
   		db.password: postgres
   		db.host: db
-    	```
-
+	```
 
 ### Creating Pull Request
 
@@ -163,9 +168,18 @@ After finishing developing you need to submit a request for your contribution to
 
     Run `git commit -m "Your message"`
 
-2. Send your changes
+2. Update your repository from upstream
 
-    Run `git pull upstream master && git push -u origin name-your-branch`
+	```
+  $ git checkout master
+  $ git pull upstream master
+  $ git checkout name-your-branch
+  $ git rebase master
+	```
+
+3. Send your changes to your repository
+
+    Run `git push -u origin name-your-branch`
 
 
 The command creates a branch in your project / fork in GitHub. The -u flag binds this branch to its remote; so in the future, you can simply type git push origin.
