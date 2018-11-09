@@ -1,6 +1,6 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=58107d2379a29ee6287ba36f9b3c5698ddb390bd9b4c5258508a4faa4a5d6fd3
+    - CC_TEST_REPORTER_ID=c95f490bce5f2c7ff81a0b4cef14018882e9353f05de8ebc9519bc87f56309cb
 addons:
   postgresql: 9.6
 before_script:

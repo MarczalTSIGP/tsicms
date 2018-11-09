@@ -1,3 +1,7 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/fad208b8bb3198a543d2/maintainability)](https://codeclimate.com/github/TSIDW5/tsicms/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/fad208b8bb3198a543d2/test_coverage)](https://codeclimate.com/github/TSIDW5/tsicms/test_coverage)
+[![Build Status](https://travis-ci.org/TSIDW5/tsicms.svg?branch=master)](https://travis-ci.org/TSIDW5/tsicms)
+
 # TSICMS
 
 Content Management System for TSI Course
