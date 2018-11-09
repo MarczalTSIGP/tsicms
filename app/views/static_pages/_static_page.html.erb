@@ -1,6 +1,7 @@
 <h1><%= @static_page.title %></h1>
 <h3><%= @static_page.sub_title %></h3>
-
+<h3> Professor Responsavel: <%= link_to @professor.name, professor_path(@professor) %></h3>
+<h5><%= link_to 'Historico de professores' , static_page_history_path(@static_page) %></h5>
 <div class="markdown-content" data-markdown="<%= @static_page.content %>">
   <%= @static_page.content %>
 </div>

@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-  skip_around_action :set_locale_from_url
+
   def index
     @static_page = StaticPage.find_by!(permalink: params[:permalink])
   end
@@ -27,6 +27,13 @@ class StaticPagesController < ApplicationController
 
   def activity
     @activity = Activity.find(params[:id])
+  end
+
+  def history
+    @activity_professors = Activity.find_by(name: 'Estagio').activity_professors.page params[:page]
+    @static_page = StaticPage.find(params[:static_page_id])
+    add_breadcrumb I18n.t('breadcrumbs.static_pages.historic', name: "##{@static_page.id}"),
+                   :static_page_history_path
   end
 
   private

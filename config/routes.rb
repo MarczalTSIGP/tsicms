@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   localized do
     root to: 'home#index'
     get '/static_pages/:permalink', to: 'static_pages#index', as: 'static_page'
+    get '/static_pages/:static_page_id/history', to: 'static_pages#history', as: 'static_page_history'
     get '/tcc', to: 'static_pages#tcc'
     get '/monitors', to: 'static_pages#monitor'
-
     resources :professors, only: [:index, :show]
     resources :companies, only: [:index, :show]
     resources :trainees, only: [:index, :show]
@@ -36,13 +36,16 @@ Rails.application.routes.draw do
         resources :activity_professors, excepty: [:show]
         resources :matrices, :periods, :disciplines
         resources :faqs
-        resources :static_pages, excepty: [:show]
+        resources :static_pages, excepty: [:show] do
+          get 'history', to: 'static_pages#history'
+        end
         resources :discipline_monitors
         resources :monitor_types
         resources :trainees
         get '/static_page/trainee', to: 'static_pages#trainee'
         get '/static_page/tcc', to: 'static_pages#tcc'
         get '/static_page/monitor', to: 'static_pages#monitor'
+
 
         resources :category_recommendations,
                   :recommendations,

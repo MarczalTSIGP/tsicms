@@ -21,10 +21,12 @@ pt-BR:
     disciplines: disciplinas
     discipline: disciplina
     discipline_monitors: monitores_das_disciplinas
+    history: historico
     matrices: matrizes
     matrice: matriz
-    monitores: monitorias
+    monitors: monitorias
     monitor: monitor
+    monitor_types: tipos_de_monitores
     periods: periodos
     period: periodo
     professors: professores
@@ -36,6 +38,8 @@ pt-BR:
     trainees: estagios
     trainee: estagio
     tcc: tcc
+    type: tipo
+    types: tipos
     new: novo
     edit: editar
     page: pagina
@@ -100,6 +104,7 @@ pt-BR:
       name: 'Páginas Estáticas'
       new: 'Nova Página'
       edit: 'Editar Página %{name}'
+      historic: "Historico"
     discipline_monitors:
       name: 'Monitorias'
       new: 'Nova Monitoria'

@@ -9,8 +9,9 @@
   <% end %>
 </div>
 
+<%= paginate @faqs %>
+
 <div id="accordion">
   <h4 class="title" >Perguntas</h4>
   <%= render @faqs %>
 </div>
-<%= paginate @faqs %>

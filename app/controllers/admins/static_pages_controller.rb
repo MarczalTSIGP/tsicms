@@ -5,7 +5,7 @@ class Admins::StaticPagesController < Admins::BaseController
   add_breadcrumb I18n.t('breadcrumbs.static_pages.new'), :new_admins_static_page_path, only: [:new, :create]
 
   def index
-    @static_pages = StaticPage.order(created_at: :desc)
+    @static_pages = StaticPage.order(created_at: :desc).page params[:page]
   end
 
   def new
@@ -37,7 +37,7 @@ class Admins::StaticPagesController < Admins::BaseController
       redirect_to admins_static_pages_path
     else
       add_breadcrumb I18n.t('breadcrumbs.static_pages.edit', name: "##{@static_page.id}"),
-                   :edit_admins_static_page_path
+                     :edit_admins_static_page_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
@@ -53,15 +53,25 @@ class Admins::StaticPagesController < Admins::BaseController
 
   def trainee
     find_static_page 'Estágio'
-    @trainees = Trainee.order(created_at: :desc)
+    @professor = Activity.find_by(name: 'Estagio').activity_professors.find_by(end_date: nil).professor
   end
 
   def tcc
     find_static_page 'TCC'
+    @professor = Activity.find_by(name: 'TCC').activity_professors.find_by(end_date: nil).professor
   end
 
   def monitor
     find_static_page 'Monitoria'
+    @professor = Activity.find_by(name: 'Monitoria').activity_professors.find_by(end_date: nil).professor
+  end
+
+
+  def history
+    @activity_professors = Activity.find_by(name: 'Estagio').activity_professors.page params[:page]
+    @static_page = StaticPage.find(params[:static_page_id])
+    add_breadcrumb I18n.t('breadcrumbs.static_pages.historic', name: "##{@static_page.id}"),
+                   :admins_static_page_history_path
   end
 
   protected
@@ -73,6 +83,7 @@ class Admins::StaticPagesController < Admins::BaseController
   def set_static_page
     @static_page = StaticPage.find(params[:id])
   end
+
   private
 
   def find_static_page(title)

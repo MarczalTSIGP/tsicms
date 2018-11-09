@@ -9,6 +9,8 @@
   <% end %>
 </div>
 
+<%= paginate @recommendations %>
+
 <div class="table-responsive">
   <table class="table card-table table-vcenter text-nowrap" id="recommendations_table">
     <thead>
@@ -24,4 +26,3 @@
     </tbody>
   </table>
 </div>
-<%= paginate @recommendations %>

@@ -1,4 +1,5 @@
 class StaticPage < ApplicationRecord
+
   validates :title, presence: true
   validates :content, presence: true
   validates :permalink, uniqueness: { case_sensitive: false },
