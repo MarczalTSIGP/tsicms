@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :discipline_monitor do
     year { 2018 }
-    semester { [1,2].sample }
-    description { "MyText" }
+    semester { [1, 2].sample }
+    description { 'Description' }
 
     academic
     monitor_type

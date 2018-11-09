@@ -57,10 +57,10 @@ class Admins::TraineesController < Admins::BaseController
   protected
 
   def add_company(company_id)
-    if company_id
-      @company = Company.find(company_id)
-      @trainee.company = @company if @company
-    end
+    return unless company_id
+
+    @company = Company.find(company_id)
+    @trainee.company = @company if @company
   end
 
   def trainee_params

@@ -7,4 +7,3 @@ class DisciplineMonitorsController < ApplicationController
     @discipline_monitor = DisciplineMonitor.find(params[:id])
   end
 end
-

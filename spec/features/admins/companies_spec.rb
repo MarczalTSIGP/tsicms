@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'Companies', type: :feature do
-  let(:admin) {create(:admin)}
-  let(:resource_name) {Company.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { Company.model_name.human }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -31,7 +31,6 @@ RSpec.feature 'Companies', type: :feature do
     end
     context 'with invalid fields' do
       it 'show errors' do
-
         submit_form
 
         expect_alert_error('flash.actions.errors')
@@ -44,7 +43,7 @@ RSpec.feature 'Companies', type: :feature do
   end
 
   describe '#update' do
-    let(:company) {create :company}
+    let(:company) { create :company }
     before(:each) do
       visit edit_admins_company_path(company)
     end
@@ -69,7 +68,7 @@ RSpec.feature 'Companies', type: :feature do
   end
 
   describe '#index' do
-    let!(:companies) {create_list(:company, 2)}
+    let!(:companies) { create_list(:company, 2) }
 
     it 'show all companies' do
       visit admins_companies_path
@@ -104,7 +103,6 @@ RSpec.feature 'Companies', type: :feature do
       expect_alert_success(resource_name, 'flash.actions.destroy.f')
 
       expect_page_not_have_in('table tbody', company.name)
-
     end
   end
 end

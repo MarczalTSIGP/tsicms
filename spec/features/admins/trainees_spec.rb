@@ -1,17 +1,16 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin Trainees', type: :feature do
-
-  let(:admin) {create(:admin)}
-  let(:resource_name) {Trainee.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { Trainee.model_name.human }
 
   before(:each) do
     login_as(admin, scope: :admin)
   end
 
   describe '#create' do
-    let!(:company){create_list(:company, 3).sample}
-    let!(:trainee_status){create_list(:trainee_status, 3).sample}
+    let!(:company) { create_list(:company, 3).sample }
+    let!(:trainee_status) { create_list(:trainee_status, 3).sample }
     before(:each) do
       visit new_admins_trainee_path
     end
@@ -71,8 +70,7 @@ RSpec.feature 'Admin Trainees', type: :feature do
   end
 
   describe '#show' do
-
-    let!(:traineess) {create_list(:trainee, 2)}
+    let!(:traineess) { create_list(:trainee, 2) }
 
     it 'all trainees' do
       visit admins_trainees_path

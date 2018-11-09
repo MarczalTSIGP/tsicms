@@ -1,16 +1,14 @@
 require 'rails_helper'
 
 RSpec.feature 'Activities', type: :feature do
-
-  let(:admin) {create(:admin)}
-  let(:resource_name) {Activity.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { Activity.model_name.human }
 
   before(:each) do
     login_as(admin, scope: :admin)
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_activity_path
     end
@@ -46,18 +44,21 @@ RSpec.feature 'Activities', type: :feature do
   end
 
   describe '#update' do
-    let(:activity) {create(:activity)}
+    let(:activity) { create(:activity) }
+
     before(:each) do
       visit edit_admins_activity_path(activity)
     end
+
     context 'fill fields' do
       it 'with correct values' do
         expect(page).to have_field 'activity_name',
-          with: activity.name
+                                   with: activity.name
         expect(page).to have_field 'activity_description',
-          with: activity.description
+                                   with: activity.description
       end
     end
+
     context 'with valid fields' do
       it 'update activity' do
         attributes = attributes_for(:activity)
@@ -95,15 +96,16 @@ RSpec.feature 'Activities', type: :feature do
 
       click_on_destroy_link(admins_activity_path(ap.activity))
 
+      alert_message = 'Não é possível remover atividades que possuem professores vinculados!'
       expect(page).to have_selector('div.alert.alert-warning',
-                                    text: 'Não é possível remover atividades que possuem professores vinculados!')
+                                    text: alert_message)
 
       expect(page).to have_content('table tbody', ap.activity.name)
     end
   end
 
   describe '#index' do
-    let!(:activities) {create_list(:activity, 6)}
+    let!(:activities) { create_list(:activity, 6) }
 
     it 'show all activities with options' do
       visit admins_activities_path

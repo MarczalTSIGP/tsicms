@@ -2,7 +2,8 @@ class Admins::ProfessorsController < Admins::BaseController
   before_action :set_professor, only: [:edit, :update, :destroy, :show]
 
   add_breadcrumb I18n.t('breadcrumbs.professors.name'), :admins_professors_path
-  add_breadcrumb I18n.t('breadcrumbs.professors.new'), :new_admins_professor_path, only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.professors.new'), :new_admins_professor_path,
+                 only: [:new, :create]
 
   def index
     @professors = Professor.order(name: :asc)
@@ -25,7 +26,7 @@ class Admins::ProfessorsController < Admins::BaseController
 
   def edit
     add_breadcrumb I18n.t('breadcrumbs.professors.edit', name: "##{@professor.id}"),
-                   :edit_admins_professor_path 
+                   :edit_admins_professor_path
   end
 
   def update
@@ -34,7 +35,7 @@ class Admins::ProfessorsController < Admins::BaseController
       redirect_to admins_professor_path(@professor)
     else
       add_breadcrumb I18n.t('breadcrumbs.professors.edit', name: "##{@professor.id}"),
-                   :edit_admins_professor_path
+                     :edit_admins_professor_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
@@ -52,7 +53,8 @@ class Admins::ProfessorsController < Admins::BaseController
   end
 
   def show
-    add_breadcrumb I18n.t('breadcrumbs.professors.show', name: "##{@professor.id}"), :admins_professor_path
+    add_breadcrumb I18n.t('breadcrumbs.professors.show', name: "##{@professor.id}"),
+                   :admins_professor_path
     store_location
   end
 

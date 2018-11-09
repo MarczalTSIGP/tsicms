@@ -1,5 +1,5 @@
 class Professor < ApplicationRecord
-  enum gender: { male: 'male', female: 'female'}, _prefix: :gender
+  enum gender: { male: 'male', female: 'female' }, _prefix: :gender
 
   belongs_to :professor_title
   belongs_to :professor_category
@@ -7,11 +7,11 @@ class Professor < ApplicationRecord
   has_many :activity_professors, dependent: :restrict_with_error
   has_many :activities, through: :activity_professors
 
-  has_many :discipline_monitor_professors
+  has_many :discipline_monitor_professors, dependent: :restrict_with_error
   has_many :discipline_monitors, through: :discipline_monitor_professors
 
   validates :name, presence: true
-  validates :lattes, presence: true, format: { with: URI.regexp }
+  validates :lattes, presence: true, format: { with: URI::DEFAULT_PARSER.make_regexp }
   validates :occupation_area, presence: true
   validates :email, presence: true, format: { with: Devise.email_regexp }
   validates :professor_title, presence: true
@@ -25,5 +25,4 @@ class Professor < ApplicationRecord
     genders.keys.each { |key| hash[I18n.t("enums.genders.#{key}")] = key }
     hash
   end
-
 end

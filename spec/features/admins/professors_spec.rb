@@ -1,16 +1,14 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin Professors', type: :feature do
-
-  let(:admin) {create :admin}
-  let(:resource_name) {Professor.model_name.human}
+  let(:admin) { create :admin }
+  let(:resource_name) { Professor.model_name.human }
 
   before(:each) do
     login_as admin, scope: :admin
   end
 
   describe '#create' do
-
     before(:each) do
       @category = create_list(:professor_category, 2).sample
       @title = create_list(:professor_title, 3).sample
@@ -88,11 +86,8 @@ RSpec.feature 'Admin Professors', type: :feature do
       visit admins_professors_path
 
       click_on_destroy_link(admins_professor_path(professor))
-
       expect_alert_success(resource_name, 'flash.actions.destroy.m')
-
       expect_page_not_have_in('table tbody', professor.name)
-
     end
 
     it 'professor unless has dependet' do
@@ -100,16 +95,14 @@ RSpec.feature 'Admin Professors', type: :feature do
       visit admins_professors_path
 
       click_on_destroy_link(admins_professor_path(ap.professor))
-
       expect(page).to have_selector('div.alert.alert-warning',
                                     text: 'Não é possível remover professores com vínculos!')
-
       expect(page).to have_content('table tbody', ap.professor.name)
     end
   end
 
   describe '#index' do
-    let!(:professors) {create_list(:professor, 2)}
+    let!(:professors) { create_list(:professor, 2) }
 
     it 'show all professors' do
       visit admins_professors_path
@@ -139,7 +132,6 @@ RSpec.feature 'Admin Professors', type: :feature do
         expect(page).to have_content(professor.occupation_area)
         expect(page).to have_content(professor.professor_category.name)
         expect(page).to have_content(professor.professor_title.name)
-
       end
     end
   end

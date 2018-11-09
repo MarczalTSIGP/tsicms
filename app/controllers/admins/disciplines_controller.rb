@@ -2,11 +2,12 @@ class Admins::DisciplinesController < Admins::BaseController
   before_action :set_discipline, only: [:edit, :update, :destroy, :show]
 
   add_breadcrumb I18n.t('breadcrumbs.disciplines.name'), :admins_disciplines_path
-  add_breadcrumb I18n.t('breadcrumbs.disciplines.new'), :new_admins_discipline_path, only: [:new, :create]
-  
+  add_breadcrumb I18n.t('breadcrumbs.disciplines.new'), :new_admins_discipline_path,
+                 only: [:new, :create]
+
   def index
-    @disciplines = Discipline.includes(period: [:matrix]).
-      order('matrices.name ASC', 'periods.name ASC')
+    @disciplines = Discipline.includes(period: [:matrix])
+                             .order('matrices.name ASC', 'periods.name ASC')
   end
 
   def new
@@ -42,7 +43,7 @@ class Admins::DisciplinesController < Admins::BaseController
                                resource_name: Discipline.model_name.human)
     else
       add_breadcrumb I18n.t('breadcrumbs.disciplines.edit', name: "##{@discipline.id}"),
-                        :edit_admins_discipline_path
+                     :edit_admins_discipline_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
@@ -57,6 +58,7 @@ class Admins::DisciplinesController < Admins::BaseController
   end
 
   private
+
   def discipline_params
     params.require(:discipline).permit(:name, :code, :hours, :menu, :period_id)
   end

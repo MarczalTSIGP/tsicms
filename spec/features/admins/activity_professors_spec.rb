@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'Activity Professors', type: :feature do
-  let(:admin) {create(:admin)}
-  let(:resource_name) {ActivityProfessor.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { ActivityProfessor.model_name.human }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -30,7 +30,7 @@ RSpec.feature 'Activity Professors', type: :feature do
 
         expect(page.current_path).to eq admins_activities_path
 
-        expect_alert_success(resource_name,'flash.actions.create.f')
+        expect_alert_success(resource_name, 'flash.actions.create.f')
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -122,7 +122,7 @@ RSpec.feature 'Activity Professors', type: :feature do
   end
 
   describe '#show' do
-    let(:activity_professor) {create(:activity_professor)}
+    let(:activity_professor) { create(:activity_professor) }
     it 'professor with activities history' do
       visit admins_professor_path(activity_professor.professor)
 
@@ -143,24 +143,20 @@ RSpec.feature 'Activity Professors', type: :feature do
     before(:each) do
       @activity_professor = create(:activity_professor)
     end
-    it 'activity from professor' do
 
+    it 'activity from professor' do
       visit admins_professor_path(@activity_professor.professor)
 
       click_on_destroy_link(admins_activity_professor_path(@activity_professor))
-
       expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
       expect_page_not_have_in('table tbody', @activity_professor.activity.name)
     end
-    it 'professor from activity' do
 
+    it 'professor from activity' do
       visit admins_activity_path(@activity_professor.activity)
 
       click_on_destroy_link(admins_activity_professor_path(@activity_professor))
-
       expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
       expect_page_not_have_in('table tbody', @activity_professor.professor.name)
     end
   end

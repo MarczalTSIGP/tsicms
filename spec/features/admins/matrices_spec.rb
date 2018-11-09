@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Matrix', type: :feature do
-
   let(:admin) { create(:admin) }
   let(:resource_name) { Matrix.model_name.human }
 
@@ -10,7 +9,6 @@ RSpec.feature 'Matrix', type: :feature do
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_matrix_path
     end
@@ -47,7 +45,7 @@ RSpec.feature 'Matrix', type: :feature do
       end
     end
 
-    context 'when has same name'  do
+    context 'when has same name' do
       let(:matrix) { create(:matrix) }
 
       it 'show errors' do
@@ -116,7 +114,7 @@ RSpec.feature 'Matrix', type: :feature do
       end
     end
 
-    context 'when has same name'  do
+    context 'when has same name' do
       let(:other_matrix) { create(:matrix) }
 
       it 'show errors' do
@@ -171,7 +169,6 @@ RSpec.feature 'Matrix', type: :feature do
         destroy_link = "a[href='#{admins_matrix_path(matrix)}'][data-method='delete']"
         expect(page).to have_css(destroy_link)
       end
-    end 
+    end
   end
-
 end

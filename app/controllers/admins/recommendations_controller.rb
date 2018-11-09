@@ -3,7 +3,8 @@ class Admins::RecommendationsController < Admins::BaseController
   before_action :load_categories, only: [:new, :create, :edit, :update]
 
   add_breadcrumb I18n.t('breadcrumbs.recommendations.name'), :admins_recommendations_path
-  add_breadcrumb I18n.t('breadcrumbs.recommendations.new'), :new_admins_recommendation_path, only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.recommendations.new'), :new_admins_recommendation_path,
+                 only: [:new, :create]
 
   def index
     @recommendations = Recommendation.order(created_at: :desc)
@@ -28,17 +29,17 @@ class Admins::RecommendationsController < Admins::BaseController
 
   def edit
     add_breadcrumb I18n.t('breadcrumbs.recommendations.edit', name: "##{@recommendation.id}"),
-                  :edit_admins_recommendation_path
+                   :edit_admins_recommendation_path
   end
 
   def update
-    if @recommendation.update_attributes(recommendation_params)
+    if @recommendation.update(recommendation_params)
       flash[:success] = I18n.t('flash.actions.update.f',
                                resource_name: Recommendation.model_name.human)
       redirect_to admins_recommendations_path
     else
       add_breadcrumb I18n.t('breadcrumbs.recommendations.edit', name: "##{@recommendation.id}"),
-                    :edit_admins_recommendation_path
+                     :edit_admins_recommendation_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit

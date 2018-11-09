@@ -36,13 +36,13 @@ class Admins::FaqsController < Admins::BaseController
   end
 
   def update
-    if @faq.update_attributes(faq_params)
+    if @faq.update(faq_params)
       flash[:success] = I18n.t('flash.actions.update.f',
                                resource_name: Faq.model_name.human)
       redirect_to admins_faqs_path
     else
       add_breadcrumb I18n.t('breadcrumbs.faqs.edit', name: "##{@faq.title}"),
-                   :edit_admins_faq_path
+                     :edit_admins_faq_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
@@ -57,6 +57,7 @@ class Admins::FaqsController < Admins::BaseController
   end
 
   protected
+
   def faq_params
     params.require(:faq).permit(:title, :answer)
   end
@@ -64,5 +65,4 @@ class Admins::FaqsController < Admins::BaseController
   def set_faq
     @faq = Faq.find(params[:id])
   end
-
 end

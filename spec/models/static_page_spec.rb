@@ -13,4 +13,3 @@ RSpec.describe StaticPage, type: :model do
     it { is_expected.to_not allow_value('awesome#page').for(:permalink) }
   end
 end
-

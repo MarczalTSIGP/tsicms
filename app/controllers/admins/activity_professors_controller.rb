@@ -2,7 +2,8 @@ class Admins::ActivityProfessorsController < Admins::BaseController
   before_action :set_activity_professor, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.activity_professors.name'), :admins_activities_path
-  add_breadcrumb I18n.t('breadcrumbs.activity_professors.new'), :new_admins_activity_professor_path, only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.activity_professors.new'),
+                 :new_admins_activity_professor_path, only: [:new, :create]
 
   def new
     @activity_professor = ActivityProfessor.new
@@ -22,10 +23,9 @@ class Admins::ActivityProfessorsController < Admins::BaseController
     end
   end
 
-
   def edit
     add_breadcrumb I18n.t('breadcrumbs.activity_professors.edit'),
-                  :edit_admins_activity_professor_path
+                   :edit_admins_activity_professor_path
   end
 
   def show
@@ -39,7 +39,7 @@ class Admins::ActivityProfessorsController < Admins::BaseController
       redirect_back_or(admins_activities_path)
     else
       add_breadcrumb I18n.t('breadcrumbs.activity_professors.edit'),
-                  :edit_admins_activity_professor_path
+                     :edit_admins_activity_professor_path
 
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
@@ -69,16 +69,16 @@ class Admins::ActivityProfessorsController < Admins::BaseController
   private
 
   def add_professor(professor_id)
-    if professor_id
-      @professor = Professor.find(professor_id)
-      @activity_professor.professor = @professor if @professor
-    end
+    return unless professor_id
+
+    @professor = Professor.find(professor_id)
+    @activity_professor.professor = @professor if @professor
   end
 
   def add_activity(activity_id)
-    if activity_id
-      @activity = Activity.find(activity_id)
-      @activity_professor.activity = @activity if @activity
-    end
+    return unless activity_id
+
+    @activity = Activity.find(activity_id)
+    @activity_professor.activity = @activity if @activity
   end
 end

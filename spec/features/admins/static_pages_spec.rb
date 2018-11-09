@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Admins::StaticPages', type: :feature do
-
   let(:admin) { create(:admin) }
   let(:resource_name) { StaticPage.model_name.human }
 
@@ -10,7 +9,6 @@ RSpec.feature 'Admins::StaticPages', type: :feature do
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_static_page_path
     end
@@ -61,7 +59,7 @@ RSpec.feature 'Admins::StaticPages', type: :feature do
   end
 
   describe '#update' do
-    let(:static_page) {create(:static_page)}
+    let(:static_page) { create(:static_page) }
     before(:each) do
       visit edit_admins_static_page_path(static_page)
     end
@@ -159,7 +157,6 @@ RSpec.feature 'Admins::StaticPages', type: :feature do
         destroy_link = "a[href='#{admins_static_page_path(s)}'][data-method='delete']"
         expect(page).to have_css(destroy_link)
       end
-    end 
+    end
   end
-
 end

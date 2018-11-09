@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Category Recommendations', type: :feature do
-
   let(:admin) { create(:admin) }
   let(:resource_name) { CategoryRecommendation.model_name.human }
 
@@ -10,7 +9,6 @@ RSpec.feature 'Category Recommendations', type: :feature do
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_category_recommendation_path
     end
@@ -47,7 +45,7 @@ RSpec.feature 'Category Recommendations', type: :feature do
       end
     end
 
-    context 'when has same name'  do
+    context 'when has same name' do
       let(:category) { create(:category_recommendation) }
 
       it 'show errors' do
@@ -112,11 +110,11 @@ RSpec.feature 'Category Recommendations', type: :feature do
 
         within('div.category_recommendation_name') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
-      end
+        end
       end
     end
 
-    context 'when has same name'  do
+    context 'when has same name' do
       let(:other_category) { create(:category_recommendation) }
 
       it 'show errors' do
@@ -137,41 +135,42 @@ RSpec.feature 'Category Recommendations', type: :feature do
         end
       end
     end
-  end
 
-  describe '#destroy' do
-    it 'category recommendation' do
-      category = create(:category_recommendation)
-      visit admins_category_recommendations_path
+    describe '#destroy' do
+      it 'category recommendation' do
+        category = create(:category_recommendation)
+        visit admins_category_recommendations_path
 
-      destroy_path = "/admins/category_recommendations/#{category.id}"
-      click_link href: destroy_path
+        destroy_path = "/admins/category_recommendations/#{category.id}"
+        click_link href: destroy_path
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+        expect(page).to have_selector('div.alert.alert-success',
+                                      text: I18n.t('flash.actions.destroy.f',
+                                                   resource_name: resource_name))
 
-      within('table tbody') do
-        expect(page).not_to have_content(category.name)
+        within('table tbody') do
+          expect(page).not_to have_content(category.name)
+        end
+      end
+    end
+
+    describe '#index' do
+      let!(:categories) { create_list(:category_recommendation, 3) }
+
+      it 'show all category recommendations with options' do
+        visit admins_category_recommendations_path
+
+        categories.each do |category|
+          expect(page).to have_content(category.name)
+          expect(page).to have_content(I18n.l(category.created_at, format: :long))
+
+          expect(page).to have_link(href: edit_admins_category_recommendation_path(category))
+
+          destroy_path = admins_category_recommendation_path(category)
+          destroy_link = "a[href='#{destroy_path}'][data-method='delete']"
+          expect(page).to have_css(destroy_link)
+        end
       end
     end
   end
-
-  describe '#index' do
-    let!(:categories) { create_list(:category_recommendation, 3) }
-
-    it 'show all category recommendations with options' do
-      visit admins_category_recommendations_path
-
-      categories.each do |category|
-        expect(page).to have_content(category.name)
-        expect(page).to have_content(I18n.l(category.created_at, format: :long))
-
-        expect(page).to have_link(href: edit_admins_category_recommendation_path(category))
-        destroy_link = "a[href='#{admins_category_recommendation_path(category)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
-      end
-    end 
-  end
-
 end

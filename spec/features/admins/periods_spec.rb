@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Period', type: :feature do
-
   let(:admin) { create(:admin) }
   let!(:matrix) { create_list(:matrix, 3).sample }
   let(:resource_name) { Period.model_name.human }
@@ -11,7 +10,6 @@ RSpec.feature 'Period', type: :feature do
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_period_path
     end
@@ -119,7 +117,7 @@ RSpec.feature 'Period', type: :feature do
       end
     end
 
-    context 'when has same name'  do
+    context 'when has same name' do
       let(:other_period) { create(:period, matrix: matrix) }
 
       it 'show errors' do
@@ -178,5 +176,4 @@ RSpec.feature 'Period', type: :feature do
       end
     end
   end
-
 end

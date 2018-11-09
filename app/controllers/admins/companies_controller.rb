@@ -2,7 +2,8 @@ class Admins::CompaniesController < Admins::BaseController
   before_action :set_company, only: [:edit, :update, :destroy, :show]
 
   add_breadcrumb I18n.t('breadcrumbs.companies.name'), :admins_companies_path
-  add_breadcrumb I18n.t('breadcrumbs.companies.new'), :new_admins_company_path, only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.companies.new'), :new_admins_company_path,
+                 only: [:new, :create]
 
   def index
     @companies = Company.order(name: :asc)

@@ -1,7 +1,6 @@
- require 'rails_helper'
+require 'rails_helper'
 
 RSpec.feature 'Faqs', type: :feature do
-
   let(:admin) { create(:admin) }
   let(:resource_name) { Faq.model_name.human }
 
@@ -10,7 +9,6 @@ RSpec.feature 'Faqs', type: :feature do
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_faq_path
     end
@@ -70,7 +68,7 @@ RSpec.feature 'Faqs', type: :feature do
     context 'with valid fields' do
       it 'faq' do
         attributes = attributes_for(:faq)
-        new_title = "Pergunta Nova"
+        new_title = 'Pergunta Nova'
 
         fill_in 'faq_title', with: new_title
         fill_in 'faq_answer', with: attributes[:answer]
@@ -141,5 +139,4 @@ RSpec.feature 'Faqs', type: :feature do
       end
     end
   end
-
 end
