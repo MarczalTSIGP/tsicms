@@ -13,10 +13,13 @@ namespace :db do
      Academic,
      Discipline,
      Period,
-     Matrix, Faq,
+     Matrix,
+     Faq,
      StaticPage,
      Trainee,
-     TraineeStatus].each(&:delete_all)
+     TraineeStatus,
+     Picture,
+     Gallery].each(&:delete_all)
 
     10.times do
       Faq.create!(
@@ -146,6 +149,18 @@ namespace :db do
                       description: Faker::Markdown.sandwich,
                       company: Company.all.sample,
                       trainee_status: TraineeStatus.all.sample)
+    end
+
+    galleries = %w[course static_page]
+    galleries.each do |context|
+      Gallery.create!(context: context)
+    end
+
+    Gallery.all.each do |gallery|
+      5.times do
+        gallery.pictures.create! label: Faker::Lorem.paragraph(1),
+                                 image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample)
+      end
     end
   end
 end

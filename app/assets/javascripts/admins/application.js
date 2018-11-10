@@ -12,6 +12,7 @@
 // Vendors
 //--------------------
 //= require config/selectize
+//= require config/jquery.fancybox
 
 // Config files
 //--------------------

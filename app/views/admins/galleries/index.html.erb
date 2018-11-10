@@ -1,0 +1,17 @@
+<% provide(:page_title, 'Galeria') %>
+
+<% @gallery.pictures.in_groups_of(3, false).each do |pictures| %>
+  <div class="row row-cards">
+    <% pictures.each do |picture| %>
+      <div class="col-sm-12 col-md-4">
+        <div class="card p-1">
+          <a href="<%= picture.image.url %>" data-fancybox="gallery" data-caption="<%= picture.label %>">
+            <figure class="mb-0">
+              <%= image_tag picture.image.url %>
+            </figure>
+          </a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
