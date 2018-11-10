@@ -39,10 +39,6 @@ plugins:
       file: ".rubocop.yml"
   brakeman:
     enabled: true
-  editorconfig:
-    enabled: true
-    config:
-      editorconfig: .editorconfig
 
 exclude_patterns:
   - ".rubocop*.yml"
