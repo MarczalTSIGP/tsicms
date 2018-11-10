@@ -18,11 +18,10 @@ class Admins::RecommendationsController < Admins::BaseController
     @recommendation = Recommendation.new(recommendation_params)
 
     if @recommendation.save
-      flash[:success] = I18n.t('flash.actions.create.f',
-                               resource_name: Recommendation.model_name.human)
+      feminine_success_create_message
       redirect_to admins_recommendations_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
@@ -34,22 +33,20 @@ class Admins::RecommendationsController < Admins::BaseController
 
   def update
     if @recommendation.update(recommendation_params)
-      flash[:success] = I18n.t('flash.actions.update.f',
-                               resource_name: Recommendation.model_name.human)
+      feminine_success_update_message
       redirect_to admins_recommendations_path
     else
       add_breadcrumb I18n.t('breadcrumbs.recommendations.edit', name: "##{@recommendation.id}"),
                      :edit_admins_recommendation_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @recommendation.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.f',
-                             resource_name: Recommendation.model_name.human)
+    feminine_success_destroy_message
     redirect_to admins_recommendations_path
   end
 

@@ -96,7 +96,7 @@ RSpec.feature 'Activities', type: :feature do
 
       click_on_destroy_link(admins_activity_path(ap.activity))
 
-      alert_message = 'Não é possível remover atividades que possuem professores vinculados!'
+      alert_message = I18n.t('flash.actions.destroy.bond', resource_name: resource_name)
       expect(page).to have_selector('div.alert.alert-warning',
                                     text: alert_message)
 

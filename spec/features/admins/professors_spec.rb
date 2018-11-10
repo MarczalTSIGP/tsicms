@@ -95,8 +95,8 @@ RSpec.feature 'Admin Professors', type: :feature do
       visit admins_professors_path
 
       click_on_destroy_link(admins_professor_path(ap.professor))
-      expect(page).to have_selector('div.alert.alert-warning',
-                                    text: 'Não é possível remover professores com vínculos!')
+      alert_message = I18n.t('flash.actions.destroy.bond', resource_name: resource_name)
+      expect(page).to have_selector('div.alert.alert-warning', text: alert_message)
       expect(page).to have_content('table tbody', ap.professor.name)
     end
   end

@@ -25,15 +25,13 @@ class Admins::PeriodsController < Admins::BaseController
 
   def update
     if @period.update(period_params)
-      flash[:success] = I18n.t('flash.actions.update.m',
-                               resource_name: Period.model_name.human)
-
+      success_update_message
       redirect_to admins_periods_path
     else
       add_breadcrumb I18n.t('breadcrumbs.periods.edit', name: "##{@period.id}"),
                      :edit_admins_period_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
@@ -41,19 +39,17 @@ class Admins::PeriodsController < Admins::BaseController
   def create
     @period = Period.new(period_params)
     if @period.save
-      flash[:success] = I18n.t('flash.actions.create.m',
-                               resource_name: Period.model_name.human)
+      success_create_message
       redirect_to admins_periods_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
 
   def destroy
     @period.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.m',
-                             resource_name: Period.model_name.human)
+    success_destroy_message
     redirect_to admins_periods_path
   end
 

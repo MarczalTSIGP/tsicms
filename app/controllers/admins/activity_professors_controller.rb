@@ -14,11 +14,10 @@ class Admins::ActivityProfessorsController < Admins::BaseController
   def create
     @activity_professor = ActivityProfessor.new(activity_professor_params)
     if @activity_professor.save
-      flash[:success] = I18n.t('flash.actions.create.f',
-                               resource_name: ActivityProfessor.model_name.human)
+      feminine_success_create_message
       redirect_back_or(admins_activities_path)
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
@@ -34,22 +33,21 @@ class Admins::ActivityProfessorsController < Admins::BaseController
 
   def update
     if @activity_professor.update(activity_professor_params)
-      flash[:success] = I18n.t('flash.actions.update.f',
-                               resource_name: ActivityProfessor.model_name.human)
+      feminine_success_update_message
       redirect_back_or(admins_activities_path)
     else
       add_breadcrumb I18n.t('breadcrumbs.activity_professors.edit'),
                      :edit_admins_activity_professor_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @activity_professor.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.f',
-                             resource_name: ActivityProfessor.model_name.human)
+
+    feminine_success_destroy_message
     redirect_back_or(admins_activities_path)
   end
 

@@ -1,4 +1,5 @@
 class Admins::BaseController < ActionController::Base
+  include FlashMessage
   include Admins::ApplicationHelper
 
   protect_from_forgery with: :exception

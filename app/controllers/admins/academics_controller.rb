@@ -16,11 +16,10 @@ class Admins::AcademicsController < Admins::BaseController
   def create
     @academic = Academic.new(academic_params)
     if @academic.save
-      flash[:success] = I18n.t('flash.actions.create.m',
-                               resource_name: Academic.model_name.human)
+      success_create_message
       redirect_to admins_academics_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
@@ -32,22 +31,20 @@ class Admins::AcademicsController < Admins::BaseController
 
   def update
     if @academic.update(academic_params)
-      flash[:success] = I18n.t('flash.actions.update.m',
-                               resource_name: Academic.model_name.human)
+      success_update_message
       redirect_to admins_academics_path
     else
       add_breadcrumb I18n.t('breadcrumbs.academics.edit', name: "##{@academic.id}"),
                      :edit_admins_academic_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @academic.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.m',
-                             resource_name: Academic.model_name.human)
+    success_destroy_message
     redirect_to admins_academics_path
   end
 

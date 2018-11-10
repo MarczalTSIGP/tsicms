@@ -29,11 +29,10 @@ class Admins::DisciplineMonitorsController < Admins::BaseController
   def create
     @discipline_monitor = DisciplineMonitor.new(monitor_params)
     if @discipline_monitor.save
-      flash[:success] = I18n.t('flash.actions.create.f',
-                               resource_name: DisciplineMonitor.model_name.human)
+      feminine_success_create_message
       redirect_to admins_discipline_monitors_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
@@ -46,23 +45,21 @@ class Admins::DisciplineMonitorsController < Admins::BaseController
 
   def update
     if @discipline_monitor.update(monitor_params)
-      flash[:success] = I18n.t('flash.actions.update.f',
-                               resource_name: DisciplineMonitor.model_name.human)
+      feminine_success_update_message
       redirect_to admins_discipline_monitors_path
     else
       add_breadcrumb I18n.t('breadcrumbs.discipline_monitors.edit',
                             name: "##{@discipline_monitor.id}"),
                      :edit_admins_discipline_monitor_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @discipline_monitor.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.f',
-                             resource_name: DisciplineMonitor.model_name.human)
+    feminine_success_destroy_message
     redirect_to admins_discipline_monitors_path
   end
 
