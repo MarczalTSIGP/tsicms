@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'public discipline monitor', type: :feature do
+RSpec.describe 'public discipline monitor', type: :feature do
   describe '#index' do
     let!(:discipline_monitors) { create_list(:discipline_monitor, 2) }
 

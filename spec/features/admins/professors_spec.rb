@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin Professors', type: :feature do
+RSpec.describe 'Admin Professors', type: :feature do
   let(:admin) { create :admin }
   let(:resource_name) { Professor.model_name.human }
 
@@ -9,10 +9,10 @@ RSpec.feature 'Admin Professors', type: :feature do
   end
 
   describe '#create' do
-    before(:each) do
-      @category = create_list(:professor_category, 2).sample
-      @title = create_list(:professor_title, 3).sample
+    let!(:category) { create_list(:professor_category, 2).sample }
+    let!(:title) { create_list(:professor_title, 3).sample }
 
+    before(:each) do
       visit new_admins_professor_path
     end
 
@@ -23,14 +23,14 @@ RSpec.feature 'Admin Professors', type: :feature do
         fill_in 'professor_email', with: attributes[:email]
         choose 'professor_gender_male'
         fill_in 'professor_lattes', with: attributes[:lattes]
-        select @category.name, from: 'professor[professor_category_id]'
-        select @title.name, from: 'professor[professor_title_id]'
+        select category.name, from: 'professor[professor_category_id]'
+        select title.name, from: 'professor[professor_title_id]'
         fill_in 'professor_occupation_area', with: attributes[:occupation_area]
 
         attach_file 'professor_image', FileSpecHelper.image.path
         submit_form
 
-        expect(page.current_path).to eq admins_professors_path
+        expect(page).to have_current_path(admins_professors_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.m',
@@ -55,17 +55,19 @@ RSpec.feature 'Admin Professors', type: :feature do
   end
 
   describe '#update' do
+    let(:professor) { create :professor }
+
     before(:each) do
-      @professor = create :professor
-      visit edit_admins_professor_path(@professor)
+      visit edit_admins_professor_path(professor)
     end
+
     context 'with valid fields' do
       it "update professor's fields" do
         new_name = 'Lucas Sartori'
         fill_in 'professor_name', with: new_name
         submit_form
 
-        expect(page.current_path).to eq admins_professor_path(@professor)
+        expect(page).to have_current_path(admins_professor_path(professor))
         expect(page).to have_content(new_name.to_s)
       end
     end
@@ -120,19 +122,17 @@ RSpec.feature 'Admin Professors', type: :feature do
   end
 
   describe '#show' do
-    context 'show professors' do
-      it 'show professor page' do
-        professor = create(:professor)
-        visit admins_professor_path(professor)
+    it 'show professor page' do
+      professor = create(:professor)
+      visit admins_professor_path(professor)
 
-        expect(page).to have_content(professor.name)
-        expect(page).to have_content(professor.gender)
-        expect(page).to have_content(professor.email)
-        expect(page).to have_content(professor.lattes)
-        expect(page).to have_content(professor.occupation_area)
-        expect(page).to have_content(professor.professor_category.name)
-        expect(page).to have_content(professor.professor_title.name)
-      end
+      expect(page).to have_content(professor.name)
+      expect(page).to have_content(professor.gender)
+      expect(page).to have_content(professor.email)
+      expect(page).to have_content(professor.lattes)
+      expect(page).to have_content(professor.occupation_area)
+      expect(page).to have_content(professor.professor_category.name)
+      expect(page).to have_content(professor.professor_title.name)
     end
   end
 end

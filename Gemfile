@@ -40,6 +40,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rubocop', require: false
+  gem 'rubocop-rspec'
   gem 'brakeman'
   gem 'rubycritic', require: false
 end

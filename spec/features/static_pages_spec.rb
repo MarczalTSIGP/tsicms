@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'StaticPages', type: :feature do
+RSpec.describe 'StaticPages', type: :feature do
   describe '#show' do
     let(:static_page) { create(:static_page) }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Companies', type: :feature do
+RSpec.describe 'Companies', type: :feature do
   let(:admin) { create(:admin) }
   let(:resource_name) { Company.model_name.human }
 
@@ -12,6 +12,7 @@ RSpec.feature 'Companies', type: :feature do
     before(:each) do
       visit new_admins_company_path
     end
+
     context 'with valid fields' do
       it 'create company' do
         attributes = attributes_for(:company)
@@ -22,13 +23,14 @@ RSpec.feature 'Companies', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_companies_path
+        expect(page).to have_current_path(admins_companies_path)
 
         expect_alert_success(resource_name, 'flash.actions.create.f')
 
         expect_page_have_in('table tbody', attributes[:name])
       end
     end
+
     context 'with invalid fields' do
       it 'show errors' do
         submit_form
@@ -44,19 +46,22 @@ RSpec.feature 'Companies', type: :feature do
 
   describe '#update' do
     let(:company) { create :company }
+
     before(:each) do
       visit edit_admins_company_path(company)
     end
+
     context 'with valid fields' do
       it 'update company' do
         new_name = 'Empresa Randomica'
         fill_in 'company_name', with: new_name
         submit_form
 
-        expect(page.current_path).to eq admins_company_path(company)
+        expect(page).to have_current_path(admins_company_path(company))
         expect(page).to have_content(new_name.to_s)
       end
     end
+
     context 'with invalid fields' do
       it 'cannot update company' do
         fill_in 'company_name', with: ''

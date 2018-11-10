@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Discipline Monitors', type: :feature do
+RSpec.describe 'Discipline Monitors', type: :feature do
   let(:admin) { create :admin }
   let(:resource_name) { DisciplineMonitor.model_name.human }
   let!(:academic) { create_list(:academic, 2).sample }
@@ -31,7 +31,7 @@ RSpec.feature 'Discipline Monitors', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_discipline_monitors_path
+        expect(page).to have_current_path(admins_discipline_monitors_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
@@ -78,7 +78,7 @@ RSpec.feature 'Discipline Monitors', type: :feature do
       visit edit_admins_discipline_monitor_path(discipline_monitor)
     end
 
-    context 'fill fields' do
+    context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'discipline_monitor_year',
                                    with: discipline_monitor.year
@@ -113,7 +113,7 @@ RSpec.feature 'Discipline Monitors', type: :feature do
         select discipline.name, from: 'discipline_monitor_discipline_ids'
         submit_form
 
-        expect(page.current_path).to eq admins_discipline_monitors_path
+        expect(page).to have_current_path(admins_discipline_monitors_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',

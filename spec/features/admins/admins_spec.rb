@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Admins', type: :feature do
+RSpec.describe 'Admins', type: :feature do
   describe '#edit' do
     let(:admin) { create(:admin) }
 
@@ -22,7 +22,7 @@ RSpec.feature 'Admins', type: :feature do
         attach_file 'admin_image', FileSpecHelper.image.path
         submit_form
 
-        expect(page.current_path).to eq edit_admin_registration_path
+        expect(page).to have_current_path(edit_admin_registration_path)
         expect(page).to have_selector('div.alert.alert-info',
                                       text: I18n.t('devise.registrations.updated'))
 

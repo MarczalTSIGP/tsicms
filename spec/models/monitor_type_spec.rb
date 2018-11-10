@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe MonitorType, type: :model do
-  context 'validations' do
+  describe 'validations' do
     let(:monitor_type) { build(:monitor_type) }
 
     it { expect(monitor_type).to respond_to(:name) }

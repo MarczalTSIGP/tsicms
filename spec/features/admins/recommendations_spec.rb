@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Recommendations', type: :feature do
+RSpec.describe 'Recommendations', type: :feature do
   let(:admin) { create(:admin) }
   let!(:category) { create_list(:category_recommendation, 3).sample }
   let(:resource_name) { Recommendation.model_name.human }
@@ -24,7 +24,7 @@ RSpec.feature 'Recommendations', type: :feature do
         select category.name, from: 'recommendation_category_recommendation_id'
         submit_form
 
-        expect(page.current_path).to eq admins_recommendations_path
+        expect(page).to have_current_path(admins_recommendations_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
@@ -68,7 +68,7 @@ RSpec.feature 'Recommendations', type: :feature do
       visit edit_admins_recommendation_path(recommendation)
     end
 
-    context 'fill fields' do
+    context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'recommendation_title',
                                    with: recommendation.title
@@ -90,7 +90,7 @@ RSpec.feature 'Recommendations', type: :feature do
         select new_category.name, from: 'recommendation_category_recommendation_id'
         submit_form
 
-        expect(page.current_path).to eq admins_recommendations_path
+        expect(page).to have_current_path(admins_recommendations_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',

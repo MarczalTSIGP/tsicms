@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Activities', type: :feature do
+RSpec.describe 'Activities', type: :feature do
   let(:admin) { create(:admin) }
   let(:resource_name) { Activity.model_name.human }
 
@@ -22,7 +22,7 @@ RSpec.feature 'Activities', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_activities_path
+        expect(page).to have_current_path(admins_activities_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
@@ -30,6 +30,7 @@ RSpec.feature 'Activities', type: :feature do
         expect_page_have_in('table tbody', attributes[:name])
       end
     end
+
     context 'with invalid fields' do
       it 'show errors' do
         submit_form
@@ -50,7 +51,7 @@ RSpec.feature 'Activities', type: :feature do
       visit edit_admins_activity_path(activity)
     end
 
-    context 'fill fields' do
+    context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'activity_name',
                                    with: activity.name
@@ -68,7 +69,7 @@ RSpec.feature 'Activities', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_activities_path
+        expect(page).to have_current_path(admins_activities_path)
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
@@ -119,8 +120,9 @@ RSpec.feature 'Activities', type: :feature do
       end
     end
   end
+
   describe '#show' do
-    context 'show activity' do
+    context 'when activity' do
       it 'show activity page' do
         activity = create(:activity)
         visit admins_activity_path(activity)

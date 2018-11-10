@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Activity Professors', type: :feature do
+RSpec.describe 'Activity Professors', type: :feature do
   let(:admin) { create(:admin) }
   let(:resource_name) { ActivityProfessor.model_name.human }
 
@@ -9,9 +9,10 @@ RSpec.feature 'Activity Professors', type: :feature do
   end
 
   describe '#create' do
+    let!(:professor) { create_list(:professor, 5).sample }
+    let!(:activity) { create_list(:activity, 5).sample }
+
     before(:each) do
-      @professor = create_list(:professor, 5).sample
-      @activity = create_list(:activity, 5).sample
       visit new_admins_activity_professor_path
     end
 
@@ -19,8 +20,8 @@ RSpec.feature 'Activity Professors', type: :feature do
       it 'add activity to professor with out and date' do
         attributes = attributes_for(:activity_professor)
 
-        select @professor.name, from: 'activity_professor[professor_id]'
-        select @activity.name, from: 'activity_professor[activity_id]'
+        select professor.name, from: 'activity_professor[professor_id]'
+        select activity.name, from: 'activity_professor[activity_id]'
 
         select '1', from: 'activity_professor[start_date(3i)]'
         select 'Janeiro', from: 'activity_professor[start_date(2i)]'
@@ -28,17 +29,18 @@ RSpec.feature 'Activity Professors', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_activities_path
+        expect(page).to have_current_path(admins_activities_path)
 
         expect_alert_success(resource_name, 'flash.actions.create.f')
 
         expect_page_have_in('table tbody', attributes[:name])
       end
+
       it 'add activity to professor with and date' do
         attributes = attributes_for(:activity_professor)
 
-        select @professor.name, from: 'activity_professor[professor_id]'
-        select @activity.name, from: 'activity_professor[activity_id]'
+        select professor.name, from: 'activity_professor[professor_id]'
+        select activity.name, from: 'activity_professor[activity_id]'
 
         select '1', from: 'activity_professor[start_date(3i)]'
         select 'Janeiro', from: 'activity_professor[start_date(2i)]'
@@ -50,7 +52,7 @@ RSpec.feature 'Activity Professors', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_activities_path
+        expect(page).to have_current_path(admins_activities_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
@@ -59,6 +61,7 @@ RSpec.feature 'Activity Professors', type: :feature do
         expect_page_have_in('table tbody', attributes[:name])
       end
     end
+
     context 'with invalid fields' do
       it 'show errors' do
         submit_form
@@ -75,41 +78,43 @@ RSpec.feature 'Activity Professors', type: :feature do
 
   describe '#update' do
     context 'with success' do
-      before(:each) do
-        @activity_professor = create(:activity_professor)
-        @update_link = "a[href='#{edit_admins_activity_professor_path(@activity_professor)}']"
-        @new_year = '2020'
-      end
+      let(:activity_professor) { create(:activity_professor) }
+      let(:update_link) { "a[href='#{edit_admins_activity_professor_path(activity_professor)}']" }
+      let(:new_year) { '2020' }
+
       it 'with correct values in professor path' do
-        visit admins_professor_path(@activity_professor.professor)
+        visit admins_professor_path(activity_professor.professor)
 
-        find(@update_link).click
+        find(update_link).click
 
-        select @new_year, from: 'activity_professor[start_date(1i)]'
+        select new_year, from: 'activity_professor[start_date(1i)]'
 
         submit_form
 
-        expect(page.current_path).to eq admins_professor_path(@activity_professor.professor)
+        expect(page).to have_current_path(admins_professor_path(activity_professor.professor))
 
-        expect(page).to have_content(@new_year.to_s)
+        expect(page).to have_content(new_year.to_s)
       end
       it 'with correct values in activity path' do
-        visit admins_activity_path(@activity_professor.activity)
-        find(@update_link).click
-        select @new_year, from: 'activity_professor[start_date(1i)]'
+        visit admins_activity_path(activity_professor.activity)
+        find(update_link).click
+        select new_year, from: 'activity_professor[start_date(1i)]'
 
         submit_form
 
-        expect(page.current_path).to eq admins_activity_path(@activity_professor.activity)
+        expect(page).to have_current_path(admins_activity_path(activity_professor.activity))
 
-        expect(page).to have_content(@new_year.to_s)
+        expect(page).to have_content(new_year.to_s)
       end
     end
+
     context 'with invalid fields' do
+      let(:activity_professor) { create(:activity_professor) }
+
       before(:each) do
-        @activity_professor = create(:activity_professor)
-        visit edit_admins_activity_professor_path(@activity_professor)
+        visit edit_admins_activity_professor_path(activity_professor)
       end
+
       it 'with incorrect values' do
         select '', from: 'activity_professor[start_date(3i)]'
         select '', from: 'activity_professor[start_date(2i)]'
@@ -123,6 +128,7 @@ RSpec.feature 'Activity Professors', type: :feature do
 
   describe '#show' do
     let(:activity_professor) { create(:activity_professor) }
+
     it 'professor with activities history' do
       visit admins_professor_path(activity_professor.professor)
 
@@ -140,24 +146,22 @@ RSpec.feature 'Activity Professors', type: :feature do
   end
 
   describe '#destroy' do
-    before(:each) do
-      @activity_professor = create(:activity_professor)
-    end
+    let(:activity_professor) { create(:activity_professor) }
 
     it 'activity from professor' do
-      visit admins_professor_path(@activity_professor.professor)
+      visit admins_professor_path(activity_professor.professor)
 
-      click_on_destroy_link(admins_activity_professor_path(@activity_professor))
+      click_on_destroy_link(admins_activity_professor_path(activity_professor))
       expect_alert_success(resource_name, 'flash.actions.destroy.f')
-      expect_page_not_have_in('table tbody', @activity_professor.activity.name)
+      expect_page_not_have_in('table tbody', activity_professor.activity.name)
     end
 
     it 'professor from activity' do
-      visit admins_activity_path(@activity_professor.activity)
+      visit admins_activity_path(activity_professor.activity)
 
-      click_on_destroy_link(admins_activity_professor_path(@activity_professor))
+      click_on_destroy_link(admins_activity_professor_path(activity_professor))
       expect_alert_success(resource_name, 'flash.actions.destroy.f')
-      expect_page_not_have_in('table tbody', @activity_professor.professor.name)
+      expect_page_not_have_in('table tbody', activity_professor.professor.name)
     end
   end
 end

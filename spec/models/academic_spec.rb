@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Academic, type: :model do
-  context 'validations' do
+  describe 'validations' do
     let(:academic) { build(:academic) }
 
     it { expect(academic).to respond_to(:name) }
@@ -11,6 +11,6 @@ RSpec.describe Academic, type: :model do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:contact) }
     it { is_expected.to allow_value('http://foo.com').for(:contact) }
-    it { is_expected.to_not allow_value('foo.com').for(:contact) }
+    it { is_expected.not_to allow_value('foo.com').for(:contact) }
   end
 end

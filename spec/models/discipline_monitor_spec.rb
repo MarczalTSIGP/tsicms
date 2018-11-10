@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DisciplineMonitor, type: :model do
-  context 'validations' do
+  describe 'validations' do
     let(:discipline_monitor) { build(:discipline_monitor) }
 
     it { is_expected.to validate_presence_of(:year) }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Admins::StaticPages', type: :feature do
+RSpec.describe 'Admins::StaticPages', type: :feature do
   let(:admin) { create(:admin) }
   let(:resource_name) { StaticPage.model_name.human }
 
@@ -23,7 +23,7 @@ RSpec.feature 'Admins::StaticPages', type: :feature do
         fill_in 'static_page_content', with: attributes[:content]
         submit_form
 
-        expect(page.current_path).to eq admins_static_pages_path
+        expect(page).to have_current_path(admins_static_pages_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
@@ -60,10 +60,12 @@ RSpec.feature 'Admins::StaticPages', type: :feature do
 
   describe '#update' do
     let(:static_page) { create(:static_page) }
+
     before(:each) do
       visit edit_admins_static_page_path(static_page)
     end
-    context 'fill fields' do
+
+    context 'with filled fields' do
       it 'with correct values' do
         expect(page).to have_field 'static_page_title',
                                    with: static_page.title
@@ -75,6 +77,7 @@ RSpec.feature 'Admins::StaticPages', type: :feature do
                                    with: static_page.content
       end
     end
+
     context 'with valid fields' do
       it 'update static_page' do
         attributes = attributes_for(:static_page)
@@ -85,7 +88,7 @@ RSpec.feature 'Admins::StaticPages', type: :feature do
         fill_in 'static_page_content', with: attributes[:content]
         submit_form
 
-        expect(page.current_path).to eq admins_static_pages_path
+        expect(page).to have_current_path(admins_static_pages_path)
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
@@ -97,6 +100,7 @@ RSpec.feature 'Admins::StaticPages', type: :feature do
         end
       end
     end
+
     context 'with invalid fields' do
       it 'show errors' do
         new_permalink = 'awesome@page'

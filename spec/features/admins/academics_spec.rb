@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Academics', type: :feature do
+RSpec.describe 'Academics', type: :feature do
   let(:admin) { create(:admin) }
   let(:resource_name) { Academic.model_name.human }
 
@@ -23,7 +23,7 @@ RSpec.feature 'Academics', type: :feature do
         attach_file 'academic_image', FileSpecHelper.image.path
         submit_form
 
-        expect(page.current_path).to eq admins_academics_path
+        expect(page).to have_current_path(admins_academics_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.m',
@@ -66,7 +66,7 @@ RSpec.feature 'Academics', type: :feature do
       visit edit_admins_academic_path(academic)
     end
 
-    context 'fill fields' do
+    context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'academic_name',
                                    with: academic.name
@@ -88,7 +88,7 @@ RSpec.feature 'Academics', type: :feature do
         check('academic_graduated')
         submit_form
 
-        expect(page.current_path).to eq admins_academics_path
+        expect(page).to have_current_path(admins_academics_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.m',

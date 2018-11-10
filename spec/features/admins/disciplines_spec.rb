@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Discipline', type: :feature do
+RSpec.describe 'Discipline', type: :feature do
   let(:admin) { create(:admin) }
   let!(:period) { create_list(:period, 3).sample }
   let(:resource_name) { Discipline.model_name.human }
@@ -26,7 +26,7 @@ RSpec.feature 'Discipline', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_disciplines_path
+        expect(page).to have_current_path(admins_disciplines_path)
 
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
@@ -67,7 +67,7 @@ RSpec.feature 'Discipline', type: :feature do
       visit edit_admins_discipline_path(discipline)
     end
 
-    context 'fill fields' do
+    context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'discipline_name', with: discipline.name
         expect(page).to have_field 'discipline_hours', with: discipline.hours
@@ -90,7 +90,7 @@ RSpec.feature 'Discipline', type: :feature do
         fill_in 'discipline_hours', with: new_hours
         submit_form
 
-        expect(page.current_path).to eq admins_disciplines_path
+        expect(page).to have_current_path(admins_disciplines_path)
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))

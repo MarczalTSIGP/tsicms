@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Faqs', type: :feature do
+RSpec.describe 'Faqs', type: :feature do
   let(:admin) { create(:admin) }
   let(:resource_name) { Faq.model_name.human }
 
@@ -21,7 +21,7 @@ RSpec.feature 'Faqs', type: :feature do
         fill_in 'faq_answer', with: attributes[:answer]
         submit_form
 
-        expect(page.current_path).to eq admins_faqs_path
+        expect(page).to have_current_path(admins_faqs_path)
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
@@ -56,7 +56,7 @@ RSpec.feature 'Faqs', type: :feature do
       visit edit_admins_faq_path(faq)
     end
 
-    context 'fill fields' do
+    context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'faq_title',
                                    with: faq.title
@@ -74,7 +74,7 @@ RSpec.feature 'Faqs', type: :feature do
         fill_in 'faq_answer', with: attributes[:answer]
         submit_form
 
-        expect(page.current_path).to eq admins_faqs_path
+        expect(page).to have_current_path(admins_faqs_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
