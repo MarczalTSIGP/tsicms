@@ -70,6 +70,11 @@ pt-BR:
       new: 'Nova Vaga de estagio'
       edit: 'Editar Vaga de estagio %{name}'
       show: 'Visualizar Vaga de estagio %{name}'
+    galleries:
+      name: 'Galeria'
+    pictures:
+      new: 'Upload de Imagens'
+      edit: 'Editar Imagem %{name}'
   helpers:
     currently: 'Atualmente'
     boolean:
@@ -142,6 +147,12 @@ pt-BR:
       company:
         one: 'Empresa'
         other: 'Empresas'
+      gallery:
+        one: 'Galeria'
+        other: 'Galerias'
+      picture:
+        one: 'Imagem'
+        other: 'Imagens'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
