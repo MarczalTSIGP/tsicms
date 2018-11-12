@@ -6,20 +6,16 @@ class Admins::PicturesController < Admins::BaseController
   add_breadcrumb I18n.t('breadcrumbs.pictures.new'), :new_admins_picture_path,
                  only: [:new, :create]
 
-  def new
-    @picture = Picture.new
-  end
+  def new; end
 
   def create
-    # @picture = Picture.new(picture_params)
-    #
-    # if @picture.save
-    #   feminine_success_create_message
-    #   redirect_to admins_galleries_path(@gallery.context)
-    # else
-    #   error_message
-    #   render :new
-    # end
+    if @gallery.upload_images(gallery_params)
+      feminine_success_create_message
+      redirect_to admins_galleries_path(@gallery.context)
+    else
+      error_message
+      render :new
+    end
   end
 
   def edit
@@ -50,6 +46,14 @@ class Admins::PicturesController < Admins::BaseController
 
   def picture_params
     params.require(:picture).permit(:label, :image)
+  end
+
+  def gallery_params
+    if params[:gallery] && params[:gallery][:pictures]
+      params[:gallery][:pictures]
+    else
+      []
+    end
   end
 
   def set_picture
