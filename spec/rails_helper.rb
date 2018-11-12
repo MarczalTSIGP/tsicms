@@ -36,6 +36,5 @@ RSpec.configure do |config|
 
 
   config.include ApplicationHelper
-  config.include Admins::ActivitiesHelper
   config.include ActionView::Helpers::TranslationHelper
 end

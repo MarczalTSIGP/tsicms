@@ -95,6 +95,7 @@ pt-BR:
       new: 'Novo Professor'
       edit: 'Editar Professor %{name}'
       show: 'Visualizar Professor %{name}'
+      history: 'Historico de Professores'
     recommendations:
       name: 'Recomendações'
       new: 'Nova Recomendação'

@@ -2,8 +2,8 @@
 <h3><%= @static_page.sub_title %></h3>
 
 <% unless @professor.nil? %>
-  <h3> Professor Responsavel: <%= link_to @professor.name, professor_path(@professor) %></h3>
-  <h5><%= link_to I18n.t('breadcrumbs.professors.history'), static_page_history_path(@static_page) %></h5>
+  <h3> Professor Responsavel: <%= link_to @professor.name, admins_professor_path(@professor) %></h3>
+  <h5><%= link_to I18n.t('breadcrumbs.professors.history'), admins_static_page_history_path(@static_page) %></h5>
 <% end %>
 
 <div class="markdown-content" data-markdown="<%= @static_page.content %>">

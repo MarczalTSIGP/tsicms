@@ -4,19 +4,6 @@ class StaticPagesController < ApplicationController
     @static_page = StaticPage.find_by!(permalink: params[:permalink])
   end
 
-  def trainee
-    find_static_page 'Estágio'
-    @trainees = Trainee.order(created_at: :desc)
-  end
-
-  def tcc
-    find_static_page 'TCC'
-  end
-
-  def monitor
-    find_static_page 'Monitoria'
-  end
-
   def professor
     @professor = Professor.find(params[:id])
   end
@@ -27,6 +14,21 @@ class StaticPagesController < ApplicationController
 
   def activity
     @activity = Activity.find(params[:id])
+  end
+
+  def trainee
+    find_static_page 'Estágio'
+    @professor = Activity.find_by(name: 'Estagio').activity_professors.find_by(end_date: nil).professor
+  end
+
+  def tcc
+    find_static_page 'TCC'
+    @professor = Activity.find_by(name: 'TCC').activity_professors.find_by(end_date: nil).professor
+  end
+
+  def monitor
+    find_static_page 'Monitoria'
+    @professor = Activity.find_by(name: 'Monitoria').activity_professors.find_by(end_date: nil).professor
   end
 
   def history
