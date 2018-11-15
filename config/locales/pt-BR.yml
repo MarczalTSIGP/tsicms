@@ -122,6 +122,8 @@ pt-BR:
     boolean:
       'true': 'Sim'
       'false': 'Não'
+    tcc: "TCC"
+    monitor: "Monitoria"
   enums:
     genders:
       male: 'Masculino'

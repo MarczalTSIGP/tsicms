@@ -146,27 +146,57 @@ namespace :db do
                       company: Company.all.sample,
                       trainee_status: TraineeStatus.all.sample)
     end
+
+    start_date = Faker::Date.between(1.year.ago, 5.months.ago)
+    end_date = Faker::Date.between(5.months.ago, Date.today)
+    end_date = [nil, end_date].sample
+
+    trainee_activity = Activity.create!(
+      name: I18n.t('helpers.trainee'),
+      description: Faker::Lorem.paragraph(2)
+    )
     StaticPage.find_or_create_by!(
-      title: 'Estágio',
+      title: I18n.t('helpers.trainee'),
       sub_title: 'Vagas de Estágio',
       content: '## conteudo',
       permalink: 'estagio',
       fixed: true
     )
-
+    ActivityProfessor.create!(
+      professor: Professor.all.sample,
+      activity: trainee_activity,
+      start_date: start_date,
+    )
+    monitor_activity = Activity.create!(
+      name: I18n.t('helpers.monitor'),
+      description: Faker::Lorem.paragraph(2)
+    )
     StaticPage.find_or_create_by!(
-      title: 'Monitoria',
+      title: I18n.t('helpers.monitor'),
       sub_title: 'Vagas de Monitoria',
       content: '## conteudo',
       permalink: 'monitor',
       fixed: true
     )
-
+    ActivityProfessor.create!(
+      professor: Professor.all.sample,
+      activity: monitor_activity,
+      start_date: start_date,
+    )
+    tcc_activity = Activity.create!(
+      name: I18n.t('helpers.tcc'),
+      description: Faker::Lorem.paragraph(2)
+    )
     StaticPage.find_or_create_by!(
-      title: 'TCC',
+      title: I18n.t('helpers.tcc'),
       content: '## conteudo',
       permalink: 'tcc',
       fixed: true
+    )
+    ActivityProfessor.create!(
+      professor: Professor.all.sample,
+      activity: tcc_activity,
+      start_date: start_date,
     )
 
   end

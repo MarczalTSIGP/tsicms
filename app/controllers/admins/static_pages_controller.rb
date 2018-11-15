@@ -52,8 +52,8 @@ class Admins::StaticPagesController < Admins::BaseController
   end
 
   def trainee
-    find_static_page 'Estágio'
-    @professor = Activity.find_by(name: 'Estagio').activity_professors.find_by(end_date: nil).professor
+    find_static_page I18n.t('helpers.trainee')
+    @professor = Activity.find_by(name: I18n.t('helpers.trainee')).activity_professors.find_by(end_date: nil).professor
   end
 
   def tcc
@@ -68,8 +68,9 @@ class Admins::StaticPagesController < Admins::BaseController
 
 
   def history
-    @activity_professors = Activity.find_by(name: 'Estagio').activity_professors.page params[:page]
     @static_page = StaticPage.find(params[:static_page_id])
+    @activity_professors = Activity.find_by(name: @static_page.title).activity_professors.page params[:page]
+
     add_breadcrumb I18n.t('breadcrumbs.static_pages.historic', name: "##{@static_page.id}"),
                    :admins_static_page_history_path
   end
