@@ -2,7 +2,8 @@ class Admins::StaticPagesController < Admins::BaseController
   before_action :set_static_page, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.static_pages.name'), :admins_static_pages_path
-  add_breadcrumb I18n.t('breadcrumbs.static_pages.new'), :new_admins_static_page_path, only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.static_pages.new'), :new_admins_static_page_path,
+                 only: [:new, :create]
 
   def index
     @static_pages = StaticPage.order(created_at: :desc).page params[:page]
@@ -16,11 +17,10 @@ class Admins::StaticPagesController < Admins::BaseController
     @static_page = StaticPage.new(static_page_params)
 
     if @static_page.save
-      flash[:success] = I18n.t('flash.actions.create.f',
-                               resource_name: StaticPage.model_name.human)
+      feminine_success_create_message
       redirect_to admins_static_pages_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
@@ -31,23 +31,21 @@ class Admins::StaticPagesController < Admins::BaseController
   end
 
   def update
-    if @static_page.update_attributes(static_page_params)
-      flash[:success] = I18n.t('flash.actions.update.f',
-                               resource_name: StaticPage.model_name.human)
+    if @static_page.update(static_page_params)
+      feminine_success_update_message
       redirect_to admins_static_pages_path
     else
       add_breadcrumb I18n.t('breadcrumbs.static_pages.edit', name: "##{@static_page.id}"),
                      :edit_admins_static_page_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @static_page.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.f',
-                             resource_name: StaticPage.model_name.human)
+    feminine_success_destroy_message
     redirect_to admins_static_pages_path
   end
 

@@ -19,7 +19,6 @@ gem 'rails-i18n', '~> 5.1'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-i18n'
 gem 'active_link_to'
-gem 'cocoon'
 gem 'breadcrumbs_on_rails'
 gem 'kaminari'
 gem 'route_translator'
@@ -43,7 +42,9 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rubocop', require: false
+  gem 'rubocop-rspec'
   gem 'brakeman'
+  gem 'rubycritic', require: false
 end
 
 group :test do
@@ -54,6 +55,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner'
   gem 'simplecov', require: false
+  gem 'simplecov-console', require: false
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

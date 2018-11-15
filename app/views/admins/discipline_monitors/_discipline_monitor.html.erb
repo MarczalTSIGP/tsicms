@@ -3,7 +3,10 @@
   <td><%= discipline_monitor.monitor_type.name %></td>
   <td><%=t("enums.semesters.#{discipline_monitor.semester}") %></td>
   <td><%= discipline_monitor.year %></td>
-  <td><%= "Nome da disciplina" %></td>
+  <td><% discipline_monitor.discipline_monitor_disciplines.each do |d| %>
+        <%= d.discipline.code %>
+      <% end %>
+  </td>
   <td>
     <%= link_to edit_admins_discipline_monitor_path(discipline_monitor) do %>
       <span class="icon mr-3">

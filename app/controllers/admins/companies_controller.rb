@@ -2,7 +2,8 @@ class Admins::CompaniesController < Admins::BaseController
   before_action :set_company, only: [:edit, :update, :destroy, :show]
 
   add_breadcrumb I18n.t('breadcrumbs.companies.name'), :admins_companies_path
-  add_breadcrumb I18n.t('breadcrumbs.companies.new'), :new_admins_company_path, only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.companies.new'), :new_admins_company_path,
+                 only: [:new, :create]
 
   def index
     @companies = Company.order(name: :asc).page params[:page]
@@ -20,10 +21,10 @@ class Admins::CompaniesController < Admins::BaseController
   def create
     @company = Company.new(company_params)
     if @company.save
-      flash[:success] = I18n.t('flash.actions.create.f', resource_name: Company.model_name.human)
+      feminine_success_create_message
       redirect_to admins_companies_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
@@ -35,24 +36,22 @@ class Admins::CompaniesController < Admins::BaseController
 
   def update
     if @company.update(company_params)
-      flash[:success] = I18n.t('flash.actions.update.f', resource_name: Company.model_name.human)
+      feminine_success_update_message
       redirect_to admins_company_path(@company)
     else
       add_breadcrumb I18n.t('breadcrumbs.companies.edit', name: "##{@company.id}"),
                      :edit_admins_company_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     if @company.destroy
-      flash[:success] = I18n.t('flash.actions.destroy.f',
-                               resource_name: Company.model_name.human)
+      feminine_success_destroy_message
     else
-      flash[:alert] = I18n.t('flash.actions.destroy.bond',
-                             resource_name: Company.model_name.human)
+      alert_destroy_bond_message
     end
     redirect_to admins_companies_path
   end

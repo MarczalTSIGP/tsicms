@@ -1,16 +1,14 @@
 require 'rails_helper'
 
-RSpec.feature 'Academics', type: :feature do
-
-  let(:admin) { create(:admin) }
-  let(:resource_name) { Academic.model_name.human }
+RSpec.describe 'Academics', type: :feature do
+  let(:admin) {create(:admin)}
+  let(:resource_name) {Academic.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_academic_path
     end
@@ -29,40 +27,49 @@ RSpec.feature 'Academics', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.m',
-                                                  resource_name: resource_name))
+                                                   resource_name: resource_name))
 
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
 
+          expect(page).to have_current_path(admins_academics_path)
+
+          expect(page).to have_selector('div.alert.alert-success',
+                                        text: I18n.t('flash.actions.create.m',
+                                                     resource_name: resource_name))
+
+          within('table tbody') do
+            expect(page).to have_content(attributes[:name])
+          end
         end
       end
-    end
 
-    context 'with invalid fields' do
-      it 'show errors' do
-        attach_file 'academic_image', FileSpecHelper.pdf.path
-        submit_form
+      context 'with invalid fields' do
+        it 'show errors' do
+          attach_file 'academic_image', FileSpecHelper.pdf.path
+          submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+          expect(page).to have_selector('div.alert.alert-danger',
+                                        text: I18n.t('flash.actions.errors'))
 
-        within('div.academic_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.academic_contact') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        expect(page).to have_unchecked_field('academic_graduated')
-        within('div.academic_image') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
+          within('div.academic_name') do
+            expect(page).to have_content(I18n.t('errors.messages.blank'))
+          end
+          within('div.academic_contact') do
+            expect(page).to have_content(I18n.t('errors.messages.blank'))
+          end
+          expect(page).to have_unchecked_field('academic_graduated')
+          within('div.academic_image') do
+            expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
+                                                extension: '"pdf"',
+                                                allowed_types: 'jpg, jpeg, gif, png'))
+          end
         end
       end
     end
   end
   describe '#update' do
-    let(:academic) { create(:academic) }
+    let(:academic) {create(:academic)}
 
     before(:each) do
       visit edit_admins_academic_path(academic)
@@ -71,61 +78,69 @@ RSpec.feature 'Academics', type: :feature do
     context 'fill fields' do
       it 'with correct values' do
         expect(page).to have_field 'academic_name',
-          with: academic.name
+                                   with: academic.name
         expect(page).to have_field 'academic_contact',
-          with: academic.contact
-        expect(page).to have_unchecked_field('academic_graduated')
-        expect(page).to have_css("img[src*='#{academic.image}']")
-      end
-    end
-
-    context 'with valid fields' do
-      it 'update academic' do
-        attributes = attributes_for(:academic)
-
-        new_name = 'Pedro'
-        fill_in 'academic_name', with: new_name
-        fill_in 'academic_contact', with: attributes[:contact]
-        attach_file 'academic_image', FileSpecHelper.image.path
-        check('academic_graduated')
-        submit_form
-
-        expect(page.current_path).to eq admins_academics_path
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.m',
-                                                   resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(new_name)
-
+                                   with: academic.contact
+        context 'with fields filled' do
+          it 'with correct values' do
+            expect(page).to have_field 'academic_name',
+                                       with: academic.name
+            expect(page).to have_field 'academic_contact',
+                                       with: academic.contact
+            expect(page).to have_unchecked_field('academic_graduated')
+            expect(page).to have_css("img[src*='#{academic.image}']")
+          end
         end
-      end
-    end
 
-    context 'with invalid fields' do
-      it 'show errors' do
-        fill_in 'academic_name', with: ''
-        fill_in 'academic_contact', with: ''
-        check('academic_graduated')
-        attach_file 'academic_image', FileSpecHelper.pdf.path
-        submit_form
+        context 'with valid fields' do
+          it 'update academic' do
+            attributes = attributes_for(:academic)
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+            new_name = 'Pedro'
+            fill_in 'academic_name', with: new_name
+            fill_in 'academic_contact', with: attributes[:contact]
+            attach_file 'academic_image', FileSpecHelper.image.path
+            check('academic_graduated')
+            submit_form
 
-        within('div.academic_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
+            expect(page.current_path).to eq admins_academics_path
+            expect(page).to have_current_path(admins_academics_path)
+
+            expect(page).to have_selector('div.alert.alert-success',
+                                          text: I18n.t('flash.actions.update.m',
+                                                       resource_name: resource_name))
+
+            within('table tbody') do
+              expect(page).to have_content(new_name)
+            end
+          end
         end
-        within('div.academic_contact') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        expect(page).to have_checked_field('academic_graduated')
 
-        within('div.academic_image') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
+        context 'with invalid fields' do
+          it 'show errors' do
+            fill_in 'academic_name', with: ''
+            fill_in 'academic_contact', with: ''
+            check('academic_graduated')
+            attach_file 'academic_image', FileSpecHelper.pdf.path
+            submit_form
+
+            expect(page).to have_selector('div.alert.alert-danger',
+                                          text: I18n.t('flash.actions.errors'))
+
+            within('div.academic_name') do
+              expect(page).to have_content(I18n.t('errors.messages.blank'))
+            end
+            within('div.academic_contact') do
+              expect(page).to have_content(I18n.t('errors.messages.blank'))
+            end
+            expect(page).to have_checked_field('academic_graduated')
+
+            within('div.academic_image') do
+              expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
+                                                  extension: '"pdf"',
+                                                  allowed_types: 'jpg, jpeg, gif, png'))
+            end
+          end
         end
       end
     end
@@ -137,6 +152,7 @@ RSpec.feature 'Academics', type: :feature do
       visit admins_academics_path
 
       destroy_path = admins_academic_path(academic)
+      destroy_path = "/admins/academics/#{academic.id}"
       click_link href: destroy_path
 
       expect(page).to have_selector('div.alert.alert-success',
@@ -149,8 +165,8 @@ RSpec.feature 'Academics', type: :feature do
     end
   end
 
-  describe  '#index' do
-    let!(:academics) { create_list(:academic, 3) }
+  describe '#index' do
+    let!(:academics) {create_list(:academic, 3)}
 
     it 'show all academics with options' do
       visit admins_academics_path

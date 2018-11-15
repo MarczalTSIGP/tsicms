@@ -21,10 +21,10 @@ class Admins::TraineesController < Admins::BaseController
   def create
     @trainee = Trainee.new(trainee_params)
     if @trainee.save
-      flash[:success] = I18n.t('flash.actions.create.f', resource_name: Trainee.model_name.human)
+      feminine_success_create_message
       redirect_to admins_trainees_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
@@ -36,31 +36,28 @@ class Admins::TraineesController < Admins::BaseController
 
   def update
     if @trainee.update(trainee_params)
-      flash[:success] = I18n.t('flash.actions.update.f', resource_name: Trainee.model_name.human)
+      feminine_success_update_message
       redirect_to admins_trainee_path(@trainee)
     else
       add_breadcrumb I18n.t('breadcrumbs.trainees.edit', name: "##{@trainee.id}"),
                      :edit_admins_trainee_path
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
-    if @trainee.destroy
-      flash[:success] = I18n.t('flash.actions.destroy.f',
-                               resource_name: Trainee.model_name.human)
-    end
+    feminine_success_destroy_message if @trainee.destroy
     redirect_to admins_trainees_path
   end
 
   protected
 
   def add_company(company_id)
-    if company_id
-      @company = Company.find(company_id)
-      @trainee.company = @company if @company
-    end
+    return unless company_id
+
+    @company = Company.find(company_id)
+    @trainee.company = @company if @company
   end
 
   def trainee_params

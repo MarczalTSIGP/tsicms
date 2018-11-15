@@ -4,5 +4,8 @@ class Discipline < ApplicationRecord
   validates :hours, presence: true, numericality: { only_integer: true }
   validates :menu, presence: true
 
+  has_many :discipline_monitor_disciplines, dependent: :restrict_with_error
+  has_many :discipline_monitors, through: :discipline_monitor_disciplines
+
   belongs_to :period
 end

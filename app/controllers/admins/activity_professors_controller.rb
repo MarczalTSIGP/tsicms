@@ -2,7 +2,8 @@ class Admins::ActivityProfessorsController < Admins::BaseController
   before_action :set_activity_professor, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.activity_professors.name'), :admins_activities_path
-  add_breadcrumb I18n.t('breadcrumbs.activity_professors.new'), :new_admins_activity_professor_path, only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.activity_professors.new'),
+                 :new_admins_activity_professor_path, only: [:new, :create]
 
   def new
     @activity_professor = ActivityProfessor.new
@@ -13,19 +14,17 @@ class Admins::ActivityProfessorsController < Admins::BaseController
   def create
     @activity_professor = ActivityProfessor.new(activity_professor_params)
     if @activity_professor.save
-      flash[:success] = I18n.t('flash.actions.create.f',
-                               resource_name: ActivityProfessor.model_name.human)
+      feminine_success_create_message
       redirect_back_or(admins_activities_path)
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
 
-
   def edit
     add_breadcrumb I18n.t('breadcrumbs.activity_professors.edit'),
-                  :edit_admins_activity_professor_path
+                   :edit_admins_activity_professor_path
   end
 
   def show
@@ -34,22 +33,21 @@ class Admins::ActivityProfessorsController < Admins::BaseController
 
   def update
     if @activity_professor.update(activity_professor_params)
-      flash[:success] = I18n.t('flash.actions.update.f',
-                               resource_name: ActivityProfessor.model_name.human)
+      feminine_success_update_message
       redirect_back_or(admins_activities_path)
     else
       add_breadcrumb I18n.t('breadcrumbs.activity_professors.edit'),
-                  :edit_admins_activity_professor_path
+                     :edit_admins_activity_professor_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @activity_professor.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.f',
-                             resource_name: ActivityProfessor.model_name.human)
+
+    feminine_success_destroy_message
     redirect_back_or(admins_activities_path)
   end
 
@@ -69,16 +67,16 @@ class Admins::ActivityProfessorsController < Admins::BaseController
   private
 
   def add_professor(professor_id)
-    if professor_id
-      @professor = Professor.find(professor_id)
-      @activity_professor.professor = @professor if @professor
-    end
+    return unless professor_id
+
+    @professor = Professor.find(professor_id)
+    @activity_professor.professor = @professor if @professor
   end
 
   def add_activity(activity_id)
-    if activity_id
-      @activity = Activity.find(activity_id)
-      @activity_professor.activity = @activity if @activity
-    end
+    return unless activity_id
+
+    @activity = Activity.find(activity_id)
+    @activity_professor.activity = @activity if @activity
   end
 end

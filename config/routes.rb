@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :companies, only: [:index, :show]
     resources :trainees, only: [:index, :show]
     resources :activities, only: [:index, :show]
+    get '/static_pages/:permalink', to: 'static_pages#index', as: 'static_page'
+    get '/discipline_monitors/:id', to: 'discipline_monitors#show', as: 'monitors'
 
     resources :professors, :trainees, :companies, :activities do
       get 'page/:page', action: :index, on: :collection
@@ -46,7 +48,6 @@ Rails.application.routes.draw do
         get '/static_page/tcc', to: 'static_pages#tcc'
         get '/static_page/monitor', to: 'static_pages#monitor'
 
-
         resources :category_recommendations,
                   :recommendations,
                   :academics,
@@ -64,6 +65,5 @@ Rails.application.routes.draw do
         end
       end
     end
-    #========================================
   end
 end

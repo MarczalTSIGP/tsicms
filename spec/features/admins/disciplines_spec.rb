@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Discipline', type: :feature do
-
+RSpec.describe 'Discipline', type: :feature do
   let(:admin) { create(:admin) }
   let!(:period) { create_list(:period, 3).sample }
   let(:resource_name) { Discipline.model_name.human }
@@ -11,7 +10,6 @@ RSpec.feature 'Discipline', type: :feature do
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_discipline_path
     end
@@ -28,7 +26,7 @@ RSpec.feature 'Discipline', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_disciplines_path
+        expect(page).to have_current_path(admins_disciplines_path)
 
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
@@ -69,13 +67,15 @@ RSpec.feature 'Discipline', type: :feature do
       visit edit_admins_discipline_path(discipline)
     end
 
-    context 'fill fields' do
+    context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'discipline_name', with: discipline.name
         expect(page).to have_field 'discipline_hours', with: discipline.hours
         expect(page).to have_field 'discipline_code', with: discipline.code
+
+        selected = "#{discipline.period.matrix.name} - #{discipline.period.name}"
         expect(page).to have_select 'discipline_period_id',
-          selected: "#{discipline.period.matrix.name} - #{discipline.period.name}"
+                                    selected: selected
       end
     end
 
@@ -90,7 +90,7 @@ RSpec.feature 'Discipline', type: :feature do
         fill_in 'discipline_hours', with: new_hours
         submit_form
 
-        expect(page.current_path).to eq admins_disciplines_path
+        expect(page).to have_current_path(admins_disciplines_path)
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
@@ -133,13 +133,13 @@ RSpec.feature 'Discipline', type: :feature do
     it 'show all discipline with options' do
       visit admins_discipline_path(discipline)
 
-        expect(page).to have_content(discipline.name)
-        expect(page).to have_content(discipline.code)
-        expect(page).to have_content(discipline.hours)
-        expect(page).to have_content(discipline.period.name)
-        expect(page).to have_content(discipline.period.matrix.name)
+      expect(page).to have_content(discipline.name)
+      expect(page).to have_content(discipline.code)
+      expect(page).to have_content(discipline.hours)
+      expect(page).to have_content(discipline.period.name)
+      expect(page).to have_content(discipline.period.matrix.name)
 
-        expect(page).to have_link(href: admins_disciplines_path)
+      expect(page).to have_link(href: admins_disciplines_path)
     end
   end
 

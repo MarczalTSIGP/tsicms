@@ -16,11 +16,10 @@ class Admins::FaqsController < Admins::BaseController
     @faq = Faq.new(faq_params)
 
     if @faq.save
-      flash[:success] = I18n.t('flash.actions.create.f',
-                               resource_name: Faq.model_name.human)
+      feminine_success_create_message
       redirect_to admins_faqs_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
@@ -36,27 +35,26 @@ class Admins::FaqsController < Admins::BaseController
   end
 
   def update
-    if @faq.update_attributes(faq_params)
-      flash[:success] = I18n.t('flash.actions.update.f',
-                               resource_name: Faq.model_name.human)
+    if @faq.update(faq_params)
+      feminine_success_update_message
       redirect_to admins_faqs_path
     else
       add_breadcrumb I18n.t('breadcrumbs.faqs.edit', name: "##{@faq.title}"),
-                   :edit_admins_faq_path
+                     :edit_admins_faq_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @faq.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.f',
-                             resource_name: Faq.model_name.human)
+    feminine_success_destroy_message
     redirect_to admins_faqs_path
   end
 
   protected
+
   def faq_params
     params.require(:faq).permit(:title, :answer)
   end
@@ -64,5 +62,4 @@ class Admins::FaqsController < Admins::BaseController
   def set_faq
     @faq = Faq.find(params[:id])
   end
-
 end

@@ -2,11 +2,12 @@ class Admins::DisciplinesController < Admins::BaseController
   before_action :set_discipline, only: [:edit, :update, :destroy, :show]
 
   add_breadcrumb I18n.t('breadcrumbs.disciplines.name'), :admins_disciplines_path
-  add_breadcrumb I18n.t('breadcrumbs.disciplines.new'), :new_admins_discipline_path, only: [:new, :create]
-  
+  add_breadcrumb I18n.t('breadcrumbs.disciplines.new'), :new_admins_discipline_path,
+                 only: [:new, :create]
+
   def index
-    @disciplines = Discipline.includes(period: [:matrix]).
-      order('matrices.name ASC', 'periods.name ASC').page params[:page]
+    @disciplines = Discipline.includes(period: [:matrix])
+                             .order('matrices.name ASC', 'periods.name ASC').page params[:page]
   end
 
   def new
@@ -26,11 +27,10 @@ class Admins::DisciplinesController < Admins::BaseController
   def create
     @discipline = Discipline.new(discipline_params)
     if @discipline.save
-      flash[:success] = I18n.t('flash.actions.create.f',
-                               resource_name: Discipline.model_name.human)
+      feminine_success_create_message
       redirect_to admins_disciplines_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
@@ -38,25 +38,24 @@ class Admins::DisciplinesController < Admins::BaseController
   def update
     if @discipline.update(discipline_params)
       redirect_to admins_disciplines_path
-      flash[:success] = I18n.t('flash.actions.update.f',
-                               resource_name: Discipline.model_name.human)
+      feminine_success_update_message
     else
       add_breadcrumb I18n.t('breadcrumbs.disciplines.edit', name: "##{@discipline.id}"),
-                        :edit_admins_discipline_path
+                     :edit_admins_discipline_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @discipline.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.f',
-                             resource_name: Discipline.model_name.human)
+    feminine_success_destroy_message
     redirect_to admins_disciplines_path
   end
 
   private
+
   def discipline_params
     params.require(:discipline).permit(:name, :code, :hours, :menu, :period_id)
   end

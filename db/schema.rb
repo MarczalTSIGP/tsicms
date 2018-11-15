@@ -72,6 +72,13 @@ ActiveRecord::Schema.define(version: 2018_11_04_125022) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "discipline_monitor_disciplines", force: :cascade do |t|
+    t.integer "discipline_id"
+    t.integer "discipline_monitor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "discipline_monitor_professors", force: :cascade do |t|
     t.integer "professor_id"
     t.integer "discipline_monitor_id"

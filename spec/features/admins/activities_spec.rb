@@ -1,16 +1,14 @@
 require 'rails_helper'
 
-RSpec.feature 'Activities', type: :feature do
-
-  let(:admin) {create(:admin)}
-  let(:resource_name) {Activity.model_name.human}
+RSpec.describe 'Activities', type: :feature do
+  let(:admin) { create(:admin) }
+  let(:resource_name) { Activity.model_name.human }
 
   before(:each) do
     login_as(admin, scope: :admin)
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_activity_path
     end
@@ -24,7 +22,7 @@ RSpec.feature 'Activities', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_activities_path
+        expect(page).to have_current_path(admins_activities_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
@@ -32,6 +30,7 @@ RSpec.feature 'Activities', type: :feature do
         expect_page_have_in('table tbody', attributes[:name])
       end
     end
+
     context 'with invalid fields' do
       it 'show errors' do
         submit_form
@@ -46,18 +45,21 @@ RSpec.feature 'Activities', type: :feature do
   end
 
   describe '#update' do
-    let(:activity) {create(:activity)}
+    let(:activity) { create(:activity) }
+
     before(:each) do
       visit edit_admins_activity_path(activity)
     end
-    context 'fill fields' do
+
+    context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'activity_name',
-          with: activity.name
+                                   with: activity.name
         expect(page).to have_field 'activity_description',
-          with: activity.description
+                                   with: activity.description
       end
     end
+
     context 'with valid fields' do
       it 'update activity' do
         attributes = attributes_for(:activity)
@@ -67,7 +69,7 @@ RSpec.feature 'Activities', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_activities_path
+        expect(page).to have_current_path(admins_activities_path)
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
@@ -95,15 +97,16 @@ RSpec.feature 'Activities', type: :feature do
 
       click_on_destroy_link(admins_activity_path(ap.activity))
 
+      alert_message = I18n.t('flash.actions.destroy.bond', resource_name: resource_name)
       expect(page).to have_selector('div.alert.alert-warning',
-                                    text: 'Não é possível remover atividades que possuem professores vinculados!')
+                                    text: alert_message)
 
       expect(page).to have_content('table tbody', ap.activity.name)
     end
   end
 
   describe '#index' do
-    let!(:activities) {create_list(:activity, 6)}
+    let!(:activities) { create_list(:activity, 6) }
 
     it 'show all activities with options' do
       visit admins_activities_path
@@ -117,8 +120,9 @@ RSpec.feature 'Activities', type: :feature do
       end
     end
   end
+
   describe '#show' do
-    context 'show activity' do
+    context 'when activity' do
       it 'show activity page' do
         activity = create(:activity)
         visit admins_activity_path(activity)
