@@ -5,19 +5,25 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <%= favicon_link_tag %>
+
+    <meta property="og:url"           content="http://api.rails:3000" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="teste" />
+    <meta property="og:description"   content="teste" />
+    <meta property='og:image'         content='http://api.rails:3000/uploads/academic/image/12/image_2.jpg' />
   </head>
 
   <body>
-    <div class="page">
-      <div class="page-main">
-        <div class="container">
+
           <%= yield %>
-        </div>
-      </div>
-    </div>
+
+
   </body>
 </html>

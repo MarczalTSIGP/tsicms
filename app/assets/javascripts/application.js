@@ -10,6 +10,13 @@
 //= require popper
 //= require bootstrap
 
+// Vendors
+//--------------------
+//= require creative/jquery-easing/jquery.easing.min.js
+//= require creative/scrollreveal/scrollreveal.min.js
+//= require creative/magnific-popup/jquery.magnific-popup.min.js
+//= require creative/creative.min.js
+
 // Config files
 //--------------------
 //= require config/namespace
@@ -19,6 +26,4 @@
 // App files
 //--------------------
 
-// Vendors
-//--------------------
-//= require loads 
+//= require loads
