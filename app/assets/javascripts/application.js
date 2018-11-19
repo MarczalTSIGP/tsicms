@@ -4,26 +4,30 @@
 //= require activestorage
 //= require turbolinks
 
+
 // Gems
 //--------------------
 //= require jquery3
 //= require popper
 //= require bootstrap
 
+
 // Vendors
 //--------------------
-//= require creative/jquery-easing/jquery.easing.min.js
-//= require creative/scrollreveal/scrollreveal.min.js
-//= require creative/magnific-popup/jquery.magnific-popup.min.js
-//= require creative/creative.min.js
+//= require jquery-easing/jquery.easing.min
+//= require scrollreveal/scrollreveal.min
+//= require magnific-popup/jquery.magnific-popup.min
+
 
 // Config files
 //--------------------
 //= require config/namespace
 //= require config/jquery.mask
 //= require config/simplemde
+//= require config/creative
 
 // App files
 //--------------------
-
 //= require loads
+
+
