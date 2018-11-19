@@ -1,4 +1,4 @@
-class PeriodProfessor < ApplicationRecord
+class ProfessorPeriod < ApplicationRecord
   belongs_to :professor
   belongs_to :professor_category
 

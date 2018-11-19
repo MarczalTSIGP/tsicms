@@ -1,4 +1,4 @@
-<%= simple_form_for @period_professor, url: admins_professor_periods_path(@professor) do |f| %>
+<%= simple_form_for @period, url: [:admins, @professor, @period] do |f| %>
   <div class="row">
     <div class="col-sm-6 col-md-8">
       <%= f.input :date_entry, as: :date, include_blank: true %>

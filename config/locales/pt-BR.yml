@@ -46,8 +46,8 @@ pt-BR:
       new: 'Novo Período'
       edit: 'Editar Período %{name}'
       show: 'Visualizar Período %{name}'
-    periods_professors:
-      name: 'Períodos dos Professores'
+    professor_periods10:
+      name: 'Períodos do Professor'
       new: 'Novo Período do Professor'
       edit: 'Editar Período do Professor'
       show: 'Visualizar Período do Professor'
@@ -55,7 +55,9 @@ pt-BR:
       name: 'Professores'
       new: 'Novo Professor'
       edit: 'Editar Professor %{name}'
-      show: 'Visualizar Professor %{name}'
+      show: 'Professor %{name}'
+      newperiod: 'Novo Periodo do Professor'
+      editperiod: 'Editar Periodo do Professor'
     recommendations:
       name: 'Recomendações'
       new: 'Nova Recomendação'
@@ -210,7 +212,7 @@ pt-BR:
         sub_title: 'Subtítulo'
         permalink: 'Link permanente'
         content: 'Conteúdo'
-      period_professor:
+      professor_period:
         <<: *commons
         date_entry: 'Data de entrada'
         date_out: 'Data de Saída'

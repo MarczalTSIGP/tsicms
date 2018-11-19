@@ -1,6 +1,6 @@
-class CreatePeriodProfessors < ActiveRecord::Migration[5.2]
+class CreateProfessorPeriods < ActiveRecord::Migration[5.2]
   def change
-    create_table :period_professors do |t|
+    create_table :professor_periods do |t|
       t.date :date_entry
       t.date :date_out
 

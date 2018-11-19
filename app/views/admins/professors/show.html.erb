@@ -21,7 +21,7 @@
     <div class="table-responsive">
       <h4 class="text-center">Periodos de trabalho do professor na Universidade</h4>
       <div class="text-right">
-        <%= link_to new_admins_professor_period_path(@professor),
+        <%= link_to new_admins_professor_professor_period_path(@professor),
                     class: 'btn btn-secondary',
                     title: 'Adicionar Periodo',
                     data: {toggle: 'tooltip', placement: 'top'} do %>
@@ -32,28 +32,28 @@
         <thead>
         <tr>
           <th class="w-1">Id</th>
-          <th><%= t('activerecord.attributes.period_professor.date_entry')%></th>
-          <th><%= t('activerecord.attributes.period_professor.date_out')%></th>
-          <th><%= t('activerecord.attributes.period_professor.professor_category')%></th>
+          <th><%= t('activerecord.attributes.professor_period.date_entry')%></th>
+          <th><%= t('activerecord.attributes.professor_period.date_out')%></th>
+          <th><%= t('activerecord.attributes.professor_period.professor_category')%></th>
           <th></th>
         </tr>
         </thead>
         <tbody>
-        <% @professor.period_professors.each do |period| %>
+        <% @professor.periods.each do |period| %>
           <tr id="periods_professors">
             <td><%= period.id %></td>
             <td><%= l(period.date_entry, format: :long) %></td>
             <td><%= period.date_out_human %></td>
             <td><%= period.professor.professor_category.name%></td>
             <td>
-              <%= link_to admins_professor_period_path(@professor, period),  
+              <%= link_to admins_professor_professor_period_path(@professor, period),  
                     method: :delete, data: {confirm: t('prompt.confirm')} do %>
                     <span class="icon mr-3">
                       <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
                     </span>
               <% end %>
 
-              <%= link_to edit_admins_professor_period_path(@professor, period) do %>
+              <%= link_to edit_admins_professor_professor_period_path(@professor, period) do %>
                     <span class="icon mr-3">
                       <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
                     </span>

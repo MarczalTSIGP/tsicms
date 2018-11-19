@@ -128,17 +128,6 @@ ActiveRecord::Schema.define(version: 2018_10_27_203807) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "period_professors", force: :cascade do |t|
-    t.date "date_entry"
-    t.date "date_out"
-    t.bigint "professor_id"
-    t.bigint "professor_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["professor_category_id"], name: "index_period_professors_on_professor_category_id"
-    t.index ["professor_id"], name: "index_period_professors_on_professor_id"
-  end
-
   create_table "periods", force: :cascade do |t|
     t.string "name"
     t.bigint "matrix_id"
@@ -151,6 +140,17 @@ ActiveRecord::Schema.define(version: 2018_10_27_203807) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "professor_periods", force: :cascade do |t|
+    t.date "date_entry"
+    t.date "date_out"
+    t.bigint "professor_id"
+    t.bigint "professor_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professor_category_id"], name: "index_professor_periods_on_professor_category_id"
+    t.index ["professor_id"], name: "index_professor_periods_on_professor_id"
   end
 
   create_table "professor_titles", force: :cascade do |t|
@@ -203,9 +203,9 @@ ActiveRecord::Schema.define(version: 2018_10_27_203807) do
   add_foreign_key "discipline_monitors", "academics"
   add_foreign_key "discipline_monitors", "monitor_types"
   add_foreign_key "disciplines", "periods"
-  add_foreign_key "period_professors", "professor_categories"
-  add_foreign_key "period_professors", "professors"
   add_foreign_key "periods", "matrices"
+  add_foreign_key "professor_periods", "professor_categories"
+  add_foreign_key "professor_periods", "professors"
   add_foreign_key "professors", "professor_categories"
   add_foreign_key "professors", "professor_titles"
   add_foreign_key "trainees", "companies"
