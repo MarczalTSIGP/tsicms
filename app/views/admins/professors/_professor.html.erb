@@ -1,6 +1,6 @@
 <tr>
   <td><%= professor.id %></td>
-  <td><%= professor.name %></td>
+  <td><%= link_to professor.name, admins_professor_path(professor)  %></td>
   <td><%= l(professor.created_at, format: :long) %></td>
   <td>
     <%= link_to [:admins, professor], method: :delete, data: {confirm: t('prompt.confirm')} do %>

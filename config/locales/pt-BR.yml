@@ -46,7 +46,7 @@ pt-BR:
       new: 'Novo Período'
       edit: 'Editar Período %{name}'
       show: 'Visualizar Período %{name}'
-    professor_periods10:
+    professor_periods:
       name: 'Períodos do Professor'
       new: 'Novo Período do Professor'
       edit: 'Editar Período do Professor'
@@ -143,7 +143,7 @@ pt-BR:
       static_page:
         one: 'Página estática'
         other: 'Páginas estáticas'
-      period_professor:
+      professor_period:
         one: 'Período do Professor'
         other: 'Períodos do Professor'
       discipline_monitor:

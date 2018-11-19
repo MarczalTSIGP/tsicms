@@ -40,11 +40,11 @@
         </thead>
         <tbody>
         <% @professor.periods.each do |period| %>
-          <tr id="periods_professors">
+          <tr>
             <td><%= period.id %></td>
             <td><%= l(period.date_entry, format: :long) %></td>
             <td><%= period.date_out_human %></td>
-            <td><%= period.professor.professor_category.name%></td>
+            <td><%= period.professor_category.name%></td>
             <td>
               <%= link_to admins_professor_professor_period_path(@professor, period),  
                     method: :delete, data: {confirm: t('prompt.confirm')} do %>
