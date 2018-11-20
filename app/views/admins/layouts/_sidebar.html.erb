@@ -105,13 +105,25 @@
           <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Todas
         <% end %>
         <%= active_link_to admins_static_page_trainee_path, class: 'list-group-item list-group-item-action' do %>
-          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Estagio
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span><%= I18n.t('helpers.trainee').upcase %>
         <% end %>
         <%= active_link_to admins_static_page_monitor_path, class: 'list-group-item list-group-item-action' do %>
-          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Monitoria
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span><%= I18n.t('helpers.monitor').upcase %>
         <% end %>
         <%= active_link_to admins_static_page_tcc_path, class: 'list-group-item list-group-item-action' do %>
-          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>TCC
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span><%= I18n.t('helpers.tcc').upcase %>
+        <% end %>
+        <%= active_link_to admins_static_page_instruction_subscription_path, class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span><%= I18n.t('helpers.instruction_subscription').upcase %>
+        <% end %>
+        <%= active_link_to admins_static_page_be_our_student_path, class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span><%= I18n.t('helpers.be_our_student').upcase %>
+        <% end %>
+        <%= active_link_to admins_static_page_extension_activity_path, class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span><%= I18n.t('helpers.extension_activity').upcase %>
+        <% end %>
+        <%= active_link_to admins_static_page_course_about_path, class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span><%= I18n.t('helpers.course_about').upcase %>
         <% end %>
       </div>
     </div>

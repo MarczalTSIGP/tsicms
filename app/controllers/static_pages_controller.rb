@@ -14,6 +14,22 @@ class StaticPagesController < ApplicationController
     find_professor_responsible I18n.t('helpers.monitor')
   end
 
+  def instruction_subscribtion
+    find_static_page I18n.t('helpers.instruction_subscription')
+    find_professor_responsible I18n.t('helpers.instruction_subscription')
+  end
+  def be_our_student
+    find_static_page I18n.t('helpers.be_our_student')
+    find_professor_responsible I18n.t('helpers.be_our_student')
+  end
+  def extension_activity
+    find_static_page I18n.t('helpers.extension_activity')
+    find_professor_responsible I18n.t('helpers.extension_activity')
+  end
+  def course_about
+    find_static_page I18n.t('helpers.course_about')
+    find_professor_responsible I18n.t('helpers.course_about')
+  end
   def history
     @static_page = StaticPage.find(params[:static_page_id])
 

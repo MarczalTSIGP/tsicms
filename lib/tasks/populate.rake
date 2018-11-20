@@ -199,6 +199,69 @@ namespace :db do
       activity: tcc_activity,
       start_date: start_date,
     )
+    is_activity = Activity.create!(
+      name: I18n.t('helpers.instruction_subscription'),
+      description: Faker::Lorem.paragraph(2)
+    )
+    StaticPage.find_or_create_by!(
+      title: I18n.t('helpers.instruction_subscription'),
+      content: '## conteudo',
+      permalink: 'instruction_subscribtion',
+      fixed: true
+    )
+    ActivityProfessor.create!(
+      professor: Professor.all.sample,
+      activity: is_activity,
+      start_date: start_date,
+    )
+
+    bos_activity = Activity.create!(
+      name: I18n.t('helpers.be_our_student'),
+      description: Faker::Lorem.paragraph(2)
+    )
+    StaticPage.find_or_create_by!(
+      title: I18n.t('helpers.be_our_student'),
+      content: '## conteudo',
+      permalink: 'be_our_student',
+      fixed: true
+    )
+    ActivityProfessor.create!(
+      professor: Professor.all.sample,
+      activity: bos_activity,
+      start_date: start_date,
+    )
+
+    ec_activity = Activity.create!(
+      name: I18n.t('helpers.extension_activity'),
+      description: Faker::Lorem.paragraph(2)
+    )
+    StaticPage.find_or_create_by!(
+      title: I18n.t('helpers.extension_activity'),
+      content: '## conteudo',
+      permalink: 'extension_activity',
+      fixed: true
+    )
+    ActivityProfessor.create!(
+      professor: Professor.all.sample,
+      activity: ec_activity,
+      start_date: start_date,
+    )
+
+    ca_activity = Activity.create!(
+      name: I18n.t('helpers.course_about'),
+      description: Faker::Lorem.paragraph(2)
+    )
+    StaticPage.find_or_create_by!(
+      title: I18n.t('helpers.course_about'),
+      content: '## conteudo',
+      permalink: 'course_about',
+      fixed: true
+    )
+    ActivityProfessor.create!(
+      professor: Professor.all.sample,
+      activity: ca_activity,
+      start_date: start_date,
+    )
 
   end
 end

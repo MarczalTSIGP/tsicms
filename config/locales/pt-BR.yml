@@ -15,14 +15,18 @@ pt-BR:
     activity: atividade
     activity_professor: atividades_do_professor
     activity_professors: atividades_dos_professors
+    be_our_student: seja_nosso_aluno
     category_recommendations: categorias_de_recomendacoes
     companies: empresas
     company: empresa
+    course_about: curso
     disciplines: disciplinas
     discipline: disciplina
     discipline_monitors: monitores_das_disciplinas
     discipline_monitor: monitor_da_disciplina
+    extension_activity: atividade_extensao
     history: historico
+    instruction_subscription: instrucao_matricula
     matrices: matrizes
     matrice: matriz
     monitors: monitorias
@@ -125,6 +129,10 @@ pt-BR:
       'false': 'Não'
     tcc: "TCC"
     monitor: "Monitoria"
+    instruction_subscription: 'Instrução de matricula'
+    be_our_student: 'Seja nosso aluno'
+    extension_activity: 'Atividade de extensão'
+    course_about: 'O Curso'
   enums:
     genders:
       male: 'Masculino'

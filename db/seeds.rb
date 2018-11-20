@@ -32,7 +32,7 @@ treinee_status.each do |status|
 end
 
 StaticPage.find_or_create_by!(
-  title: 'Estágio',
+  title: I18n.t('helpers.trainee'),
   sub_title: 'Vagas de Estágio',
   content: '## conteudo',
   permalink: 'estagio',
@@ -40,7 +40,7 @@ StaticPage.find_or_create_by!(
 )
 
 StaticPage.find_or_create_by!(
-  title: 'Monitoria',
+  title: I18n.t('helpers.monitor'),
   sub_title: 'Vagas de Monitoria',
   content: '## conteudo',
   permalink: 'monitor',
@@ -48,8 +48,36 @@ StaticPage.find_or_create_by!(
 )
 
 StaticPage.find_or_create_by!(
-  title: 'TCC',
+  title: I18n.t('helpers.tcc'),
   content: '## conteudo',
   permalink: 'tcc',
+  fixed: true
+)
+
+StaticPage.find_or_create_by!(
+  title: I18n.t('helpers.instruction_subscription'),
+  content: '## conteudo',
+  permalink: 'instruction_subscription',
+  fixed: true
+)
+
+StaticPage.find_or_create_by!(
+  title: I18n.t('helpers.be_our_student'),
+  content: '## conteudo',
+  permalink: 'be_our_student',
+  fixed: true
+)
+
+StaticPage.find_or_create_by!(
+  title: I18n.t('helpers.extension_activity'),
+  content: '## conteudo',
+  permalink: 'extension_activity',
+  fixed: true
+)
+
+StaticPage.find_or_create_by!(
+  title: I18n.t('helpers.course_about'),
+  content: '## conteudo',
+  permalink: 'course_about',
   fixed: true
 )
