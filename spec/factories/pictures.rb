@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :picture do
-    label { "MyString" }
+    label { 'MyString' }
     image { FileSpecHelper.image }
     gallery
   end
