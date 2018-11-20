@@ -21,6 +21,7 @@ pt-BR:
     disciplines: disciplinas
     discipline: disciplina
     discipline_monitors: monitores_das_disciplinas
+    discipline_monitor: monitor_da_disciplina
     history: historico
     matrices: matrizes
     matrice: matriz

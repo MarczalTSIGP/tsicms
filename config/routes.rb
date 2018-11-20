@@ -4,15 +4,18 @@ Rails.application.routes.draw do
     get '/static_pages/:permalink', to: 'static_pages#index', as: 'static_page'
     get '/static_pages/:static_page_id/history', to: 'static_pages#history', as: 'static_page_history'
     get '/tcc', to: 'static_pages#tcc'
-    get '/monitors', to: 'static_pages#monitor'
+    get '/monitors', to: 'static_pages#monitor', as: 'activity_monitors'
     resources :professors, only: [:index, :show]
     resources :companies, only: [:index, :show]
     resources :trainees, only: [:index, :show]
     resources :activities, only: [:index, :show]
-    get '/static_pages/:permalink', to: 'static_pages#index', as: 'static_page'
-    get '/discipline_monitors/:id', to: 'discipline_monitors#show', as: 'monitors'
+    resources :discipline_monitors, only: [:index, :show]
 
-    resources :professors, :trainees, :companies, :activities do
+    resources :professors,
+              :trainees,
+              :companies,
+              :activities,
+              :discipline_monitors do
       get 'page/:page', action: :index, on: :collection
     end
 
