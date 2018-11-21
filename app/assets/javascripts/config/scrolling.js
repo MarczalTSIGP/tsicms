@@ -4,10 +4,14 @@
 "use strict";
 
 $(document).on('turbolinks:load', function () {
-  TSICMS.scrolling();
+  TSICMS.scrolling.smooth();
+  TSICMS.scrolling.closeResponsiveMenuAfterClick();
+  TSICMS.scrolling.reveals();
 });
 
-TSICMS.scrolling = function () {
+TSICMS.scrolling = {};
+
+TSICMS.scrolling.smooth = function () {
   // Smooth scrolling using jQuery easing
   $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
@@ -21,12 +25,16 @@ TSICMS.scrolling = function () {
       }
     }
   });
+}
 
+TSICMS.scrolling.closeResponsiveMenuAfterClick = function () {
   // Closes responsive menu when a scroll trigger link is clicked
   $('.js-scroll-trigger').click(function () {
     $('.navbar-collapse').collapse('hide');
   });
+}
 
+TSICMS.scrolling.reveals = function () {
   // Scroll reveal calls
   window.sr = ScrollReveal();
 
