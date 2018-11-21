@@ -13,13 +13,20 @@ TSICMS.scrolling = {};
 
 TSICMS.scrolling.smooth = function () {
   // Smooth scrolling using jQuery easing
+
   $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+    var previous_path_location = location.pathname.replace(/^\//, '');
+    var current_path_location = this.pathname.replace(/^\//, '');
+
+    if (previous_path_location == current_path_location && location.hostname == this.hostname) {
       var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      var target_slice = $('[name=' + this.hash.slice(1) + ']');
+      target = target.length ? target : target_slice;
       if (target.length) {
+        var target_offset = target.offset().top - 56;
+
         $('html, body').animate({
-          scrollTop: (target.offset().top - 56)
+          scrollTop: (target_offset)
         }, 1000, "easeInOutExpo");
         return false;
       }
