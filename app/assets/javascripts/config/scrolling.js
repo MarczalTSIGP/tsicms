@@ -13,8 +13,9 @@ TSICMS.scrolling = {};
 
 TSICMS.scrolling.smooth = function () {
   // Smooth scrolling using jQuery easing
+  var scroll_trigger_path = 'a.js-scroll-trigger[href*="#"]:not([href="#"])'
 
-  $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
+  $(scroll_trigger_path).click(function () {
     var previous_path_location = location.pathname.replace(/^\//, '');
     var current_path_location = this.pathname.replace(/^\//, '');
 
