@@ -25,7 +25,9 @@ TSICMS.scrolling.smooth = function () {
     if (comparation_path_location && comparation_hostname) {
       var target = $(this.hash);
       var target_slice = $('[name=' + this.hash.slice(1) + ']');
+      
       target = target.length ? target : target_slice;
+
       if (target.length) {
         var target_offset = target.offset().top - 56;
 
