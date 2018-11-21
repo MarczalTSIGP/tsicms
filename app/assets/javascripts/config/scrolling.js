@@ -18,7 +18,10 @@ TSICMS.scrolling.smooth = function () {
     var previous_path_location = location.pathname.replace(/^\//, '');
     var current_path_location = this.pathname.replace(/^\//, '');
 
-    if (previous_path_location == current_path_location && location.hostname == this.hostname) {
+    var comparation_path_location = previous_path_location.equals(current_path_location);
+    var comparation_hostname = location.hostname.equals(this.hostname);
+
+    if (comparation_path_location && comparation_hostname) {
       var target = $(this.hash);
       var target_slice = $('[name=' + this.hash.slice(1) + ']');
       target = target.length ? target : target_slice;
