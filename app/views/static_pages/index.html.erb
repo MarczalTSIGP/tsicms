@@ -1,1 +1,4 @@
 <%= render @static_page %>
+<% unless @trainees.nil? %>
+  <%= render 'trainee' %>
+<% end %>

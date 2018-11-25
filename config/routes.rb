@@ -3,14 +3,13 @@ Rails.application.routes.draw do
     root to: 'home#index'
     get '/pages/:permalink', to: 'static_pages#index', as: 'static_page'
     get '/pages/:static_page_id/history', to: 'static_pages#history', as: 'static_page_history'
+    get '/pages/:static_page_id/vacancies/:vacancy_id', to: 'static_pages#vacancy', as: 'static_page_vacancy'
     resources :professors, only: [:index, :show]
     resources :companies, only: [:index, :show]
-    resources :trainees, only: [:index, :show]
     resources :activities, only: [:index, :show]
     resources :discipline_monitors, only: [:index, :show]
 
     resources :professors,
-              :trainees,
               :companies,
               :activities,
               :discipline_monitors do

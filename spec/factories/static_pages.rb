@@ -1,19 +1,13 @@
 FactoryBot.define do
   factory :static_page do
-    title {'title'}
-    sub_title {'sub_title'}
-    content {'content'}
+    sequence(:title) {|n| "title#{n}"}
+    sequence(:sub_title) {|n| "sub_title#{n}"}
+    sequence(:content) {|n| "content#{n}"}
     fixed {false}
     sequence(:permalink) {|n| "Permalink_#{n}"}
 
-    trait :with_trainee do
-      title {I18n.t('helpers.trainee')}
-    end
-    trait :with_tcc do
-      title {I18n.t('helpers.tcc')}
-    end
-    trait :with_monitor do
-      title {I18n.t('helpers.monitor')}
+    trait :with_activity do
+      association :activity, factory: :activity
     end
   end
 end

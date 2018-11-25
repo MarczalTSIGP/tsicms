@@ -63,12 +63,11 @@ class Admins::StaticPagesController < Admins::BaseController
   protected
 
   def static_page_params
-    params.require(:static_page).permit(:title, :sub_title, :content, :permalink)
+    params.require(:static_page).permit(:title, :sub_title, :content, :permalink, :activity_id)
   end
 
   def set_static_page
     @static_page = StaticPage.find(params[:id])
   end
 
-  private
 end

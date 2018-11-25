@@ -60,8 +60,8 @@ StaticPage.find_or_create_by!(
   title: I18n.t('helpers.trainee'),
   sub_title: 'Vagas de Estágio',
   content: '## conteudo',
-  permalink: 'estagio',
-  activity: trainee_activity,
+  permalink: 'trainee',
+  activity_id: trainee_activity,
   fixed: true
 )
 
@@ -70,7 +70,7 @@ StaticPage.find_or_create_by!(
   sub_title: 'Vagas de Monitoria',
   content: '## conteudo',
   permalink: 'monitor',
-  activity: monitor_activity,
+  activity_id: monitor_activity,
   fixed: true
 )
 
@@ -78,7 +78,7 @@ StaticPage.find_or_create_by!(
   title: I18n.t('helpers.tcc'),
   content: '## conteudo',
   permalink: 'tcc',
-  activity: tcc_activity,
+  activity_id: tcc_activity,
   fixed: true
 )
 
@@ -86,7 +86,7 @@ StaticPage.find_or_create_by!(
   title: I18n.t('helpers.extension_activity'),
   content: '## conteudo',
   permalink: 'extension_activity',
-  activity: extension_activity,
+  activity_id: extension_activity,
   fixed: true
 )
 

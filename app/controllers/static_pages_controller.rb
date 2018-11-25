@@ -1,7 +1,14 @@
 class StaticPagesController < ApplicationController
 
   def index
-    @static_page = StaticPage.find_by!(permalink: params[:permalink])
+
+    @static_page = StaticPage.find_by(permalink: params[:permalink])
+    if @static_page.nil?
+      @static_page = StaticPage.find_by!(id: params[:permalink])
+    end
+    if @static_page.title.include? I18n.t('helpers.trainee')
+      @trainees = Trainee.order(title: :asc).page params[:page]
+    end
   end
 
   def history
@@ -12,13 +19,17 @@ class StaticPagesController < ApplicationController
                    :static_page_history_path
   end
 
+  def vacancy
+    @static_page = StaticPage.find(params[:static_page_id])
+    @trainee = Trainee.find(params[:vacancy_id])
+    add_breadcrumb I18n.t('breadcrumbs.trainees.show', name: "##{@trainee.id}"),
+                   :static_page_vacancy_path
+  end
+
   private
 
-  def find_professor_responsible(title)
-    @professor = Activity.current_responsible(title)
+  def find_professor_responsible
+    @professor = @static_page.activity.current_responsible
   end
 
-  def find_static_page(title)
-    @static_page = StaticPage.find_by!(title: title)
-  end
 end

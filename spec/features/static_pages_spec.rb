@@ -15,36 +15,20 @@ RSpec.describe 'StaticPages', type: :feature do
       expect(page).to have_content(static_page.content)
     end
 
-    it 'tcc page' do
-      ap = create(:activity_professor, :with_tcc_current)
-      static_page = create(:static_page, :with_tcc)
-      visit tcc_path
-      expect(page).to have_content(static_page.title)
-      expect(page).to have_content(static_page.sub_title)
-      expect(page).to have_content(static_page.content)
-    end
+    context 'with activity' do
 
-    it 'monitor page' do
-      ap = create(:activity_professor, :with_monitor_current)
-      static_page = create(:static_page, :with_monitor)
-      visit activity_monitors_path
-      expect(page).to have_content(static_page.title)
-      expect(page).to have_content(static_page.sub_title)
-      expect(page).to have_content(static_page.content)
-    end
-  end
-  describe '#History' do
+      let!(:static_page) {create(:static_page, :with_activity)}
 
-    it 'tcc' do
-      ap = create(:activity_professor, :with_tcc_current)
-      static_page = create(:static_page, :with_tcc)
-      static_page = create(:static_page, :with_tcc)
-      visit static_page_history_path(static_page)
-    end
-    it 'monitor' do
-      ap = create(:activity_professor, :with_monitor_current)
-      static_page = create(:static_page, :with_monitor)
-      visit static_page_history_path(static_page)
+      it 'page' do
+        visit static_page_path(static_page)
+        expect(page).to have_content(static_page.title)
+        expect(page).to have_content(static_page.sub_title)
+        expect(page).to have_content(static_page.content)
+      end
+      it 'history ' do
+        visit static_page_history_path(static_page)
+      end
+
     end
   end
 end

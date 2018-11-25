@@ -18,6 +18,9 @@ namespace :db do
      Trainee,
      TraineeStatus].each(&:delete_all)
 
+    Admin.create_with(name: 'Administrador', password: '123456')
+      .find_or_create_by!(email: 'admin@admin.com')
+
     10.times do
       Faq.find_or_create_by!(
         title: Faker::Name.unique.name,
@@ -178,7 +181,7 @@ namespace :db do
       sub_title: 'Vagas de Estágio',
       content: '## conteudo',
       permalink: 'estagio',
-      activity: trainee_activity,
+      activity_id: trainee_activity,
       fixed: true
     )
 
@@ -187,7 +190,7 @@ namespace :db do
       sub_title: 'Vagas de Monitoria',
       content: '## conteudo',
       permalink: 'monitor',
-      activity: monitor_activity,
+      activity_id: monitor_activity,
       fixed: true
     )
 
@@ -195,7 +198,7 @@ namespace :db do
       title: I18n.t('helpers.tcc'),
       content: '## conteudo',
       permalink: 'tcc',
-      activity: tcc_activity,
+      activity_id: tcc_activity,
       fixed: true
     )
 
@@ -203,7 +206,7 @@ namespace :db do
       title: I18n.t('helpers.extension_activity'),
       content: '## conteudo',
       permalink: 'extension_activity',
-      activity: extension_activity,
+      activity_id: extension_activity,
       fixed: true
     )
 
