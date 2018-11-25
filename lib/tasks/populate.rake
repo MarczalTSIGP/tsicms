@@ -19,7 +19,7 @@ namespace :db do
      TraineeStatus].each(&:delete_all)
 
     10.times do
-      Faq.create!(
+      Faq.find_or_create_by!(
         title: Faker::Name.unique.name,
         answer: Faker::Markdown.random
       )
@@ -27,20 +27,20 @@ namespace :db do
 
     categories = %w[Documentário Filme Livro Seriado]
     categories.each do |category|
-      CategoryRecommendation.create!(name: category)
+      CategoryRecommendation.find_or_create_by!(name: category)
     end
 
     CategoryRecommendation.all.each do |category|
       5.times do
-        category.recommendations.create! title: Faker::Name.name,
+        category.recommendations.create!(title: Faker::Name.name,
                                          description: Faker::Lorem.paragraph(2),
-                                         image: FileSpecHelper.image
+                                         image: FileSpecHelper.image)
       end
     end
 
     categories = %w[Efetivo Temporário]
     categories.each do |category|
-      ProfessorCategory.create!(name: category)
+      ProfessorCategory.find_or_create_by!(name: category)
     end
 
     titles = [
@@ -50,7 +50,12 @@ namespace :db do
     ]
 
     titles.each do |title|
-      ProfessorTitle.create!(name: title[:name], abbrev: title[:abbrev])
+      ProfessorTitle.find_or_create_by!(name: title[:name], abbrev: title[:abbrev])
+    end
+
+    monitor_types = %w[Remunerada Gratuita]
+    monitor_types.each do |type|
+      MonitorType.find_or_create_by!(name: type)
     end
 
     10.times do
@@ -72,7 +77,7 @@ namespace :db do
     end
 
     10.times do
-      Activity.create!(
+      Activity.find_or_create_by!(
         name: Faker::Job.unique.title,
         description: Faker::Lorem.paragraph(2)
       )
@@ -83,7 +88,7 @@ namespace :db do
       end_date = Faker::Date.between(5.months.ago, Time.zone.today)
       end_date = [nil, end_date].sample
 
-      ActivityProfessor.create!(
+      ActivityProfessor.find_or_create_by!(
         professor: Professor.all.sample,
         activity: Activity.all.sample,
         start_date: start_date,
@@ -92,15 +97,15 @@ namespace :db do
     end
 
     3.times do |m_index|
-      matrix = Matrix.create!(name: Faker::DragonBall.character)
+      matrix = Matrix.find_or_create_by!(name: Faker::DragonBall.character)
       10.times do |p_index|
-        period = Period.create!(
+        period = Period.find_or_create_by!(
           name: "#{Faker::Company.suffix}-#{m_index}#{p_index}",
           matrix: matrix
         )
 
         10.times do |d_index|
-          Discipline.create!(
+          Discipline.find_or_create_by!(
             name: "#{Faker::Company.industry}-#{m_index}#{p_index}-#{d_index}",
             code: Faker::Code.nric(27, 34),
             hours: Faker::Number.number(2),
@@ -112,7 +117,7 @@ namespace :db do
     end
 
     10.times do
-      StaticPage.create!(
+      StaticPage.find_or_create_by!(
         title: Faker::Name.name,
         sub_title: Faker::Name.name,
         permalink: Faker::Name.unique.name.parameterize,
@@ -130,7 +135,7 @@ namespace :db do
                                 discipline_ids: [Discipline.all.sample.id])
     end
     10.times do
-      Company.create!(name: Faker::Name.name,
+      Company.find_or_create_by!(name: Faker::Name.name,
                       image: Faker::Avatar.image,
                       operation: Faker::Markdown.sandwich,
                       site: Faker::Internet.url)
@@ -138,11 +143,11 @@ namespace :db do
 
     ts = %w[Preenchida Dispónivel Cancelada]
     ts.each do |status|
-      TraineeStatus.create!(name: status)
+      TraineeStatus.find_or_create_by!(name: status)
     end
 
     10.times do
-      Trainee.create!(title: Faker::Name.name,
+      Trainee.find_or_create_by!(title: Faker::Name.name,
                       description: Faker::Markdown.sandwich,
                       company: Company.all.sample,
                       trainee_status: TraineeStatus.all.sample)
@@ -152,8 +157,20 @@ namespace :db do
     end_date = Faker::Date.between(5.months.ago, Date.today)
     end_date = [nil, end_date].sample
 
-    trainee_activity = Activity.create!(
+    tcc_activity = Activity.find_or_create_by!(
+      name: I18n.t('helpers.tcc'),
+      description: Faker::Lorem.paragraph(2)
+    )
+    trainee_activity = Activity.find_or_create_by!(
       name: I18n.t('helpers.trainee'),
+      description: Faker::Lorem.paragraph(2)
+    )
+    monitor_activity = Activity.find_or_create_by!(
+      name: I18n.t('helpers.monitor'),
+      description: Faker::Lorem.paragraph(2)
+    )
+    extension_activity = Activity.find_or_create_by!(
+      name: I18n.t('helpers.extension_activity'),
       description: Faker::Lorem.paragraph(2)
     )
     StaticPage.find_or_create_by!(
@@ -161,105 +178,74 @@ namespace :db do
       sub_title: 'Vagas de Estágio',
       content: '## conteudo',
       permalink: 'estagio',
+      activity: trainee_activity,
       fixed: true
     )
-    ActivityProfessor.create!(
-      professor: Professor.all.sample,
-      activity: trainee_activity,
-      start_date: start_date,
-    )
-    monitor_activity = Activity.create!(
-      name: I18n.t('helpers.monitor'),
-      description: Faker::Lorem.paragraph(2)
-    )
+
     StaticPage.find_or_create_by!(
       title: I18n.t('helpers.monitor'),
       sub_title: 'Vagas de Monitoria',
       content: '## conteudo',
       permalink: 'monitor',
+      activity: monitor_activity,
       fixed: true
     )
-    ActivityProfessor.create!(
-      professor: Professor.all.sample,
-      activity: monitor_activity,
-      start_date: start_date,
-    )
-    tcc_activity = Activity.create!(
-      name: I18n.t('helpers.tcc'),
-      description: Faker::Lorem.paragraph(2)
-    )
+
     StaticPage.find_or_create_by!(
       title: I18n.t('helpers.tcc'),
       content: '## conteudo',
       permalink: 'tcc',
+      activity: tcc_activity,
       fixed: true
     )
-    ActivityProfessor.create!(
-      professor: Professor.all.sample,
-      activity: tcc_activity,
-      start_date: start_date,
+
+    StaticPage.find_or_create_by!(
+      title: I18n.t('helpers.extension_activity'),
+      content: '## conteudo',
+      permalink: 'extension_activity',
+      activity: extension_activity,
+      fixed: true
     )
-    is_activity = Activity.create!(
-      name: I18n.t('helpers.instruction_subscription'),
-      description: Faker::Lorem.paragraph(2)
-    )
+
     StaticPage.find_or_create_by!(
       title: I18n.t('helpers.instruction_subscription'),
       content: '## conteudo',
-      permalink: 'instruction_subscribtion',
+      permalink: 'instruction_subscription',
       fixed: true
     )
-    ActivityProfessor.create!(
-      professor: Professor.all.sample,
-      activity: is_activity,
-      start_date: start_date,
-    )
 
-    bos_activity = Activity.create!(
-      name: I18n.t('helpers.be_our_student'),
-      description: Faker::Lorem.paragraph(2)
-    )
     StaticPage.find_or_create_by!(
       title: I18n.t('helpers.be_our_student'),
       content: '## conteudo',
       permalink: 'be_our_student',
       fixed: true
     )
-    ActivityProfessor.create!(
-      professor: Professor.all.sample,
-      activity: bos_activity,
-      start_date: start_date,
-    )
 
-    ec_activity = Activity.create!(
-      name: I18n.t('helpers.extension_activity'),
-      description: Faker::Lorem.paragraph(2)
-    )
-    StaticPage.find_or_create_by!(
-      title: I18n.t('helpers.extension_activity'),
-      content: '## conteudo',
-      permalink: 'extension_activity',
-      fixed: true
-    )
-    ActivityProfessor.create!(
-      professor: Professor.all.sample,
-      activity: ec_activity,
-      start_date: start_date,
-    )
-
-    ca_activity = Activity.create!(
-      name: I18n.t('helpers.course_about'),
-      description: Faker::Lorem.paragraph(2)
-    )
     StaticPage.find_or_create_by!(
       title: I18n.t('helpers.course_about'),
       content: '## conteudo',
       permalink: 'course_about',
       fixed: true
     )
-    ActivityProfessor.create!(
+
+    ActivityProfessor.find_or_create_by!(
       professor: Professor.all.sample,
-      activity: ca_activity,
+      activity: trainee_activity,
+      start_date: start_date,
+    )
+    ActivityProfessor.find_or_create_by!(
+      professor: Professor.all.sample,
+      activity: monitor_activity,
+      start_date: start_date,
+    )
+    ActivityProfessor.find_or_create_by!(
+      professor: Professor.all.sample,
+      activity: tcc_activity,
+      start_date: start_date,
+    )
+    ActivityProfessor.find_or_create_by!(
+      professor: Professor.all.sample,
+      activity: extension_activity,
       start_date: start_date,
     )
 

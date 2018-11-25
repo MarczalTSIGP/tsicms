@@ -31,11 +31,37 @@ treinee_status.each do |status|
   TraineeStatus.find_or_create_by!(name: status)
 end
 
+#########
+#  @type Activity
+#######
+
+tcc_activity = Activity.find_or_create_by!(
+  name: I18n.t('helpers.tcc'),
+  description: 'descricao'
+)
+trainee_activity = Activity.find_or_create_by!(
+  name: I18n.t('helpers.trainee'),
+  description: 'descricao'
+)
+monitor_activity = Activity.find_or_create_by!(
+  name: I18n.t('helpers.monitor'),
+  description: 'descricao'
+)
+extension_activity = Activity.find_or_create_by!(
+  name: I18n.t('helpers.extension_activity'),
+  description: 'descricao'
+)
+
+#########
+#  @type StaticPage
+#######
+
 StaticPage.find_or_create_by!(
   title: I18n.t('helpers.trainee'),
   sub_title: 'Vagas de Estágio',
   content: '## conteudo',
   permalink: 'estagio',
+  activity: trainee_activity,
   fixed: true
 )
 
@@ -44,6 +70,7 @@ StaticPage.find_or_create_by!(
   sub_title: 'Vagas de Monitoria',
   content: '## conteudo',
   permalink: 'monitor',
+  activity: monitor_activity,
   fixed: true
 )
 
@@ -51,6 +78,15 @@ StaticPage.find_or_create_by!(
   title: I18n.t('helpers.tcc'),
   content: '## conteudo',
   permalink: 'tcc',
+  activity: tcc_activity,
+  fixed: true
+)
+
+StaticPage.find_or_create_by!(
+  title: I18n.t('helpers.extension_activity'),
+  content: '## conteudo',
+  permalink: 'extension_activity',
+  activity: extension_activity,
   fixed: true
 )
 
@@ -65,13 +101,6 @@ StaticPage.find_or_create_by!(
   title: I18n.t('helpers.be_our_student'),
   content: '## conteudo',
   permalink: 'be_our_student',
-  fixed: true
-)
-
-StaticPage.find_or_create_by!(
-  title: I18n.t('helpers.extension_activity'),
-  content: '## conteudo',
-  permalink: 'extension_activity',
   fixed: true
 )
 
