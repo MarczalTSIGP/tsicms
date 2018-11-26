@@ -1,10 +1,14 @@
 <h1><%= @static_page.title %></h1>
 <h3><%= @static_page.sub_title %></h3>
-<%= link_to edit_admins_static_page_path(@static_page) do %>
-  <span class="icon mr-3">
-        <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
-      </span>
-<% end %>
+<div class="text-right">
+  <%= link_to edit_admins_static_page_path(@static_page),
+              class: 'btn btn-secondary',
+              title: 'Editar',
+              data: {toggle: 'tooltip', placement: 'top'} do %>
+    <i class="fas fa-edit"></i>
+  <% end %>
+</div>
+
 <% unless @professor.nil? %>
   <h3> Professor Responsavel: <%= link_to @professor.name, admins_professor_path(@professor) %></h3>
   <h5><%= link_to I18n.t('breadcrumbs.professors.history'), admins_static_page_history_path(@static_page) %></h5>
