@@ -7,7 +7,7 @@ FactoryBot.define do
     sequence(:permalink) {|n| "Permalink_#{n}"}
 
     trait :with_activity do
-      association :activity, factory: :activity
+      activity
     end
   end
 end

@@ -35,9 +35,8 @@ end
 #  @type Activity
 #######
 
-tcc_activity = Activity.find_or_create_by!(
-  name: I18n.t('helpers.tcc'),
-  description: 'descricao'
+tcc_activity = Activity.create_with(description: 'descricao').find_or_create_by!(
+  name: I18n.t('helpers.tcc')
 )
 trainee_activity = Activity.find_or_create_by!(
   name: I18n.t('helpers.trainee'),
