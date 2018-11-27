@@ -95,7 +95,7 @@ namespace :db do
     end
 
     3.times do |m_index|
-      matrix = Matrix.create!(name: Faker::DragonBall.character)
+      matrix = Matrix.create!(name: Faker::DragonBall.unique.character)
       10.times do |p_index|
         period = Period.create!(
           name: "#{Faker::Company.suffix}-#{m_index}#{p_index}",
