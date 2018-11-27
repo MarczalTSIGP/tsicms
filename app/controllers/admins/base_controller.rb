@@ -10,6 +10,7 @@ class Admins::BaseController < ActionController::Base
   add_breadcrumb I18n.t('breadcrumbs.homepage'), :admins_root_path
 
   protected
+
   def find_fixed_pages
     @static_pages = StaticPage.where(fixed: true)
   end

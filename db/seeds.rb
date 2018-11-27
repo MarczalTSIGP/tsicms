@@ -12,9 +12,9 @@ professor_categories.each do |category|
 end
 
 titles = [
-  {name: 'Especialista', abbrev: 'Esp.'},
-  {name: 'Mestre', abbrev: 'Me.'},
-  {name: 'Doutor', abbrev: 'Dr.'}
+  { name: 'Especialista', abbrev: 'Esp.' },
+  { name: 'Mestre', abbrev: 'Me.' },
+  { name: 'Doutor', abbrev: 'Dr.' }
 ]
 
 titles.each do |title|

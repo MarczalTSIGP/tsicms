@@ -5,7 +5,6 @@ class Admins::PeriodsController < Admins::BaseController
   add_breadcrumb I18n.t('breadcrumbs.periods.new'), :new_admins_period_path, only: [:new, :create]
 
   def index
-
     @periods = Period.includes(:matrix)
                      .order('matrices.name ASC', 'periods.name ASC').page params[:page]
   end

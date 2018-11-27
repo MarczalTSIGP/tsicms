@@ -1,5 +1,4 @@
 class Trainee < ApplicationRecord
-
   belongs_to :company
   belongs_to :trainee_status
 

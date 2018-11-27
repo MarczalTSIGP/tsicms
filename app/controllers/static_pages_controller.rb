@@ -1,14 +1,8 @@
 class StaticPagesController < ApplicationController
-
   def index
-
     @static_page = StaticPage.find_by(permalink: params[:permalink])
-    if @static_page.nil?
-      @static_page = StaticPage.find_by!(id: params[:permalink])
-    end
-    if @static_page.title.include? I18n.t('helpers.trainee')
-      @trainees = Trainee.order(title: :asc).page params[:page]
-    end
+    @static_page = StaticPage.find_by!(id: params[:permalink]) if @static_page.nil?
+    find_trainees if @static_page.title.include? I18n.t('helpers.trainee')
   end
 
   def history
@@ -32,4 +26,7 @@ class StaticPagesController < ApplicationController
     @professor = @static_page.activity.current_responsible
   end
 
+  def find_trainees
+    @trainees = Trainee.order(title: :asc).page params[:page]
+  end
 end

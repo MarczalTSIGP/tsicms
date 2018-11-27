@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Category Recommendations', type: :feature do
-  let(:admin) {create(:admin)}
-  let(:resource_name) {CategoryRecommendation.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { CategoryRecommendation.model_name.human }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -46,7 +46,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
     end
 
     context 'when has same name' do
-      let(:category) {create(:category_recommendation)}
+      let(:category) { create(:category_recommendation) }
 
       it 'show errors' do
         fill_in 'category_recommendation_name', with: category.name
@@ -69,7 +69,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
   end
 
   describe '#update' do
-    let(:category) {create(:category_recommendation)}
+    let(:category) { create(:category_recommendation) }
 
     before(:each) do
       visit edit_admins_category_recommendation_path(category)
@@ -115,7 +115,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
     end
 
     context 'when has same name' do
-      let(:other_category) {create(:category_recommendation)}
+      let(:other_category) { create(:category_recommendation) }
 
       it 'show errors' do
         fill_in 'category_recommendation_name', with: other_category.name
@@ -155,7 +155,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
     end
 
     describe '#index' do
-      let!(:categories) {create_list(:category_recommendation, 3)}
+      let!(:categories) { create_list(:category_recommendation, 3) }
 
       it 'show all category recommendations with options' do
         visit admins_category_recommendations_path

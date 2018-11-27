@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.feature 'Companies Public Page', type: :feature do
-
+RSpec.describe 'Companies Public Page', type: :feature do
   describe '#show' do
-    let!(:companies) {create_list(:company, 6)}
+    let!(:companies) { create_list(:company, 6) }
+
     it 'all companies' do
       visit companies_path
 

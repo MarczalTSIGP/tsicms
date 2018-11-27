@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.feature 'Professors Public Page', type: :feature do
-
+RSpec.describe 'Professors Public Page', type: :feature do
   describe '#show' do
-    let!(:professors) {create_list(:professor, 6)}
+    let!(:professors) { create_list(:professor, 6) }
+
     it 'all professors' do
       visit professors_path
 

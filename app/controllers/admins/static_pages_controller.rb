@@ -43,8 +43,7 @@ class Admins::StaticPagesController < Admins::BaseController
     end
   end
 
-  def show;
-  end
+  def show; end
 
   def destroy
     @static_page.destroy
@@ -69,5 +68,4 @@ class Admins::StaticPagesController < Admins::BaseController
   def set_static_page
     @static_page = StaticPage.find(params[:id])
   end
-
 end

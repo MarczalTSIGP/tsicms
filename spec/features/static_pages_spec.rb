@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'StaticPages', type: :feature do
   describe '#show' do
-    let(:static_page) {create(:static_page)}
-
+    let(:static_page) { create(:static_page) }
 
     before(:each) do
       visit static_page_path(static_page.permalink)
@@ -16,8 +15,7 @@ RSpec.describe 'StaticPages', type: :feature do
     end
 
     context 'with activity' do
-
-      let!(:static_page) {create(:static_page, :with_activity)}
+      let!(:static_page) { create(:static_page, :with_activity) }
 
       it 'page' do
         visit static_page_path(static_page)
@@ -28,7 +26,6 @@ RSpec.describe 'StaticPages', type: :feature do
       it 'history ' do
         visit static_page_history_path(static_page)
       end
-
     end
   end
 end

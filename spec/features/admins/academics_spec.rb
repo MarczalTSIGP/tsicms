@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Academics', type: :feature do
-  let(:admin) {create(:admin)}
-  let(:resource_name) {Academic.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { Academic.model_name.human }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -23,7 +23,7 @@ RSpec.describe 'Academics', type: :feature do
         attach_file 'academic_image', FileSpecHelper.image.path
         submit_form
 
-        expect(page.current_path).to eq admins_academics_path
+        expect(page).to have_current_path(admins_academics_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.m',
@@ -42,12 +42,8 @@ RSpec.describe 'Academics', type: :feature do
           expect(page).to have_selector('div.alert.alert-danger',
                                         text: I18n.t('flash.actions.errors'))
 
-          within('div.academic_name') do
-            expect(page).to have_content(I18n.t('errors.messages.blank'))
-          end
-          within('div.academic_contact') do
-            expect(page).to have_content(I18n.t('errors.messages.blank'))
-          end
+          have_contains('div.academic_name', I18n.t('errors.messages.blank'))
+          have_contains('div.academic_contact', I18n.t('errors.messages.blank'))
           expect(page).to have_unchecked_field('academic_graduated')
           within('div.academic_image') do
             expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
@@ -58,6 +54,7 @@ RSpec.describe 'Academics', type: :feature do
       end
     end
   end
+
   describe '#update' do
     let(:academic) { create(:academic) }
 
@@ -145,7 +142,7 @@ RSpec.describe 'Academics', type: :feature do
   end
 
   describe '#index' do
-    let!(:academics) {create_list(:academic, 3)}
+    let!(:academics) { create_list(:academic, 3) }
 
     it 'show all academics with options' do
       visit admins_academics_path

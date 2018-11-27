@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.feature 'Activities Public Page', type: :feature do
-
+RSpec.describe 'Activities Public Page', type: :feature do
   describe '#show' do
-    let!(:activities) {create_list(:activity, 6)}
+    let!(:activities) { create_list(:activity, 6) }
+
     it 'all activities' do
       visit activities_path
 

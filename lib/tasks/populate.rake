@@ -19,7 +19,7 @@ namespace :db do
      TraineeStatus].each(&:delete_all)
 
     Admin.create_with(name: 'Administrador', password: '123456')
-      .find_or_create_by!(email: 'admin@admin.com')
+         .find_or_create_by!(email: 'admin@admin.com')
 
     10.times do
       Faq.find_or_create_by!(
@@ -139,9 +139,9 @@ namespace :db do
     end
     10.times do
       Company.find_or_create_by!(name: Faker::Name.name,
-                      image: Faker::Avatar.image,
-                      operation: Faker::Markdown.sandwich,
-                      site: Faker::Internet.url)
+                                 image: Faker::Avatar.image,
+                                 operation: Faker::Markdown.sandwich,
+                                 site: Faker::Internet.url)
     end
 
     ts = %w[Preenchida Dispónivel Cancelada]
@@ -151,15 +151,12 @@ namespace :db do
 
     10.times do
       Trainee.find_or_create_by!(title: Faker::Name.name,
-                      description: Faker::Markdown.sandwich,
-                      company: Company.all.sample,
-                      trainee_status: TraineeStatus.all.sample)
+                                 description: Faker::Markdown.sandwich,
+                                 company: Company.all.sample,
+                                 trainee_status: TraineeStatus.all.sample)
     end
 
     start_date = Faker::Date.between(1.year.ago, 5.months.ago)
-    end_date = Faker::Date.between(5.months.ago, Date.today)
-    end_date = [nil, end_date].sample
-
     tcc_activity = Activity.find_or_create_by!(
       name: I18n.t('helpers.tcc'),
       description: Faker::Lorem.paragraph(2)
@@ -234,23 +231,22 @@ namespace :db do
     ActivityProfessor.find_or_create_by!(
       professor: Professor.all.sample,
       activity: trainee_activity,
-      start_date: start_date,
+      start_date: start_date
     )
     ActivityProfessor.find_or_create_by!(
       professor: Professor.all.sample,
       activity: monitor_activity,
-      start_date: start_date,
+      start_date: start_date
     )
     ActivityProfessor.find_or_create_by!(
       professor: Professor.all.sample,
       activity: tcc_activity,
-      start_date: start_date,
+      start_date: start_date
     )
     ActivityProfessor.find_or_create_by!(
       professor: Professor.all.sample,
       activity: extension_activity,
-      start_date: start_date,
+      start_date: start_date
     )
-
   end
 end

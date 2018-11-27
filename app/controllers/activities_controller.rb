@@ -10,6 +10,5 @@ class ActivitiesController < ApplicationController
 
     add_breadcrumb I18n.t('breadcrumbs.activities.show', name: "##{@activity.id}"),
                    :activity_path
-
   end
 end
