@@ -4,8 +4,8 @@ class Gallery < ApplicationRecord
   has_many :pictures, dependent: :destroy
   accepts_nested_attributes_for :pictures
 
-  def upload_images(images)
-    if images.empty?
+  def upload_images(pictures)
+    if pictures.empty?
       errors[:pictures] << I18n.t('errors.messages.blank')
       return false
     end

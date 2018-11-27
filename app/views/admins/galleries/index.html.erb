@@ -1,7 +1,7 @@
 <% provide(:page_title, 'Galeria') %>
 
 <div class="text-right mb-3">
-  <%= link_to new_admins_picture_path,
+  <%= link_to new_admins_picture_path(@gallery.context),
               class: 'btn btn-secondary',
               title: 'Upload de imagens',
               data: { toggle: 'tooltip', placement: 'top' } do %>
