@@ -159,7 +159,7 @@ namespace :db do
     Gallery.all.each do |gallery|
       5.times do
         gallery.pictures.create! label: Faker::Lorem.paragraph(1),
-                                 image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample)
+                                 image: FileSpecHelper.image
       end
     end
   end
