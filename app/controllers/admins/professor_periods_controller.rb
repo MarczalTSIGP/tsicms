@@ -3,16 +3,17 @@ class Admins::ProfessorPeriodsController < Admins::BaseController
   before_action :set_period, only: [:edit, :update]
 
   add_breadcrumb I18n.t('breadcrumbs.professors.name'), :admins_professors_path
-  add_breadcrumb I18n.t('breadcrumbs.professors.show'), :admins_professors_path
-  add_breadcrumb I18n.t('breadcrumbs.professors.newperiod'), :new_admins_professor_professor_period_path, only: [:new, :create]
-
   # Breadcrumbs teria que ficar Pagina Inicial / Professor:(id) / Periodo do Professor / Novo Periodo
 
-  def new    
+  def new
+    add_breadcrumb I18n.t('breadcrumbs.professors.show', name: "##{@professor.id}"), admins_professor_path(@professor)
+    add_breadcrumb I18n.t('breadcrumbs.professors.newperiod'), :new_admins_professor_professor_period_path, only: [:new, :create]
+    
     @period = @professor.periods.new
   end
 
   def edit
+    add_breadcrumb I18n.t('breadcrumbs.professors.show', name: "##{@professor.id}"), admins_professor_path(@professor)
     add_breadcrumb I18n.t('breadcrumbs.professors.editperiod'), :edit_admins_professor_professor_period_path
     @period = @professor.periods.find(params[:id])
   end

@@ -6,6 +6,7 @@ namespace :db do
     [CategoryRecommendation,
      Recommendation,
      Activity,
+     ProfessorPeriod,
      Professor,
      ProfessorCategory,
      ProfessorTitle,
@@ -16,7 +17,8 @@ namespace :db do
      Matrix, Faq,
      StaticPage,
      Trainee,
-     TraineeStatus].each(&:delete_all)
+     TraineeStatus
+    ].each(&:delete_all)
 
     10.times do
       Faq.create!(
@@ -90,18 +92,18 @@ namespace :db do
         end_date: end_date
       )
     end
-    /
+    
     5.times do
       date_entry = Faker::Date.between(1.year.ago, 5.months.ago)
       date_out = Faker::Date.between(5.months.ago, Date.today)
-      date_out = [nil, end_date].sample
-      PeriodProfessor.create!(
+      date_out = [nil, date_out].sample
+      ProfessorPeriod.create!(
         professor: Professor.all.sample,
         professor_category: ProfessorCategory.all.sample,
         date_entry: date_entry,
         date_out: date_out        
       )
-    end/
+    end
 
     3.times do |m_index|
       matrix = Matrix.create!(name: Faker::DragonBall.character)
