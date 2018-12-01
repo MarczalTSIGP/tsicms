@@ -57,14 +57,10 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
 
     context 'with filled fields' do
       it 'with correct values' do
-        expect(page).to have_field 'static_page_title',
-                                   with: static_page.title
-        expect(page).to have_field 'static_page_sub_title',
-                                   with: static_page.sub_title
-        expect(page).to have_field 'static_page_permalink',
-                                   with: static_page.permalink
-        expect(page).to have_field 'static_page_content',
-                                   with: static_page.content
+        expect_page_have_field_with_value('static_page_title', static_page.title)
+        expect_page_have_field_with_value('static_page_sub_title', static_page.sub_title)
+        expect_page_have_field_with_value('static_page_permalink', static_page.title.permalink)
+        expect_page_have_field_with_value('static_page_content', static_page.title.content)
       end
     end
 

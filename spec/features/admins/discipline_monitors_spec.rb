@@ -58,19 +58,12 @@ RSpec.describe 'Discipline Monitors', type: :feature do
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'discipline_monitor_year',
-                                   with: discipline_monitor.year
-        expect(page).to have_field 'discipline_monitor_description',
-                                   with: discipline_monitor.description
-        expect(page).to have_select 'discipline_monitor_academic_id',
-                                    selected: discipline_monitor.academic.name
-        expect(page).to have_select 'discipline_monitor_monitor_type_id',
-                                    selected: discipline_monitor.monitor_type.name
-
-        expect(page).to have_select 'discipline_monitor_discipline_ids',
-                                    selected: discipline_monitor.disciplines.map(&:name)
-        expect(page).to have_select 'discipline_monitor_professor_ids',
-                                    selected: discipline_monitor.professors.map(&:name)
+        expect_page_have_field_with_value('discipline_monitor_year', discipline_monitor.year)
+        expect_page_have_field_with_value('discipline_monitor_description', discipline_monitor.description)
+        expect_page_have_selected_with_value('discipline_monitor_academic_id', discipline_monitor.academic.name)
+        expect_page_have_selected_with_value('discipline_monitor_monitor_type_id', discipline_monitor.monitor_type.name)
+        expect_page_have_selected_with_value('discipline_monitor_discipline_ids', discipline_monitor.disciplines.map(&:name))
+        expect_page_have_selected_with_value('discipline_monitor_professor_ids', discipline_monitor.professors.map(&:name))
       end
     end
 

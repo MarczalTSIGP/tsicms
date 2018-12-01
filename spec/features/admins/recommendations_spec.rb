@@ -58,12 +58,9 @@ RSpec.describe 'Recommendations', type: :feature do
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'recommendation_title',
-                                   with: recommendation.title
-        expect(page).to have_field 'recommendation_description',
-                                   with: recommendation.description
-        expect(page).to have_select 'recommendation_category_recommendation_id',
-                                    selected: recommendation.category_recommendation.name
+        expect_page_have_field_with_value('recommendation_title', recommendation.title)
+        expect_page_have_field_with_value('recommendation_description', recommendation.description)
+        expect_page_have_selected_with_value('recommendation_category_recommendation_id', selected: recommendation.category_recommendation.name)
         expect(page).to have_css("img[src*='#{recommendation.image}']")
       end
     end

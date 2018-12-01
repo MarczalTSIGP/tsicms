@@ -57,9 +57,9 @@ RSpec.describe 'Discipline', type: :feature do
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'discipline_name', with: discipline.name
-        expect(page).to have_field 'discipline_hours', with: discipline.hours
-        expect(page).to have_field 'discipline_code', with: discipline.code
+        expect_page_have_field_with_value('discipline_name', discipline.name)
+        expect_page_have_field_with_value('discipline_hours', discipline.hours)
+        expect_page_have_field_with_value('discipline_code', discipline.code)
 
         selected = "#{discipline.period.matrix.name} - #{discipline.period.name}"
         expect(page).to have_select 'discipline_period_id',

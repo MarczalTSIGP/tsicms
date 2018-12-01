@@ -46,10 +46,8 @@ RSpec.describe 'Activities', type: :feature do
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'activity_name',
-                                   with: activity.name
-        expect(page).to have_field 'activity_description',
-                                   with: activity.description
+        expect_page_have_field_with_value('activity_name', activity.name)
+        expect_page_have_field_with_value('activity_description', activity.description)
       end
     end
 

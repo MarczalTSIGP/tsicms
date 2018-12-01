@@ -54,10 +54,8 @@ RSpec.describe 'Faqs', type: :feature do
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'faq_title',
-                                   with: faq.title
-        expect(page).to have_field 'faq_answer',
-                                   with: faq.answer
+        expect_page_have_field_with_value('faq_title', faq.title)
+        expect_page_have_field_with_value('faq_answer', faq.answer)
       end
     end
 
