@@ -1,57 +1,59 @@
 require 'rails_helper'
 
-/ver aki o que tem que mudar/
-
-RSpec.feature 'Professors Periods', type: :feature do
-  let(:admin) {create :admin}
-  let(:resource_name) { DisciplineMonitor.model_name.human }
-
-  let!(:academic) {
-    create_list(:academic, 2).sample
-  }
-  let!(:monitor_type) {
-    create_list(:monitor_type, 2).sample
-  }
-  let!(:professor) {
-    create_list(:professor, 2).sample
-  }
-  let!(:discipline) {
-    create_list(:discipline, 2).sample
-  }
+RSpec.feature 'Professor Periods', type: :feature do
+  let(:admin) {create(:admin)}
+  let(:resource_name) {ProfessorPeriod.model_name.human}
 
   before(:each) do
-    login_as admin, scope: :admin
+    login_as(admin, scope: :admin)
   end
 
   describe '#create' do
-
     before(:each) do
-      visit new_admins_discipline_monitor_path
+      @category = create_list(:professor_category, 2).sample
+      visit new_admins_professor_professor_period_path
     end
 
     context 'with valid fields' do
-      it 'create discipline monitor' do
-        attributes = attributes_for(:discipline_monitor)
+      it 'add teacher work periods with date of entry and exit' do
+        attributes = attributes_for(:professor_period)
 
-        fill_in 'discipline_monitor_description', with: attributes[:description]
-        select '2018', from: 'discipline_monitor_year'
-        select '1º', from: 'discipline_monitor_semester'
-        select monitor_type.name, from: 'discipline_monitor_monitor_type_id'
-        select academic.name, from: 'discipline_monitor_academic_id'
-        select professor.name, from: 'discipline_monitor_professor_ids'
-        select discipline.name, from: 'discipline_monitor_discipline_ids'
+        select '1', from: 'professor_period[date_entry(3i)]'
+        select 'Janeiro', from: 'professor_period[date_entry(2i)]'
+        select '2018', from: 'professor_period[date_entry(1i)]'
+
+        select '10', from: 'professor_period[date_out(3i)]'
+        select 'Junho', from: 'professor_period[date_out(2i)]'
+        select '2018', from: 'professor_period[date_out(1i)]'
+
+        select @category.name, from: 'professor[professor_category_id]'
 
         submit_form
 
-        expect(page.current_path).to eq admins_discipline_monitors_path
+        expect(page.current_path).to eq admins_professor_professor_period_path
+
+        expect_alert_success(resource_name,'flash.actions.create.m')
+
+        expect_page_have_in('table tbody', attributes[:name])
+      end
+
+      it 'add teacher work periods comment with date of entry' do
+        attributes = attributes_for(:professor_period)
+
+        select '10', from: 'professor_period[date_entry(3i)]'
+        select 'Junho', from: 'professor_period[date_entry(2i)]'
+        select '2018', from: 'professor_period[date_entry(1i)]'
+
+        select @category.name, from: 'professor[professor_category_id]'
+        submit_form
+
+        expect(page.current_path).to eq admins_professor_professor_period_path
 
         expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                    resource_name: resource_name))
+                                      text: I18n.t('flash.actions.create.m',
+                                                   resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:academic])
-        end
+        expect_page_have_in('table tbody', attributes[:name])
       end
     end
 
@@ -61,135 +63,29 @@ RSpec.feature 'Professors Periods', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-        within('div.discipline_monitor_semester') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_description') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_academic') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_monitor_type') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_discipline_ids') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_professor_ids') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+
+        expect_page_have_in('div.professor_periodo_date_entry', I18n.t('errors.messages.blank'))
+        have_contains('div.professor_period_professor_category', I18n.t('errors.messages.blank'))
+
       end
     end
   end
 
-  describe '#Update' do
-
-    let!(:discipline_monitor) { create(:discipline_monitor) }
-
-    before(:each) do
-      visit edit_admins_discipline_monitor_path(discipline_monitor)
-    end
-
-    context 'fill fields' do
-      it 'with correct values' do
-        expect(page).to have_field 'discipline_monitor_year',
-          with: discipline_monitor.year
-        expect(page).to have_field 'discipline_monitor_description',
-          with: discipline_monitor.description
-        expect(page).to have_select 'discipline_monitor_academic_id',
-          selected: discipline_monitor.academic.name
-        expect(page).to have_select 'discipline_monitor_monitor_type_id',
-          selected: discipline_monitor.monitor_type.name
-
-        expect(page).to have_select 'discipline_monitor_discipline_ids',
-          selected: discipline_monitor.disciplines.map(&:name)
-        expect(page).to have_select 'discipline_monitor_professor_ids',
-          selected: discipline_monitor.professors.map(&:name)
-      end
-    end
-
-    context 'with valid fields' do
-      it 'update discipline monitor' do
-        attributes = attributes_for(:discipline_monitor)
-
-        new_year = 2018
-        new_semester = '2º'
-
-        fill_in 'discipline_monitor_description', with: attributes[:description]
-        select new_year, from: 'discipline_monitor_year'
-        select new_semester, from: 'discipline_monitor_semester'
-        select monitor_type.name, from: 'discipline_monitor_monitor_type_id'
-        select academic.name, from: 'discipline_monitor_academic_id'
-
-        select professor.name, from: 'discipline_monitor_professor_ids'
-        select discipline.name, from: 'discipline_monitor_discipline_ids'
-        submit_form
-
-        expect(page.current_path).to eq admins_discipline_monitors_path
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                    resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(academic.name)
-        end
-      end
-    end
-
+  describe '#update' do
     context 'with invalid fields' do
-      it 'show errors' do
-
-        fill_in 'discipline_monitor_description', with: ''
+      before(:each) do
+        @professor_period = create(:professor_period)
+        visit edit_admins_professor_professor_period_path(@professor, :professor_period)
+      end
+      it 'with incorrect values' do
+        select '', from: 'professor_period[start_entry(3i)]'
+        select '', from: 'professor_period[start_entry(2i)]'
+        select '', from: 'professor_period[start_entry(1i)]'
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
-
-        within('div.discipline_monitor_description') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect_alert_error('flash.actions.errors')
       end
     end
   end
 
-  describe '#destroy' do
-    it 'discipline_monitor' do
-      discipline_monitor = create(:discipline_monitor)
-
-      visit admins_discipline_monitors_path
-
-      destroy_link = "a[href='#{admins_discipline_monitor_path(discipline_monitor)}'][data-method='delete']"
-      find(destroy_link).click
-
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                resource_name: resource_name))
-
-      within('table tbody') do
-        expect(page).not_to have_content(discipline_monitor.academic.name)
-      end
-    end
-  end
-
-  describe  '#index' do
-    let!(:discipline_monitors) { create_list(:discipline_monitor, 3) }
-
-    it 'show all discipline monitors' do
-      visit admins_discipline_monitors_path
-
-      discipline_monitors.each do |m|
-        expect(page).to have_content(m.year)
-        expect(page).to have_content(I18n.t("enums.semesters.#{m.semester}"))
-        expect(page).to have_content(m.academic.name)
-        expect(page).to have_content(m.monitor_type.name)
-        expect(page).to have_content(m.disciplines.first.code)
-
-        expect(page).to have_link(href: edit_admins_discipline_monitor_path(m))
-        destroy_link = "a[href='#{admins_discipline_monitor_path(m)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
-      end
-    end
-  end
 end
