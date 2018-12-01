@@ -113,12 +113,10 @@ RSpec.describe 'Academics', type: :feature do
       academic = create(:academic)
       visit admins_academics_path
 
-      destroy_path = "/admins/academics/#{academic.id}"
-      click_link href: destroy_path
+      click_on_destroy_link(admins_academic_path(academic))
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.m',
-                                                 resource_name: resource_name))
+      expect_alert_success(resource_name, 'flash.actions.destroy.m')
+
       expect_page_not_have_in('table tbody', academic.name)
     end
   end
@@ -135,8 +133,7 @@ RSpec.describe 'Academics', type: :feature do
         expect(page).to have_content(I18n.l(a.created_at, format: :long))
 
         expect(page).to have_link(href: edit_admins_academic_path(a))
-        destroy_link = "a[href='#{admins_academic_path(a)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_academic_path(a))
       end
     end
   end

@@ -121,13 +121,9 @@ RSpec.describe 'Discipline Monitors', type: :feature do
 
       visit admins_discipline_monitors_path
 
-      destroy_path = admins_discipline_monitor_path(discipline_monitor)
-      destroy_link = "a[href='#{destroy_path}'][data-method='delete']"
-      find(destroy_link).click
+      click_on_destroy_link(admins_discipline_monitor_path(discipline_monitor))
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
 
       expect_page_not_have_in('table tbody', discipline_monitor.academic.name)
     end
@@ -147,8 +143,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
         expect(page).to have_content(m.disciplines.first.code)
 
         expect(page).to have_link(href: edit_admins_discipline_monitor_path(m))
-        destroy_link = "a[href='#{admins_discipline_monitor_path(m)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_discipline_monitor_path(m))
       end
     end
   end

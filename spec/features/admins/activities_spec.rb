@@ -114,8 +114,7 @@ RSpec.describe 'Activities', type: :feature do
         expect(page).to have_content(a.name)
 
         expect(page).to have_link(href: edit_admins_activity_path(a))
-        destroy_link = "a[href='#{admins_activity_path(a)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_activity_path(a))
       end
     end
   end

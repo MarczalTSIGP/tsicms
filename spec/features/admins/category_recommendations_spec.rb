@@ -119,12 +119,9 @@ RSpec.describe 'Category Recommendations', type: :feature do
         category = create(:category_recommendation)
         visit admins_category_recommendations_path
 
-        destroy_path = "/admins/category_recommendations/#{category.id}"
-        click_link href: destroy_path
+        click_on_destroy_link(admins_category_recommendation_path(category))
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.destroy.f',
-                                                   resource_name: resource_name))
+        expect_alert_success(resource_name, 'flash.actions.destroy.f')
 
         expect_page_not_have_in('table tbody', category.name)
       end
@@ -142,9 +139,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
 
           expect(page).to have_link(href: edit_admins_category_recommendation_path(category))
 
-          destroy_path = admins_category_recommendation_path(category)
-          destroy_link = "a[href='#{destroy_path}'][data-method='delete']"
-          expect(page).to have_css(destroy_link)
+          expect_page_have_destroy_link(admins_category_recommendation_path(category))
         end
       end
     end

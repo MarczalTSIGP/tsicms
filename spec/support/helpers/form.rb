@@ -41,6 +41,11 @@ module Helpers
                                                  resource_name: resource_name))
     end
 
+    def expect_page_have_destroy_link(url)
+      destroy_link = "a[href='#{url}'][data-method='delete']"
+      expect(page).to have_css(destroy_link)
+    end
+
     def click_on_destroy_link(url)
       destroy_link = "a[href='#{url}'][data-method='delete']"
       find(destroy_link).click

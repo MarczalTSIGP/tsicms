@@ -129,13 +129,12 @@ RSpec.describe 'Period', type: :feature do
       period = create(:period)
       visit admins_periods_path
 
-      destroy_link = "a[href='#{admins_period_path(period)}'][data-method='delete']"
-      find(destroy_link).click
+      click_on_destroy_link(admins_period_path(period))
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.m',
-                                                 resource_name: resource_name))
-      expect_page_have_in('table tbody', period.name)
+      expect_alert_success(resource_name, 'flash.actions.destroy.m')
+
+      expect_page_not_have_in('table tbody', period.name)
+
     end
   end
 
@@ -150,8 +149,7 @@ RSpec.describe 'Period', type: :feature do
         expect(page).to have_content(I18n.l(period.created_at, format: :long))
 
         expect(page).to have_link(href: edit_admins_period_path(period))
-        destroy_link = "a[href='#{admins_period_path(period)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_period_path(period))
       end
     end
   end

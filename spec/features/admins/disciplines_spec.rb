@@ -124,11 +124,10 @@ RSpec.describe 'Discipline', type: :feature do
     it 'discipline' do
       discipline = create(:discipline)
       visit admins_disciplines_path
-      destroy_link = "a[href='#{admins_discipline_path(discipline)}'][data-method='delete']"
-      find(destroy_link).click
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      click_on_destroy_link(admins_discipline_path(discipline))
+
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
+
       expect_page_not_have_in('table tbody', discipline.name)
     end
   end
@@ -149,8 +148,7 @@ RSpec.describe 'Discipline', type: :feature do
 
         expect(page).to have_link(href: edit_admins_discipline_path(discipline))
         expect(page).to have_link(href: admins_discipline_path(discipline))
-        destroy_link = "a[href='#{admins_discipline_path(discipline)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_discipline_path(discipline))
       end
     end
   end
