@@ -55,10 +55,8 @@ RSpec.describe 'Academics', type: :feature do
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'academic_name',
-                                   with: academic.name
-        expect(page).to have_field 'academic_contact',
-                                   with: academic.contact
+        expect_page_have_field_with_value('academic_name', academic.name)
+        expect_page_have_field_with_value('academic_contact', academic.contact)
         expect(page).to have_unchecked_field('academic_graduated')
         expect(page).to have_css("img[src*='#{academic.image}']")
       end

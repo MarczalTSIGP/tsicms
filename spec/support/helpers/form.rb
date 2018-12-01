@@ -10,6 +10,15 @@ module Helpers
       end
     end
 
+    def expect_page_have_selected_with_value(field, value)
+      expect(page).to have_select(field,
+                                  selected: value)
+    end
+
+    def expect_page_have_field_with_value(field, value)
+      expect(page).to have_field(field, with: value)
+    end
+
     def expect_page_have_blank_messages(fields)
       fields.each(&method(:expect_page_have_blank_message))
     end
