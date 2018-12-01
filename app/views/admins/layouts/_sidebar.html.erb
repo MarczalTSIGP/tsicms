@@ -93,9 +93,18 @@
       </div>
     </div>
 
-    <%= link_to '#', class: 'list-group-item list-group-item-action' do %>
-      <span class="icon mr-3"><i class="fas fa-images"></i></span>Galeria
-    <% end %>
+    <div class="list-group-item list-group-item-action pb-0">
+      <span class="icon mr-3"><i class="fas fa-images"></i></span>Galerias
+
+      <div class="list-group list-group-transparent mb-0">
+        <%= active_link_to admins_galleries_path(context: :course), class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Curso
+        <% end %>
+        <%= active_link_to admins_galleries_path(context: :static_page), class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Páginas Estáticas
+        <% end %>
+      </div>
+    </div>
 
     <%= active_link_to admins_static_pages_path, class: 'list-group-item list-group-item-action' do %>
       <span class="icon mr-3"><i class="fas fa-newspaper"></i></span>Páginas estáticas

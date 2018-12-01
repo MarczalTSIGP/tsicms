@@ -13,10 +13,13 @@ namespace :db do
      Academic,
      Discipline,
      Period,
-     Matrix, Faq,
+     Matrix,
+     Faq,
      StaticPage,
      Trainee,
-     TraineeStatus].each(&:delete_all)
+     TraineeStatus,
+     Picture,
+     Gallery].each(&:delete_all)
 
     10.times do
       Faq.create!(
@@ -92,7 +95,7 @@ namespace :db do
     end
 
     3.times do |m_index|
-      matrix = Matrix.create!(name: Faker::DragonBall.character)
+      matrix = Matrix.create!(name: Faker::DragonBall.unique.character)
       10.times do |p_index|
         period = Period.create!(
           name: "#{Faker::Company.suffix}-#{m_index}#{p_index}",
@@ -146,6 +149,18 @@ namespace :db do
                       description: Faker::Markdown.sandwich,
                       company: Company.all.sample,
                       trainee_status: TraineeStatus.all.sample)
+    end
+
+    galleries = %w[course static_page]
+    galleries.each do |context|
+      Gallery.create!(context: context)
+    end
+
+    Gallery.all.each do |gallery|
+      5.times do
+        gallery.pictures.create! label: Faker::Lorem.paragraph(1),
+                                 image: FileSpecHelper.image
+      end
     end
   end
 end
