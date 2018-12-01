@@ -12,7 +12,7 @@ require 'support/factory_bot'
 require 'support/database_cleaner'
 require 'support/simplecov'
 require 'support/helpers/form'
-
+require 'support/matchers/have_flash'
 require 'support/file_spec_helper'
 require 'support/carrier_wave'
 

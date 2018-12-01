@@ -32,8 +32,7 @@ RSpec.describe 'Period', type: :feature do
       it 'show errors' do
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
         expect_page_have_blank_message('div.period_name')
         expect_page_have_in('div.period_matrix', I18n.t('errors.messages.required'))
@@ -83,9 +82,7 @@ RSpec.describe 'Period', type: :feature do
 
         expect(page).to have_current_path(admins_periods_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.m',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.m', resource_name: resource_name))
 
         expect_page_have_in('table tbody', new_name)
       end
@@ -96,10 +93,9 @@ RSpec.describe 'Period', type: :feature do
         fill_in 'period_name', with: ''
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        expect_page_have_blank_message('div.period_name',)
+        expect_page_have_blank_message('div.period_name')
       end
     end
 
@@ -131,8 +127,7 @@ RSpec.describe 'Period', type: :feature do
 
       click_on_destroy_link(admins_period_path(period))
 
-      expect_alert_success(resource_name, 'flash.actions.destroy.m')
-
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.m', resource_name: resource_name))
       expect_page_not_have_in('table tbody', period.name)
 
     end

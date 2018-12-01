@@ -22,9 +22,7 @@ RSpec.describe 'Faqs', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_faqs_path)
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
 
         expect_page_have_in('#accordion', attributes[:title])
       end
@@ -34,8 +32,7 @@ RSpec.describe 'Faqs', type: :feature do
       it 'show errors' do
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         fields = '%w[div.faq_title div.faq_answer]'
         expect_page_have_blank_messages(fields)
       end
@@ -69,9 +66,7 @@ RSpec.describe 'Faqs', type: :feature do
 
         expect(page).to have_current_path(admins_faqs_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.f', resource_name: resource_name))
         expect_page_have_in('#accordion', new_title)
       end
     end
@@ -82,14 +77,13 @@ RSpec.describe 'Faqs', type: :feature do
         fill_in 'faq_answer', with: ''
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         fields = '%w[div.faq_title div.faq_answer]'
         expect_page_have_blank_messages(fields)
       end
     end
   end
-
+#todo rever
   describe '#destroy' do
     it 'faq' do
       faq = create(:faq)
@@ -97,8 +91,7 @@ RSpec.describe 'Faqs', type: :feature do
 
       click_on_destroy_link(admins_faq_path(faq))
 
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
       expect_page_not_have_in('#accordion', period.name)
     end
   end

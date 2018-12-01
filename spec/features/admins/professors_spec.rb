@@ -32,9 +32,7 @@ RSpec.describe 'Admin Professors', type: :feature do
 
         expect(page).to have_current_path(admins_professors_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.m',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.m', resource_name: resource_name))
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -43,8 +41,7 @@ RSpec.describe 'Admin Professors', type: :feature do
     context 'when invalid fields' do
       it 'cannot create professor' do
         submit_form
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         fields = '%w[div.professor_name div.professor_occupation_area div.professor_email div.professor_professor_category div.professor_professor_title]'
         expect_page_have_blank_messages(fields)
       end
@@ -73,8 +70,7 @@ RSpec.describe 'Admin Professors', type: :feature do
       it 'cannot update professor' do
         fill_in 'professor_name', with: ''
         submit_form
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
       end
     end
   end
@@ -94,8 +90,7 @@ RSpec.describe 'Admin Professors', type: :feature do
       visit admins_professors_path
 
       click_on_destroy_link(admins_professor_path(ap.professor))
-      alert_message = I18n.t('flash.actions.destroy.bond', resource_name: resource_name)
-      expect(page).to have_selector('div.alert.alert-warning', text: alert_message)
+      expect(page).to have_flash(:warning, text: I18n.t('flash.actions.destroy.bond', resource_name: resource_name))
       expect(page).to have_content('table tbody', ap.professor.name)
     end
   end

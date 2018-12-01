@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin Trainees', type: :feature do
-  let(:admin) { create(:admin) }
-  let(:resource_name) { Trainee.model_name.human }
+  let(:admin) {create(:admin)}
+  let(:resource_name) {Trainee.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
   end
 
   describe '#create' do
-    let!(:company) { create_list(:company, 3).sample }
-    let!(:trainee_status) { create_list(:trainee_status, 3).sample }
+    let!(:company) {create_list(:company, 3).sample}
+    let!(:trainee_status) {create_list(:trainee_status, 3).sample}
 
     before(:each) do
       visit new_admins_trainee_path
@@ -38,8 +38,7 @@ RSpec.describe 'Admin Trainees', type: :feature do
 
         expect(page).to have_current_path(admins_trainees_path)
 
-        expect_alert_error('flash.actions.errors')
-
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         fields = '%w[div.trainee_title div.trainee_description div.trainee_company]'
         expect_page_have_blank_messages(fields)
       end
@@ -47,7 +46,7 @@ RSpec.describe 'Admin Trainees', type: :feature do
   end
 
   describe '#update' do
-    let(:trainee) { create :trainee }
+    let(:trainee) {create :trainee}
 
     before(:each) do
       visit edit_admins_trainee_path(trainee)
@@ -69,13 +68,13 @@ RSpec.describe 'Admin Trainees', type: :feature do
       it 'cannot update trainee' do
         fill_in 'trainee_title', with: ''
         submit_form
-        expect_alert_error('flash.actions.errors')
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
       end
     end
   end
 
   describe '#show' do
-    let!(:traineess) { create_list(:trainee, 2) }
+    let!(:traineess) {create_list(:trainee, 2)}
 
     it 'all trainees' do
       visit admins_trainees_path
@@ -101,8 +100,7 @@ RSpec.describe 'Admin Trainees', type: :feature do
 
       click_on_destroy_link(admins_trainee_path(trainee))
 
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
       expect_page_not_have_in('table tbody', trainee.title)
     end
   end

@@ -31,7 +31,7 @@ RSpec.describe 'Activity Professors', type: :feature do
 
         expect(page).to have_current_path(admins_activities_path)
 
-        expect_alert_success(resource_name, 'flash.actions.create.f')
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -54,9 +54,7 @@ RSpec.describe 'Activity Professors', type: :feature do
 
         expect(page).to have_current_path(admins_activities_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -65,9 +63,7 @@ RSpec.describe 'Activity Professors', type: :feature do
     context 'with invalid fields' do
       it 'show errors' do
         submit_form
-
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         fields = '%w[div.activity_professor_professor div.activity_professor_activity div.activity_professor_start_date]'
         expect_page_have_blank_messages(fields)
       end
@@ -119,7 +115,7 @@ RSpec.describe 'Activity Professors', type: :feature do
         select '', from: 'activity_professor[start_date(1i)]'
         submit_form
 
-        expect_alert_error('flash.actions.errors')
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
       end
     end
   end
@@ -150,7 +146,7 @@ RSpec.describe 'Activity Professors', type: :feature do
       visit admins_professor_path(activity_professor.professor)
 
       click_on_destroy_link(admins_activity_professor_path(activity_professor))
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
       expect_page_not_have_in('table tbody', activity_professor.activity.name)
     end
 
@@ -158,7 +154,7 @@ RSpec.describe 'Activity Professors', type: :feature do
       visit admins_activity_path(activity_professor.activity)
 
       click_on_destroy_link(admins_activity_professor_path(activity_professor))
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
       expect_page_not_have_in('table tbody', activity_professor.professor.name)
     end
   end
