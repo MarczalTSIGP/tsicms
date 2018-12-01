@@ -21,6 +21,7 @@ RSpec.feature 'Discipline', type: :feature do
         attributes = attributes_for(:discipline)
 
         fill_in 'discipline_name', with: attributes[:name]
+        fill_in 'discipline_initials', with: attributes[:initials]
         fill_in 'discipline_code', with: attributes[:code]
         fill_in 'discipline_hours', with: attributes[:hours]
         fill_in 'discipline_menu', with: attributes[:menu]
@@ -32,6 +33,7 @@ RSpec.feature 'Discipline', type: :feature do
 
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
+          expect(page).to have_content(attributes[:initials])
           expect(page).to have_content(attributes[:code])
           expect(page).to have_content(period.name)
         end
@@ -46,6 +48,9 @@ RSpec.feature 'Discipline', type: :feature do
                                       text: I18n.t('flash.actions.errors'))
 
         within('div.discipline_name') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+        end
+        within('div.discipline_initials') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
         within('div.discipline_code') do
@@ -73,6 +78,7 @@ RSpec.feature 'Discipline', type: :feature do
       it 'with correct values' do
         expect(page).to have_field 'discipline_name', with: discipline.name
         expect(page).to have_field 'discipline_hours', with: discipline.hours
+        expect(page).to have_field 'discipline_initials', with: discipline.initials
         expect(page).to have_field 'discipline_code', with: discipline.code
         expect(page).to have_select 'discipline_period_id',
           selected: "#{discipline.period.matrix.name} - #{discipline.period.name}"
@@ -84,8 +90,10 @@ RSpec.feature 'Discipline', type: :feature do
         new_name = 'new name'
         new_code = 'new code'
         new_hours = 70
+        new_initials = 'newinitials'
 
         fill_in 'discipline_name', with: new_name
+        fill_in 'discipline_initials', with: new_initials
         fill_in 'discipline_code', with: new_code
         fill_in 'discipline_hours', with: new_hours
         submit_form
@@ -98,6 +106,7 @@ RSpec.feature 'Discipline', type: :feature do
         within('table tbody') do
           expect(page).to have_content(new_name)
           expect(page).to have_content(new_code)
+          expect(page).to have_content(new_initials)
         end
       end
     end
@@ -106,6 +115,7 @@ RSpec.feature 'Discipline', type: :feature do
       it 'show errors' do
         fill_in 'discipline_name', with: ''
         fill_in 'discipline_code', with: ''
+        fill_in 'discipline_initials', with: ''
         fill_in 'discipline_hours', with: ''
         fill_in 'discipline_menu', with: ''
         submit_form
@@ -117,6 +127,9 @@ RSpec.feature 'Discipline', type: :feature do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
         within('div.discipline_code') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+        end
+        within('div.discipline_initials') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
         end
         within('div.discipline_hours') do
@@ -135,6 +148,7 @@ RSpec.feature 'Discipline', type: :feature do
 
         expect(page).to have_content(discipline.name)
         expect(page).to have_content(discipline.code)
+        expect(page).to have_content(discipline.initials)
         expect(page).to have_content(discipline.hours)
         expect(page).to have_content(discipline.period.name)
         expect(page).to have_content(discipline.period.matrix.name)
@@ -169,6 +183,7 @@ RSpec.feature 'Discipline', type: :feature do
       disciplines.each do |discipline|
         expect(page).to have_content(discipline.name)
         expect(page).to have_content(discipline.code)
+        expect(page).to have_content(discipline.initials)
         expect(page).to have_content(discipline.period.name)
         expect(page).to have_content(discipline.period.matrix.name)
 

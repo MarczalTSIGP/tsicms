@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 2018_10_27_203807) do
     t.string "code"
     t.integer "hours"
     t.string "menu"
+    t.string "initials"
     t.bigint "period_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

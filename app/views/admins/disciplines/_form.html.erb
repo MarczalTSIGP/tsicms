@@ -1,7 +1,10 @@
 <%= simple_form_for [:admins, @discipline] do |f| %>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-6 col-md-9">
       <%= f.input :name, autofocus: true%>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <%= f.input :initials %>
     </div>
     <div class="col-sm-6 col-md-3">
       <%= f.input :code %>
@@ -9,6 +12,7 @@
     <div class="col-sm-6 col-md-4">
       <%= f.input :hours %>
     </div>
+
     <div class="col-sm-6 col-md-5">
       <%= f.association :period,
         prompt: "Escolha o período",
