@@ -40,9 +40,8 @@ RSpec.describe 'Admin Trainees', type: :feature do
 
         expect_alert_error('flash.actions.errors')
 
-        have_contains('div.trainee_title', I18n.t('errors.messages.blank'))
-        have_contains('div.trainee_description', I18n.t('errors.messages.blank'))
-        have_contains('div.trainee_company', I18n.t('errors.messages.blank'))
+        fields = '%w[div.trainee_title div.trainee_description div.trainee_company]'
+        expect_page_have_blank_messages(fields)
       end
     end
   end

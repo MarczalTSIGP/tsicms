@@ -10,6 +10,14 @@ module Helpers
       end
     end
 
+    def expect_page_have_blank_messages(fields)
+      fields.each(&method(:expect_page_have_blank_message))
+    end
+
+    def expect_page_have_blank_message(field)
+      expect_page_have_in(field, I18n.t('errors.messages.blank'))
+    end
+
     def expect_page_not_have_in(field, content)
       within(field) do
         expect(page).not_to have_content(content)

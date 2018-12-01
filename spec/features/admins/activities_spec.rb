@@ -37,9 +37,8 @@ RSpec.describe 'Activities', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        expect_page_have_in('div.activity_name', I18n.t('errors.messages.blank'))
-        expect_page_have_in('div.activity_description', I18n.t('errors.messages.blank'))
+        fields = '%w[div.activity_name div.activity_description]'
+        expect_page_have_blank_messages(fields)
       end
     end
   end

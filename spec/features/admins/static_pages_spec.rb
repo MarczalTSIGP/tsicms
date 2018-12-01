@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Admins::StaticPages', type: :feature do
-  let(:admin) { create(:admin) }
-  let(:resource_name) { StaticPage.model_name.human }
+  let(:admin) {create(:admin)}
+  let(:resource_name) {StaticPage.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -28,10 +28,9 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
-
+        expect_page_have_in('table tbody', attributes[:title])
+        expect_page_have_in('table tbody', attributes[:sub_title])
         within('table tbody') do
-          expect(page).to have_content(attributes[:title])
-          expect(page).to have_content(attributes[:sub_title])
           expect(page).to have_link(href: static_page_path(attributes[:permalink]))
         end
       end
@@ -45,21 +44,15 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within('div.static_page_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.static_page_permalink') do
-          expect(page).to have_content(I18n.t('errors.messages.permalink'))
-        end
-        within('div.static_page_content') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect_page_have_in('div.static_page_permalink', I18n.t('errors.messages.permalink'))
+        fields = '%w[div.static_page_title div.static_page_content]'
+        expect_page_have_blank_messages(fields)
       end
     end
   end
 
   describe '#update' do
-    let(:static_page) { create(:static_page) }
+    let(:static_page) {create(:static_page)}
 
     before(:each) do
       visit edit_admins_static_page_path(static_page)
@@ -93,9 +86,9 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
 
+        expect_page_have_in('table tbody', attributes[:title])
+        expect_page_have_in('table tbody', attributes[:sub_title])
         within('table tbody') do
-          expect(page).to have_content(attributes[:title])
-          expect(page).to have_content(attributes[:sub_title])
           expect(page).to have_link(href: static_page_path(attributes[:permalink]))
         end
       end
@@ -112,16 +105,9 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.static_page_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.static_page_permalink') do
-          expect(page).to have_content(I18n.t('errors.messages.permalink'))
-        end
-        within('div.static_page_content') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        fields = %w[div.static_page_title div.static_page_content]
+        expect_page_have_blank_messages(fields)
+        expect_page_have_in('div.static_page_permalink', I18n.t('errors.messages.permalink'))
       end
     end
   end
@@ -136,16 +122,15 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
-
+      expect_page_have_in('table tbody', static_page.title)
       within('table tbody') do
-        expect(page).not_to have_content(static_page.title)
         expect(page).not_to have_link(href: static_page_path(static_page.permalink))
       end
     end
   end
 
   describe '#index' do
-    let!(:static_pages) { create_list(:static_page, 3) }
+    let!(:static_pages) {create_list(:static_page, 3)}
 
     it 'show all static_pages with options' do
       visit admins_static_pages_path

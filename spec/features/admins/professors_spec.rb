@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin Professors', type: :feature do
-  let(:admin) { create :admin }
-  let(:resource_name) { Professor.model_name.human }
+  let(:admin) {create :admin}
+  let(:resource_name) {Professor.model_name.human}
 
   before(:each) do
     login_as admin, scope: :admin
   end
 
   describe '#create' do
-    let!(:category) { create_list(:professor_category, 2).sample }
-    let!(:title) { create_list(:professor_title, 3).sample }
+    let!(:category) {create_list(:professor_category, 2).sample}
+    let!(:title) {create_list(:professor_title, 3).sample}
 
     before(:each) do
       visit new_admins_professor_path
@@ -45,17 +45,14 @@ RSpec.describe 'Admin Professors', type: :feature do
         submit_form
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-        have_contains('div.professor_name', I18n.t('errors.messages.blank'))
-        have_contains('div.professor_occupation_area', I18n.t('errors.messages.blank'))
-        have_contains('div.professor_email', I18n.t('errors.messages.blank'))
-        have_contains('div.professor_professor_category', I18n.t('errors.messages.blank'))
-        have_contains('div.professor_professor_title', I18n.t('errors.messages.blank'))
+        fields = '%w[div.professor_name div.professor_occupation_area div.professor_email div.professor_professor_category div.professor_professor_title]'
+        expect_page_have_blank_messages(fields)
       end
     end
   end
 
   describe '#update' do
-    let(:professor) { create :professor }
+    let(:professor) {create :professor}
 
     before(:each) do
       visit edit_admins_professor_path(professor)
@@ -104,7 +101,7 @@ RSpec.describe 'Admin Professors', type: :feature do
   end
 
   describe '#index' do
-    let!(:professors) { create_list(:professor, 2) }
+    let!(:professors) {create_list(:professor, 2)}
 
     it 'show all professors' do
       visit admins_professors_path
