@@ -197,9 +197,12 @@ pt-BR:
         end_date: 'Data de fim'
       discipline:
         <<: *commons
-        code: 'Código'
-        hours: 'Carga horária'
+        code: 'Código da Disciplina'
+        hours: 'Total Carga horária'
         initials: 'Sigla'
+        theoretical_classes: 'Aulas Teóricas'
+        practical_classes: 'Aulas Práticas'
+        distance_classes: 'Aulas a Distancia'
         menu: 'Ementa'
         period: 'Período'
         matrix: 'Matriz'

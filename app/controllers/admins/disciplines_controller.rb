@@ -7,10 +7,12 @@ class Admins::DisciplinesController < Admins::BaseController
   def index
     @disciplines = Discipline.includes(period: [:matrix]).
       order('matrices.name ASC', 'periods.name ASC')
+    @workload = Discipline.workload
   end
 
   def new
     @discipline = Discipline.new
+    @workload = Discipline.workload
   end
 
   def edit
@@ -58,7 +60,9 @@ class Admins::DisciplinesController < Admins::BaseController
 
   private
   def discipline_params
-    params.require(:discipline).permit(:name, :code, :initials, :hours, :menu, :period_id)
+    params.require(:discipline).permit(:name, :code, :initials,
+                                       :theoretical_classes,:practical_classes, :distance_classes,
+                                       :hours, :menu, :period_id)
   end
 
   def set_discipline

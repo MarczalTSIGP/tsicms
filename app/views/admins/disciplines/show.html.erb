@@ -14,6 +14,23 @@
       <%= @discipline.initials %>
     </p>
     <p>
+    <div class="col-md-12">
+      <strong>Carga Horária das Aulas: </strong>
+      <div class="col-sm-6 col-md-4">
+        <strong>AT: Aulas Teóricas (hs)</strong>
+        <%= @discipline.theoretical_classes %>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <strong>AP: Aulas Praticas (hs): </strong>
+        <%= @discipline.practical_classes %>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <strong>AD: Aulas a Distancia (hs)</strong>
+        <%= @discipline.distance_classes %>
+      </div>
+    </div>
+    </p>
+    <p>
       <strong>Matriz</strong>:
       <%= @discipline.period.matrix.name %>
     </p>

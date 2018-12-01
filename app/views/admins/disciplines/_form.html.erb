@@ -6,18 +6,30 @@
     <div class="col-sm-6 col-md-3">
       <%= f.input :initials %>
     </div>
-    <div class="col-sm-6 col-md-3">
+    <div class="col-sm-6 col-md-5">
       <%= f.input :code %>
     </div>
-    <div class="col-sm-6 col-md-4">
-      <%= f.input :hours %>
-    </div>
 
-    <div class="col-sm-6 col-md-5">
+    <div class="col-sm-6 col-md-7">
       <%= f.association :period,
         prompt: "Escolha o período",
         collection: Period.periods_to_select %>
     </div>
+    <!-- Carga Horária da Disciplina -->
+    <div class="col-sm-6 col-md-3">
+      <%= f.input :theoretical_classes %>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <%= f.input :practical_classes %>
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+      <%= f.input :distance_classes %>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <%= f.input :hours %>
+    </div>
+    <!-- Fim Carga Horária da Disciplina -->
     <div class="col-md-12" id="content">
       <label>Ementa</label>
       <%= f.text_area :menu, placeholder: "Digite a Ementa da Disciplina",
