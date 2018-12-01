@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Academics', type: :feature do
-  let(:admin) { create(:admin) }
-  let(:resource_name) { Academic.model_name.human }
+  let(:admin) {create(:admin)}
+  let(:resource_name) {Academic.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -28,10 +28,7 @@ RSpec.describe 'Academics', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.m',
                                                    resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-        end
+        expect_page_have_in('table tbody', attributes[:name])
       end
     end
 
@@ -43,24 +40,18 @@ RSpec.describe 'Academics', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within('div.academic_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.academic_contact') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        fields = '%w[div.academic_name div.academic_contact]'
+        expect_page_have_blank_messages(fields)
         expect(page).to have_unchecked_field('academic_graduated')
-        within('div.academic_image') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
-        end
+        expect_page_have_in('div.academic_image', I18n.t('errors.messages.extension_whitelist_error',
+                                                         extension: '"pdf"',
+                                                         allowed_types: 'jpg, jpeg, gif, png'))
       end
     end
   end
 
   describe '#update' do
-    let(:academic) { create(:academic) }
+    let(:academic) {create(:academic)}
 
     before(:each) do
       visit edit_admins_academic_path(academic)
@@ -93,10 +84,7 @@ RSpec.describe 'Academics', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.m',
                                                    resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(new_name)
-        end
+        expect_page_have_in('table tbody', new_name)
       end
     end
 
@@ -110,20 +98,12 @@ RSpec.describe 'Academics', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.academic_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.academic_contact') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        fields = '%w[div.academic_name div.academic_contact]'
+        expect_page_have_blank_messages(fields)
         expect(page).to have_checked_field('academic_graduated')
-
-        within('div.academic_image') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
-        end
+        expect_page_have_in('div.academic_image', I18n.t('errors.messages.extension_whitelist_error',
+                                                         extension: '"pdf"',
+                                                         allowed_types: 'jpg, jpeg, gif, png'))
       end
     end
   end
@@ -139,15 +119,12 @@ RSpec.describe 'Academics', type: :feature do
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.m',
                                                  resource_name: resource_name))
-
-      within('table tbody') do
-        expect(page).not_to have_content(academic.name)
-      end
+      expect_page_not_have_in('table tbody', academic.name)
     end
   end
 
   describe '#index' do
-    let!(:academics) { create_list(:academic, 3) }
+    let!(:academics) {create_list(:academic, 3)}
 
     it 'show all academics with options' do
       visit admins_academics_path

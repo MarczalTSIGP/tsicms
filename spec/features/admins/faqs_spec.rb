@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Faqs', type: :feature do
-  let(:admin) { create(:admin) }
-  let(:resource_name) { Faq.model_name.human }
+  let(:admin) {create(:admin)}
+  let(:resource_name) {Faq.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -26,9 +26,7 @@ RSpec.describe 'Faqs', type: :feature do
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
 
-        within('#accordion') do
-          expect(page).to have_content(attributes[:title])
-        end
+        expect_page_have_in('#accordion', attributes[:title])
       end
     end
 
@@ -38,19 +36,14 @@ RSpec.describe 'Faqs', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.faq_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.faq_answer') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        fields = '%w[div.faq_title div.faq_answer]'
+        expect_page_have_blank_messages(fields)
       end
     end
   end
 
   describe '#update' do
-    let(:faq) { create(:faq) }
+    let(:faq) {create(:faq)}
 
     before(:each) do
       visit edit_admins_faq_path(faq)
@@ -79,10 +72,7 @@ RSpec.describe 'Faqs', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
-
-        within('#accordion') do
-          expect(page).to have_content(new_title)
-        end
+        expect_page_have_in('#accordion', new_title)
       end
     end
 
@@ -94,13 +84,8 @@ RSpec.describe 'Faqs', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.faq_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.faq_answer') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        fields = '%w[div.faq_title div.faq_answer]'
+        expect_page_have_blank_messages(fields)
       end
     end
   end
@@ -116,15 +101,12 @@ RSpec.describe 'Faqs', type: :feature do
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
-
-      within('#accordion') do
-        expect(page).not_to have_content(faq.title)
-      end
+      expect_page_not_have_in('#accordion', faq.title)
     end
   end
 
   describe '#index' do
-    let!(:faqs) { create_list(:faq, 2) }
+    let!(:faqs) {create_list(:faq, 2)}
 
     it 'show all faqs with options' do
       visit admins_faqs_path

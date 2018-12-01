@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Matrix', type: :feature do
-  let(:admin) { create(:admin) }
-  let(:resource_name) { Matrix.model_name.human }
+  let(:admin) {create(:admin)}
+  let(:resource_name) {Matrix.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -26,9 +26,7 @@ RSpec.describe 'Matrix', type: :feature do
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-        end
+        expect_page_have_in('table tbody', attributes[:name])
       end
     end
 
@@ -39,37 +37,30 @@ RSpec.describe 'Matrix', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within('div.matrix_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect_page_have_blank_message('div.matrix_name')
       end
     end
 
     context 'when has same name' do
-      let(:matrix) { create(:matrix) }
+      let(:matrix) {create(:matrix)}
 
       it 'show errors' do
         fill_in 'matrix_name', with: matrix.name
         submit_form
 
-        within('div.matrix_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.matrix_name', I18n.t('errors.messages.taken'))
       end
 
       it 'show errors considering insensitive case' do
         fill_in 'matrix_name', with: matrix.name.downcase
         submit_form
-
-        within('div.matrix_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.matrix_name', I18n.t('errors.messages.taken'))
       end
     end
   end
 
   describe '#update' do
-    let(:matrix) { create(:matrix) }
+    let(:matrix) {create(:matrix)}
 
     before(:each) do
       visit edit_admins_matrix_path(matrix)
@@ -94,9 +85,7 @@ RSpec.describe 'Matrix', type: :feature do
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).to have_content(new_name)
-        end
+        expect_page_have_in('table tbody', new_name)
       end
     end
 
@@ -107,32 +96,25 @@ RSpec.describe 'Matrix', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.matrix_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect_page_have_blank_message('div.matrix_name')
       end
     end
 
     context 'when has same name' do
-      let(:other_matrix) { create(:matrix) }
+      let(:other_matrix) {create(:matrix)}
 
       it 'show errors' do
         fill_in 'matrix_name', with: other_matrix.name
         submit_form
 
-        within('div.matrix_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.matrix_name', I18n.t('errors.messages.taken'))
       end
 
       it 'show errors cosidering insensitive case' do
         fill_in 'matrix_name', with: other_matrix.name.downcase
         submit_form
 
-        within('div.matrix_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.matrix_name', I18n.t('errors.messages.taken'))
       end
     end
   end
@@ -149,14 +131,12 @@ RSpec.describe 'Matrix', type: :feature do
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
 
-      within('table tbody') do
-        expect(page).not_to have_content(matrix.name)
-      end
+      expect_page_not_have_in('table tbody', matrix.name)
     end
   end
 
   describe '#index' do
-    let!(:matrices) { create_list(:matrix, 3) }
+    let!(:matrices) {create_list(:matrix, 3)}
 
     it 'show all matrix with options' do
       visit admins_matrices_path

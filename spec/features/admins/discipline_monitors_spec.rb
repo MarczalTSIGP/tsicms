@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Discipline Monitors', type: :feature do
-  let(:admin) { create :admin }
-  let(:resource_name) { DisciplineMonitor.model_name.human }
-  let!(:academic) { create_list(:academic, 2).sample }
-  let!(:monitor_type) { create_list(:monitor_type, 2).sample }
-  let!(:professor) { create_list(:professor, 2).sample }
-  let!(:discipline) { create_list(:discipline, 2).sample }
+  let(:admin) {create :admin}
+  let(:resource_name) {DisciplineMonitor.model_name.human}
+  let!(:academic) {create_list(:academic, 2).sample}
+  let!(:monitor_type) {create_list(:monitor_type, 2).sample}
+  let!(:professor) {create_list(:professor, 2).sample}
+  let!(:discipline) {create_list(:discipline, 2).sample}
 
   before(:each) do
     login_as admin, scope: :admin
@@ -36,10 +36,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(attributes[:academic])
-        end
+        expect_page_have_in('table tbody', attributes[:academic])
       end
     end
 
@@ -49,30 +46,14 @@ RSpec.describe 'Discipline Monitors', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-        within('div.discipline_monitor_semester') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_description') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_academic') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_monitor_type') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_discipline_ids') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_professor_ids') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        fields = '%w[div.discipline_monitor_semester div.discipline_monitor_description div.discipline_monitor_academic div.discipline_monitor_monitor_type div.discipline_monitor_discipline_ids div.discipline_monitor_professor_ids]'
+        expect_page_have_blank_messages(fields)
       end
     end
   end
 
   describe '#update' do
-    let!(:discipline_monitor) { create(:discipline_monitor) }
+    let!(:discipline_monitor) {create(:discipline_monitor)}
 
     before(:each) do
       visit edit_admins_discipline_monitor_path(discipline_monitor)
@@ -118,10 +99,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(academic.name)
-        end
+        expect_page_have_in('table tbody', academic.name)
       end
     end
 
@@ -132,10 +110,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.discipline_monitor_description') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect_page_have_blank_message('div.discipline_monitor_description')
       end
     end
   end
@@ -154,14 +129,12 @@ RSpec.describe 'Discipline Monitors', type: :feature do
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
 
-      within('table tbody') do
-        expect(page).not_to have_content(discipline_monitor.academic.name)
-      end
+      expect_page_not_have_in('table tbody', discipline_monitor.academic.name)
     end
   end
 
   describe '#index' do
-    let!(:discipline_monitors) { create_list(:discipline_monitor, 3) }
+    let!(:discipline_monitors) {create_list(:discipline_monitor, 3)}
 
     it 'show all discipline monitors' do
       visit admins_discipline_monitors_path

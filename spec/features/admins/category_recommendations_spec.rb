@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Category Recommendations', type: :feature do
-  let(:admin) { create(:admin) }
-  let(:resource_name) { CategoryRecommendation.model_name.human }
+  let(:admin) {create(:admin)}
+  let(:resource_name) {CategoryRecommendation.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -26,9 +26,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
                                       text: I18n.t('flash.actions.create.f',
                                                    resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-        end
+        expect_page_have_in('table tbody', attributes[:name])
       end
     end
 
@@ -38,38 +36,29 @@ RSpec.describe 'Category Recommendations', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.category_recommendation_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect_page_have_blank_message('div.category_recommendation_name')
       end
     end
 
     context 'when has same name' do
-      let(:category) { create(:category_recommendation) }
+      let(:category) {create(:category_recommendation)}
 
       it 'show errors' do
         fill_in 'category_recommendation_name', with: category.name
         submit_form
-
-        within('div.category_recommendation_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.category_recommendation_name', I18n.t('errors.messages.taken'))
       end
 
       it 'show errors considering insensitive case' do
         fill_in 'category_recommendation_name', with: category.name.downcase
         submit_form
-
-        within('div.category_recommendation_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.category_recommendation_name', I18n.t('errors.messages.taken'))
       end
     end
   end
 
   describe '#update' do
-    let(:category) { create(:category_recommendation) }
+    let(:category) {create(:category_recommendation)}
 
     before(:each) do
       visit edit_admins_category_recommendation_path(category)
@@ -93,10 +82,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(new_name)
-        end
+        expect_page_have_in('table tbody', new_name)
       end
     end
 
@@ -108,31 +94,23 @@ RSpec.describe 'Category Recommendations', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within('div.category_recommendation_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect_page_have_blank_message('div.category_recommendation_name')
       end
     end
 
     context 'when has same name' do
-      let(:other_category) { create(:category_recommendation) }
+      let(:other_category) {create(:category_recommendation)}
 
       it 'show errors' do
         fill_in 'category_recommendation_name', with: other_category.name
         submit_form
-
-        within('div.category_recommendation_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.category_recommendation_name', I18n.t('errors.messages.taken'))
       end
 
       it 'show errors cosidering insensitive case' do
         fill_in 'category_recommendation_name', with: other_category.name.downcase
         submit_form
-
-        within('div.category_recommendation_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.category_recommendation_name', I18n.t('errors.messages.taken'))
       end
     end
 
@@ -148,14 +126,12 @@ RSpec.describe 'Category Recommendations', type: :feature do
                                       text: I18n.t('flash.actions.destroy.f',
                                                    resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).not_to have_content(category.name)
-        end
+        expect_page_not_have_in('table tbody', category.name)
       end
     end
 
     describe '#index' do
-      let!(:categories) { create_list(:category_recommendation, 3) }
+      let!(:categories) {create_list(:category_recommendation, 3)}
 
       it 'show all category recommendations with options' do
         visit admins_category_recommendations_path

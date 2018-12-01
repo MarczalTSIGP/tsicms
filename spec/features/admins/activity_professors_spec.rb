@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Activity Professors', type: :feature do
-  let(:admin) { create(:admin) }
-  let(:resource_name) { ActivityProfessor.model_name.human }
+  let(:admin) {create(:admin)}
+  let(:resource_name) {ActivityProfessor.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
   end
 
   describe '#create' do
-    let!(:professor) { create_list(:professor, 5).sample }
-    let!(:activity) { create_list(:activity, 5).sample }
+    let!(:professor) {create_list(:professor, 5).sample}
+    let!(:activity) {create_list(:activity, 5).sample}
 
     before(:each) do
       visit new_admins_activity_professor_path
@@ -68,19 +68,17 @@ RSpec.describe 'Activity Professors', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        expect_page_have_in('div.activity_professor_professor', I18n.t('errors.messages.blank'))
-        expect_page_have_in('div.activity_professor_activity', I18n.t('errors.messages.blank'))
-        expect_page_have_in('div.activity_professor_start_date', I18n.t('errors.messages.blank'))
+        fields = '%w[div.activity_professor_professor div.activity_professor_activity div.activity_professor_start_date]'
+        expect_page_have_blank_messages(fields)
       end
     end
   end
 
   describe '#update' do
     context 'with success' do
-      let(:activity_professor) { create(:activity_professor) }
-      let(:update_link) { "a[href='#{edit_admins_activity_professor_path(activity_professor)}']" }
-      let(:new_year) { '2020' }
+      let(:activity_professor) {create(:activity_professor)}
+      let(:update_link) {"a[href='#{edit_admins_activity_professor_path(activity_professor)}']"}
+      let(:new_year) {'2020'}
 
       it 'with correct values in professor path' do
         visit admins_professor_path(activity_professor.professor)
@@ -109,7 +107,7 @@ RSpec.describe 'Activity Professors', type: :feature do
     end
 
     context 'with invalid fields' do
-      let(:activity_professor) { create(:activity_professor) }
+      let(:activity_professor) {create(:activity_professor)}
 
       before(:each) do
         visit edit_admins_activity_professor_path(activity_professor)
@@ -127,7 +125,7 @@ RSpec.describe 'Activity Professors', type: :feature do
   end
 
   describe '#show' do
-    let(:activity_professor) { create(:activity_professor) }
+    let(:activity_professor) {create(:activity_professor)}
 
     it 'professor with activities history' do
       visit admins_professor_path(activity_professor.professor)
@@ -146,7 +144,7 @@ RSpec.describe 'Activity Professors', type: :feature do
   end
 
   describe '#destroy' do
-    let(:activity_professor) { create(:activity_professor) }
+    let(:activity_professor) {create(:activity_professor)}
 
     it 'activity from professor' do
       visit admins_professor_path(activity_professor.professor)

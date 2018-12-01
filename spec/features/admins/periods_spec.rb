@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Period', type: :feature do
-  let(:admin) { create(:admin) }
-  let!(:matrix) { create_list(:matrix, 3).sample }
-  let(:resource_name) { Period.model_name.human }
+  let(:admin) {create(:admin)}
+  let!(:matrix) {create_list(:matrix, 3).sample}
+  let(:resource_name) {Period.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -24,9 +24,7 @@ RSpec.describe 'Period', type: :feature do
 
         expect(page).to have_current_path(admins_periods_path)
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-        end
+        expect_page_have_in('table tbody', attributes[:name])
       end
     end
 
@@ -37,26 +35,20 @@ RSpec.describe 'Period', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within('div.period_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.period_matrix') do
-          expect(page).to have_content(I18n.t('errors.messages.required'))
-        end
+        expect_page_have_blank_message('div.period_name')
+        expect_page_have_in('div.period_matrix', I18n.t('errors.messages.required'))
       end
     end
 
     context 'when has same name to same matrix' do
-      let(:period) { create(:period, matrix: matrix) }
+      let(:period) {create(:period, matrix: matrix)}
 
       it 'show errors' do
         fill_in 'period_name', with: period.name
         select matrix.name, from: 'period_matrix_id'
         submit_form
 
-        within('div.period_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.period_name', I18n.t('errors.messages.taken'))
       end
 
       it 'show errors considering insensitive case' do
@@ -64,15 +56,13 @@ RSpec.describe 'Period', type: :feature do
         select matrix.name, from: 'period_matrix_id'
         submit_form
 
-        within('div.period_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.period_name', I18n.t('errors.messages.taken'))
       end
     end
   end
 
   describe '#update' do
-    let(:period) { create(:period) }
+    let(:period) {create(:period)}
 
     before(:each) do
       visit edit_admins_period_path(period)
@@ -97,9 +87,7 @@ RSpec.describe 'Period', type: :feature do
                                       text: I18n.t('flash.actions.update.m',
                                                    resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).to have_content(new_name)
-        end
+        expect_page_have_in('table tbody', new_name)
       end
     end
 
@@ -111,23 +99,19 @@ RSpec.describe 'Period', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within('div.period_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect_page_have_blank_message('div.period_name',)
       end
     end
 
     context 'when has same name' do
-      let(:other_period) { create(:period, matrix: matrix) }
+      let(:other_period) {create(:period, matrix: matrix)}
 
       it 'show errors' do
         fill_in 'period_name', with: other_period.name
         select matrix.name, from: 'period_matrix_id'
         submit_form
 
-        within('div.period_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.period_name', I18n.t('errors.messages.taken'))
       end
 
       it 'show errors cosidering insensitive case' do
@@ -135,9 +119,7 @@ RSpec.describe 'Period', type: :feature do
         select matrix.name, from: 'period_matrix_id'
         submit_form
 
-        within('div.period_name') do
-          expect(page).to have_content(I18n.t('errors.messages.taken'))
-        end
+        expect_page_have_in('div.period_name', I18n.t('errors.messages.taken'))
       end
     end
   end
@@ -153,15 +135,12 @@ RSpec.describe 'Period', type: :feature do
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.m',
                                                  resource_name: resource_name))
-
-      within('table tbody') do
-        expect(page).not_to have_content(period.name)
-      end
+      expect_page_have_in('table tbody', period.name)
     end
   end
 
   describe '#index' do
-    let!(:periods) { create_list(:period, 3) }
+    let!(:periods) {create_list(:period, 3)}
 
     it 'show all period with options' do
       visit admins_periods_path

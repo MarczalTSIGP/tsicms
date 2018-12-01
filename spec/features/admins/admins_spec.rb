@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Admins', type: :feature do
   describe '#edit' do
-    let(:admin) { create(:admin) }
+    let(:admin) {create(:admin)}
 
     before(:each) do
       login_as(admin, scope: :admin)
@@ -25,9 +25,8 @@ RSpec.describe 'Admins', type: :feature do
         expect(page).to have_current_path(edit_admin_registration_path)
         expect(page).to have_selector('div.alert.alert-info',
                                       text: I18n.t('devise.registrations.updated'))
-
+        expect_page_have_in('a.nav-link', new_name)
         within('a.nav-link') do
-          expect(page).to have_content(new_name)
           admin.reload
           expect(page).to have_css("span[style=\"background-image: url('#{admin.image}')\"]")
         end
@@ -45,14 +44,10 @@ RSpec.describe 'Admins', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: alert_danger)
 
-        within('div.admin_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.admin_image') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
-        end
+        expect_page_have_blank_message('div.admin_name')
+        expect_page_not_have_in('div.admin_image', I18n.t('errors.messages.extension_whitelist_error',
+                                                          extension: '"pdf"',
+                                                          allowed_types: 'jpg, jpeg, gif, png'))
       end
     end
   end

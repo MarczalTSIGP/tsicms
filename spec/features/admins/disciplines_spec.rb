@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Discipline', type: :feature do
-  let(:admin) { create(:admin) }
-  let!(:period) { create_list(:period, 3).sample }
-  let(:resource_name) { Discipline.model_name.human }
+  let(:admin) {create(:admin)}
+  let!(:period) {create_list(:period, 3).sample}
+  let(:resource_name) {Discipline.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -28,11 +28,9 @@ RSpec.describe 'Discipline', type: :feature do
 
         expect(page).to have_current_path(admins_disciplines_path)
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-          expect(page).to have_content(attributes[:code])
-          expect(page).to have_content(period.name)
-        end
+        expect_page_have_in('table tbody', attributes[:name])
+        expect_page_have_in('table tbody', attributes[:code])
+        expect_page_have_in('table tbody', period.name)
       end
     end
 
@@ -42,26 +40,16 @@ RSpec.describe 'Discipline', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.discipline_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_code') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_hours') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-          expect(page).to have_content(I18n.t('errors.messages.not_a_number'))
-        end
-        within('div.discipline_period') do
-          expect(page).to have_content(I18n.t('errors.messages.required'))
-        end
+        fields = '%w[div.discipline_name div.discipline_code div.discipline_hours]'
+        expect_page_have_blank_messages(fields)
+        expect_page_have_in('div.discipline_hours', I18n.t('errors.messages.not_a_number'))
+        expect_page_have_in('div.discipline_period', I18n.t('errors.messages.required'))
       end
     end
   end
 
   describe '#update' do
-    let(:discipline) { create(:discipline) }
+    let(:discipline) {create(:discipline)}
 
     before(:each) do
       visit edit_admins_discipline_path(discipline)
@@ -94,11 +82,8 @@ RSpec.describe 'Discipline', type: :feature do
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
                                                    resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(new_name)
-          expect(page).to have_content(new_code)
-        end
+        expect_page_have_in('table tbody', new_name)
+        expect_page_have_in('table tbody', new_code)
       end
     end
 
@@ -112,23 +97,15 @@ RSpec.describe 'Discipline', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.discipline_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_code') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_hours') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-          expect(page).to have_content(I18n.t('errors.messages.not_a_number'))
-        end
+        fields = '%w[div.discipline_name div.discipline_code div.discipline_hours]'
+        expect_page_have_blank_messages(fields)
+        expect_page_have_in('div.discipline_hours', I18n.t('errors.messages.not_a_number'))
       end
     end
   end
 
   describe '#show' do
-    let(:discipline) { create(:discipline) }
+    let(:discipline) {create(:discipline)}
 
     it 'show all discipline with options' do
       visit admins_discipline_path(discipline)
@@ -152,14 +129,12 @@ RSpec.describe 'Discipline', type: :feature do
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
-      within('table tbody') do
-        expect(page).not_to have_content(discipline.name)
-      end
+      expect_page_not_have_in('table tbody', discipline.name)
     end
   end
 
   describe '#index' do
-    let!(:disciplines) { create_list(:discipline, 3) }
+    let!(:disciplines) {create_list(:discipline, 3)}
 
     it 'show all discipline with options' do
       visit admins_disciplines_path

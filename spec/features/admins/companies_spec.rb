@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Companies', type: :feature do
-  let(:admin) { create(:admin) }
-  let(:resource_name) { Company.model_name.human }
+  let(:admin) {create(:admin)}
+  let(:resource_name) {Company.model_name.human}
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -37,15 +37,14 @@ RSpec.describe 'Companies', type: :feature do
 
         expect_alert_error('flash.actions.errors')
 
-        expect_page_have_in('div.company_name', I18n.t('errors.messages.blank'))
-        expect_page_have_in('div.company_site', I18n.t('errors.messages.blank'))
-        expect_page_have_in('div.company_operation', I18n.t('errors.messages.blank'))
+        fields = '%w[div.company_name, div.company_site div.company_operation]'
+        expect_page_have_blank_message(fields)
       end
     end
   end
 
   describe '#update' do
-    let(:company) { create :company }
+    let(:company) {create :company}
 
     before(:each) do
       visit edit_admins_company_path(company)
@@ -66,14 +65,14 @@ RSpec.describe 'Companies', type: :feature do
       it 'cannot update company' do
         fill_in 'company_name', with: ''
         submit_form
-        expect_page_have_in('div.company_name', I18n.t('errors.messages.blank'))
+        expect_page_have_blank_message('div.company_name')
         expect_alert_error('flash.actions.errors')
       end
     end
   end
 
   describe '#index' do
-    let!(:companies) { create_list(:company, 2) }
+    let!(:companies) {create_list(:company, 2)}
 
     it 'show all companies' do
       visit admins_companies_path
