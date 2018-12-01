@@ -116,12 +116,9 @@ RSpec.describe 'Recommendations', type: :feature do
       recommendation = create(:recommendation)
       visit admins_recommendations_path
 
-      destroy_path = admins_recommendation_path(recommendation)
-      click_link href: destroy_path
+      click_on_destroy_link(admins_recommendation_path(static_page))
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
 
       expect_page_not_have_in('table tbody', recommendation.title)
     end
@@ -139,8 +136,7 @@ RSpec.describe 'Recommendations', type: :feature do
         expect(page).to have_content(I18n.l(r.created_at, format: :long))
 
         expect(page).to have_link(href: edit_admins_recommendation_path(r))
-        destroy_link = "a[href='#{admins_recommendation_path(r)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_recommendation_path(r))
       end
     end
   end

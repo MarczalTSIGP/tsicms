@@ -95,13 +95,16 @@ RSpec.describe 'Faqs', type: :feature do
       faq = create(:faq)
       visit admins_faqs_path
 
+<<<<<<< eb4fb0f35edde609e694e4f9233f79cbb5ec3112
       destroy_path = admins_faq_path(faq)
       click_link href: destroy_path
+=======
+      click_on_destroy_link(admins_faq_path(faq))
+>>>>>>> refatorando acao de delete
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
-      expect_page_not_have_in('#accordion', faq.title)
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
+
+      expect_page_not_have_in('#accordion', period.name)
     end
   end
 
@@ -116,8 +119,7 @@ RSpec.describe 'Faqs', type: :feature do
         expect(page).to have_css("#collapse#{f.id}", text: f.answer)
 
         expect(page).to have_link(href: edit_admins_faq_path(f))
-        destroy_link = "a[href='#{admins_faq_path(f)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_faq_path(f))
       end
     end
   end

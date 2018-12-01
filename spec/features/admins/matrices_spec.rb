@@ -124,12 +124,9 @@ RSpec.describe 'Matrix', type: :feature do
       matrix = create(:matrix)
       visit admins_matrices_path
 
-      destroy_link = "a[href='#{admins_matrix_path(matrix)}'][data-method='delete']"
-      find(destroy_link).click
+      click_on_destroy_link(admins_matrix_path(matrix))
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
 
       expect_page_not_have_in('table tbody', matrix.name)
     end
@@ -146,8 +143,7 @@ RSpec.describe 'Matrix', type: :feature do
         expect(page).to have_content(I18n.l(matrix.created_at, format: :long))
 
         expect(page).to have_link(href: edit_admins_matrix_path(matrix))
-        destroy_link = "a[href='#{admins_matrix_path(matrix)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_matrix_path(matrix))
       end
     end
   end

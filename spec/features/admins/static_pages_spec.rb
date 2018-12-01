@@ -119,6 +119,7 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
 
       click_on_destroy_link(admins_static_page_path(static_page))
 
+<<<<<<< eb4fb0f35edde609e694e4f9233f79cbb5ec3112
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.f',
                                                  resource_name: resource_name))
@@ -126,6 +127,11 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
       within('table tbody') do
         expect(page).not_to have_link(href: static_page_path(static_page.permalink))
       end
+=======
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
+
+      expect_page_not_have_in('table tbody', static_page.title)
+>>>>>>> refatorando acao de delete
     end
   end
 
@@ -142,8 +148,7 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
 
         expect(page).to have_link(href: static_page_path(s.permalink))
         expect(page).to have_link(href: edit_admins_static_page_path(s))
-        destroy_link = "a[href='#{admins_static_page_path(s)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_static_page_path(s))
       end
     end
   end

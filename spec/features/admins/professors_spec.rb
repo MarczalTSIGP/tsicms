@@ -112,8 +112,7 @@ RSpec.describe 'Admin Professors', type: :feature do
 
         expect(page).to have_link(href: admins_professor_path(professor))
         expect(page).to have_link(href: edit_admins_professor_path(professor))
-        destroy_link = "a[href='#{admins_professor_path(professor)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_professor_path(professor))
       end
     end
   end
