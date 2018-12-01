@@ -33,9 +33,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
 
         expect(page).to have_current_path(admins_discipline_monitors_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
         expect_page_have_in('table tbody', attributes[:academic])
       end
     end
@@ -44,8 +42,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
       it 'show errors' do
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         fields = '%w[div.discipline_monitor_semester div.discipline_monitor_description div.discipline_monitor_academic div.discipline_monitor_monitor_type div.discipline_monitor_discipline_ids div.discipline_monitor_professor_ids]'
         expect_page_have_blank_messages(fields)
       end
@@ -96,9 +93,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
 
         expect(page).to have_current_path(admins_discipline_monitors_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.f', resource_name: resource_name))
         expect_page_have_in('table tbody', academic.name)
       end
     end
@@ -107,9 +102,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
       it 'show errors' do
         fill_in 'discipline_monitor_description', with: ''
         submit_form
-
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect_page_have_blank_message('div.discipline_monitor_description')
       end
     end
@@ -123,8 +116,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
 
       click_on_destroy_link(admins_discipline_monitor_path(discipline_monitor))
 
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
       expect_page_not_have_in('table tbody', discipline_monitor.academic.name)
     end
   end

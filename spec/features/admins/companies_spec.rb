@@ -25,7 +25,7 @@ RSpec.describe 'Companies', type: :feature do
 
         expect(page).to have_current_path(admins_companies_path)
 
-        expect_alert_success(resource_name, 'flash.actions.create.f')
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -35,7 +35,7 @@ RSpec.describe 'Companies', type: :feature do
       it 'show errors' do
         submit_form
 
-        expect_alert_error('flash.actions.errors')
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
         fields = '%w[div.company_name, div.company_site div.company_operation]'
         expect_page_have_blank_message(fields)
@@ -66,7 +66,7 @@ RSpec.describe 'Companies', type: :feature do
         fill_in 'company_name', with: ''
         submit_form
         expect_page_have_blank_message('div.company_name')
-        expect_alert_error('flash.actions.errors')
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
       end
     end
   end
@@ -83,8 +83,7 @@ RSpec.describe 'Companies', type: :feature do
 
         expect(page).to have_link(href: admins_company_path(company))
         expect(page).to have_link(href: edit_admins_company_path(company))
-        destroy_link = "a[href='#{admins_company_path(company)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_company_path(company))
       end
     end
     it 'show company page' do
@@ -104,8 +103,7 @@ RSpec.describe 'Companies', type: :feature do
 
       click_on_destroy_link(admins_company_path(company))
 
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
       expect_page_not_have_in('table tbody', company.name)
     end
   end

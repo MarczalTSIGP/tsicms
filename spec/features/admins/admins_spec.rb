@@ -23,8 +23,7 @@ RSpec.describe 'Admins', type: :feature do
         submit_form
 
         expect(page).to have_current_path(edit_admin_registration_path)
-        expect(page).to have_selector('div.alert.alert-info',
-                                      text: I18n.t('devise.registrations.updated'))
+        expect(page).to have_flash(:info, text: I18n.t('devise.registrations.updated'))
         expect_page_have_in('a.nav-link', new_name)
         within('a.nav-link') do
           admin.reload
@@ -40,10 +39,7 @@ RSpec.describe 'Admins', type: :feature do
         attach_file 'admin_image', FileSpecHelper.pdf.path
         submit_form
 
-        alert_danger = I18n.t('simple_form.error_notification.default_message')
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: alert_danger)
-
+        expect(page).to have_flash(:danger, text: I18n.t('simple_form.error_notification.default_message'))
         expect_page_have_blank_message('div.admin_name')
         expect_page_not_have_in('div.admin_image', I18n.t('errors.messages.extension_whitelist_error',
                                                           extension: '"pdf"',

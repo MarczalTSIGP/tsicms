@@ -26,9 +26,7 @@ RSpec.describe 'Recommendations', type: :feature do
 
         expect(page).to have_current_path(admins_recommendations_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
 
         expect_page_have_in('table tbody', attributes[:name])
         expect_page_have_in('table tbody', category.name)
@@ -40,8 +38,7 @@ RSpec.describe 'Recommendations', type: :feature do
         attach_file 'recommendation_image', FileSpecHelper.pdf.path
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         fields = '%w[div.recommendation_title div.recommendation_description]'
         expect_page_have_blank_messages(fields)
         expect_page_have_in('div.recommendation_image', I18n.t('errors.messages.extension_whitelist_error',
@@ -83,9 +80,7 @@ RSpec.describe 'Recommendations', type: :feature do
 
         expect(page).to have_current_path(admins_recommendations_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.f', resource_name: resource_name))
 
         expect_page_have_in('table tbody', attributes[:name])
         expect_page_have_in('table tbody', new_category.name)
@@ -99,8 +94,7 @@ RSpec.describe 'Recommendations', type: :feature do
         attach_file 'recommendation_image', FileSpecHelper.pdf.path
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
         fields = %w[div.recommendation_title div.recommendation_description]
         expect_page_have_blank_messages(fields)
@@ -118,8 +112,7 @@ RSpec.describe 'Recommendations', type: :feature do
 
       click_on_destroy_link(admins_recommendation_path(static_page))
 
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
       expect_page_not_have_in('table tbody', recommendation.title)
     end
   end

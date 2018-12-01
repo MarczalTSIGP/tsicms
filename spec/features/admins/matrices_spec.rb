@@ -22,9 +22,7 @@ RSpec.describe 'Matrix', type: :feature do
 
         expect(page).to have_current_path(admins_matrices_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -34,8 +32,7 @@ RSpec.describe 'Matrix', type: :feature do
       it 'show errors' do
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
         expect_page_have_blank_message('div.matrix_name')
       end
@@ -81,9 +78,7 @@ RSpec.describe 'Matrix', type: :feature do
 
         expect(page).to have_current_path(admins_matrices_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.f', resource_name: resource_name))
 
         expect_page_have_in('table tbody', new_name)
       end
@@ -94,8 +89,7 @@ RSpec.describe 'Matrix', type: :feature do
         fill_in 'matrix_name', with: ''
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect_page_have_blank_message('div.matrix_name')
       end
     end
@@ -126,8 +120,7 @@ RSpec.describe 'Matrix', type: :feature do
 
       click_on_destroy_link(admins_matrix_path(matrix))
 
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
       expect_page_not_have_in('table tbody', matrix.name)
     end
   end

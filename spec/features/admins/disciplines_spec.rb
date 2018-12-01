@@ -79,9 +79,7 @@ RSpec.describe 'Discipline', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_disciplines_path)
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.f', resource_name: resource_name))
         expect_page_have_in('table tbody', new_name)
         expect_page_have_in('table tbody', new_code)
       end
@@ -95,8 +93,7 @@ RSpec.describe 'Discipline', type: :feature do
         fill_in 'discipline_menu', with: ''
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         fields = '%w[div.discipline_name div.discipline_code div.discipline_hours]'
         expect_page_have_blank_messages(fields)
         expect_page_have_in('div.discipline_hours', I18n.t('errors.messages.not_a_number'))
@@ -126,8 +123,7 @@ RSpec.describe 'Discipline', type: :feature do
       visit admins_disciplines_path
       click_on_destroy_link(admins_discipline_path(discipline))
 
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
       expect_page_not_have_in('table tbody', discipline.name)
     end
   end

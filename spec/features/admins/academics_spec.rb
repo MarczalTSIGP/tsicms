@@ -24,10 +24,7 @@ RSpec.describe 'Academics', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_academics_path)
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.m',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.m', resource_name: resource_name))
         expect_page_have_in('table tbody', attributes[:name])
       end
     end
@@ -37,8 +34,7 @@ RSpec.describe 'Academics', type: :feature do
         attach_file 'academic_image', FileSpecHelper.pdf.path
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
         fields = %w[div.academic_name div.academic_contact]
         expect_page_have_blank_messages(fields)
@@ -82,9 +78,8 @@ RSpec.describe 'Academics', type: :feature do
 
         expect(page).to have_current_path(admins_academics_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.m',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.m', resource_name: resource_name))
+
         expect_page_have_in('table tbody', new_name)
       end
     end
@@ -97,8 +92,8 @@ RSpec.describe 'Academics', type: :feature do
         attach_file 'academic_image', FileSpecHelper.pdf.path
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+
         fields = '%w[div.academic_name div.academic_contact]'
         expect_page_have_blank_messages(fields)
         expect(page).to have_checked_field('academic_graduated')
@@ -116,8 +111,8 @@ RSpec.describe 'Academics', type: :feature do
 
       click_on_destroy_link(admins_academic_path(academic))
 
-      expect_alert_success(resource_name, 'flash.actions.destroy.m')
-
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.m',
+                                                        resource_name: resource_name))
       expect_page_not_have_in('table tbody', academic.name)
     end
   end

@@ -22,10 +22,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
 
         expect(page).to have_current_path(admins_category_recommendations_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
-
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
         expect_page_have_in('table tbody', attributes[:name])
       end
     end
@@ -33,9 +30,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
     context 'when invalid fields' do
       it 'show errors' do
         submit_form
-
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect_page_have_blank_message('div.category_recommendation_name')
       end
     end
@@ -79,9 +74,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
 
         expect(page).to have_current_path(admins_category_recommendations_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.f', resource_name: resource_name))
         expect_page_have_in('table tbody', new_name)
       end
     end
@@ -90,10 +83,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
       it 'show errors' do
         fill_in 'category_recommendation_name', with: ''
         submit_form
-
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
-
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect_page_have_blank_message('div.category_recommendation_name')
       end
     end
@@ -120,8 +110,8 @@ RSpec.describe 'Category Recommendations', type: :feature do
         visit admins_category_recommendations_path
 
         click_on_destroy_link(admins_category_recommendation_path(category))
-        
-        expect_alert_success(resource_name, 'flash.actions.destroy.f')
+
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
 
         expect_page_not_have_in('table tbody', category.name)
       end

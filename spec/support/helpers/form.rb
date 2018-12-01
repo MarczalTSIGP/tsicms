@@ -30,17 +30,6 @@ module Helpers
       end
     end
 
-    def expect_alert_error(message)
-      expect(page).to have_selector('div.alert.alert-danger',
-                                    text: I18n.t(message))
-    end
-
-    def expect_alert_success(resource_name, message)
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t(message,
-                                                 resource_name: resource_name))
-    end
-
     def expect_page_have_destroy_link(url)
       destroy_link = "a[href='#{url}'][data-method='delete']"
       expect(page).to have_css(destroy_link)
