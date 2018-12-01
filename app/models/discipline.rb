@@ -7,7 +7,7 @@ class Discipline < ApplicationRecord
   validates :menu, presence: true
   validates :initials, presence: true, uniqueness: { case_sensitive: false }
 
-  has_many :discipline_monitor_disciplines
+  has_many :discipline_monitor_disciplines, dependent: :restrict_with_error
   has_many :discipline_monitors, through: :discipline_monitor_disciplines
 
   belongs_to :period

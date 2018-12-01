@@ -120,6 +120,9 @@ ActiveRecord::Schema.define(version: 2018_10_27_203807) do
     t.datetime "updated_at", null: false
   end
 
+# Could not dump table "galleries" because of following StandardError
+#   Unknown type 'gallery_contexts' for column 'context'
+
   create_table "matrices", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -138,6 +141,15 @@ ActiveRecord::Schema.define(version: 2018_10_27_203807) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["matrix_id"], name: "index_periods_on_matrix_id"
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.string "label"
+    t.string "image"
+    t.bigint "gallery_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gallery_id"], name: "index_pictures_on_gallery_id"
   end
 
   create_table "professor_categories", force: :cascade do |t|

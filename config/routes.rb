@@ -34,7 +34,11 @@ Rails.application.routes.draw do
       resources :discipline_monitors
       resources :monitor_types
       resources :trainees
-      
+
+      scope '/galleries/:context' do
+        get '/' => 'galleries#index', :as => 'galleries'
+        resources :pictures, excepty: [:index, :show]
+      end
     end
   end
   #========================================

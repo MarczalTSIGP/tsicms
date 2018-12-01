@@ -1,5 +1,9 @@
 //= require simplemde/simplemde.min
 
+$(document).on('turbolinks:load', function() {
+  TSICMS.loadMarkdownEditor();
+});
+
 TSICMS.loadMarkdownEditor = function () {
    $('.markdown-editor').each(function () {
       var id = $(this).attr('id');
@@ -12,4 +16,4 @@ TSICMS.loadMarkdownEditor = function () {
 
       $(this).html(html);
    })
-}
+};

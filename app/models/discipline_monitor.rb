@@ -1,5 +1,5 @@
 class DisciplineMonitor < ApplicationRecord
-  enum semester: { first: 1, second: 2}, _prefix: :true
+  enum semester: { first: 1, second: 2 }, _prefix: true
 
   validates :year, presence: true
   validates :semester, presence: true
@@ -13,10 +13,10 @@ class DisciplineMonitor < ApplicationRecord
   belongs_to :academic
   belongs_to :monitor_type
 
-  has_many :discipline_monitor_professors
+  has_many :discipline_monitor_professors, dependent: :destroy
   has_many :professors, through: :discipline_monitor_professors
 
-  has_many :discipline_monitor_disciplines
+  has_many :discipline_monitor_disciplines, dependent: :destroy
   has_many :disciplines, through: :discipline_monitor_disciplines
 
   def self.human_semesters
@@ -25,9 +25,10 @@ class DisciplineMonitor < ApplicationRecord
     hash
   end
 
-  if Time.zone.now.month > 6 ? month_now = "second" : month_now ="first"
-  end
-
-  scope :semester_now, -> { where(semester: month_now) }
+  scope :semester_now, -> { where(semester: current_semester) }
   scope :year_now, -> { where(year: Time.zone.now.year) }
+
+  def self.current_semester
+    Time.zone.now.month > 6 ? 'second' : 'first'
+  end
 end

@@ -1,9 +1,10 @@
 class Admins::CategoryRecommendationsController < Admins::BaseController
   before_action :set_category_recommendation, only: [:edit, :update, :destroy]
 
-  add_breadcrumb I18n.t('breadcrumbs.category_recommendations.name'), :admins_category_recommendations_path
-  add_breadcrumb I18n.t('breadcrumbs.category_recommendations.new'), 
-                  :new_admins_category_recommendation_path, only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.category_recommendations.name'),
+                 :admins_category_recommendations_path
+  add_breadcrumb I18n.t('breadcrumbs.category_recommendations.new'),
+                 :new_admins_category_recommendation_path, only: [:new, :create]
 
   def index
     @categories = CategoryRecommendation.order(name: :asc)
@@ -17,11 +18,10 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
     @category = CategoryRecommendation.new(category_recommendation_params)
 
     if @category.save
-      flash[:success] = I18n.t('flash.actions.create.f',
-                               resource_name: CategoryRecommendation.model_name.human)
+      feminine_success_create_message
       redirect_to admins_category_recommendations_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
@@ -32,23 +32,22 @@ class Admins::CategoryRecommendationsController < Admins::BaseController
   end
 
   def update
-    if @category.update_attributes(category_recommendation_params)
-      flash[:success] = I18n.t('flash.actions.update.f',
-                        resource_name: CategoryRecommendation.model_name.human)
+    if @category.update(category_recommendation_params)
+      feminine_success_update_message
       redirect_to admins_category_recommendations_path
     else
       add_breadcrumb I18n.t('breadcrumbs.category_recommendations.edit', name: "##{@category.id}"),
                      :edit_admins_category_recommendation_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @category.destroy
-    flash[:success] = I18n.t('flash.actions.destroy.f',
-                               resource_name: CategoryRecommendation.model_name.human)
+
+    feminine_success_destroy_message
     redirect_to admins_category_recommendations_path
   end
 

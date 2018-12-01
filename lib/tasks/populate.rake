@@ -1,8 +1,8 @@
-namespace :db do
+require './spec/support/file_spec_helper'
 
+namespace :db do
   desc 'Erase and Fill database'
   task populate: :environment do
-
     [CategoryRecommendation,
      Recommendation,
      Activity,
@@ -14,11 +14,13 @@ namespace :db do
      Academic,
      Discipline,
      Period,
-     Matrix, Faq,
+     Matrix,
+     Faq,
      StaticPage,
      Trainee,
-     TraineeStatus
-    ].each(&:delete_all)
+     TraineeStatus,
+     Picture,
+     Gallery].each(&:delete_all)
 
     10.times do
       Faq.create!(
@@ -36,7 +38,7 @@ namespace :db do
       5.times do
         category.recommendations.create! title: Faker::Name.name,
                                          description: Faker::Lorem.paragraph(2),
-                                         image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample)
+                                         image: FileSpecHelper.image
       end
     end
 
@@ -46,9 +48,9 @@ namespace :db do
     end
 
     titles = [
-      {name: 'Especialista', abbrev: 'Esp.'},
-      {name: 'Mestre', abbrev: 'Me.'},
-      {name: 'Doutor', abbrev: 'Dr.'}
+      { name: 'Especialista', abbrev: 'Esp.' },
+      { name: 'Mestre', abbrev: 'Me.' },
+      { name: 'Doutor', abbrev: 'Dr.' }
     ]
 
     titles.each do |title|
@@ -57,7 +59,7 @@ namespace :db do
 
     10.times do
       Professor.create!(name: Faker::Name.name, lattes: Faker::Internet.url,
-                        image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample),
+                        image: FileSpecHelper.image,
                         occupation_area: Faker::Job.title, email: Faker::Internet.email,
                         gender: Professor.genders.values.sample,
                         professor_title: ProfessorTitle.all.sample,
@@ -67,7 +69,7 @@ namespace :db do
     6.times do
       Academic.create!(
         name: Faker::Name.unique.name,
-        image: File.open(Dir["#{Rails.root}/spec/samples/images/*"].sample),
+        image: FileSpecHelper.image,
         contact: Faker::Internet.url,
         graduated: [true, false].sample
       )
@@ -82,7 +84,7 @@ namespace :db do
 
     10.times do
       start_date = Faker::Date.between(1.year.ago, 5.months.ago)
-      end_date = Faker::Date.between(5.months.ago, Date.today)
+      end_date = Faker::Date.between(5.months.ago, Time.zone.today)
       end_date = [nil, end_date].sample
 
       ActivityProfessor.create!(
@@ -106,7 +108,7 @@ namespace :db do
     end
 
     3.times do |m_index|
-      matrix = Matrix.create!(name: Faker::DragonBall.character)
+      matrix = Matrix.create!(name: Faker::DragonBall.unique.character)
       10.times do |p_index|
         period = Period.create!(
           name: "#{Faker::Company.suffix}-#{m_index}#{p_index}",
@@ -130,7 +132,8 @@ namespace :db do
         title: Faker::Name.name,
         sub_title: Faker::Name.name,
         permalink: Faker::Name.unique.name.parameterize,
-        content: Faker::Markdown.sandwich)
+        content: Faker::Markdown.sandwich
+      )
     end
 
     3.times do
@@ -159,6 +162,18 @@ namespace :db do
                       description: Faker::Markdown.sandwich,
                       company: Company.all.sample,
                       trainee_status: TraineeStatus.all.sample)
+    end
+
+    galleries = %w[course static_page]
+    galleries.each do |context|
+      Gallery.create!(context: context)
+    end
+
+    Gallery.all.each do |gallery|
+      5.times do
+        gallery.pictures.create! label: Faker::Lorem.paragraph(1),
+                                 image: FileSpecHelper.image
+      end
     end
   end
 end

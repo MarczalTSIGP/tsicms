@@ -2,7 +2,8 @@ class Admins::ActivitiesController < Admins::BaseController
   before_action :set_activity, only: [:edit, :update, :destroy, :show]
 
   add_breadcrumb I18n.t('breadcrumbs.activities.name'), :admins_activities_path
-  add_breadcrumb I18n.t('breadcrumbs.activities.new'), :new_admins_activity_path, only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.activities.new'), :new_admins_activity_path,
+                 only: [:new, :create]
 
   def index
     @activities = Activity.order(name: :asc)
@@ -28,36 +29,32 @@ class Admins::ActivitiesController < Admins::BaseController
     @activity = Activity.new(activity_params)
 
     if @activity.save
-      flash[:success] = I18n.t('flash.actions.create.f',
-                               resource_name: Activity.model_name.human)
+      feminine_success_create_message
       redirect_to admins_activities_path
     else
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
 
   def update
     if @activity.update(activity_params)
-      flash[:success] = I18n.t('flash.actions.update.f',
-                               resource_name: Activity.model_name.human)
+      feminine_success_update_message
       redirect_to admins_activities_path
     else
       add_breadcrumb I18n.t('breadcrumbs.activities.edit', name: "##{@activity.id}"),
-                   :edit_admins_activity_path
+                     :edit_admins_activity_path
 
-      flash.now[:error] = I18n.t('flash.actions.errors')
+      error_message
       render :new
     end
   end
 
   def destroy
     if @activity.destroy
-      flash[:success] = I18n.t('flash.actions.destroy.f',
-                               resource_name: Activity.model_name.human)
+      feminine_success_destroy_message
     else
-      flash[:alert] = 'Não é possível remover atividades que
-      possuem professores vinculados!'
+      alert_destroy_bond_message
     end
     redirect_to admins_activities_path
   end

@@ -1,13 +1,26 @@
+Rails:
+  Enabled: true
+
+require: rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.4
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
   # DisabledByDefault: true
   Exclude:
+    - 'bin/*'
     - '*/templates//'
     - '*/vendor//'
     - 'actionpack/lib/action_dispatch/journey/parser.rb'
     - 'railties/test/fixtures/tmp/*/'
+    - 'db/schema.rb'
+    - 'config/initializers/simple_form.rb'
+    - 'config/initializers/simple_form_bootstrap.rb'
+    - 'config/initializers/devise.rb'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false
@@ -25,12 +38,14 @@ Metrics/LineLength:
     - 'config/initializers/backtrace_silencers.rb'
     - 'config/initializers/content_security_policy.rb'
 
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/MethodLength:
+  Max: 15
+
 Bundler/OrderedGems:
   Enabled: false
-
-Style/MixinUsage:
-  Exclude:
-    - 'bin/*'
 
 Style/ExpandPathArguments:
   Exclude:
@@ -45,12 +60,44 @@ Style/StringLiterals:
 
 Style/StderrPuts:
   Exclude:
-    - 'bin/*'
 
-Style/BlockComments: 
+Style/BlockComments:
   Exclude:
     - 'spec/spec_helper.rb'
 
 Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
     - 'config/environments/production.rb'
+
+Style/NumericLiterals:
+  Exclude:
+    - 'config/puma.rb'
+
+Rails/OutputSafety:
+  Exclude:
+    - 'lib/builders/bootstrap_breadcrumbs_builder.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'lib/tasks/populate.rake'
+    - 'spec/features/**/*'
+    - 'config/routes.rb'
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'spec/features/**/*'
+
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/features/**/*'
+
+RSpec/HookArgument:
+  EnforcedStyle: each
+
+RSpec/MissingExampleGroupArgument:
+  Exclude:
+    - 'spec/factories/galleries.rb'
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - 'spec/factories/galleries.rb'

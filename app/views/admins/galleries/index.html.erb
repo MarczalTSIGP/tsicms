@@ -1,0 +1,42 @@
+<% provide(:page_title, 'Galeria') %>
+
+<div class="text-right mb-3">
+  <%= link_to new_admins_picture_path(@gallery.context),
+              class: 'btn btn-secondary',
+              title: 'Upload de imagens',
+              data: { toggle: 'tooltip', placement: 'top' } do %>
+    <i class="fas fa-plus"></i>
+  <% end %>
+</div>
+
+<div id="gallery-<%= @gallery.context %>">
+  <% @gallery.pictures.in_groups_of(3, false).each do |pictures| %>
+    <div class="row row-cards">
+      <% pictures.each do |picture| %>
+        <div class="col-sm-12 col-md-4">
+          <div class="card p-1">
+            <a href="<%= picture.image.url %>" data-fancybox="gallery" data-caption="<%= picture.label %>">
+              <figure class="mb-0">
+                <%= image_tag picture.image.thumb.url %>
+              </figure>
+            </a>
+
+            <div class="d-flex align-items-center px-2">
+              <%= link_to edit_admins_picture_path(@gallery.context, picture) do %>
+              <span class="icon mr-3">
+                <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+              </span>
+              <% end %>
+
+              <%= link_to admins_picture_path(@gallery.context, picture), method: :delete, data: { confirm: t('prompt.confirm') } do %>
+              <span class="icon mr-3">
+                <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
+              </span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

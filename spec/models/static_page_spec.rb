@@ -9,8 +9,7 @@ RSpec.describe StaticPage, type: :model do
 
   describe 'validates permalink pattern' do
     it { is_expected.to allow_value('awesome-page').for(:permalink) }
-    it { is_expected.to_not allow_value('awesome@page').for(:permalink) }
-    it { is_expected.to_not allow_value('awesome#page').for(:permalink) }
+    it { is_expected.not_to allow_value('awesome@page').for(:permalink) }
+    it { is_expected.not_to allow_value('awesome#page').for(:permalink) }
   end
 end
-

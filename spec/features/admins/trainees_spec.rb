@@ -1,20 +1,21 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin Trainees', type: :feature do
-
-  let(:admin) {create(:admin)}
-  let(:resource_name) {Trainee.model_name.human}
+RSpec.describe 'Admin Trainees', type: :feature do
+  let(:admin) { create(:admin) }
+  let(:resource_name) { Trainee.model_name.human }
 
   before(:each) do
     login_as(admin, scope: :admin)
   end
 
   describe '#create' do
-    let!(:company){create_list(:company, 3).sample}
-    let!(:trainee_status){create_list(:trainee_status, 3).sample}
+    let!(:company) { create_list(:company, 3).sample }
+    let!(:trainee_status) { create_list(:trainee_status, 3).sample }
+
     before(:each) do
       visit new_admins_trainee_path
     end
+
     context 'with valid fields' do
       it 'create trainee' do
         attributes = attributes_for(:trainee)
@@ -25,16 +26,17 @@ RSpec.feature 'Admin Trainees', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_trainees_path
+        expect(page).to have_current_path(admins_trainees_path)
 
         expect_page_have_in('table tbody', attributes[:title])
       end
     end
+
     context 'with invalid fields' do
       it 'cannot create trainee' do
         submit_form
 
-        expect(page.current_path).to eq admins_trainees_path
+        expect(page).to have_current_path(admins_trainees_path)
 
         expect_alert_error('flash.actions.errors')
 
@@ -46,21 +48,24 @@ RSpec.feature 'Admin Trainees', type: :feature do
   end
 
   describe '#update' do
+    let(:trainee) { create :trainee }
+
     before(:each) do
-      @trainee = create :trainee
-      visit edit_admins_trainee_path(@trainee)
+      visit edit_admins_trainee_path(trainee)
     end
+
     context 'with valid fields' do
       it 'update trainee' do
         new_title = 'EAEEE'
         fill_in 'trainee_title', with: new_title
         submit_form
 
-        expect(page.current_path).to eq admins_trainee_path(@trainee)
+        expect(page).to have_current_path(admins_trainee_path(trainee))
 
         expect(page).to have_content(new_title)
       end
     end
+
     context 'with invalid fields' do
       it 'cannot update trainee' do
         fill_in 'trainee_title', with: ''
@@ -71,8 +76,7 @@ RSpec.feature 'Admin Trainees', type: :feature do
   end
 
   describe '#show' do
-
-    let!(:traineess) {create_list(:trainee, 2)}
+    let!(:traineess) { create_list(:trainee, 2) }
 
     it 'all trainees' do
       visit admins_trainees_path

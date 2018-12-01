@@ -1,4 +1,5 @@
-Admin.create_with(name: 'Administrador', password: '123456').find_or_create_by!(email: 'admin@admin.com')
+Admin.create_with(name: 'Administrador', password: '123456')
+     .find_or_create_by!(email: 'admin@admin.com')
 
 categories = %w[Documentário Filme Livro Seriado]
 categories.each do |category|
@@ -25,7 +26,12 @@ monitor_types.each do |type|
   MonitorType.find_or_create_by!(name: type)
 end
 
-treinee_status = %w[Preenchida Disponivel Cancelada]
-treinee_status.each do |status|
+trainee_status = %w[Preenchida Disponivel Cancelada]
+trainee_status.each do |status|
   TraineeStatus.find_or_create_by!(name: status)
+end
+
+gallery_contexts = %w[course static_page]
+gallery_contexts.each do |context|
+  Gallery.find_or_create_by!(context: context)
 end

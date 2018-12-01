@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Period', type: :feature do
-
+RSpec.describe 'Period', type: :feature do
   let(:admin) { create(:admin) }
   let!(:matrix) { create_list(:matrix, 3).sample }
   let(:resource_name) { Period.model_name.human }
@@ -11,7 +10,6 @@ RSpec.feature 'Period', type: :feature do
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_period_path
     end
@@ -24,7 +22,7 @@ RSpec.feature 'Period', type: :feature do
         select matrix.name, from: 'period_matrix_id'
         submit_form
 
-        expect(page.current_path).to eq admins_periods_path
+        expect(page).to have_current_path(admins_periods_path)
 
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
@@ -80,7 +78,7 @@ RSpec.feature 'Period', type: :feature do
       visit edit_admins_period_path(period)
     end
 
-    context 'fill fields' do
+    context 'with filled fields' do
       it 'with correct values' do
         expect(page).to have_field 'period_name', with: period.name
       end
@@ -93,7 +91,7 @@ RSpec.feature 'Period', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_periods_path
+        expect(page).to have_current_path(admins_periods_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.m',
@@ -119,7 +117,7 @@ RSpec.feature 'Period', type: :feature do
       end
     end
 
-    context 'when has same name'  do
+    context 'when has same name' do
       let(:other_period) { create(:period, matrix: matrix) }
 
       it 'show errors' do
@@ -178,5 +176,4 @@ RSpec.feature 'Period', type: :feature do
       end
     end
   end
-
 end

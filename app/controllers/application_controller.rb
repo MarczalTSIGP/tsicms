@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
   def layout_by_resource
     case namespace_name
     when 'devise'

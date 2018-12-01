@@ -8,9 +8,14 @@ class CreateDisciplines < ActiveRecord::Migration[5.2]
       t.integer :practical_classes
       t.integer :distance_classes
       t.string :menu
+<<<<<<< HEAD
       t.string :initials
       t.references :period, foreign_key:true
       
+=======
+      t.references :period, foreign_key: true
+
+>>>>>>> 8cc759d03258900840dbab79ab883e0cb84125cb
       t.timestamps
     end
   end

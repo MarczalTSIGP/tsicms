@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Recommendations', type: :feature do
-
+RSpec.describe 'Recommendations', type: :feature do
   let(:admin) { create(:admin) }
   let!(:category) { create_list(:category_recommendation, 3).sample }
   let(:resource_name) { Recommendation.model_name.human }
@@ -11,7 +10,6 @@ RSpec.feature 'Recommendations', type: :feature do
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admins_recommendation_path
     end
@@ -26,7 +24,7 @@ RSpec.feature 'Recommendations', type: :feature do
         select category.name, from: 'recommendation_category_recommendation_id'
         submit_form
 
-        expect(page.current_path).to eq admins_recommendations_path
+        expect(page).to have_current_path(admins_recommendations_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.create.f',
@@ -70,14 +68,14 @@ RSpec.feature 'Recommendations', type: :feature do
       visit edit_admins_recommendation_path(recommendation)
     end
 
-    context 'fill fields' do
+    context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'recommendation_title',
-          with: recommendation.title
+                                   with: recommendation.title
         expect(page).to have_field 'recommendation_description',
-          with: recommendation.description
+                                   with: recommendation.description
         expect(page).to have_select 'recommendation_category_recommendation_id',
-          selected: recommendation.category_recommendation.name
+                                    selected: recommendation.category_recommendation.name
         expect(page).to have_css("img[src*='#{recommendation.image}']")
       end
     end
@@ -92,7 +90,7 @@ RSpec.feature 'Recommendations', type: :feature do
         select new_category.name, from: 'recommendation_category_recommendation_id'
         submit_form
 
-        expect(page.current_path).to eq admins_recommendations_path
+        expect(page).to have_current_path(admins_recommendations_path)
 
         expect(page).to have_selector('div.alert.alert-success',
                                       text: I18n.t('flash.actions.update.f',
@@ -163,7 +161,6 @@ RSpec.feature 'Recommendations', type: :feature do
         destroy_link = "a[href='#{admins_recommendation_path(r)}'][data-method='delete']"
         expect(page).to have_css(destroy_link)
       end
-    end 
+    end
   end
-
 end
