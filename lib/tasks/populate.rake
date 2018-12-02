@@ -120,6 +120,10 @@ namespace :db do
             name: "#{Faker::Company.industry}-#{m_index}#{p_index}-#{d_index}",
             code: Faker::Code.nric(27, 34),
             hours: Faker::Number.number(2),
+            theoretical_classes: Faker::Number.number(2),
+            practical_classes: Faker::Number.number(2),
+            initials: Faker::Name.unique.name,
+            distance_classes: Faker::Number.number(2),
             period: period,
             menu: Faker::Markdown.random
           )
