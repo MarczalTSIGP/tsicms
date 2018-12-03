@@ -1,26 +1,24 @@
-<% provide(:page_title, 'Histórico de Monitorias') %>
-
-<div class="show-info">
+<section class="show-info" id="exemple_section">
   <div class="container text-center">
-    <h2 class="mb-4">Histórico de Monitorias de Disciplinas -
-      <%= link_to "Home", root_path, class: 'btn btn-primary' %>
-    </h2>
-    <hr class="my-4">
+    <h2 class="mb-4">Monitorias de Disciplinas - Atuais</h2>
+    <hr>
     <div class="row">
+      <div class="col-sm-12">
+      </div>
       <hr class="my-4">
-      <%@discipline_monitors.historic.each do |dm| %>
+      <%@discipline_monitors.year_now.semester_now.each do |dm| %>
       <div class="col-sm-6 py-2">
         <div class="card h-100">
           <div class="card-body">
             <div class="media">
               <div class="media-body">
                 <small>
-                  <strong>Disciplinas:</strong>
+                  <strong>Disciplina(s):</strong>
                   <% dm.discipline_monitor_disciplines.each do |d| %>
                   <%= d.discipline.name %>
                   <% end %>
                 </small>
-                <hr class="gray">
+                <hr class="large">
                 <small>
                   <Strong>Ano/Semestre:</Strong>
                   <%= dm.year %> -
@@ -63,7 +61,10 @@
       </div>
       <% end %>
     </div>
-    <hr class="my-4">
-    <%= link_to "Home", root_path, class: 'btn btn-primary' %>
-  </div>
-</div>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <hr>
+        <%= link_to "Histórico de Monitorias", discipline_monitors_path, class: 'btn btn-primary btn-xl sr-button' %>
+      </div>
+    </div>
+</section>

@@ -1,0 +1,113 @@
+:root {
+  --main-bg-color: rgba(46, 153, 254, 0.589);
+}
+
+.show-info {
+  padding: 8rem 0;
+}
+
+header.masthead {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 56px);
+  background-image: asset-url("predio-utfpr.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+
+hr {
+  border-width: 3px;
+  border-color: var(--main-bg-color);
+}
+
+hr.large {
+  margin-top: 0px;
+  margin-top: 0px;
+  max-width: 500px;
+  margin-left: 3px;
+  margin-right: 3px;
+  border-width: 3px;
+  border-color: var(--main-bg-color);
+}
+
+a {
+  color: var(--main-bg-color);
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+a:hover {
+  color: var(--main-bg-color);
+}
+
+.bg-primary {
+  background-color: var(--main-bg-color) !important;
+}
+
+#mainNav .navbar-brand {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--main-bg-color);
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+#mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
+  color: var(--main-bg-color);
+}
+
+#mainNav .navbar-nav>li.nav-item>a.nav-link:hover, #mainNav .navbar-nav>li.nav-item>a.nav-link:focus:hover {
+  color: var(--main-bg-color);
+}
+
+#mainNav .navbar-nav>li.nav-item>a.nav-link.active, #mainNav .navbar-nav>li.nav-item>a.nav-link:focus.active {
+  color: var(--main-bg-color) !important;
+  background-color: transparent;
+}
+
+#mainNav.navbar-shrink .navbar-brand {
+  color: var(--main-bg-color);
+}
+
+#mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
+  color: var(--main-bg-color)
+}
+
+#mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link, #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus {
+  color: #212529;
+}
+
+#mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:hover, #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus:hover {
+  color: var(--main-bg-color);
+}
+
+.portfolio-box .portfolio-box-caption {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  opacity: 0;
+  color: #fff;
+  background: rgba(64, 184, 240, 0.9);
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.text-primary {
+  color: var(--main-bg-color) !important;
+}
+
+.btn-primary {
+  background-color: rgba(64, 184, 240, 0.9);
+  border-color: rgba(64, 184, 240, 0.9);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  color: #fff;
+  background-color: var(--main-bg-color) !important;
+}
+
+.btn-primary:active, .btn-primary:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(64, 184, 240, 0.9) !important;
+  box-shadow: 0 0 0 0.2rem rgba(64, 184, 240, 0.95) !important;
+}
