@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Galleries', type: :feature do
-  let(:admin) {create(:admin)}
-  let(:gallery) {create(:gallery)}
-  let(:resource_name) {Picture.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:gallery) { create(:gallery) }
+  let(:resource_name) { Picture.model_name.human }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -50,7 +50,7 @@ RSpec.describe 'Galleries', type: :feature do
   end
 
   describe '#update' do
-    let(:picture) {gallery.pictures.first}
+    let(:picture) { gallery.pictures.first }
 
     before(:each) do
       visit edit_admins_picture_path(gallery.context, picture.id)
@@ -113,7 +113,6 @@ RSpec.describe 'Galleries', type: :feature do
       within("#gallery-#{gallery.context}") do
         expect(page).not_to have_css("img[src*='#{picture.image.url}']")
       end
-
     end
   end
 

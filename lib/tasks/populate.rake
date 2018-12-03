@@ -22,7 +22,7 @@ namespace :db do
      Gallery].each(&:delete_all)
 
     Admin.create_with(name: 'Administrador', password: '123456')
-      .find_or_create_by!(email: 'admin@admin.com')
+         .find_or_create_by!(email: 'admin@admin.com')
 
     10.times do
       Faq.find_or_create_by!(
@@ -50,9 +50,9 @@ namespace :db do
     end
 
     titles = [
-      {name: 'Especialista', abbrev: 'Esp.'},
-      {name: 'Mestre', abbrev: 'Me.'},
-      {name: 'Doutor', abbrev: 'Dr.'}
+      { name: 'Especialista', abbrev: 'Esp.' },
+      { name: 'Mestre', abbrev: 'Me.' },
+      { name: 'Doutor', abbrev: 'Dr.' }
     ]
 
     titles.each do |title|
