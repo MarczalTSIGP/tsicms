@@ -32,20 +32,19 @@ Rails.application.routes.draw do
     authenticate :admin do
       namespace :admins do
         root to: 'dashboard#index'
-
-        resources :category_recommendations, excepty: [:show]
-        resources :recommendations, excepty: [:show]
         resources :academics
-        resources :professors
-        resources :companies
         resources :activities
         resources :activity_professors, excepty: [:show]
+        resources :category_recommendations, excepty: [:show]
+        resources :companies
+        resources :discipline_monitors
+        resources :recommendations, excepty: [:show]
+        resources :professors
         resources :matrices, :periods, :disciplines
         resources :faqs
         resources :static_pages do
           get 'history', to: 'static_pages#history'
         end
-        resources :discipline_monitors
         resources :monitor_types
         resources :trainees
         resources :category_recommendations,
@@ -62,6 +61,10 @@ Rails.application.routes.draw do
                   :monitor_types,
                   :trainees do
           get 'page/:page', action: :index, on: :collection
+        end
+        scope '/galleries/:context' do
+          get '/' => 'galleries#index', :as => 'galleries'
+          resources :pictures, excepty: [:index, :show]
         end
       end
     end

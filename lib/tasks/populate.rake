@@ -13,13 +13,16 @@ namespace :db do
      Academic,
      Discipline,
      Period,
-     Matrix, Faq,
+     Matrix,
+     Faq,
      StaticPage,
      Trainee,
-     TraineeStatus].each(&:delete_all)
+     TraineeStatus,
+     Picture,
+     Gallery].each(&:delete_all)
 
     Admin.create_with(name: 'Administrador', password: '123456')
-         .find_or_create_by!(email: 'admin@admin.com')
+      .find_or_create_by!(email: 'admin@admin.com')
 
     10.times do
       Faq.find_or_create_by!(
@@ -47,9 +50,9 @@ namespace :db do
     end
 
     titles = [
-      { name: 'Especialista', abbrev: 'Esp.' },
-      { name: 'Mestre', abbrev: 'Me.' },
-      { name: 'Doutor', abbrev: 'Dr.' }
+      {name: 'Especialista', abbrev: 'Esp.'},
+      {name: 'Mestre', abbrev: 'Me.'},
+      {name: 'Doutor', abbrev: 'Dr.'}
     ]
 
     titles.each do |title|
@@ -100,7 +103,7 @@ namespace :db do
     end
 
     3.times do |m_index|
-      matrix = Matrix.find_or_create_by!(name: Faker::DragonBall.character)
+      matrix = Matrix.create!(name: Faker::DragonBall.unique.character)
       10.times do |p_index|
         period = Period.find_or_create_by!(
           name: "#{Faker::Company.suffix}-#{m_index}#{p_index}",
@@ -248,5 +251,16 @@ namespace :db do
       activity: extension_activity,
       start_date: start_date
     )
+    galleries = %w[course static_page]
+    galleries.each do |context|
+      Gallery.create!(context: context)
+    end
+
+    Gallery.all.each do |gallery|
+      5.times do
+        gallery.pictures.create! label: Faker::Lorem.paragraph(1),
+                                 image: FileSpecHelper.image
+      end
+    end
   end
 end

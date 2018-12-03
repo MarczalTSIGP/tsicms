@@ -14,5 +14,5 @@ Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'fo
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
-Rails.application.config.assets.precompile += %w[admins/application.scss]
-Rails.application.config.assets.precompile += %w[admins/application.js]
+Rails.application.config.assets.precompile += %w[admins/application.scss devise/application.scss]
+Rails.application.config.assets.precompile += %w[admins/application.js devise/application.js]

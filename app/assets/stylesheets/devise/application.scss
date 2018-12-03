@@ -4,12 +4,6 @@
 
 
 /*************************************************************
-* Vendors stylesheets
-**************************************************************/
-@import "simplemde/simplemde.min";
-@import "jquery.fancybox/jquery.fancybox.min";
-
-/*************************************************************
 * Configurations
 **************************************************************/
 @import "config/tabler";
@@ -18,17 +12,9 @@
 /*************************************************************
 * Customizations
 **************************************************************/
-@import "customizations/fontawesome";
-@import "customizations/table_bootstrap";
-@import "customizations/sidebar_tabler";
+@import "customizations/simple_form_bootstrap";
 
 
 /*************************************************************
 * Apps stylesheets
 **************************************************************/
-@import "lib/image_preview";
-@import "professor";
-@import "faq";
-@import "discipline_monitors";
-@import "trainees";
-

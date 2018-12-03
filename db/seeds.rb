@@ -26,8 +26,8 @@ monitor_types.each do |type|
   MonitorType.find_or_create_by!(name: type)
 end
 
-treinee_status = %w[Preenchida Disponivel Cancelada]
-treinee_status.each do |status|
+trainee_status = %w[Preenchida Disponivel Cancelada]
+trainee_status.each do |status|
   TraineeStatus.find_or_create_by!(name: status)
 end
 
@@ -109,3 +109,7 @@ StaticPage.find_or_create_by!(
   permalink: 'course_about',
   fixed: true
 )
+gallery_contexts = %w[course static_page]
+gallery_contexts.each do |context|
+  Gallery.find_or_create_by!(context: context)
+end

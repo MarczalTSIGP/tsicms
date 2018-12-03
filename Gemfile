@@ -22,6 +22,7 @@ gem 'active_link_to'
 gem 'breadcrumbs_on_rails'
 gem 'kaminari'
 gem 'route_translator'
+gem 'mini_magick'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
