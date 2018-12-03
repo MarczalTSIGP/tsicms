@@ -1,4 +1,5 @@
 class Discipline < ApplicationRecord
+  paginates_per 15
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :code, presence: true, uniqueness: true
   validates :theoretical_classes, presence: true, numericality: { only_integer: true }

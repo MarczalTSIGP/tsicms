@@ -1,4 +1,10 @@
 pt-BR:
+  pagination:
+      first: "&laquo; Primeiro"
+      last: "Último &raquo;"
+      previous: "&lsaquo; Anterior"
+      next: "Próximo &rsaquo;"
+      truncate: "&hellip;"
   breadcrumbs:
     homepage: 'Página Inicial'
     academics:
@@ -208,7 +214,7 @@ pt-BR:
         end_date: 'Data de fim'
       discipline:
         <<: *commons
-        code: 'Código da Disciplina'
+        code: 'Código'
         hours: 'Total Carga horária'
         initials: 'Sigla'
         theoretical_classes: 'AT - Aulas Teóricas'
