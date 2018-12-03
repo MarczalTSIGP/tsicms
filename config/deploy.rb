@@ -133,7 +133,7 @@ production:
   mailer.host: dw5.tsi.pro.br
   mailer.port: '80'
 EOF
-  StringIO.new(database)
+  StringIO.new(application)
 end
 
 
