@@ -10,66 +10,85 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-3 col-md-6 text-center">
-        <div class="service-box mt-5 mx-auto">
-          <i class="fas fa-4x fa-gem text-primary mb-3 sr-icon-1"></i>
-          <h3 class="mb-3"><%= I18n.t('breadcrumbs.professors.name') %></h3>
-        </div>
+        <%= link_to professors_path do %>
+          <div class="service-box mt-5 mx-auto">
+            <i class="fas fa-4x fa-gem text-primary mb-3 sr-icon-1"></i>
+            <h3 class="mb-3"><%= I18n.t('breadcrumbs.professors.name') %></h3>
+          </div>
+        <% end %>
       </div>
       <div class="col-lg-3 col-md-6 text-center">
-        <div class="service-box mt-5 mx-auto">
-          <i class="fas fa-4x fa-paper-plane text-primary mb-3 sr-icon-2"></i>
-          <h3 class="mb-3"><%= I18n.t('breadcrumbs.companies.name')%></h3>
-        </div>
+        <%= link_to companies_path do %>
+          <div class="service-box mt-5 mx-auto">
+            <i class="fas fa-4x fa-paper-plane text-primary mb-3 sr-icon-2"></i>
+            <h3 class="mb-3"><%= I18n.t('breadcrumbs.companies.name') %></h3>
+          </div>
+        <% end %>
       </div>
       <div class="col-lg-3 col-md-6 text-center">
-        <div class="service-box mt-5 mx-auto">
-          <i class="fas fa-4x fa-code text-primary mb-3 sr-icon-3"></i>
-          <h3 class="mb-3"><%= I18n.t('breadcrumbs.activities.name')%></h3>
-        </div>
+        <%= link_to activities_path do %>
+          <div class="service-box mt-5 mx-auto">
+            <i class="fas fa-4x fa-code text-primary mb-3 sr-icon-3"></i>
+            <h3 class="mb-3"><%= I18n.t('breadcrumbs.activities.name') %></h3>
+          </div>
+        <% end %>
       </div>
       <div class="col-lg-3 col-md-6 text-center">
-        <div class="service-box mt-5 mx-auto">
-          <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
-          <h3 class="mb-3"><%= I18n.t('breadcrumbs.discipline_monitors.name')%></h3>
-        </div>
+        <%= link_to discipline_monitors_path do %>
+          <div class="service-box mt-5 mx-auto">
+            <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
+            <h3 class="mb-3"><%= I18n.t('breadcrumbs.discipline_monitors.name') %></h3>
+          </div>
+        <% end %>
       </div>
       <div class="col-lg-3 col-md-6 text-center">
-        <div class="service-box mt-5 mx-auto">
-          <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
-          <h3 class="mb-3"><%= I18n.t('helpers.tcc')%>e</h3>
-        </div>
+        <%= link_to static_page_path('tcc') do %>
+          <div class="service-box mt-5 mx-auto">
+            <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
+            <h3 class="mb-3"><%= I18n.t('helpers.tcc') %></h3>
+          </div>
+        <% end %>
       </div>
       <div class="col-lg-3 col-md-6 text-center">
-        <div class="service-box mt-5 mx-auto">
-          <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
-          <h3 class="mb-3"><%= I18n.t('helpers.trainee')%></h3>
-        </div>
+        <%= link_to static_page_path('estagio') do %>
+          <div class="service-box mt-5 mx-auto">
+            <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
+            <h3 class="mb-3"><%= I18n.t('helpers.trainee') %></h3>
+          </div>
+        <% end %>
       </div>
       <div class="col-lg-3 col-md-6 text-center">
-        <div class="service-box mt-5 mx-auto">
-          <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
-          <h3 class="mb-3"><%= I18n.t('helpers.instruction_subscription')%></h3>
-        </div>
+        <%= link_to static_page_path('instruction_subscription') do %>
+          <div class="service-box mt-5 mx-auto">
+            <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
+            <h3 class="mb-3"><%= I18n.t('helpers.instruction_subscription') %></h3>
+          </div>
+        <% end %>
       </div>
       <div class="col-lg-3 col-md-6 text-center">
-        <div class="service-box mt-5 mx-auto">
-          <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
-          <h3 class="mb-3"><%= I18n.t('helpers.be_our_student')%></h3>
-        </div>
+        <%= link_to static_page_path('be_our_student') do %>
+          <div class="service-box mt-5 mx-auto">
+            <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
+            <h3 class="mb-3"><%= I18n.t('helpers.be_our_student') %></h3>
+          </div>
+        <% end %>
       </div>
       <div class="col-lg-3 col-md-6 text-center">
-        <div class="service-box mt-5 mx-auto">
-          <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
-          <h3 class="mb-3"><%= I18n.t('helpers.extension_activity')%></h3>
-        </div>
+        <%= link_to static_page_path('extension_activity') do %>
+          <div class="service-box mt-5 mx-auto">
+            <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
+            <h3 class="mb-3"><%= I18n.t('helpers.extension_activity') %></h3>
+          </div>
+        <% end %>
       </div>
       <div class="col-lg-3 col-md-6 text-center">
-        <div class="service-box mt-5 mx-auto">
-          <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
-          <h3 class="mb-3"><%= I18n.t('helpers.course_about')%></h3>
-        </div>
+        <%= link_to static_page_path('course_about') do %>
+          <div class="service-box mt-5 mx-auto">
+            <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
+            <h3 class="mb-3"><%= I18n.t('helpers.course_about') %></h3>
+          </div>
+        <% end %>
       </div>
-
     </div>
   </div>
 </section>
