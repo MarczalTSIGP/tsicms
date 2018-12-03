@@ -33,23 +33,23 @@ RSpec.describe 'Academics', type: :feature do
           expect(page).to have_content(attributes[:name])
         end
       end
+    end
 
-      context 'with invalid fields' do
-        it 'show errors' do
-          attach_file 'academic_image', FileSpecHelper.pdf.path
-          submit_form
+    context 'with invalid fields' do
+      it 'show errors' do
+        attach_file 'academic_image', FileSpecHelper.pdf.path
+        submit_form
 
-          expect(page).to have_selector('div.alert.alert-danger',
-                                        text: I18n.t('flash.actions.errors'))
+        expect(page).to have_selector('div.alert.alert-danger',
+                                      text: I18n.t('flash.actions.errors'))
 
-          have_contains('div.academic_name', I18n.t('errors.messages.blank'))
-          have_contains('div.academic_contact', I18n.t('errors.messages.blank'))
-          expect(page).to have_unchecked_field('academic_graduated')
-          within('div.academic_image') do
-            expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                                extension: '"pdf"',
-                                                allowed_types: 'jpg, jpeg, gif, png'))
-          end
+        have_contains('div.academic_name', I18n.t('errors.messages.blank'))
+        have_contains('div.academic_contact', I18n.t('errors.messages.blank'))
+        expect(page).to have_unchecked_field('academic_graduated')
+        within('div.academic_image') do
+          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
+                                              extension: '"pdf"',
+                                              allowed_types: 'jpg, jpeg, gif, png'))
         end
       end
     end
