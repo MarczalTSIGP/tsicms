@@ -12,7 +12,6 @@ class Admins::DisciplinesController < Admins::BaseController
 
   def new
     @discipline = Discipline.new
-    @workload = Discipline.workload
   end
 
   def edit
@@ -59,7 +58,7 @@ class Admins::DisciplinesController < Admins::BaseController
 
   def discipline_params
     params.require(:discipline).permit(:name, :code, :initials,
-                                       :theoretical_classes,:practical_classes, :distance_classes,
+                                       :theoretical_classes, :practical_classes, :distance_classes,
                                        :hours, :menu, :period_id)
   end
 

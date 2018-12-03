@@ -9,7 +9,6 @@
     <div class="col-sm-6 col-md-5">
       <%= f.input :code %>
     </div>
-
     <div class="col-sm-6 col-md-7">
       <%= f.association :period,
         prompt: "Escolha o período",
@@ -33,7 +32,7 @@
     <div class="col-md-12" id="content">
       <label>Ementa</label>
       <%= f.text_area :menu, placeholder: "Digite a Ementa da Disciplina",
-          class: "form-control markdown-editor", rows: 8, cols: 84 %>
+          class: "form-control markdown-editor", rows: 8, cols: 60 %>
     </div>
   </div>
 

@@ -3,18 +3,20 @@ class Admins::ProfessorPeriodsController < Admins::BaseController
   before_action :set_period, only: [:edit, :update]
 
   add_breadcrumb I18n.t('breadcrumbs.professors.name'), :admins_professors_path
-  # Breadcrumbs teria que ficar Pagina Inicial / Professor:(id) / Periodo do Professor / Novo Periodo
-
+  
   def new
-    add_breadcrumb I18n.t('breadcrumbs.professors.show', name: "##{@professor.id}"), admins_professor_path(@professor)
-    add_breadcrumb I18n.t('breadcrumbs.professors.newperiod'), :new_admins_professor_professor_period_path, only: [:new, :create]
-    
+    add_breadcrumb I18n.t('breadcrumbs.professors.show', 
+                    name: "##{@professor.id}"), admins_professor_path(@professor)
+    add_breadcrumb I18n.t('breadcrumbs.professors.newperiod'), 
+                    :new_admins_professor_professor_period_path, only: [:new, :create]
     @period = @professor.periods.new
   end
 
   def edit
-    add_breadcrumb I18n.t('breadcrumbs.professors.show', name: "##{@professor.id}"), admins_professor_path(@professor)
-    add_breadcrumb I18n.t('breadcrumbs.professors.editperiod'), :edit_admins_professor_professor_period_path
+    add_breadcrumb I18n.t('breadcrumbs.professors.show', 
+                    name: "##{@professor.id}"), admins_professor_path(@professor)
+    add_breadcrumb I18n.t('breadcrumbs.professors.editperiod'), 
+                    :edit_admins_professor_professor_period_path
     @period = @professor.periods.find(params[:id])
   end
 
@@ -39,22 +41,21 @@ class Admins::ProfessorPeriodsController < Admins::BaseController
   end
 
   def update
-     if @period.update(period_params)
+    if @period.update(period_params)
       flash[:success] = I18n.t('flash.actions.update.m',
                                resource_name: ProfessorPeriod.model_name.human)
       redirect_to admins_professor_path(@professor)
     else
-      #add_breadcrumb I18n.t('breadcrumbs.recommendations.edit', name: "##{@recommendation.id}"),
-       #             :edit_admins_recommendation_path
-
       flash.now[:error] = I18n.t('flash.actions.errors')
       render :edit
     end
   end
 
   private
+
   def period_params
-    params.require(:professor_period).permit(:date_entry, :date_out, :professor_id, :professor_category_id)
+    params.require(:professor_period).permit(:date_entry, :date_out, 
+                                            :professor_id, :professor_category_id)
   end
   
   def set_professor
