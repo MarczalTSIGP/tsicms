@@ -1,6 +1,6 @@
 <tr>
   <td><%= discipline.id %></td>
-  <td><%= discipline.name %></td>
+  <td><%= link_to discipline.name, admins_discipline_path(discipline) %></td>
   <td><%= discipline.initials %></td>
   <td><%= discipline.period.name %></td>
   <td><%= discipline.period.matrix.name %></td>
