@@ -8,18 +8,18 @@ Rails.application.routes.draw do
     get '/pages/:static_page_id/vacancies/:vacancy_id',
         to: 'static_pages#vacancy',
         as: 'static_page_vacancy'
-    resources :professors, only: [:index, :show]
-    resources :companies, only: [:index, :show]
-    resources :activities, only: [:index, :show]
-    resources :discipline_monitors, only: [:index, :show]
-
-    resources :professors,
-              :companies,
-              :activities,
-              :discipline_monitors do
+    resources :professors, only: [:index, :show] do
       get 'page/:page', action: :index, on: :collection
     end
-
+    resources :companies, only: [:index, :show] do
+      get 'page/:page', action: :index, on: :collection
+    end
+    resources :activities, only: [:index, :show] do
+      get 'page/:page', action: :index, on: :collection
+    end
+    resources :discipline_monitors, only: [:index, :show] do
+      get 'page/:page', action: :index, on: :collection
+    end
     #========================================
     # Admin
     #========================================
@@ -32,31 +32,27 @@ Rails.application.routes.draw do
     authenticate :admin do
       namespace :admins do
         root to: 'dashboard#index'
-        resources :academics
-        resources :activities
-        resources :activity_professors, excepty: [:show]
-        resources :category_recommendations, excepty: [:show]
-        resources :companies
-        resources :discipline_monitors
-        resources :recommendations, excepty: [:show]
-        resources :professors
-        resources :matrices, :periods, :disciplines
-        resources :faqs
+        resources :activity_professors, excepty: [:show] do
+          get 'page/:page', action: :index, on: :collection
+        end
+        resources :category_recommendations, excepty: [:show] do
+          get 'page/:page', action: :index, on: :collection
+        end
+        resources :recommendations, excepty: [:show] do
+          get 'page/:page', action: :index, on: :collection
+        end
         resources :static_pages do
           get 'history', to: 'static_pages#history'
+          get 'page/:page', action: :index, on: :collection
         end
-        resources :monitor_types
-        resources :trainees
-        resources :category_recommendations,
-                  :recommendations,
-                  :academics,
+        resources :academics,
                   :professors,
                   :companies,
                   :activities,
-                  :activity_professors,
-                  :matrices,
                   :faqs,
-                  :static_pages,
+                  :matrices,
+                  :periods,
+                  :disciplines,
                   :discipline_monitors,
                   :monitor_types,
                   :trainees do

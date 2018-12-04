@@ -272,6 +272,7 @@ pt-BR:
         permalink: 'Link permanente'
         content: 'Conteúdo'
         fixed: 'Fixo'
+        activity: 'Atividade'
       discipline_monitor:
         <<: *commons
         year: 'Ano'
