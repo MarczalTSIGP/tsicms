@@ -1,28 +1,26 @@
 // Rails
 //--------------------
 //= require rails-ujs
+//= require activestorage
 //= require turbolinks
+
 
 // Gems
 //--------------------
 //= require jquery3
 //= require popper
-//= require bootstrap-sprockets
+//= require bootstrap
+
 
 // Vendors
 //--------------------
-//= require config/selectize
-//= require config/jquery.fancybox
+
 
 // Config files
 //--------------------
 //= require config/namespace
-//= require config/simplemde
+//= require config/jquery.mask
+
 
 // App files
 //--------------------
-//= require lib/image_preview
-//= require lib/permalink_generator
-//= require admins/static_pages
-
-//= require admins/loads

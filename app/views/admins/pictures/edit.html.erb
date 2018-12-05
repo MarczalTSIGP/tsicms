@@ -1,0 +1,23 @@
+<% provide(:page_title, "Editar Imagem ##{@picture.id}") %>
+
+<%= simple_form_for [:admins, @picture], url: admins_picture_path(@gallery.context, @picture) do |f| %>
+  <div id="box-image-preview" data-toggle="tooltip" data-placement="left" title="Clique na imagem para alterá-la">
+    <div class="input-field image_preview">
+      <div class="box-image center">
+        <%= image_tag @picture.image.url, class: 'file_preview active' %>
+        <%= f.input :image, label: false, input_html: { accept: 'image/*' }  %>
+        <%= f.hidden_field :image_cache %>
+      </div>
+    </div>
+    <div class="text-box text-center">
+      <p class="text-input">Clique na imagem para alterá-la</p>
+    </div>
+  </div>
+
+  <%= f.input :label %>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_galleries_path(@gallery.context), class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

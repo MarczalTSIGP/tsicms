@@ -93,3 +93,11 @@ RSpec/ExampleLength:
 
 RSpec/HookArgument:
   EnforcedStyle: each
+
+RSpec/MissingExampleGroupArgument:
+  Exclude:
+    - 'spec/factories/galleries.rb'
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - 'spec/factories/galleries.rb'
