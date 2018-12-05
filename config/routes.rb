@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+
   root to: 'home#index'
   get '/static_pages/:permalink', to: 'static_pages#index', as: 'static_page'
   get '/discipline_monitors/index', to: 'discipline_monitors#index', as: 'discipline_monitors'
+  get '/professors/index', to: 'professors#index', as: 'professors'
 
   #========================================
   # Admin

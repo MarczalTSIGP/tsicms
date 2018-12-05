@@ -1,0 +1,53 @@
+<% provide(:page_title, 'Professores') %>
+
+<div class="show-info">
+  <div class="container text-center">
+    <h2 class="mb-4">Professores -
+      <%= link_to "Home", root_path, class: 'btn btn-primary' %>
+    </h2>
+    <hr class="my-4">
+    <div class="row">
+      <hr class="my-4">
+      <%@professors.active.each do |p| %>
+      <div class="col-sm-12 py-2">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="media">
+              <%= image_tag p.image.url, class:'avatar avatar-xxl mr-5' %>
+              <div class="media-body">
+                <h4 class="m-0">
+                  <%= p.name %>
+                </h4>
+                <p class="text-muted mb-0">
+                  <%= p.professor_title.name %>
+                </p>
+                <ul class="social-links list-inline mb-0 mt-2">
+                  <li class="list-inline-item">
+                    <strong>E-mail: </strong>
+                    <%= p.email %>
+                  </li>
+                  <li class="list-inline-item">
+                    <strong>Lates: </strong>
+                    <%= p.lattes %>
+                  </li>
+                  <hr>
+                  <li class="list-inline-item">
+                    <strong>Atuação: </strong>
+                    <%= p.occupation_area %>
+                  </li>
+                  <li class="list-inline-item">
+                    <strong>Status: </strong>
+                    <%= p.professor_category.name %>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <hr class="my-4">
+    <%= link_to "Home", root_path, class: 'btn btn-primary' %>
+  </div>
+</div>
