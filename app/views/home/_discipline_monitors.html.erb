@@ -1,61 +1,53 @@
-<section class="show-info" id="exemple_section">
+<section class="bg-show-info" id="exemple_section">
   <div class="container text-center">
-    <h2 class="mb-4">Monitorias de Disciplinas - Atuais</h2>
+    <h2 class="mb-4">Monitorias de Disciplinas -
+      <%= @discipline_monitors.year_now.first.year %>/
+      <%= t("enums.semesters.#{@discipline_monitors.semester_now.first.semester}") %>
+    </h2>
     <hr>
     <div class="row">
-      <div class="col-sm-12">
-      </div>
       <hr class="my-4">
       <%@discipline_monitors.year_now.semester_now.each do |dm| %>
       <div class="col-sm-6 py-2">
         <div class="card h-100">
+          <h4 class="m-2">
+            <% dm.discipline_monitor_disciplines.each do |d| %>
+            <%= d.discipline.name %>
+            <% end %>
+          </h4>
+          <p class="text-muted mb-0">
+            Tipo:
+            <%= dm.monitor_type.name %>
+          </p>
+          <hr class="large">
           <div class="card-body">
-            <div class="media">
-              <div class="media-body">
-                <small>
-                  <strong>Disciplina(s):</strong>
-                  <% dm.discipline_monitor_disciplines.each do |d| %>
-                  <%= d.discipline.name %>
-                  <% end %>
-                </small>
-                <hr class="large">
-                <small>
-                  <Strong>Ano/Semestre:</Strong>
-                  <%= dm.year %> -
-                  <%= t("enums.semesters.#{dm.semester}") %> --
-                  <Strong>Tipo da monitoria: </Strong>
-                  <%= dm.monitor_type.name %>
-                </small>
-                <hr>
-                <ul class="social-links list-inline mb-0 mt-2">
-                  <li class="list-inline-item">
-                    <%= image_tag dm.academic.image.url, class:'avatar avatar-md mr-3' %>
-                    <div>
-                      <div>
-                        <%= dm.academic.name %>
-                      </div>
-                      <small class="d-block text-muted">Monitor</small>
-                    </div>
-                  </li>
-                  <% dm.discipline_monitor_professors.each do |d| %>
-                  <li class="list-inline-item">
-                    <%= image_tag d.professor.image.url, class:'avatar avatar-md mr-3' %>
-                    <div>
-                      <div>
-                        <%= d.professor.name %>
-                      </div>
-                      <small class="d-block text-muted">Orientador</small>
-                    </div>
-                  </li>
-                  <% end %>
-                </ul>
-                <hr>
-                <small>
-                  <Strong>Descrição:</Strong>
-                  <%= dm.description %>
-                </small>
-              </div>
-            </div>
+            <%= image_tag dm.academic.image.url, class:'avatar avatar-xxl mr-5' %>
+            <h4 class="m-0">
+              <%= dm.academic.name %>
+            </h4>
+            <p class="text-muted mb-0">
+              Monitor
+            </p>
+            <ul class="social-links list-inline mb-0 mt-2">
+              <% dm.discipline_monitor_professors.each do |p| %>
+              <li class="list-inline-item">
+                <%= image_tag p.professor.image.url, class:'avatar avatar-md mr-3' %>
+                <div>
+                  <div>
+                    <%= p.professor.name %>
+                  </div>
+                  <small class="d-block text-muted">Orientador</small>
+                </div>
+              </li>
+              <% end %>
+            </ul>
+            <hr class="large">
+            <Strong>Descrição</Strong>
+            <p class="text-muted md-5">
+              <small>
+                <%= dm.description %>
+              </small>
+            </p>
           </div>
         </div>
       </div>

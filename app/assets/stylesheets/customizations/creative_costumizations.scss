@@ -1,10 +1,4 @@
-:root {
-  --main-bg-color: rgba(46, 153, 254, 0.589);
-}
-
-.show-info {
-  padding: 8rem 0;
-}
+$main-bg-color: rgba(46, 153, 254, 0.589);
 
 header.masthead {
   padding-top: 10rem;
@@ -16,59 +10,63 @@ header.masthead {
 
 hr {
   border-width: 3px;
-  border-color: var(--main-bg-color);
+  border-color: $main-bg-color;
 }
 
 hr.large {
   margin-top: 0px;
-  margin-top: 0px;
-  max-width: 500px;
-  margin-left: 3px;
-  margin-right: 3px;
-  border-width: 3px;
-  border-color: var(--main-bg-color);
+  margin-bottom: 9px;
+  margin-left: 0px;
+  margin-right: 0px;
+  max-width: 650px;
+  border-width: 1px;
+  border-color: rgb(237, 238, 229);
 }
 
 a {
-  color: var(--main-bg-color);
+  color: $main-bg-color;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 a:hover {
-  color: var(--main-bg-color);
+  color: $main-bg-color;
 }
 
 .bg-primary {
-  background-color: var(--main-bg-color) !important;
+  background-color: $main-bg-color !important;
+}
+
+.bg-show-info {
+  padding: 8rem 0;
 }
 
 #mainNav .navbar-brand {
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--main-bg-color);
+  color: $main-bg-color;
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
 #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-  color: var(--main-bg-color);
+  color: $main-bg-color;
 }
 
 #mainNav .navbar-nav>li.nav-item>a.nav-link:hover, #mainNav .navbar-nav>li.nav-item>a.nav-link:focus:hover {
-  color: var(--main-bg-color);
+  color: $main-bg-color;
 }
 
 #mainNav .navbar-nav>li.nav-item>a.nav-link.active, #mainNav .navbar-nav>li.nav-item>a.nav-link:focus.active {
-  color: var(--main-bg-color) !important;
+  color: $main-bg-color !important;
   background-color: transparent;
 }
 
 #mainNav.navbar-shrink .navbar-brand {
-  color: var(--main-bg-color);
+  color: $main-bg-color;
 }
 
 #mainNav.navbar-shrink .navbar-brand:focus, #mainNav.navbar-shrink .navbar-brand:hover {
-  color: var(--main-bg-color)
+  color: $main-bg-color
 }
 
 #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link, #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus {
@@ -76,7 +74,7 @@ a:hover {
 }
 
 #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:hover, #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus:hover {
-  color: var(--main-bg-color);
+  color: $main-bg-color;
 }
 
 .portfolio-box .portfolio-box-caption {
@@ -94,7 +92,7 @@ a:hover {
 }
 
 .text-primary {
-  color: var(--main-bg-color) !important;
+  color: $main-bg-color !important;
 }
 
 .btn-primary {
@@ -104,7 +102,7 @@ a:hover {
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   color: #fff;
-  background-color: var(--main-bg-color) !important;
+  background-color: $main-bg-color !important;
 }
 
 .btn-primary:active, .btn-primary:focus {

@@ -14,7 +14,7 @@
         <div class="service-box mt-5 mx-auto">
           <%= image_tag c.image.url, class:'avatar avatar-xxl mr-5' %>
           <h3 class="mb-3"><%= c.name%></h3>
-          <%= c.site%>
+            <%= link_to c.site, c.site, target: '_blank' %>
           <p class="text-muted mb-0"><%= c.operation%></p>
         </div>
       </div>

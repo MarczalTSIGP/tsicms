@@ -293,6 +293,10 @@ header.masthead p {
   border-color: #F05F40;
 }
 
+.btn-light {
+  margin-bottom: 3px;
+}
+
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   color: #fff;
   background-color: #ee4b28 !important;
