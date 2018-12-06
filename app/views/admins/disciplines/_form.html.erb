@@ -15,18 +15,15 @@
         collection: Period.periods_to_select %>
     </div>
     <!-- Carga Horária da Disciplina -->
-    <div class="col-sm-6 col-md-3">
+    <div class="col-sm-6 col-md-4">
       <%= f.input :theoretical_classes %>
     </div>
-    <div class="col-sm-6 col-md-3">
+    <div class="col-sm-6 col-md-4">
       <%= f.input :practical_classes %>
     </div>
 
-    <div class="col-sm-6 col-md-3">
+    <div class="col-sm-6 col-md-4">
       <%= f.input :distance_classes %>
-    </div>
-    <div class="col-sm-6 col-md-3">
-      <%= f.input :hours %>
     </div>
     <!-- Fim Carga Horária da Disciplina -->
     <div class="col-md-12" id="content">
@@ -35,7 +32,6 @@
           class: "form-control markdown-editor", rows: 8, cols: 60 %>
     </div>
   </div>
-
   <div class="d-flex">
     <%= link_to "Voltar", admins_disciplines_path, class: 'btn btn-secondary' %>
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>

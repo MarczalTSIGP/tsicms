@@ -7,6 +7,6 @@ RSpec.describe Period, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:matrix) }
-    it { is_expected.to have_many(:disciplines).dependent(:destroy) }
+    it { is_expected.to have_many(:discipline).dependent(:destroy) }
   end
 end

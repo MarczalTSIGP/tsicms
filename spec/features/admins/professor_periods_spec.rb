@@ -11,7 +11,7 @@ RSpec.feature 'Professor Periods', type: :feature do
   describe '#create' do
     before(:each) do
       @category = create_list(:professor_category, 2).sample
-      visit new_admins_professor_professor_period_path
+      visit new_admins_professor_professor_period_path(:professor_id)
     end
 
     context 'with valid fields' do
@@ -30,28 +30,9 @@ RSpec.feature 'Professor Periods', type: :feature do
 
         submit_form
 
-        expect(page.current_path).to eq admins_professor_professor_period_path
+        expect(page.current_path).to eq admins_professor_path(:professor_id)
 
         expect_alert_success(resource_name,'flash.actions.create.m')
-
-        expect_page_have_in('table tbody', attributes[:name])
-      end
-
-      it 'add teacher work periods comment with date of entry' do
-        attributes = attributes_for(:professor_period)
-
-        select '10', from: 'professor_period[date_entry(3i)]'
-        select 'Junho', from: 'professor_period[date_entry(2i)]'
-        select '2018', from: 'professor_period[date_entry(1i)]'
-
-        select @category.name, from: 'professor[professor_category_id]'
-        submit_form
-
-        expect(page.current_path).to eq admins_professor_professor_period_path
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.m',
-                                                   resource_name: resource_name))
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -78,9 +59,9 @@ RSpec.feature 'Professor Periods', type: :feature do
         visit edit_admins_professor_professor_period_path(@professor, :professor_period)
       end
       it 'with incorrect values' do
-        select '', from: 'professor_period[start_entry(3i)]'
-        select '', from: 'professor_period[start_entry(2i)]'
-        select '', from: 'professor_period[start_entry(1i)]'
+        select '', from: 'professor_period[date_entry(3i)]'
+        select '', from: 'professor_period[date_entry(2i)]'
+        select '', from: 'professor_period[date_entry(1i)]'
         submit_form
 
         expect_alert_error('flash.actions.errors')
