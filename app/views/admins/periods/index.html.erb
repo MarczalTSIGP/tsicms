@@ -1,27 +1,29 @@
 <% provide(:page_title, 'Períodos') %>
 
 <div class=" text-right">
-  <%= link_to  new_admins_period_path,
-    class: 'btn btn-secondary',
-    title: ' Novo Período',
-    data:{ toggle: 'tooltip', placement: 'top'} do%>
+  <%= link_to new_admins_period_path,
+              class: 'btn btn-secondary',
+              title: ' Novo Período',
+              data: {toggle: 'tooltip', placement: 'top'} do %>
     <i class="fas fa-plus"></i>
   <% end %>
 </div>
 
+<%= paginate @periods %>
+
 <div class="table-responsive">
   <table class="table table-data card-table table-vcenter text-nowrap">
     <thead>
-      <tr>
-        <th class="w-1">Id</th>
-        <th><%= t('activerecord.attributes.period.name') %></th>
-        <th><%= t('activerecord.attributes.period.matrix') %> </th>
-        <th><%= t('activerecord.attributes.matrix.created_at') %></th>
-        <th></th>
-      </tr>
+    <tr>
+      <th class="w-1">Id</th>
+      <th><%= t('activerecord.attributes.period.name') %></th>
+      <th><%= t('activerecord.attributes.period.matrix') %> </th>
+      <th><%= t('activerecord.attributes.matrix.created_at') %></th>
+      <th></th>
+    </tr>
     </thead>
     <tbody>
-      <%= render @periods %>
+      <%= render partial: 'period', collection: @periods %>
     </tbody>
   </table>
 </div>

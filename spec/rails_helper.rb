@@ -34,6 +34,5 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
 
   config.include ApplicationHelper
-  config.include Admins::ActivitiesHelper
   config.include ActionView::Helpers::TranslationHelper
 end

@@ -131,8 +131,7 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
       static_page = create(:static_page)
       visit admins_static_pages_path
 
-      destroy_path = "/admins/static_pages/#{static_page.id}"
-      click_link href: destroy_path
+      click_on_destroy_link(admins_static_page_path(static_page))
 
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.f',

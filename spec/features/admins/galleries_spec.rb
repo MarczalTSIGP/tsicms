@@ -106,12 +106,9 @@ RSpec.describe 'Galleries', type: :feature do
 
       picture = gallery.pictures.first
 
-      destroy_path = "/admins/galleries/#{gallery.context}/pictures/#{picture.id}"
-      click_link href: destroy_path
+      click_on_destroy_link(admins_picture_path(gallery.context, picture))
 
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
+      expect_alert_success(resource_name, 'flash.actions.destroy.f')
 
       within("#gallery-#{gallery.context}") do
         expect(page).not_to have_css("img[src*='#{picture.image.url}']")

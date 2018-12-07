@@ -15,7 +15,7 @@ RSpec.describe 'public discipline monitor', type: :feature do
         expect(page).to have_content(m.disciplines.first.name)
         expect(page).to have_content(m.professors.first.name)
 
-        expect(page).to have_link(href: monitors_path(m))
+        expect(page).to have_link(href: discipline_monitor_path(m))
       end
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe 'public discipline monitor', type: :feature do
     it 'show discipline monitors selected' do
       discipline_monitor = create(:discipline_monitor)
 
-      visit monitors_path(discipline_monitor)
+      visit discipline_monitor_path(discipline_monitor)
 
       expect(page).to have_content(discipline_monitor.year)
       expect(page).to have_content(discipline_monitor.description)

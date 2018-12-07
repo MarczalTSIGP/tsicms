@@ -11,10 +11,18 @@
     <div class="col-sm-12 col-md-6">
       <%= f.input :permalink %>
     </div>
+    <div class="col-sm-12 col-md-6">
+      <%= f.input :fixed %>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <%= f.association :activity,
+                        collection: Activity.order(name: :asc),
+                        prompt: t('prompt.select.f', name: I18n.t('breadcrumbs.activities.name')) %>
+    </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <%= f.input :content, input_html: { class: 'markdown-editor' } %>
+      <%= f.input :content, input_html: {class: 'markdown-editor'} %>
     </div>
   </div>
 
