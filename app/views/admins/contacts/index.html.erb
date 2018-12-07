@@ -1,0 +1,35 @@
+<% provide(:page_title, 'Contatos') %>
+
+<div class="input-group-prepend">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" 
+          aria-haspopup="true" aria-expanded="false">Ação</button>
+  <div class="dropdown-menu" x-placement="bottom-start" 
+       style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+    <div>
+      <%= link_to admins_mark_messages_read_path, class: 'remote-link' do %>
+        Marcar como lida
+      <% end %>
+    </div>
+    <div>
+      <%= link_to admins_mark_messages_unread_path, class: 'remote-link' do %>
+        Marcar como não lida
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover table-outline table-vcenter text-nowrap card-table" id="academics_table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Enviado em</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @contacts %>
+    </tbody>
+  </table>
+</div>

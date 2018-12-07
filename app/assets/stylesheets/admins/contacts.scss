@@ -1,0 +1,19 @@
+#contacts-index table tbody tr {
+    cursor: pointer;
+    font-weight: bold;
+    background: #eaeae1; 
+    &.read {
+        background: #ffffff; 
+        font-weight: normal;      
+    }
+}
+
+#contacts-contact label {
+    z-index: 100;
+}
+
+#contacts-index .remote-link {
+    color: black;
+    margin: 15px;
+    text-decoration: none;
+}

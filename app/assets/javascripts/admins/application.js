@@ -24,5 +24,5 @@
 //= require lib/image_preview
 //= require lib/permalink_generator
 //= require admins/static_pages
-
+//= require admins/contacts
 //= require admins/loads

@@ -262,5 +262,15 @@ namespace :db do
                                  image: FileSpecHelper.image
       end
     end
+
+    10.times do
+      Contact.create!(
+        name: Faker::Name.unique.name,
+        email: Faker::Internet.email,
+        phone: Faker::PhoneNumber.phone_number,
+        message: Faker::Lorem.paragraph,
+        read: [true, false].sample,
+      )
+    end
   end
 end

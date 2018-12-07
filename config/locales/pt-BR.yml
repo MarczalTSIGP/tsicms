@@ -126,6 +126,9 @@ pt-BR:
     pictures:
       new: 'Upload de Imagens'
       edit: 'Editar Imagem %{name}'
+    contacts:
+      name: 'Contatos'
+      show: 'Visualizar Contato %{name}'
   helpers:
     currently: 'Atualmente'
     trainee: 'Estágio'
@@ -202,6 +205,7 @@ pt-BR:
       discipline_monitor:
         one: 'Monitoria de disciplina'
         other: 'Monitorias de disciplina'
+<<<<<<< 05c94d34fd05122363cf3211106ce77bab3180e7
       company:
         one: 'Empresa'
         other: 'Empresas'
@@ -211,6 +215,11 @@ pt-BR:
       picture:
         one: 'Imagem'
         other: 'Imagens'
+=======
+      contact:
+        one: 'Contato'
+        other: 'Contatos'
+>>>>>>> Fale Conosco Admin
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -280,6 +289,7 @@ pt-BR:
         academic: 'Acadêmico'
         description: 'Descrição'
         monitor_type: 'Tipo da monitoria'
+<<<<<<< 05c94d34fd05122363cf3211106ce77bab3180e7
         discipline_ids: 'Disciplina'
         professor_ids: 'Professor'
       company:
@@ -290,3 +300,12 @@ pt-BR:
         title: 'Título'
         company: 'Empresa'
         trainee_status: 'Status'
+=======
+      contact:
+        <<: *commons
+        phone: 'Telefone'
+        message: 
+          one: 'Mensagem'
+          other: 'Mensagens'
+        read: 'Lido'
+>>>>>>> Fale Conosco Admin

@@ -66,6 +66,9 @@ Rails.application.routes.draw do
           get '/' => 'galleries#index', :as => 'galleries'
           resources :pictures, excepty: [:index, :show]
         end
+        put '/contacts/mark_as_read', to: 'contacts#mark_messages_read', as: :mark_messages_read
+        put '/contacts/mark_as_unread', to: 'contacts#mark_messages_unread', as: :mark_messages_unread
+        put '/contacts/mark_all_as_read', to: 'contacts#mark_all_messages_read', as: :mark_all_messages_read
         resources :contacts, excepty: [:show]
       end
     end

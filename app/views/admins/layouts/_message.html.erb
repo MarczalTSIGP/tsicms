@@ -1,0 +1,8 @@
+<% @messages.each do |message| %>
+    <a href="#" class="dropdown-item d-flex">
+        <div style="white-space: nowrap; width: 26em; overflow: hidden;">
+            <strong><%= message.name %></strong>: <%= message.message %>
+            <div class="small text-muted">Recebida em: <%= l(message.created_at, format: :short) %></div>
+        </div>
+    </a>
+<% end %>
