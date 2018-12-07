@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.feature 'Professor Periods', type: :feature do
-  let(:admin) {create(:admin)}
+RSpec.describe 'Professor Periods', type: :feature do
+  let(:admin) { create(:admin) }
   let(:resource_name) {ProfessorPeriod.model_name.human}
 
   before(:each) do

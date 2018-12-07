@@ -79,9 +79,12 @@ RSpec.describe 'Discipline', type: :feature do
     context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'discipline_name', with: discipline.name
-        expect(page).to have_field 'discipline_practical_classes', with: discipline.practical_classes
-        expect(page).to have_field 'discipline_distance_classes', with: discipline.distance_classes
-        expect(page).to have_field 'discipline_theoretical_classes', with: discipline.theoretical_classes
+        expect(page).to have_field 'discipline_practical_classes', 
+                                    with: discipline.practical_classes
+        expect(page).to have_field 'discipline_distance_classes', 
+                                    with: discipline.distance_classes
+        expect(page).to have_field 'discipline_theoretical_classes', 
+                                    with: discipline.theoretical_classes
         expect(page).to have_field 'discipline_initials', with: discipline.initials
         expect(page).to have_field 'discipline_code', with: discipline.code
 
@@ -170,14 +173,12 @@ RSpec.describe 'Discipline', type: :feature do
 
     it 'show all discipline with options' do
       visit admins_discipline_path(discipline)
-
-        expect(page).to have_content(discipline.name)
-        expect(page).to have_content(discipline.code)
-        expect(page).to have_content(discipline.initials)
-        expect(page).to have_content(discipline.hours)
-        expect(page).to have_content(discipline.period.name)
-        expect(page).to have_content(discipline.period.matrix.name)
-
+      expect(page).to have_content(discipline.name)
+      expect(page).to have_content(discipline.code)
+      expect(page).to have_content(discipline.initials)
+      expect(page).to have_content(discipline.hours)
+      expect(page).to have_content(discipline.period.name)
+      expect(page).to have_content(discipline.period.matrix.name)
       expect(page).to have_link(href: admins_disciplines_path)
     end
   end
