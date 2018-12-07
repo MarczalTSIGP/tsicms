@@ -12,6 +12,6 @@ class Admins::BaseController < ActionController::Base
   protected
 
   def find_fixed_pages
-    @static_pages = StaticPage.where(fixed: true)
+    @static_pages_on_menu = StaticPage.where(fixed: true)
   end
 end

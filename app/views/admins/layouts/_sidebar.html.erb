@@ -113,10 +113,10 @@
         <%= active_link_to admins_static_pages_path, class: 'list-group-item list-group-item-action' do %>
           <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Todas
         <% end %>
-        <% unless @static_pages.nil? %>
-          <% @static_pages.each do |static_page| %>
+        <% unless @static_pages_on_menu.nil? %>
+          <% @static_pages_on_menu.each do |static_page| %>
             <%= active_link_to admins_static_page_path(static_page), class: 'list-group-item list-group-item-action' do %>
-              <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span><%= static_page.title.upcase %>
+              <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span><%= static_page.title %>
             <% end %>
           <% end %>
         <% end %>
