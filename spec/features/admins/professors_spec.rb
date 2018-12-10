@@ -1,16 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin Professors', type: :feature do
-  let(:admin) {create :admin}
-  let(:resource_name) {Professor.model_name.human}
+  let(:admin) { create :admin }
+  let(:resource_name) { Professor.model_name.human }
+  let!(:professor) { create(:professor) }
 
   before(:each) do
     login_as admin, scope: :admin
   end
 
   describe '#create' do
-    let!(:category) {create_list(:professor_category, 2).sample}
-    let!(:title) {create_list(:professor_title, 3).sample}
+    let!(:category) { create_list(:professor_category, 2).sample }
+    let!(:title) { create_list(:professor_title, 3).sample }
 
     before(:each) do
       visit new_admins_professor_path
@@ -31,8 +32,8 @@ RSpec.describe 'Admin Professors', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_professors_path)
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.m', resource_name: resource_name))
+        text = I18n.t('flash.actions.create.m', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -42,15 +43,17 @@ RSpec.describe 'Admin Professors', type: :feature do
       it 'cannot create professor' do
         submit_form
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        fields = '%w[div.professor_name div.professor_occupation_area div.professor_email div.professor_professor_category div.professor_professor_title]'
-        expect_page_have_blank_messages(fields)
+        fields = %w[div.professor_name]
+        fields.push 'div.professor_occupation_area'
+        fields.push 'div.professor_email'
+        fields.push 'div.professor_professor_category'
+        fields.push 'div.professor_professor_title'
+        expect_page_blank_messages(fields)
       end
     end
   end
 
   describe '#update' do
-    let(:professor) {create :professor}
-
     before(:each) do
       visit edit_admins_professor_path(professor)
     end
@@ -75,28 +78,8 @@ RSpec.describe 'Admin Professors', type: :feature do
     end
   end
 
-  describe '#destroy' do
-    it 'professor' do
-      professor = create(:professor)
-      visit admins_professors_path
-
-      click_on_destroy_link(admins_professor_path(professor))
-      expect_alert_success(resource_name, 'flash.actions.destroy.m')
-      expect_page_not_have_in('table tbody', professor.name)
-    end
-
-    it 'professor unless has dependet' do
-      ap = create(:activity_professor)
-      visit admins_professors_path
-
-      click_on_destroy_link(admins_professor_path(ap.professor))
-      expect(page).to have_flash(:warning, text: I18n.t('flash.actions.destroy.bond', resource_name: resource_name))
-      expect(page).to have_content('table tbody', ap.professor.name)
-    end
-  end
-
   describe '#index' do
-    let!(:professors) {create_list(:professor, 2)}
+    let!(:professors) { create_list(:professor, 2) }
 
     it 'show all professors' do
       visit admins_professors_path
@@ -114,7 +97,6 @@ RSpec.describe 'Admin Professors', type: :feature do
 
   describe '#show' do
     it 'show professor page' do
-      professor = create(:professor)
       visit admins_professor_path(professor)
 
       expect(page).to have_content(professor.name)
@@ -124,6 +106,27 @@ RSpec.describe 'Admin Professors', type: :feature do
       expect(page).to have_content(professor.occupation_area)
       expect(page).to have_content(professor.professor_category.name)
       expect(page).to have_content(professor.professor_title.name)
+    end
+  end
+
+  describe '#destroy' do
+    it 'professor' do
+      visit admins_professors_path
+
+      click_on_destroy_link(admins_professor_path(professor))
+      text = I18n.t('flash.actions.destroy.m', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('table tbody', professor.name)
+    end
+
+    it 'professor unless has dependet' do
+      ap = create(:activity_professor)
+      visit admins_professors_path
+
+      click_on_destroy_link(admins_professor_path(ap.professor))
+      text = I18n.t('flash.actions.destroy.bond', resource_name: resource_name)
+      expect(page).to have_flash(:warning, text: text)
+      expect(page).to have_content('table tbody', ap.professor.name)
     end
   end
 end

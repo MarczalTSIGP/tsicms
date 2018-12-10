@@ -1,16 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Activity Professors', type: :feature do
-  let(:admin) {create(:admin)}
-  let(:resource_name) {ActivityProfessor.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { ActivityProfessor.model_name.human }
+  let!(:activity_professor) { create(:activity_professor) }
 
   before(:each) do
     login_as(admin, scope: :admin)
   end
 
   describe '#create' do
-    let!(:professor) {create_list(:professor, 5).sample}
-    let!(:activity) {create_list(:activity, 5).sample}
+    let!(:professor) { create_list(:professor, 5).sample }
+    let!(:activity) { create_list(:activity, 5).sample }
 
     before(:each) do
       visit new_admins_activity_professor_path
@@ -30,8 +31,8 @@ RSpec.describe 'Activity Professors', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_activities_path)
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
+        text = I18n.t('flash.actions.create.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -53,8 +54,8 @@ RSpec.describe 'Activity Professors', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_activities_path)
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
+        text = I18n.t('flash.actions.create.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -64,17 +65,18 @@ RSpec.describe 'Activity Professors', type: :feature do
       it 'show errors' do
         submit_form
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        fields = '%w[div.activity_professor_professor div.activity_professor_activity div.activity_professor_start_date]'
-        expect_page_have_blank_messages(fields)
+        fields = %w[div.activity_professor_professor]
+        fields.push 'div.activity_professor_activity'
+        fields.push 'div.activity_professor_start_date'
+        expect_page_blank_messages(fields)
       end
     end
   end
 
   describe '#update' do
     context 'with success' do
-      let(:activity_professor) {create(:activity_professor)}
-      let(:update_link) {"a[href='#{edit_admins_activity_professor_path(activity_professor)}']"}
-      let(:new_year) {'2020'}
+      let(:update_link) { "a[href='#{edit_admins_activity_professor_path(activity_professor)}']" }
+      let(:new_year) { '2020' }
 
       it 'with correct values in professor path' do
         visit admins_professor_path(activity_professor.professor)
@@ -103,7 +105,7 @@ RSpec.describe 'Activity Professors', type: :feature do
     end
 
     context 'with invalid fields' do
-      let(:activity_professor) {create(:activity_professor)}
+      let(:activity_professor) { create(:activity_professor) }
 
       before(:each) do
         visit edit_admins_activity_professor_path(activity_professor)
@@ -121,8 +123,6 @@ RSpec.describe 'Activity Professors', type: :feature do
   end
 
   describe '#show' do
-    let(:activity_professor) {create(:activity_professor)}
-
     it 'professor with activities history' do
       visit admins_professor_path(activity_professor.professor)
 
@@ -132,7 +132,6 @@ RSpec.describe 'Activity Professors', type: :feature do
     end
     it 'activity with professors history' do
       visit visit admins_activity_path(activity_professor.activity)
-
       expect(page).to have_content(activity_professor.professor.name)
       expect(page).to have_content(I18n.l(activity_professor.start_date, format: :long))
       expect(page).to have_content(activity_professor.end_date_human)
@@ -140,13 +139,12 @@ RSpec.describe 'Activity Professors', type: :feature do
   end
 
   describe '#destroy' do
-    let(:activity_professor) {create(:activity_professor)}
-
     it 'activity from professor' do
       visit admins_professor_path(activity_professor.professor)
 
       click_on_destroy_link(admins_activity_professor_path(activity_professor))
-      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
       expect_page_not_have_in('table tbody', activity_professor.activity.name)
     end
 
@@ -154,7 +152,8 @@ RSpec.describe 'Activity Professors', type: :feature do
       visit admins_activity_path(activity_professor.activity)
 
       click_on_destroy_link(admins_activity_professor_path(activity_professor))
-      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
       expect_page_not_have_in('table tbody', activity_professor.professor.name)
     end
   end

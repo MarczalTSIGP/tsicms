@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Companies', type: :feature do
-  let(:admin) {create(:admin)}
-  let(:resource_name) {Company.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { Company.model_name.human }
+  let!(:company) { create :company }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -24,8 +25,8 @@ RSpec.describe 'Companies', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_companies_path)
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
+        text = I18n.t('flash.actions.create.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -37,15 +38,13 @@ RSpec.describe 'Companies', type: :feature do
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        fields = '%w[div.company_name, div.company_site div.company_operation]'
-        expect_page_have_blank_message(fields)
+        fields = %w[div.company_name div.company_site div.company_operation]
+        expect_page_blank_message(fields)
       end
     end
   end
 
   describe '#update' do
-    let(:company) {create :company}
-
     before(:each) do
       visit edit_admins_company_path(company)
     end
@@ -65,14 +64,14 @@ RSpec.describe 'Companies', type: :feature do
       it 'cannot update company' do
         fill_in 'company_name', with: ''
         submit_form
-        expect_page_have_blank_message('div.company_name')
+        expect_page_blank_message('div.company_name')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
       end
     end
   end
 
   describe '#index' do
-    let!(:companies) {create_list(:company, 2)}
+    let!(:companies) { create_list(:company, 2) }
 
     it 'show all companies' do
       visit admins_companies_path
@@ -87,7 +86,6 @@ RSpec.describe 'Companies', type: :feature do
       end
     end
     it 'show company page' do
-      company = create(:company)
       visit admins_company_path(company)
 
       expect(page).to have_content(company.name)
@@ -98,12 +96,11 @@ RSpec.describe 'Companies', type: :feature do
 
   describe '#destroy' do
     it 'company' do
-      company = create(:company)
       visit admins_companies_path
 
       click_on_destroy_link(admins_company_path(company))
-
-      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
       expect_page_not_have_in('table tbody', company.name)
     end
   end
