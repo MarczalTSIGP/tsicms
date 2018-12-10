@@ -34,20 +34,14 @@ RSpec.describe 'Faqs', type: :feature do
       it 'show errors' do
         submit_form
 
-<<<<<<< 4707384ed767b5efea427a4307adde6f40a8df9e
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
         fields = %w[div.faq_title div.faq_answer]
-=======
+
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-<<<<<<< 19b395ee0066d27696b4c203a3b7b50146251c5e
-        fields = '%w[div.faq_title div.faq_answer]'
->>>>>>> refatoracao de flash messages
-        expect_page_have_blank_messages(fields)
-=======
-        fields = %w[div.faq_title div.faq_answer]
+
         expect_page_blank_messages(fields)
->>>>>>> refatoracao dos testes
+
       end
     end
   end
@@ -108,12 +102,16 @@ RSpec.describe 'Faqs', type: :feature do
       end
     end
   end
+<<<<<<< 16d0ea6db626c68dcb0ff857055d820bbd47be28
 
+=======
+>>>>>>> correcao de refatoracao dos testes
   describe '#destroy' do
     it 'faq' do
       visit admins_faqs_path
 
       click_on_destroy_link(admins_faq_path(faq))
+<<<<<<< 16d0ea6db626c68dcb0ff857055d820bbd47be28
 
       expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
 
@@ -121,6 +119,11 @@ RSpec.describe 'Faqs', type: :feature do
       expect(page).to have_flash(:success, text: text)
 
       expect_page_not_have_in('#accordion', period.name)
+=======
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('#accordion', faq.title)
+>>>>>>> correcao de refatoracao dos testes
     end
   end
 end

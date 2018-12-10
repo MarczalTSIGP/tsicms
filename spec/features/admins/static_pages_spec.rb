@@ -59,8 +59,8 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
       it 'with correct values' do
         expect_page_have_value('static_page_title', static_page.title)
         expect_page_have_value('static_page_sub_title', static_page.sub_title)
-        expect_page_have_value('static_page_permalink', static_page.title.permalink)
-        expect_page_have_value('static_page_content', static_page.title.content)
+        expect_page_have_value('static_page_permalink', static_page.permalink)
+        expect_page_have_value('static_page_content', static_page.content)
       end
     end
 

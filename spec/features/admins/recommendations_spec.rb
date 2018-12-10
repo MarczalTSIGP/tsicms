@@ -61,7 +61,7 @@ RSpec.describe 'Recommendations', type: :feature do
       it 'with correct values' do
         expect_page_have_value('recommendation_title', recommendation.title)
         expect_page_have_value('recommendation_description', recommendation.description)
-        expect_page_have_selected('recommendation_category_recommendation_id', selected: recommendation.category_recommendation.name)
+        expect_page_have_selected('recommendation_category_recommendation_id', recommendation.category_recommendation.name)
         expect(page).to have_css("img[src*='#{recommendation.image}']")
       end
     end

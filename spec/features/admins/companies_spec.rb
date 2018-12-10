@@ -39,7 +39,8 @@ RSpec.describe 'Companies', type: :feature do
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
         fields = %w[div.company_name div.company_site div.company_operation]
-        expect_page_blank_message(fields)
+
+        expect_page_blank_messages(fields)
       end
     end
   end
