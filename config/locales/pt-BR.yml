@@ -126,6 +126,9 @@ pt-BR:
     pictures:
       new: 'Upload de Imagens'
       edit: 'Editar Imagem %{name}'
+    documents:
+      new: 'Upload de Documentos'
+      edit: 'Editar Documento %{name}'
   helpers:
     currently: 'Atualmente'
     trainee: 'Estágio'
@@ -211,6 +214,9 @@ pt-BR:
       picture:
         one: 'Imagem'
         other: 'Imagens'
+      document:
+        one: 'Documento'
+        other: 'Documentos'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -290,3 +296,8 @@ pt-BR:
         title: 'Título'
         company: 'Empresa'
         trainee_status: 'Status'
+      picture:
+        <<: *commons
+        label: 'Legenda'
+      document:
+        <<: *commons
