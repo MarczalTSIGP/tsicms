@@ -95,22 +95,6 @@ RSpec.describe 'Galleries', type: :feature do
     end
   end
 
-  describe '#destroy' do
-    it 'gallery picture' do
-      visit admins_galleries_path(gallery.context)
-
-      picture = gallery.pictures.first
-
-      click_on_destroy_link(admins_picture_path(gallery.context, picture))
-
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
-      within("#gallery-#{gallery.context}") do
-        expect(page).not_to have_css("img[src*='#{picture.image.url}']")
-      end
-    end
-  end
-
   describe '#index' do
     it 'has the correct content' do
       visit admins_galleries_path(gallery.context)
@@ -119,7 +103,24 @@ RSpec.describe 'Galleries', type: :feature do
 
       gallery.pictures.each do |p|
         expect(page).to have_link(href: edit_admins_picture_path(gallery.context, p))
-        expect_page_have_destroy_link(admins_picture_path(gallery.context, picture))
+        expect_page_have_destroy_link(admins_picture_path(gallery.context, p))
+      end
+    end
+  end
+
+  describe '#destroy' do
+    it 'gallery picture' do
+      visit admins_galleries_path(gallery.context)
+
+      picture = gallery.pictures.first
+
+      click_on_destroy_link(admins_picture_path(gallery.context, picture))
+
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+
+      within("#gallery-#{gallery.context}") do
+        expect(page).not_to have_css("img[src*='#{picture.image.url}']")
       end
     end
   end

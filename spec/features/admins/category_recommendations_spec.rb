@@ -84,48 +84,34 @@ RSpec.describe 'Category Recommendations', type: :feature do
         expect_page_blank_message('div.category_recommendation_name')
       end
     end
+  end
 
-    context 'when has same name' do
-      it 'show errors' do
-        fill_in 'category_recommendation_name', with: category.name
-        submit_form
-        expect_page_have_in('div.category_recommendation_name', I18n.t('errors.messages.taken'))
-      end
+  describe '#destroy' do
+    it 'category recommendation' do
+      visit admins_category_recommendations_path
 
-      it 'show errors cosidering insensitive case' do
-        fill_in 'category_recommendation_name', with: category.name.downcase
-        submit_form
-        expect_page_have_in('div.category_recommendation_name', I18n.t('errors.messages.taken'))
-      end
+      click_on_destroy_link(admins_category_recommendation_path(category))
+
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+
+      expect_page_not_have_in('table tbody', category.name)
     end
+  end
 
-    describe '#destroy' do
-      it 'category recommendation' do
-        visit admins_category_recommendations_path
+  describe '#index' do
+    let!(:categories) { create_list(:category_recommendation, 3) }
 
-        click_on_destroy_link(admins_category_recommendation_path(category))
+    it 'show all category recommendations with options' do
+      visit admins_category_recommendations_path
 
-        text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
-        expect(page).to have_flash(:success, text: text)
-        
-        expect_page_not_have_in('table tbody', category.name)
-      end
-    end
+      categories.each do |category|
+        expect(page).to have_content(category.name)
+        expect(page).to have_content(I18n.l(category.created_at, format: :long))
 
-    describe '#index' do
-      let!(:categories) { create_list(:category_recommendation, 3) }
+        expect(page).to have_link(href: edit_admins_category_recommendation_path(category))
 
-      it 'show all category recommendations with options' do
-        visit admins_category_recommendations_path
-
-        categories.each do |category|
-          expect(page).to have_content(category.name)
-          expect(page).to have_content(I18n.l(category.created_at, format: :long))
-
-          expect(page).to have_link(href: edit_admins_category_recommendation_path(category))
-
-          expect_page_have_destroy_link(admins_category_recommendation_path(category))
-        end
+        expect_page_have_destroy_link(admins_category_recommendation_path(category))
       end
     end
   end

@@ -38,7 +38,6 @@ RSpec.describe 'Academics', type: :feature do
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-
         fields = %w[div.academic_name div.academic_contact]
 
         expect_page_blank_messages(fields)

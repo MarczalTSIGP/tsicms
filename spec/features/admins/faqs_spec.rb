@@ -41,7 +41,6 @@ RSpec.describe 'Faqs', type: :feature do
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
         expect_page_blank_messages(fields)
-
       end
     end
   end

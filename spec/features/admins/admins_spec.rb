@@ -16,16 +16,18 @@ RSpec.describe 'Admins', type: :feature do
         fill_in 'admin_name', with: new_name
         fill_in 'admin_current_password', with: 'password'
 
-        submit_form
+        find('input[name="commit"]').click
 
         fill_in 'admin_current_password', with: 'password'
         attach_file 'admin_image', FileSpecHelper.image.path
         submit_form
 
         expect(page).to have_current_path(edit_admin_registration_path)
-        expect(page).to have_flash(:info, text: I18n.t('devise.registrations.updated'))
-        expect_page_have_in('a.nav-link', new_name)
+        expect(page).to have_selector('div.alert.alert-info',
+                                      text: I18n.t('devise.registrations.updated'))
+
         within('a.nav-link') do
+          expect(page).to have_content(new_name)
           admin.reload
           expect(page).to have_css("span[style=\"background-image: url('#{admin.image}')\"]")
         end
@@ -38,12 +40,19 @@ RSpec.describe 'Admins', type: :feature do
         fill_in 'admin_current_password', with: 'password'
         attach_file 'admin_image', FileSpecHelper.pdf.path
         submit_form
-        text = I18n.t('simple_form.error_notification.default_message')
-        expect(page).to have_flash(:danger, text: text)
-        expect_page_blank_message('div.admin_name')
-        i18n_msg = 'errors.messages.extension_whitelist_error'
-        msg_not_in = I18n.t(i18n_msg, extension: '"pdf"', allowed_types: 'jpg, jpeg, gif, png')
-        expect_page_not_have_in('div.admin_image', msg_not_in)
+
+        alert_danger = I18n.t('simple_form.error_notification.default_message')
+        expect(page).to have_selector('div.alert.alert-danger',
+                                      text: alert_danger)
+
+        within('div.admin_name') do
+          expect(page).to have_content(I18n.t('errors.messages.blank'))
+        end
+        within('div.admin_image') do
+          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
+                                              extension: '"pdf"',
+                                              allowed_types: 'jpg, jpeg, gif, png'))
+        end
       end
     end
   end

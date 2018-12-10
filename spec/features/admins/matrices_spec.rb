@@ -90,22 +90,6 @@ RSpec.describe 'Matrix', type: :feature do
         expect_page_blank_message('div.matrix_name')
       end
     end
-
-    context 'when has same name' do
-      it 'show errors' do
-        fill_in 'matrix_name', with: matrix.name
-        submit_form
-
-        expect_page_have_in('div.matrix_name', I18n.t('errors.messages.taken'))
-      end
-
-      it 'show errors cosidering insensitive case' do
-        fill_in 'matrix_name', with: matrix.name.downcase
-        submit_form
-
-        expect_page_have_in('div.matrix_name', I18n.t('errors.messages.taken'))
-      end
-    end
   end
 
   describe '#index' do
