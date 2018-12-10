@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Academics', type: :feature do
-  let(:admin) {create(:admin)}
-  let(:resource_name) {Academic.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { Academic.model_name.human }
+  let!(:academic) { create(:academic) }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -24,7 +25,8 @@ RSpec.describe 'Academics', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_academics_path)
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.m', resource_name: resource_name))
+        text = I18n.t('flash.actions.create.m', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
         expect_page_have_in('table tbody', attributes[:name])
       end
     end
@@ -36,27 +38,25 @@ RSpec.describe 'Academics', type: :feature do
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        fields = '%w[div.academic_name div.academic_contact]'
-        expect_page_have_blank_messages(fields)
+        fields = %w[div.academic_name div.academic_contact]
+        expect_page_blank_messages(fields)
         expect(page).to have_unchecked_field('academic_graduated')
-        expect_page_have_in('div.academic_image', I18n.t('errors.messages.extension_whitelist_error',
-                                                         extension: '"pdf"',
-                                                         allowed_types: 'jpg, jpeg, gif, png'))
+        i18nmsg = 'errors.messages.extension_whitelist_error'
+        text = I18n.t(i18nmsg, extension: '"pdf"', allowed_types: 'jpg, jpeg, gif, png')
+        expect_page_have_in('div.academic_image', text)
       end
     end
   end
 
   describe '#update' do
-    let(:academic) {create(:academic)}
-
     before(:each) do
       visit edit_admins_academic_path(academic)
     end
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect_page_have_field_with_value('academic_name', academic.name)
-        expect_page_have_field_with_value('academic_contact', academic.contact)
+        expect_page_have_value('academic_name', academic.name)
+        expect_page_have_value('academic_contact', academic.contact)
         expect(page).to have_unchecked_field('academic_graduated')
         expect(page).to have_css("img[src*='#{academic.image}']")
       end
@@ -74,8 +74,8 @@ RSpec.describe 'Academics', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_academics_path)
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.m', resource_name: resource_name))
+        text = I18n.t('flash.actions.update.m', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
         expect_page_have_in('table tbody', new_name)
       end
@@ -91,31 +91,18 @@ RSpec.describe 'Academics', type: :feature do
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        fields = '%w[div.academic_name div.academic_contact]'
-        expect_page_have_blank_messages(fields)
+        fields = %w[div.academic_name div.academic_contact]
+        expect_page_blank_messages(fields)
         expect(page).to have_checked_field('academic_graduated')
-        expect_page_have_in('div.academic_image', I18n.t('errors.messages.extension_whitelist_error',
-                                                         extension: '"pdf"',
-                                                         allowed_types: 'jpg, jpeg, gif, png'))
+        i18nmsg = 'errors.messages.extension_whitelist_error'
+        text = I18n.t(i18nmsg, extension: '"pdf"', allowed_types: 'jpg, jpeg, gif, png')
+        expect_page_have_in('div.academic_image', text)
       end
     end
   end
 
-  describe '#destroy' do
-    it 'academic' do
-      academic = create(:academic)
-      visit admins_academics_path
-
-      click_on_destroy_link(admins_academic_path(academic))
-
-      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.m',
-                                                        resource_name: resource_name))
-      expect_page_not_have_in('table tbody', academic.name)
-    end
-  end
-
   describe '#index' do
-    let!(:academics) {create_list(:academic, 3)}
+    let!(:academics) { create_list(:academic, 3) }
 
     it 'show all academics with options' do
       visit admins_academics_path
@@ -128,6 +115,17 @@ RSpec.describe 'Academics', type: :feature do
         expect(page).to have_link(href: edit_admins_academic_path(a))
         expect_page_have_destroy_link(admins_academic_path(a))
       end
+    end
+  end
+
+  describe '#destroy' do
+    it 'academic' do
+      visit admins_academics_path
+
+      click_on_destroy_link(admins_academic_path(academic))
+      text = I18n.t('flash.actions.destroy.m', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('table tbody', academic.name)
     end
   end
 end

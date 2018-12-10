@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Admins', type: :feature do
   describe '#edit' do
-    let(:admin) {create(:admin)}
+    let(:admin) { create(:admin) }
 
     before(:each) do
       login_as(admin, scope: :admin)
@@ -38,12 +38,12 @@ RSpec.describe 'Admins', type: :feature do
         fill_in 'admin_current_password', with: 'password'
         attach_file 'admin_image', FileSpecHelper.pdf.path
         submit_form
-
-        expect(page).to have_flash(:danger, text: I18n.t('simple_form.error_notification.default_message'))
-        expect_page_have_blank_message('div.admin_name')
-        expect_page_not_have_in('div.admin_image', I18n.t('errors.messages.extension_whitelist_error',
-                                                          extension: '"pdf"',
-                                                          allowed_types: 'jpg, jpeg, gif, png'))
+        text = I18n.t('simple_form.error_notification.default_message')
+        expect(page).to have_flash(:danger, text: text)
+        expect_page_blank_message('div.admin_name')
+        i18n_msg = 'errors.messages.extension_whitelist_error'
+        msg_not_in = I18n.t(i18n_msg, extension: '"pdf"', allowed_types: 'jpg, jpeg, gif, png')
+        expect_page_not_have_in('div.admin_image', msg_not_in)
       end
     end
   end

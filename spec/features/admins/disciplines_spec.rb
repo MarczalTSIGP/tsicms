@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Discipline', type: :feature do
-  let(:admin) {create(:admin)}
-  let!(:period) {create_list(:period, 3).sample}
-  let(:resource_name) {Discipline.model_name.human}
+  let(:admin) { create(:admin) }
+  let!(:period) { create_list(:period, 3).sample }
+  let(:resource_name) { Discipline.model_name.human }
+  let!(:discipline) { create(:discipline) }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -40,8 +41,10 @@ RSpec.describe 'Discipline', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-        fields = '%w[div.discipline_name div.discipline_code div.discipline_hours]'
-        expect_page_have_blank_messages(fields)
+        fields = %w[div.discipline_name]
+        fields.push 'div.discipline_code'
+        fields.push 'div.discipline_hours'
+        expect_page_blank_messages(fields)
         expect_page_have_in('div.discipline_hours', I18n.t('errors.messages.not_a_number'))
         expect_page_have_in('div.discipline_period', I18n.t('errors.messages.required'))
       end
@@ -49,17 +52,15 @@ RSpec.describe 'Discipline', type: :feature do
   end
 
   describe '#update' do
-    let(:discipline) {create(:discipline)}
-
     before(:each) do
       visit edit_admins_discipline_path(discipline)
     end
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect_page_have_field_with_value('discipline_name', discipline.name)
-        expect_page_have_field_with_value('discipline_hours', discipline.hours)
-        expect_page_have_field_with_value('discipline_code', discipline.code)
+        expect_page_have_value('discipline_name', discipline.name)
+        expect_page_have_value('discipline_hours', discipline.hours)
+        expect_page_have_value('discipline_code', discipline.code)
 
         selected = "#{discipline.period.matrix.name} - #{discipline.period.name}"
         expect(page).to have_select 'discipline_period_id',
@@ -79,7 +80,8 @@ RSpec.describe 'Discipline', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_disciplines_path)
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.f', resource_name: resource_name))
+        text = I18n.t('flash.actions.update.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
         expect_page_have_in('table tbody', new_name)
         expect_page_have_in('table tbody', new_code)
       end
@@ -94,16 +96,14 @@ RSpec.describe 'Discipline', type: :feature do
         submit_form
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        fields = '%w[div.discipline_name div.discipline_code div.discipline_hours]'
-        expect_page_have_blank_messages(fields)
+        fields = %w[div.discipline_name div.discipline_code div.discipline_hours]
+        expect_page_blank_messages(fields)
         expect_page_have_in('div.discipline_hours', I18n.t('errors.messages.not_a_number'))
       end
     end
   end
 
   describe '#show' do
-    let(:discipline) {create(:discipline)}
-
     it 'show all discipline with options' do
       visit admins_discipline_path(discipline)
 
@@ -119,17 +119,16 @@ RSpec.describe 'Discipline', type: :feature do
 
   describe '#destroy' do
     it 'discipline' do
-      discipline = create(:discipline)
       visit admins_disciplines_path
       click_on_destroy_link(admins_discipline_path(discipline))
-
-      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
       expect_page_not_have_in('table tbody', discipline.name)
     end
   end
 
   describe '#index' do
-    let!(:disciplines) {create_list(:discipline, 3)}
+    let!(:disciplines) { create_list(:discipline, 3) }
 
     it 'show all discipline with options' do
       visit admins_disciplines_path

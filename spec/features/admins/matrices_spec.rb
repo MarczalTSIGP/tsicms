@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Matrix', type: :feature do
-  let(:admin) {create(:admin)}
-  let(:resource_name) {Matrix.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { Matrix.model_name.human }
+  let!(:matrix) { create(:matrix) }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -21,8 +22,8 @@ RSpec.describe 'Matrix', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_matrices_path)
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
+        text = I18n.t('flash.actions.create.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
         expect_page_have_in('table tbody', attributes[:name])
       end
@@ -34,13 +35,11 @@ RSpec.describe 'Matrix', type: :feature do
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        expect_page_have_blank_message('div.matrix_name')
+        expect_page_blank_message('div.matrix_name')
       end
     end
 
     context 'when has same name' do
-      let(:matrix) {create(:matrix)}
-
       it 'show errors' do
         fill_in 'matrix_name', with: matrix.name
         submit_form
@@ -57,8 +56,6 @@ RSpec.describe 'Matrix', type: :feature do
   end
 
   describe '#update' do
-    let(:matrix) {create(:matrix)}
-
     before(:each) do
       visit edit_admins_matrix_path(matrix)
     end
@@ -77,8 +74,8 @@ RSpec.describe 'Matrix', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_matrices_path)
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.f', resource_name: resource_name))
+        text = I18n.t('flash.actions.update.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
         expect_page_have_in('table tbody', new_name)
       end
@@ -90,22 +87,20 @@ RSpec.describe 'Matrix', type: :feature do
         submit_form
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect_page_have_blank_message('div.matrix_name')
+        expect_page_blank_message('div.matrix_name')
       end
     end
 
     context 'when has same name' do
-      let(:other_matrix) {create(:matrix)}
-
       it 'show errors' do
-        fill_in 'matrix_name', with: other_matrix.name
+        fill_in 'matrix_name', with: matrix.name
         submit_form
 
         expect_page_have_in('div.matrix_name', I18n.t('errors.messages.taken'))
       end
 
       it 'show errors cosidering insensitive case' do
-        fill_in 'matrix_name', with: other_matrix.name.downcase
+        fill_in 'matrix_name', with: matrix.name.downcase
         submit_form
 
         expect_page_have_in('div.matrix_name', I18n.t('errors.messages.taken'))
@@ -113,20 +108,8 @@ RSpec.describe 'Matrix', type: :feature do
     end
   end
 
-  describe '#destroy' do
-    it 'matrix' do
-      matrix = create(:matrix)
-      visit admins_matrices_path
-
-      click_on_destroy_link(admins_matrix_path(matrix))
-
-      expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
-      expect_page_not_have_in('table tbody', matrix.name)
-    end
-  end
-
   describe '#index' do
-    let!(:matrices) {create_list(:matrix, 3)}
+    let!(:matrices) { create_list(:matrix, 3) }
 
     it 'show all matrix with options' do
       visit admins_matrices_path
@@ -138,6 +121,18 @@ RSpec.describe 'Matrix', type: :feature do
         expect(page).to have_link(href: edit_admins_matrix_path(matrix))
         expect_page_have_destroy_link(admins_matrix_path(matrix))
       end
+    end
+  end
+
+  describe '#destroy' do
+    it 'matrix' do
+      visit admins_matrices_path
+
+      click_on_destroy_link(admins_matrix_path(matrix))
+
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('table tbody', matrix.name)
     end
   end
 end

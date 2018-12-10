@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Category Recommendations', type: :feature do
-  let(:admin) {create(:admin)}
-  let(:resource_name) {CategoryRecommendation.model_name.human}
+  let(:admin) { create(:admin) }
+  let(:resource_name) { CategoryRecommendation.model_name.human }
+  let!(:category) { create(:category_recommendation) }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -21,8 +22,8 @@ RSpec.describe 'Category Recommendations', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_category_recommendations_path)
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.f', resource_name: resource_name))
+        text = I18n.t('flash.actions.create.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
         expect_page_have_in('table tbody', attributes[:name])
       end
     end
@@ -31,13 +32,11 @@ RSpec.describe 'Category Recommendations', type: :feature do
       it 'show errors' do
         submit_form
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect_page_have_blank_message('div.category_recommendation_name')
+        expect_page_blank_message('div.category_recommendation_name')
       end
     end
 
     context 'when has same name' do
-      let(:category) {create(:category_recommendation)}
-
       it 'show errors' do
         fill_in 'category_recommendation_name', with: category.name
         submit_form
@@ -53,8 +52,6 @@ RSpec.describe 'Category Recommendations', type: :feature do
   end
 
   describe '#update' do
-    let(:category) {create(:category_recommendation)}
-
     before(:each) do
       visit edit_admins_category_recommendation_path(category)
     end
@@ -73,8 +70,8 @@ RSpec.describe 'Category Recommendations', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_category_recommendations_path)
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.f', resource_name: resource_name))
+        text = I18n.t('flash.actions.update.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
         expect_page_have_in('table tbody', new_name)
       end
     end
@@ -84,21 +81,19 @@ RSpec.describe 'Category Recommendations', type: :feature do
         fill_in 'category_recommendation_name', with: ''
         submit_form
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect_page_have_blank_message('div.category_recommendation_name')
+        expect_page_blank_message('div.category_recommendation_name')
       end
     end
 
     context 'when has same name' do
-      let(:other_category) {create(:category_recommendation)}
-
       it 'show errors' do
-        fill_in 'category_recommendation_name', with: other_category.name
+        fill_in 'category_recommendation_name', with: category.name
         submit_form
         expect_page_have_in('div.category_recommendation_name', I18n.t('errors.messages.taken'))
       end
 
       it 'show errors cosidering insensitive case' do
-        fill_in 'category_recommendation_name', with: other_category.name.downcase
+        fill_in 'category_recommendation_name', with: category.name.downcase
         submit_form
         expect_page_have_in('div.category_recommendation_name', I18n.t('errors.messages.taken'))
       end
@@ -106,18 +101,17 @@ RSpec.describe 'Category Recommendations', type: :feature do
 
     describe '#destroy' do
       it 'category recommendation' do
-        category = create(:category_recommendation)
         visit admins_category_recommendations_path
 
         click_on_destroy_link(admins_category_recommendation_path(category))
-
-        expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.f', resource_name: resource_name))
+        text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
         expect_page_not_have_in('table tbody', category.name)
       end
     end
 
     describe '#index' do
-      let!(:categories) {create_list(:category_recommendation, 3)}
+      let!(:categories) { create_list(:category_recommendation, 3) }
 
       it 'show all category recommendations with options' do
         visit admins_category_recommendations_path
