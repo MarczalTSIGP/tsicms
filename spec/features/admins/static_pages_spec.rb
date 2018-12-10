@@ -59,13 +59,8 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
       it 'with correct values' do
         expect_page_have_value('static_page_title', static_page.title)
         expect_page_have_value('static_page_sub_title', static_page.sub_title)
-<<<<<<< HEAD
         expect_page_have_value('static_page_permalink', static_page.permalink)
         expect_page_have_value('static_page_content', static_page.content)
-=======
-        expect_page_have_value('static_page_permalink', static_page.title.permalink)
-        expect_page_have_value('static_page_content', static_page.title.content)
->>>>>>> 8b295ceb4025f1e8aadc745af911b5592a5b404b
       end
     end
 
@@ -102,9 +97,9 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        fields = '%w[div.static_page_title div.static_page_content]'
+        fields = %w[div.static_page_title div.static_page_content]
 
-        expect_page_have_blank_messages(fields)
+        expect_page_blank_messages(fields)
 
         expect_page_have_in('div.static_page_permalink', I18n.t('errors.messages.permalink'))
       end

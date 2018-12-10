@@ -37,20 +37,12 @@ RSpec.describe 'Academics', type: :feature do
         submit_form
 
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-<<<<<<< HEAD
+
 
         fields = %w[div.academic_name div.academic_contact]
-<<<<<<< 19b395ee0066d27696b4c203a3b7b50146251c5e
-        expect_page_have_blank_messages(fields)
 
-=======
         expect_page_blank_messages(fields)
->>>>>>> refatoracao dos testes
-=======
 
-        fields = %w[div.academic_name div.academic_contact]
-        expect_page_blank_messages(fields)
->>>>>>> 8b295ceb4025f1e8aadc745af911b5592a5b404b
         expect(page).to have_unchecked_field('academic_graduated')
         i18nmsg = 'errors.messages.extension_whitelist_error'
         text = I18n.t(i18nmsg, extension: '"pdf"', allowed_types: 'jpg, jpeg, gif, png')

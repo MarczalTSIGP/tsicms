@@ -71,7 +71,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
         expect_page_have_value('discipline_monitor_year', discipline_monitor.year)
         expect_page_have_value('discipline_monitor_description', discipline_monitor.description)
         fields.each do |f|
-          expect_page_have_selected(f.id, f.value)
+          expect_page_have_selected(f[:id], f[:value])
         end
       end
     end
