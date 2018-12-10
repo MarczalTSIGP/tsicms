@@ -61,7 +61,11 @@ RSpec.describe 'Recommendations', type: :feature do
       it 'with correct values' do
         expect_page_have_value('recommendation_title', recommendation.title)
         expect_page_have_value('recommendation_description', recommendation.description)
+<<<<<<< HEAD
         expect_page_have_selected('recommendation_category_recommendation_id', recommendation.category_recommendation.name)
+=======
+        expect_page_have_selected('recommendation_category_recommendation_id', selected: recommendation.category_recommendation.name)
+>>>>>>> 8b295ceb4025f1e8aadc745af911b5592a5b404b
         expect(page).to have_css("img[src*='#{recommendation.image}']")
       end
     end
@@ -101,7 +105,6 @@ RSpec.describe 'Recommendations', type: :feature do
         i18msg = 'errors.messages.extension_whitelist_error'
         text = I18n.t(i18msg, extension: '"pdf"', allowed_types: 'jpg, jpeg, gif, png')
         expect_page_have_in('div.recommendation_image', text)
-
       end
     end
   end

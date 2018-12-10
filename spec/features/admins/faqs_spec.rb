@@ -84,6 +84,20 @@ RSpec.describe 'Faqs', type: :feature do
         fields = %w[div.faq_title div.faq_answer]
         expect_page_blank_messages(fields)
       end
+<<<<<<< HEAD
+=======
+    end
+  end
+
+  describe '#destroy' do
+    it 'faq' do
+      visit admins_faqs_path
+
+      click_on_destroy_link(admins_faq_path(faq))
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('#accordion', period.name)
+>>>>>>> 8b295ceb4025f1e8aadc745af911b5592a5b404b
     end
   end
 

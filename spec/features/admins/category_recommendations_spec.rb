@@ -107,7 +107,7 @@ RSpec.describe 'Category Recommendations', type: :feature do
 
         text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
         expect(page).to have_flash(:success, text: text)
-
+        
         expect_page_not_have_in('table tbody', category.name)
       end
     end
