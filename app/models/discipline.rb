@@ -12,4 +12,9 @@ class Discipline < ApplicationRecord
   has_many :discipline_monitors, through: :discipline_monitor_disciplines
 
   belongs_to :period
+
+  def sum_workload
+    theoretical_classes + practical_classes + distance_classes     
+  end
+  
 end
