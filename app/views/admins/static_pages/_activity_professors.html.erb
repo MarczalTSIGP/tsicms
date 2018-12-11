@@ -1,0 +1,19 @@
+<div class="table-responsive">
+  <h4 class="text-center"><%= I18n.t('breadcrumbs.professors.history') %></h4>
+  <table class="table table-data card-table table-vcenter text-nowrap">
+    <thead>
+    <tr>
+      <th class="w-1">Id</th>
+      <th>Professor</th>
+      <th>Data de início</th>
+      <th>Data de fim</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @activity_professors.each do |act_prof| %>
+      <%= render 'professor', act_prof: act_prof %>
+    <% end %>
+    </tbody>
+  </table>
+</div>

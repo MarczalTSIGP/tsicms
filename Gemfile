@@ -21,6 +21,8 @@ gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-i18n'
 gem 'active_link_to'
 gem 'breadcrumbs_on_rails'
+gem 'kaminari'
+gem 'route_translator'
 gem 'mini_magick'
 gem 'kaminari'
 

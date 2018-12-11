@@ -1,0 +1,31 @@
+<div class="table-responsive">
+  <h3 class="text-center">Historico de atribuições</h3>
+  <table class="table table-data card-table table-vcenter text-nowrap">
+    <thead>
+    <tr>
+      <th class="w-1">Id</th>
+      <th>Professor</th>
+      <th>Data de início</th>
+      <th>Data de fim</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody id="professor_activity">
+    <% @activity.activity_professors.each do |act_prof| %>
+      <tr>
+        <td><%= act_prof.professor.id %></td>
+        <td><%= act_prof.professor.name %></td>
+        <td><%= l(act_prof.start_date, format: :long) %></td>
+        <td><%= act_prof.end_date_human %></td>
+        <td>
+          <%= link_to professor_path(act_prof.professor) do %>
+                  <span class="icon mr-3">
+                    <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
+                  </span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

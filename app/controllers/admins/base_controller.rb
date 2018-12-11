@@ -1,4 +1,5 @@
 class Admins::BaseController < ActionController::Base
+  before_action :find_fixed_pages
   include FlashMessage
   include Admins::ApplicationHelper
 
@@ -7,4 +8,10 @@ class Admins::BaseController < ActionController::Base
   layout 'admins/layouts/application'
 
   add_breadcrumb I18n.t('breadcrumbs.homepage'), :admins_root_path
+
+  protected
+
+  def find_fixed_pages
+    @static_pages_on_menu = StaticPage.where(fixed: true)
+  end
 end

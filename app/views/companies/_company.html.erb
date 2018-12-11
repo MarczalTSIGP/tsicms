@@ -1,0 +1,14 @@
+<div class="col-sm-6 col-xl-3">
+  <div class="card">
+    <%= image_tag company.image.url, class: 'card-img-top' %>
+    <div class="card-body d-flex flex-column">
+      <h4><%= company.name %></h4>
+      <div class="d-flex align-items-center pt-5 mt-auto">
+        <div>
+          <%= link_to company.name, company_path(company) %>
+          <small class="d-block text-muted"><%= l(company.created_at, format: :long) %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

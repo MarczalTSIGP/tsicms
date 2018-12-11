@@ -30,8 +30,8 @@
         <% end %>
 
         <%= active_link_to new_admins_activity_professor_path,
-          class: 'list-group-item list-group-item-action',
-          active: ['admins/activity_professors'] do %>
+                           class: 'list-group-item list-group-item-action',
+                           active: ['admins/activity_professors'] do %>
           <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Vincular professor
         <% end %>
       </div>
@@ -106,8 +106,22 @@
       </div>
     </div>
 
-    <%= active_link_to admins_static_pages_path, class: 'list-group-item list-group-item-action' do %>
-      <span class="icon mr-3"><i class="fas fa-newspaper"></i></span>Páginas estáticas
-    <% end %>
+    <div class="list-group-item list-group-item-action pb-0">
+      <span class="icon mr-3"><i class="fas fa-th-list"></i></span>Páginas estáticas
+
+      <div class="list-group list-group-transparent mb-0">
+        <%= active_link_to admins_static_pages_path, class: 'list-group-item list-group-item-action' do %>
+          <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span>Todas
+        <% end %>
+        <% unless @static_pages_on_menu.nil? %>
+          <% @static_pages_on_menu.each do |static_page| %>
+            <%= active_link_to admins_static_page_path(static_page), class: 'list-group-item list-group-item-action' do %>
+              <span class="icon mr-3"><i class="fas fa-chevron-right"></i></span><%= static_page.title %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 </div>

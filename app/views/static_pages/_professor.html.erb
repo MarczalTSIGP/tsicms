@@ -1,0 +1,13 @@
+<tr>
+  <td><%= act_prof.professor.id %></td>
+  <td><%= act_prof.professor.name %></td>
+  <td><%= l(act_prof.start_date, format: :long) %></td>
+  <td><%= act_prof.end_date_human %></td>
+  <td>
+    <%= link_to professor_path(act_prof.professor) do %>
+      <span class="icon mr-3">
+        <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
+      </span>
+    <% end %>
+  </td>
+</tr>

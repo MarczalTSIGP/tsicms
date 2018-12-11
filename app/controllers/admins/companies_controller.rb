@@ -6,7 +6,7 @@ class Admins::CompaniesController < Admins::BaseController
                  only: [:new, :create]
 
   def index
-    @companies = Company.order(name: :asc)
+    @companies = Company.order(name: :asc).page params[:page]
   end
 
   def new

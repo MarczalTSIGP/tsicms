@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_27_203807) do
+ActiveRecord::Schema.define(version: 2018_11_20_220250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,9 @@ ActiveRecord::Schema.define(version: 2018_10_27_203807) do
     t.string "permalink"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "fixed"
+    t.bigint "activity_id"
+    t.index ["activity_id"], name: "index_static_pages_on_activity_id"
     t.index ["permalink"], name: "index_static_pages_on_permalink", unique: true
   end
 
@@ -224,6 +227,7 @@ ActiveRecord::Schema.define(version: 2018_10_27_203807) do
   add_foreign_key "professor_periods", "professors"
   add_foreign_key "professors", "professor_categories"
   add_foreign_key "professors", "professor_titles"
+  add_foreign_key "static_pages", "activities"
   add_foreign_key "trainees", "companies"
   add_foreign_key "trainees", "trainee_statuses"
 end

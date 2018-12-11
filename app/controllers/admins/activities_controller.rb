@@ -6,7 +6,7 @@ class Admins::ActivitiesController < Admins::BaseController
                  only: [:new, :create]
 
   def index
-    @activities = Activity.order(name: :asc)
+    @activities = Activity.order(name: :asc).page params[:page]
   end
 
   def new

@@ -15,10 +15,12 @@
       </span>
     <% end %>
 
-    <%= link_to [:admins, static_page], method: :delete, data: { confirm: t('prompt.confirm') } do %>
+    <% unless static_page.fixed %>
+      <%= link_to [:admins, static_page], method: :delete, data: {confirm: t('prompt.confirm')} do %>
       <span class="icon mr-3">
         <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Remover"></i>
       </span>
+      <% end %>
     <% end %>
   </td>
 </tr>

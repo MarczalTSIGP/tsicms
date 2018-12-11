@@ -5,6 +5,48 @@ pt-BR:
       previous: "&lsaquo; Anterior"
       next: "Próximo &rsaquo;"
       truncate: "&hellip;"
+  routes:
+    admin: administrador
+    admins: administradores
+    academics: academicos
+    academic: academico
+    activities: atividades
+    activity: atividade
+    activity_professor: atividades_do_professor
+    activity_professors: atividades_dos_professors
+    be_our_student: seja_nosso_aluno
+    category_recommendations: categorias_de_recomendacoes
+    companies: empresas
+    company: empresa
+    course_about: curso
+    disciplines: disciplinas
+    discipline: disciplina
+    discipline_monitors: monitores_das_disciplinas
+    discipline_monitor: monitor_da_disciplina
+    extension_activity: atividade_extensao
+    history: historico
+    instruction_subscription: instrucao_matricula
+    matrices: matrizes
+    matrice: matriz
+    monitors: monitorias
+    monitor: monitor
+    monitor_types: tipos_de_monitores
+    periods: periodos
+    period: periodo
+    professors: professores
+    professor: professor
+    recommendation: recomendacao
+    recommendations: recomendacoes
+    static_pages: paginas_estaticas
+    static_page: pagina_estatica
+    trainees: estagios
+    trainee: estagio
+    tcc: tcc
+    type: tipo
+    types: tipos
+    new: novo
+    edit: editar
+    page: pagina
   breadcrumbs:
     homepage: 'Página Inicial'
     academics:
@@ -64,6 +106,8 @@ pt-BR:
       show: 'Professor %{name}'
       newperiod: 'Novo Periodo do Professor'
       editperiod: 'Editar Periodo do Professor'
+      show: 'Visualizar Professor %{name}'
+      history: 'Historico de Professores'
     recommendations:
       name: 'Recomendações'
       new: 'Nova Recomendação'
@@ -73,6 +117,7 @@ pt-BR:
       name: 'Páginas Estáticas'
       new: 'Nova Página'
       edit: 'Editar Página %{name}'
+      historic: "Historico"
     discipline_monitors:
       name: 'Monitorias'
       new: 'Nova Monitoria'
@@ -98,9 +143,16 @@ pt-BR:
           other: Exibindo <b>%{count}</b> %{entry_name}
           zero: Nenhum %{entry_name} encontrado
     currently: 'Atualmente'
+    trainee: 'Estágio'
     boolean:
       'true': 'Sim'
       'false': 'Não'
+    tcc: "TCC"
+    monitor: "Monitoria"
+    instruction_subscription: 'Instrução de matricula'
+    be_our_student: 'Seja nosso aluno'
+    extension_activity: 'Atividade de extensão'
+    course_about: 'O Curso'
   enums:
     genders:
       male: 'Masculino'
@@ -119,7 +171,7 @@ pt-BR:
       destroy:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
-        bond: 'Não é possível remover %{resource_name} com vínculos!'
+        bTítuloond: 'Não é possível remover %{resource_name} com vínculos!'
       errors: 'Existem dados incorretos!'
   prompt:
     confirm: 'Tem certeza?'
@@ -248,6 +300,8 @@ pt-BR:
         date_entry: 'Data de entrada'
         date_out: 'Data de Saída'
         professor_category: 'Categoria do Professor'
+        fixed: 'Fixo'
+        activity: 'Atividade'
       discipline_monitor:
         <<: *commons
         year: 'Ano'
