@@ -25,4 +25,5 @@ class Professor < ApplicationRecord
     genders.each_key.each { |key| hash[I18n.t("enums.genders.#{key}")] = key }
     hash
   end
+
 end

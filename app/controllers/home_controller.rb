@@ -4,5 +4,8 @@ class HomeController < ApplicationController
     @faqs = Faq.order(created_at: :desc)
     @trainees = Trainee.order(created_at: :desc)
     @companies= Company.order(created_at: :desc)
+    @efetive_professors = ProfessorCategory.find_by(name: 'Efetivo').professors.order(name: :asc)
+    @temporary_professors = ProfessorCategory.find_by(name: 'Temporário').professors.order(name: :asc)
+
   end
 end
