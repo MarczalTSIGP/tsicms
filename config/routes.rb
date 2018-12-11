@@ -45,8 +45,10 @@ Rails.application.routes.draw do
           get 'history', to: 'static_pages#history'
           get 'page/:page', action: :index, on: :collection
         end
+        resources :professors do
+          resources :professor_periods
+        end
         resources :academics,
-                  :professors,
                   :companies,
                   :activities,
                   :faqs,

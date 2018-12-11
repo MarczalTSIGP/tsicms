@@ -7,7 +7,8 @@ class Admins::DisciplinesController < Admins::BaseController
 
   def index
     @disciplines = Discipline.includes(period: [:matrix])
-                             .order('matrices.name ASC', 'periods.name ASC').page params[:page]
+                             .order('matrices.name ASC', 'periods.name ASC')
+                             .page(params[:page])
   end
 
   def new
@@ -57,7 +58,9 @@ class Admins::DisciplinesController < Admins::BaseController
   private
 
   def discipline_params
-    params.require(:discipline).permit(:name, :code, :hours, :menu, :period_id)
+    params.require(:discipline).permit(:name, :code, :initials,
+                                       :theoretical_classes, :practical_classes, :distance_classes,
+                                       :hours, :menu, :period_id)
   end
 
   def set_discipline

@@ -3,9 +3,9 @@ class Professor < ApplicationRecord
 
   belongs_to :professor_title
   belongs_to :professor_category
-
   has_many :activity_professors, dependent: :restrict_with_error
   has_many :activities, through: :activity_professors
+  has_many :professor_periods, dependent: :destroy
 
   has_many :discipline_monitor_professors, dependent: :restrict_with_error
   has_many :discipline_monitors, through: :discipline_monitor_professors
@@ -24,5 +24,9 @@ class Professor < ApplicationRecord
     hash = {}
     genders.each_key.each { |key| hash[I18n.t("enums.genders.#{key}")] = key }
     hash
+  end
+
+  def periods
+    professor_periods
   end
 end

@@ -1,6 +1,5 @@
 pt-BR:
-  views:
-    pagination:
+  pagination:
       first: "&laquo; Primeiro"
       last: "Último &raquo;"
       previous: "&lsaquo; Anterior"
@@ -95,10 +94,18 @@ pt-BR:
       new: 'Novo Período'
       edit: 'Editar Período %{name}'
       show: 'Visualizar Período %{name}'
+    professor_periods:
+      name: 'Períodos do Professor'
+      new: 'Novo Período do Professor'
+      edit: 'Editar Período do Professor'
+      show: 'Visualizar Período do Professor'
     professors:
       name: 'Professores'
       new: 'Novo Professor'
       edit: 'Editar Professor %{name}'
+      show: 'Professor %{name}'
+      newperiod: 'Novo Periodo do Professor'
+      editperiod: 'Editar Periodo do Professor'
       show: 'Visualizar Professor %{name}'
       history: 'Historico de Professores'
     recommendations:
@@ -127,6 +134,14 @@ pt-BR:
       new: 'Upload de Imagens'
       edit: 'Editar Imagem %{name}'
   helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: Exibindo %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de um total de <b>%{total}</b>
+      one_page:
+        display_entries:
+          one: Exibindo <b>1</b> %{entry_name}
+          other: Exibindo <b>%{count}</b> %{entry_name}
+          zero: Nenhum %{entry_name} encontrado
     currently: 'Atualmente'
     trainee: 'Estágio'
     boolean:
@@ -166,6 +181,8 @@ pt-BR:
   errors:
     messages:
       permalink: 'permite apenas letras, números e traços.'
+      date:
+        less_thee: '%{resource_name} deve menor que a data de saída!'
   activerecord:
     models:
       admin:
@@ -199,6 +216,9 @@ pt-BR:
       static_page:
         one: 'Página estática'
         other: 'Páginas estáticas'
+      professor_period:
+        one: 'Período do Professor'
+        other: 'Períodos do Professor'
       discipline_monitor:
         one: 'Monitoria de disciplina'
         other: 'Monitorias de disciplina'
@@ -257,7 +277,11 @@ pt-BR:
       discipline:
         <<: *commons
         code: 'Código'
-        hours: 'Carga horária'
+        hours: 'Total Carga horária'
+        initials: 'Sigla'
+        theoretical_classes: 'AT - Aulas Teóricas'
+        practical_classes: 'AP - Aulas Práticas'
+        distance_classes: 'AD - Aulas a Distancia'
         menu: 'Ementa'
         period: 'Período'
         matrix: 'Matriz'
@@ -271,6 +295,11 @@ pt-BR:
         sub_title: 'Subtítulo'
         permalink: 'Link permanente'
         content: 'Conteúdo'
+      professor_period:
+        <<: *commons
+        date_entry: 'Data de entrada'
+        date_out: 'Data de Saída'
+        professor_category: 'Categoria do Professor'
         fixed: 'Fixo'
         activity: 'Atividade'
       discipline_monitor:
@@ -290,3 +319,4 @@ pt-BR:
         title: 'Título'
         company: 'Empresa'
         trainee_status: 'Status'
+        

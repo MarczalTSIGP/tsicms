@@ -6,6 +6,7 @@ namespace :db do
     [CategoryRecommendation,
      Recommendation,
      Activity,
+     ProfessorPeriod,
      Professor,
      ProfessorCategory,
      ProfessorTitle,
@@ -102,6 +103,18 @@ namespace :db do
       )
     end
 
+    5.times do
+      date_entry = Faker::Date.between(1.year.ago, 5.months.ago)
+      date_out = Faker::Date.between(5.months.ago, Time.zone.today)
+      date_out = [nil, date_out].sample
+      ProfessorPeriod.create!(
+        professor: Professor.all.sample,
+        professor_category: ProfessorCategory.all.sample,
+        date_entry: date_entry,
+        date_out: date_out
+      )
+    end
+
     3.times do |m_index|
       matrix = Matrix.create!(name: Faker::DragonBall.unique.character)
       10.times do |p_index|
@@ -115,6 +128,10 @@ namespace :db do
             name: "#{Faker::Company.industry}-#{m_index}#{p_index}-#{d_index}",
             code: Faker::Code.nric(27, 34),
             hours: Faker::Number.number(2),
+            theoretical_classes: Faker::Number.number(2),
+            practical_classes: Faker::Number.number(2),
+            initials: Faker::Code.unique.asin,
+            distance_classes: Faker::Number.number(2),
             period: period,
             menu: Faker::Markdown.random
           )

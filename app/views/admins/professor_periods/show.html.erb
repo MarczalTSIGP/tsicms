@@ -1,0 +1,29 @@
+<% provide(:page_title, "Visualizar Período do Professor") %>
+
+<div class="card">
+  <div class="card-header">
+    <h3><%= @period_professor.professor.name %></h3>
+  </div>
+  <div class="card-body">
+    <p>
+      <strong><%= t('activerecord.attributes.professor_period.data_entry') %></strong>:
+      <%= @period_professor.date_entry %>
+    </p>
+    <p>
+      <strong><%= t('activerecord.attributes.professor_period.data_out') %></strong>:
+      <%= @period_professor.date_out %>
+    </p>
+    <p>
+      <strong><%= t('activerecord.attributes.professor_period.type_contract') %></strong>:
+      <%= @period_professor.type_contract %>
+    </p>
+    <p>
+      <strong><%= t('activerecord.attributes.professor_period.created_at') %></strong>:
+      <%= l(@period_professor.created_at) %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to "Voltar", admins_periods_path, class: 'btn btn-secondary' , title: 'Voltar para lista de Períodos'%>
+</div>
