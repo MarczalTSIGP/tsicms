@@ -104,7 +104,7 @@ namespace :db do
         professor_category: ProfessorCategory.all.sample,
         date_entry: date_entry,
         date_out: date_out
-        )
+      )
     end
 
     3.times do |m_index|

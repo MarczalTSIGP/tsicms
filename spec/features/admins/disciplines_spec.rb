@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Discipline', type: :feature do
   let(:admin) { create(:admin) }
+
   let!(:period) { create_list(:period, 3).sample }
+
   let(:resource_name) { Discipline.model_name.human }
 
   before(:each) do
@@ -20,7 +22,6 @@ RSpec.describe 'Discipline', type: :feature do
 
         fill_in 'discipline_name', with: attributes[:name]
         fill_in 'discipline_initials', with: attributes[:initials]
-        fill_in 'discipline_code', with: attributes[:code]
         fill_in 'discipline_theoretical_classes', with: attributes[:theoretical_classes]
         fill_in 'discipline_practical_classes', with: attributes[:practical_classes]
         fill_in 'discipline_distance_classes', with: attributes[:distance_classes]
@@ -72,6 +73,7 @@ RSpec.describe 'Discipline', type: :feature do
 
   describe '#update' do
     let(:discipline) { create(:discipline) }
+
     before(:each) do
       visit edit_admins_discipline_path(discipline)
     end
@@ -79,14 +81,16 @@ RSpec.describe 'Discipline', type: :feature do
     context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'discipline_name', with: discipline.name
-        expect(page).to have_field 'discipline_practical_classes', 
-                                    with: discipline.practical_classes
-        expect(page).to have_field 'discipline_distance_classes', 
-                                    with: discipline.distance_classes
-        expect(page).to have_field 'discipline_theoretical_classes', 
-                                    with: discipline.theoretical_classes
-        expect(page).to have_field 'discipline_initials', with: discipline.initials
-        expect(page).to have_field 'discipline_code', with: discipline.code
+        expect(page).to have_field 'discipline_practical_classes',
+                                   with: discipline.practical_classes
+        expect(page).to have_field 'discipline_distance_classes',
+                                   with: discipline.distance_classes
+        expect(page).to have_field 'discipline_theoretical_classes',
+                                   with: discipline.theoretical_classes
+        expect(page).to have_field 'discipline_initials',
+                                   with: discipline.initials
+        expect(page).to have_field 'discipline_code',
+                                   with: discipline.code
 
         selected = "#{discipline.period.matrix.name} - #{discipline.period.name}"
         expect(page).to have_select 'discipline_period_id',
@@ -137,7 +141,7 @@ RSpec.describe 'Discipline', type: :feature do
         fill_in 'discipline_practical_classes', with: ''
         fill_in 'discipline_theoretical_classes', with: ''
         fill_in 'discipline_distance_classes', with: ''
-       
+
         submit_form
 
         expect(page).to have_selector('div.alert.alert-danger',

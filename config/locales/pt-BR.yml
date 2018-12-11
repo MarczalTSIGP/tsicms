@@ -129,6 +129,8 @@ pt-BR:
   errors:
     messages:
       permalink: 'permite apenas letras, números e traços.'
+      date:
+        less_thee: '%{resource_name} deve menor que a data de saída!'
   activerecord:
     models:
       admin:
