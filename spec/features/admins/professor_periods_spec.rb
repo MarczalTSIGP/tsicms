@@ -10,8 +10,9 @@ RSpec.describe 'Professor Periods', type: :feature do
   end
 
   describe '#create' do
+    let!(:category) { create_list(:professor_category, 2).sample }
+
     before(:each) do
-      @category = create_list(:professor_category, 2).sample
       visit new_admins_professor_professor_period_path(professor)
     end
 
@@ -26,11 +27,11 @@ RSpec.describe 'Professor Periods', type: :feature do
         select '10', from: 'professor_period[date_out(3i)]'
         select 'Junho', from: 'professor_period[date_out(2i)]'
         select '2018', from: 'professor_period[date_out(1i)]'
-        select @category.name, from: 'professor_period_professor_category_id'
+        select category.name, from: 'professor_period_professor_category_id'
 
         submit_form
 
-        expect(page.current_path).to eq admins_professor_path(professor)
+        expect(page).to have_current_path(admins_professor_path(professor))
 
         expect_alert_success(resource_name, 'flash.actions.create.m')
 
@@ -52,10 +53,11 @@ RSpec.describe 'Professor Periods', type: :feature do
   end
 
   describe '#update professor period' do
+    let!(:professor_period) { create(:professor_period) }
+
     before(:each) do
-      @professor_period = create(:professor_period)
       visit edit_admins_professor_professor_period_path(
-        @professor_period.professor, @professor_period
+        professor_period.professor, professor_period
       )
     end
 
@@ -77,21 +79,23 @@ RSpec.describe 'Professor Periods', type: :feature do
     end
   end
 
-  # describe '#destroy' do
-  #  it 'destroy professor period' do
-  #    @professor_period = create(:professor_period)
-  #    visit admins_professor_professor_period_path
-  #
-  #    destroy_path = "/admins/professors/#{professor.id}/professor_periods/#{professor_period.id}"
-  #    click_link href: destroy_path
-  #
-  #    expect(page).to have_selector('div.alert.alert-success',
-  #                                  text: I18n.t('flash.actions.destroy.m',
-  #                                               resource_name: resource_name))
-  #
-  #    within('table tbody') do
-  #      expect(page).not_to have_content(professor_period.id)
-  #    end
-  #  end
-  # end
+  describe '#destroy' do
+    let!(:professor_period) { create(:professor_period) }
+
+    it 'destroy professor period' do
+      visit admins_professor_path(professor_period.professor)
+
+      destroy_path = "/administradores/professores/#{professor_period
+                      .professor.id}/professor_periods/#{professor_period.id}"
+      click_link href: destroy_path
+
+      expect(page).to have_selector('div.alert.alert-success',
+                                    text: I18n.t('flash.actions.destroy.m',
+                                                 resource_name: resource_name))
+
+      within('table#professor_periods tbody') do
+        expect(page).not_to have_content(professor_period.id)
+      end
+    end
+  end
 end

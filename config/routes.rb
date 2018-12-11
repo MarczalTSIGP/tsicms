@@ -1,4 +1,3 @@
-
 Rails.application.routes.draw do
   localized do
     root to: 'home#index'

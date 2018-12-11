@@ -14,7 +14,6 @@ class Discipline < ApplicationRecord
   belongs_to :period
 
   def sum_workload
-    theoretical_classes + practical_classes + distance_classes     
+    theoretical_classes + practical_classes + distance_classes
   end
-  
 end
