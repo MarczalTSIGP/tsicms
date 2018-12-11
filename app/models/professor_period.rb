@@ -12,8 +12,7 @@ class ProfessorPeriod < ApplicationRecord
   end
 
   def date_period
-    if !date_out.nil? && date_entry >= date_out
-      errors.add(:date_entry, I18n.t('errors.messages.date.less_thee') )
-    end
+    errors.add(:date_entry, I18n.t('errors.messages.date.less_thee')) if
+      !date_out.nil? && date_entry >= date_out
   end
 end

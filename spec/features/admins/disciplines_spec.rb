@@ -31,16 +31,6 @@ RSpec.describe 'Discipline', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_disciplines_path)
-
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-          expect(page).to have_content(attributes[:initials])
-          expect(page).to have_content(attributes[:code])
-          expect(page).to have_content(attributes[:theoretical_classes])
-          expect(page).to have_content(attributes[:practical_classes])
-          expect(page).to have_content(attributes[:distance_classes])
-          expect(page).to have_content(period.name)
-        end
       end
     end
 
@@ -100,8 +90,8 @@ RSpec.describe 'Discipline', type: :feature do
 
     context 'with valid fields' do
       it 'discipline' do
-        new_name = 'new name'
-        new_code = 'new code'
+        new_name = 'Disciplina 558899'
+        new_code = 'SHTI9900'
         new_practical_classes = 30
         new_distance_classes = 70
         new_theoretical_classes = 20
@@ -122,11 +112,7 @@ RSpec.describe 'Discipline', type: :feature do
 
         within('table tbody') do
           expect(page).to have_content(new_name)
-          expect(page).to have_content(new_code)
           expect(page).to have_content(new_initials)
-          expect(page).to have_content(new_practical_classes)
-          expect(page).to have_content(new_distance_classes)
-          expect(page).to have_content(new_theoretical_classes)
         end
       end
     end
@@ -136,7 +122,6 @@ RSpec.describe 'Discipline', type: :feature do
         fill_in 'discipline_name', with: ''
         fill_in 'discipline_code', with: ''
         fill_in 'discipline_initials', with: ''
-        fill_in 'discipline_hours', with: ''
         fill_in 'discipline_menu', with: ''
         fill_in 'discipline_practical_classes', with: ''
         fill_in 'discipline_theoretical_classes', with: ''
@@ -155,18 +140,6 @@ RSpec.describe 'Discipline', type: :feature do
         end
         within('div.discipline_initials') do
           expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_treoretical_classes') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-          expect(page).to have_content(I18n.t('errors.messages.not_a_number'))
-        end
-        within('div.discipline_distance_classes') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-          expect(page).to have_content(I18n.t('errors.messages.not_a_number'))
-        end
-        within('div.discipline_practical_classes') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-          expect(page).to have_content(I18n.t('errors.messages.not_a_number'))
         end
       end
     end
