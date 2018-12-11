@@ -61,6 +61,22 @@ RSpec.describe 'Professor Periods', type: :feature do
       )
     end
 
+    it 'with correct values' do
+      select '22', from: 'professor_period[date_entry(3i)]'
+      select 'Janeiro', from: 'professor_period[date_entry(2i)]'
+      select '2017', from: 'professor_period[date_entry(1i)]'
+
+      select '20', from: 'professor_period[date_out(3i)]'
+      select 'Janeiro', from: 'professor_period[date_out(2i)]'
+      select '2018', from: 'professor_period[date_out(1i)]'
+
+      submit_form
+
+      expect(page).to have_selector('div.alert.alert-success',
+                                    text: I18n.t('flash.actions.update.m',
+                                                 resource_name: resource_name))
+    end
+
     it 'with incorrect values' do
       select '22', from: 'professor_period[date_entry(3i)]'
       select 'Janeiro', from: 'professor_period[date_entry(2i)]'
