@@ -153,7 +153,7 @@ RSpec.describe 'Activity Professors', type: :feature do
 
       click_on_destroy_link(admins_activity_professor_path(activity_professor))
       expect_alert_success(resource_name, 'flash.actions.destroy.f')
-      expect_page_not_have_in('table tbody', activity_professor.activity.name)
+      expect_page_not_have_in('table#professor_activity tbody', activity_professor.activity.name)
     end
 
     it 'professor from activity' do
