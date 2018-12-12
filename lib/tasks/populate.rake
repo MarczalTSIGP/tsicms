@@ -251,15 +251,21 @@ namespace :db do
       activity: extension_activity,
       start_date: start_date
     )
-    galleries = %w[course static_page]
+    galleries = %w[course static_page document]
     galleries.each do |context|
       Gallery.create!(context: context)
     end
 
-    Gallery.all.each do |gallery|
+    Gallery.where(context: [:static_page, :course]).each do |gallery|
       5.times do
         gallery.pictures.create! label: Faker::Lorem.paragraph(1),
                                  image: FileSpecHelper.image
+      end
+    end
+
+    Gallery.where(context: [:document]).each do |gallery|
+      5.times do
+        gallery.documents.create! file: FileSpecHelper.pdf
       end
     end
   end
