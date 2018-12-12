@@ -62,11 +62,13 @@ RSpec.describe 'Discipline Monitors', type: :feature do
 
     context 'with fields filled' do
       it 'with correct values' do
+        prof_name = discipline_monitor.professors.map(&:name)
+        disc_name = discipline_monitor.disciplines.map(&:name)
         fields = [
           { id: 'discipline_monitor_academic_id', value: discipline_monitor.academic.name },
           { id: 'discipline_monitor_monitor_type_id', value: discipline_monitor.monitor_type.name },
-          { id: 'discipline_monitor_discipline_ids', value: discipline_monitor.disciplines.map(&:name) },
-          { id: 'discipline_monitor_professor_ids', value: discipline_monitor.professors.map(&:name) }
+          { id: 'discipline_monitor_discipline_ids', value: disc_name },
+          { id: 'discipline_monitor_professor_ids', value: prof_name }
         ]
         expect_page_have_value('discipline_monitor_year', discipline_monitor.year)
         expect_page_have_value('discipline_monitor_description', discipline_monitor.description)

@@ -164,18 +164,18 @@ namespace :db do
     #  @type Activity
     #######
 
-    tcc_activity = Activity.create_with(description: Faker::Lorem.paragraph(2)).find_or_create_by!(
-      name: I18n.t('helpers.tcc')
-    )
-    trainee_activity = Activity.create_with(description: Faker::Lorem.paragraph(2)).find_or_create_by!(
-      name: I18n.t('helpers.trainee')
-    )
-    monitor_activity = Activity.create_with(description: Faker::Lorem.paragraph(2)).find_or_create_by!(
-      name: I18n.t('helpers.monitor')
-    )
-    extension_activity = Activity.create_with(description: Faker::Lorem.paragraph(2)).find_or_create_by!(
-      name: I18n.t('helpers.extension_activity')
-    )
+    desc = Faker::Lorem.paragraph(2)
+    tcc_activity = Activity.create_with(description: desc)
+                           .find_or_create_by!(name: I18n.t('helpers.tcc'))
+
+    trainee_activity = Activity.create_with(description: desc)
+                               .find_or_create_by!(name: I18n.t('helpers.trainee'))
+
+    monitor_activity = Activity.create_with(description: desc)
+                               .find_or_create_by!(name: I18n.t('helpers.monitor'))
+
+    extension_activity = Activity.create_with(description: desc)
+                                 .find_or_create_by!(name: I18n.t('helpers.extension_activity'))
 
     #########
     #  @type StaticPage
@@ -216,8 +216,8 @@ namespace :db do
       activity_id: extension_activity,
       fixed: true
     ).find_or_create_by!(
-      title: I18n.t('helpers.extension_activity'),
-      )
+      title: I18n.t('helpers.extension_activity')
+    )
 
     StaticPage.create_with(
       content: '## conteudo',

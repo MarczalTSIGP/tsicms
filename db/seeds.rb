@@ -1,5 +1,5 @@
 Admin.create_with(name: 'Administrador', password: '123456')
-  .find_or_create_by!(email: 'admin@admin.com')
+     .find_or_create_by!(email: 'admin@admin.com')
 
 categories = %w[Documentário Filme Livro Seriado]
 categories.each do |category|
@@ -12,9 +12,9 @@ professor_categories.each do |category|
 end
 
 titles = [
-  {name: 'Especialista', abbrev: 'Esp.'},
-  {name: 'Mestre', abbrev: 'Me.'},
-  {name: 'Doutor', abbrev: 'Dr.'}
+  { name: 'Especialista', abbrev: 'Esp.' },
+  { name: 'Mestre', abbrev: 'Me.' },
+  { name: 'Doutor', abbrev: 'Dr.' }
 ]
 
 titles.each do |title|
@@ -87,7 +87,7 @@ StaticPage.create_with(
   activity_id: extension_activity,
   fixed: true
 ).find_or_create_by!(
-  title: I18n.t('helpers.extension_activity'),
+  title: I18n.t('helpers.extension_activity')
 )
 
 StaticPage.create_with(
