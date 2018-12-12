@@ -5,20 +5,21 @@
         <h2 class="section-heading text-white">Professores</h2>
         <hr class="light my-4">
         <p>
+
           <a class="btn btn-light" data-toggle="collapse" href="#efetive" role="button" aria-expanded="false"
-            aria-controls="collapseExample">
+            aria-controls="efetive">
             Efetivos
           </a>
           <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#temporary" aria-expanded="false"
-            aria-controls="collapseExample">
+            aria-controls="temporary">
             Colaboradores
           </button>
           <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#ex-professor" aria-expanded="false"
-            aria-controls="collapseExample">
+            aria-controls="ex-professor">
             Ex-Professores
           </button>
         </p>
-        <div class="collapse" id="efetive">
+        <div class="collapse multi-collapse" id="efetive">
           <div class="card card-body">
             <%@efetive_professors.each do |p| %>
             <div class="col-sm-12 py-2">
@@ -60,7 +61,7 @@
             <% end %>
           </div>
         </div>
-        <div class="collapse" id="temporary">
+        <div class="collapse multi-collapse" id="temporary">
           <div class="card card-body">
             <%@temporary_professors.each do |p| %>
             <div class="col-sm-12 py-2">
