@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Admins::StaticPages', type: :feature do
   let(:admin) { create(:admin) }
   let(:resource_name) { StaticPage.model_name.human }
+  let!(:static_page) { create(:static_page) }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -24,14 +25,11 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_static_pages_path)
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
-
+        text = I18n.t('flash.actions.create.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
+        expect_page_have_in('table tbody', attributes[:title])
+        expect_page_have_in('table tbody', attributes[:sub_title])
         within('table tbody') do
-          expect(page).to have_content(attributes[:title])
-          expect(page).to have_content(attributes[:sub_title])
           expect(page).to have_link(href: static_page_path(attributes[:permalink]))
         end
       end
@@ -42,39 +40,27 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
         fill_in 'static_page_permalink', with: 'awesome#page'
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        within('div.static_page_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.static_page_permalink') do
-          expect(page).to have_content(I18n.t('errors.messages.permalink'))
-        end
-        within('div.static_page_content') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect_page_have_in('div.static_page_permalink', I18n.t('errors.messages.permalink'))
+        fields = %w[div.static_page_title]
+        fields.push 'div.static_page_content'
+        expect_page_blank_messages(fields)
       end
     end
   end
 
   describe '#update' do
-    let(:static_page) { create(:static_page) }
-
     before(:each) do
       visit edit_admins_static_page_path(static_page)
     end
 
     context 'with filled fields' do
       it 'with correct values' do
-        expect(page).to have_field 'static_page_title',
-                                   with: static_page.title
-        expect(page).to have_field 'static_page_sub_title',
-                                   with: static_page.sub_title
-        expect(page).to have_field 'static_page_permalink',
-                                   with: static_page.permalink
-        expect(page).to have_field 'static_page_content',
-                                   with: static_page.content
+        expect_page_have_value('static_page_title', static_page.title)
+        expect_page_have_value('static_page_sub_title', static_page.sub_title)
+        expect_page_have_value('static_page_permalink', static_page.permalink)
+        expect_page_have_value('static_page_content', static_page.content)
       end
     end
 
@@ -89,13 +75,12 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_static_pages_path)
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
+        text = I18n.t('flash.actions.update.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
+        expect_page_have_in('table tbody', attributes[:title])
+        expect_page_have_in('table tbody', attributes[:sub_title])
         within('table tbody') do
-          expect(page).to have_content(attributes[:title])
-          expect(page).to have_content(attributes[:sub_title])
           expect(page).to have_link(href: static_page_path(attributes[:permalink]))
         end
       end
@@ -110,36 +95,13 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
         fill_in 'static_page_content', with: ''
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        within('div.static_page_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.static_page_permalink') do
-          expect(page).to have_content(I18n.t('errors.messages.permalink'))
-        end
-        within('div.static_page_content') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-      end
-    end
-  end
+        fields = %w[div.static_page_title div.static_page_content]
 
-  describe '#destroy' do
-    it 'static_page' do
-      static_page = create(:static_page)
-      visit admins_static_pages_path
+        expect_page_blank_messages(fields)
 
-      click_on_destroy_link(admins_static_page_path(static_page))
-
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
-
-      within('table tbody') do
-        expect(page).not_to have_content(static_page.title)
-        expect(page).not_to have_link(href: static_page_path(static_page.permalink))
+        expect_page_have_in('div.static_page_permalink', I18n.t('errors.messages.permalink'))
       end
     end
   end
@@ -157,9 +119,19 @@ RSpec.describe 'Admins::StaticPages', type: :feature do
 
         expect(page).to have_link(href: static_page_path(s.permalink))
         expect(page).to have_link(href: edit_admins_static_page_path(s))
-        destroy_link = "a[href='#{admins_static_page_path(s)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_static_page_path(s))
       end
+    end
+  end
+
+  describe '#destroy' do
+    it 'static_page' do
+      visit admins_static_pages_path
+
+      click_on_destroy_link(admins_static_page_path(static_page))
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('table tbody', static_page.title)
     end
   end
 end

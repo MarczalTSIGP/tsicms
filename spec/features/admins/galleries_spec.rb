@@ -39,12 +39,9 @@ RSpec.describe 'Galleries', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.gallery_pictures') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
-        end
+        i18nmsg = 'errors.messages.extension_whitelist_error'
+        text = I18n.t(i18nmsg, extension: '"pdf"', allowed_types: 'jpg, jpeg, gif, png')
+        expect_page_have_in('div.gallery_pictures', text)
       end
     end
   end
@@ -91,27 +88,9 @@ RSpec.describe 'Galleries', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within('div.picture_image') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
-        end
-      end
-    end
-  end
-
-  describe '#destroy' do
-    it 'gallery picture' do
-      visit admins_galleries_path(gallery.context)
-
-      picture = gallery.pictures.first
-
-      click_on_destroy_link(admins_picture_path(gallery.context, picture))
-
-      expect_alert_success(resource_name, 'flash.actions.destroy.f')
-
-      within("#gallery-#{gallery.context}") do
-        expect(page).not_to have_css("img[src*='#{picture.image.url}']")
+        expect_page_have_in('div.picture_image', I18n.t('errors.messages.extension_whitelist_error',
+                                                        extension: '"pdf"',
+                                                        allowed_types: 'jpg, jpeg, gif, png'))
       end
     end
   end
@@ -124,8 +103,24 @@ RSpec.describe 'Galleries', type: :feature do
 
       gallery.pictures.each do |p|
         expect(page).to have_link(href: edit_admins_picture_path(gallery.context, p))
-        destroy_link = "a[href='#{admins_picture_path(gallery.context, p)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_picture_path(gallery.context, p))
+      end
+    end
+  end
+
+  describe '#destroy' do
+    it 'gallery picture' do
+      visit admins_galleries_path(gallery.context)
+
+      picture = gallery.pictures.first
+
+      click_on_destroy_link(admins_picture_path(gallery.context, picture))
+
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+
+      within("#gallery-#{gallery.context}") do
+        expect(page).not_to have_css("img[src*='#{picture.image.url}']")
       end
     end
   end

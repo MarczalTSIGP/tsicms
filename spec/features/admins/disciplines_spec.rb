@@ -4,6 +4,7 @@ RSpec.describe 'Discipline', type: :feature do
   let(:admin) { create(:admin) }
   let!(:period) { create_list(:period, 3).sample }
   let(:resource_name) { Discipline.model_name.human }
+  let!(:discipline) { create(:discipline) }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -28,11 +29,9 @@ RSpec.describe 'Discipline', type: :feature do
 
         expect(page).to have_current_path(admins_disciplines_path)
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-          expect(page).to have_content(attributes[:code])
-          expect(page).to have_content(period.name)
-        end
+        expect_page_have_in('table tbody', attributes[:name])
+        expect_page_have_in('table tbody', attributes[:code])
+        expect_page_have_in('table tbody', period.name)
       end
     end
 
@@ -42,36 +41,26 @@ RSpec.describe 'Discipline', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-
-        within('div.discipline_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_code') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_hours') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-          expect(page).to have_content(I18n.t('errors.messages.not_a_number'))
-        end
-        within('div.discipline_period') do
-          expect(page).to have_content(I18n.t('errors.messages.required'))
-        end
+        fields = %w[div.discipline_name]
+        fields.push 'div.discipline_code'
+        fields.push 'div.discipline_hours'
+        expect_page_blank_messages(fields)
+        expect_page_have_in('div.discipline_hours', I18n.t('errors.messages.not_a_number'))
+        expect_page_have_in('div.discipline_period', I18n.t('errors.messages.required'))
       end
     end
   end
 
   describe '#update' do
-    let(:discipline) { create(:discipline) }
-
     before(:each) do
       visit edit_admins_discipline_path(discipline)
     end
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'discipline_name', with: discipline.name
-        expect(page).to have_field 'discipline_hours', with: discipline.hours
-        expect(page).to have_field 'discipline_code', with: discipline.code
+        expect_page_have_value('discipline_name', discipline.name)
+        expect_page_have_value('discipline_hours', discipline.hours)
+        expect_page_have_value('discipline_code', discipline.code)
 
         selected = "#{discipline.period.matrix.name} - #{discipline.period.name}"
         expect(page).to have_select 'discipline_period_id',
@@ -91,14 +80,10 @@ RSpec.describe 'Discipline', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_disciplines_path)
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(new_name)
-          expect(page).to have_content(new_code)
-        end
+        text = I18n.t('flash.actions.update.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
+        expect_page_have_in('table tbody', new_name)
+        expect_page_have_in('table tbody', new_code)
       end
     end
 
@@ -110,26 +95,15 @@ RSpec.describe 'Discipline', type: :feature do
         fill_in 'discipline_menu', with: ''
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
-
-        within('div.discipline_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_code') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_hours') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-          expect(page).to have_content(I18n.t('errors.messages.not_a_number'))
-        end
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        fields = %w[div.discipline_name div.discipline_code div.discipline_hours]
+        expect_page_blank_messages(fields)
+        expect_page_have_in('div.discipline_hours', I18n.t('errors.messages.not_a_number'))
       end
     end
   end
 
   describe '#show' do
-    let(:discipline) { create(:discipline) }
-
     it 'show all discipline with options' do
       visit admins_discipline_path(discipline)
 
@@ -145,16 +119,11 @@ RSpec.describe 'Discipline', type: :feature do
 
   describe '#destroy' do
     it 'discipline' do
-      discipline = create(:discipline)
       visit admins_disciplines_path
-      destroy_link = "a[href='#{admins_discipline_path(discipline)}'][data-method='delete']"
-      find(destroy_link).click
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
-      within('table tbody') do
-        expect(page).not_to have_content(discipline.name)
-      end
+      click_on_destroy_link(admins_discipline_path(discipline))
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('table tbody', discipline.name)
     end
   end
 
@@ -174,8 +143,7 @@ RSpec.describe 'Discipline', type: :feature do
 
         expect(page).to have_link(href: edit_admins_discipline_path(discipline))
         expect(page).to have_link(href: admins_discipline_path(discipline))
-        destroy_link = "a[href='#{admins_discipline_path(discipline)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_discipline_path(discipline))
       end
     end
   end

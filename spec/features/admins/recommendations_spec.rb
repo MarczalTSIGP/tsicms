@@ -4,6 +4,8 @@ RSpec.describe 'Recommendations', type: :feature do
   let(:admin) { create(:admin) }
   let!(:category) { create_list(:category_recommendation, 3).sample }
   let(:resource_name) { Recommendation.model_name.human }
+  let!(:recommendation) { create(:recommendation) }
+  let!(:new_category) { create(:category_recommendation) }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -26,14 +28,11 @@ RSpec.describe 'Recommendations', type: :feature do
 
         expect(page).to have_current_path(admins_recommendations_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
+        i18msg = 'flash.actions.create.f'
+        expect(page).to have_flash(:success, text: I18n.t(i18msg, resource_name: resource_name))
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-          expect(page).to have_content(category.name)
-        end
+        expect_page_have_in('table tbody', attributes[:name])
+        expect_page_have_in('table tbody', category.name)
       end
     end
 
@@ -42,40 +41,29 @@ RSpec.describe 'Recommendations', type: :feature do
         attach_file 'recommendation_image', FileSpecHelper.pdf.path
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
-
-        within('div.recommendation_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.recommendation_description') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.recommendation_image') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
-        end
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        fields = %w[div.recommendation_title div.recommendation_description]
+        expect_page_blank_messages(fields)
+        text = I18n.t('errors.messages.extension_whitelist_error',
+                      extension: '"pdf"',
+                      allowed_types: 'jpg, jpeg, gif, png')
+        expect_page_have_in('div.recommendation_image', text)
       end
     end
   end
 
   describe '#update' do
-    let(:recommendation) { create(:recommendation) }
-    let!(:new_category) { create(:category_recommendation) }
-
     before(:each) do
       visit edit_admins_recommendation_path(recommendation)
     end
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'recommendation_title',
-                                   with: recommendation.title
-        expect(page).to have_field 'recommendation_description',
-                                   with: recommendation.description
-        expect(page).to have_select 'recommendation_category_recommendation_id',
-                                    selected: recommendation.category_recommendation.name
+        expect_page_have_value('recommendation_title', recommendation.title)
+        expect_page_have_value('recommendation_description', recommendation.description)
+        id = 'recommendation_category_recommendation_id'
+        value = recommendation.category_recommendation.name
+        expect_page_have_selected(id, value)
         expect(page).to have_css("img[src*='#{recommendation.image}']")
       end
     end
@@ -92,14 +80,11 @@ RSpec.describe 'Recommendations', type: :feature do
 
         expect(page).to have_current_path(admins_recommendations_path)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
+        text = I18n.t('flash.actions.update.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-          expect(page).to have_content(new_category.name)
-        end
+        expect_page_have_in('table tbody', attributes[:name])
+        expect_page_have_in('table tbody', new_category.name)
       end
     end
 
@@ -110,38 +95,14 @@ RSpec.describe 'Recommendations', type: :feature do
         attach_file 'recommendation_image', FileSpecHelper.pdf.path
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        within('div.recommendation_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.recommendation_description') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.recommendation_image') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
-        end
-      end
-    end
-  end
+        fields = %w[div.recommendation_title div.recommendation_description]
 
-  describe '#destroy' do
-    it 'recommendation' do
-      recommendation = create(:recommendation)
-      visit admins_recommendations_path
-
-      destroy_path = admins_recommendation_path(recommendation)
-      click_link href: destroy_path
-
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
-
-      within('table tbody') do
-        expect(page).not_to have_content(recommendation.title)
+        expect_page_blank_messages(fields)
+        i18msg = 'errors.messages.extension_whitelist_error'
+        text = I18n.t(i18msg, extension: '"pdf"', allowed_types: 'jpg, jpeg, gif, png')
+        expect_page_have_in('div.recommendation_image', text)
       end
     end
   end
@@ -158,9 +119,19 @@ RSpec.describe 'Recommendations', type: :feature do
         expect(page).to have_content(I18n.l(r.created_at, format: :long))
 
         expect(page).to have_link(href: edit_admins_recommendation_path(r))
-        destroy_link = "a[href='#{admins_recommendation_path(r)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_recommendation_path(r))
       end
+    end
+  end
+
+  describe '#destroy' do
+    it 'recommendation' do
+      visit admins_recommendations_path
+
+      click_on_destroy_link(admins_recommendation_path(recommendation))
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('table tbody', recommendation.title)
     end
   end
 end

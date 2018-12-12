@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Faqs', type: :feature do
   let(:admin) { create(:admin) }
   let(:resource_name) { Faq.model_name.human }
+  let!(:faq) { create(:faq) }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -22,13 +23,10 @@ RSpec.describe 'Faqs', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_faqs_path)
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
+        text = I18n.t('flash.actions.create.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
-        within('#accordion') do
-          expect(page).to have_content(attributes[:title])
-        end
+        expect_page_have_in('#accordion', attributes[:title])
       end
     end
 
@@ -38,30 +36,24 @@ RSpec.describe 'Faqs', type: :feature do
 
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
+        fields = %w[div.faq_title div.faq_answer]
 
-        within('div.faq_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.faq_answer') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+
+        expect_page_blank_messages(fields)
       end
     end
   end
 
   describe '#update' do
-    let(:faq) { create(:faq) }
-
     before(:each) do
       visit edit_admins_faq_path(faq)
     end
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'faq_title',
-                                   with: faq.title
-        expect(page).to have_field 'faq_answer',
-                                   with: faq.answer
+        expect_page_have_value('faq_title', faq.title)
+        expect_page_have_value('faq_answer', faq.answer)
       end
     end
 
@@ -75,14 +67,9 @@ RSpec.describe 'Faqs', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_faqs_path)
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
-
-        within('#accordion') do
-          expect(page).to have_content(new_title)
-        end
+        text = I18n.t('flash.actions.update.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
+        expect_page_have_in('#accordion', new_title)
       end
     end
 
@@ -92,33 +79,9 @@ RSpec.describe 'Faqs', type: :feature do
         fill_in 'faq_answer', with: ''
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
-
-        within('div.faq_title') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.faq_answer') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-      end
-    end
-  end
-
-  describe '#destroy' do
-    it 'faq' do
-      faq = create(:faq)
-      visit admins_faqs_path
-
-      destroy_path = admins_faq_path(faq)
-      click_link href: destroy_path
-
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
-
-      within('#accordion') do
-        expect(page).not_to have_content(faq.title)
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        fields = %w[div.faq_title div.faq_answer]
+        expect_page_blank_messages(fields)
       end
     end
   end
@@ -134,9 +97,19 @@ RSpec.describe 'Faqs', type: :feature do
         expect(page).to have_css("#collapse#{f.id}", text: f.answer)
 
         expect(page).to have_link(href: edit_admins_faq_path(f))
-        destroy_link = "a[href='#{admins_faq_path(f)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_faq_path(f))
       end
+    end
+  end
+
+  describe '#destroy' do
+    it 'faq' do
+      visit admins_faqs_path
+
+      click_on_destroy_link(admins_faq_path(faq))
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('#accordion', faq.title)
     end
   end
 end

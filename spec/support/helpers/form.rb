@@ -10,6 +10,22 @@ module Helpers
       end
     end
 
+    def expect_page_have_selected(field, value)
+      expect(page).to have_select(field, selected: value)
+    end
+
+    def expect_page_have_value(field, value)
+      expect(page).to have_field(field, with: value)
+    end
+
+    def expect_page_blank_messages(fields)
+      fields.each(&method(:expect_page_blank_message))
+    end
+
+    def expect_page_blank_message(field)
+      expect_page_have_in(field, I18n.t('errors.messages.blank'))
+    end
+
     def expect_page_not_have_in(field, content)
       within(field) do
         expect(page).not_to have_content(content)
@@ -22,15 +38,9 @@ module Helpers
       end
     end
 
-    def expect_alert_error(message)
-      expect(page).to have_selector('div.alert.alert-danger',
-                                    text: I18n.t(message))
-    end
-
-    def expect_alert_success(resource_name, message)
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t(message,
-                                                 resource_name: resource_name))
+    def expect_page_have_destroy_link(url)
+      destroy_link = "a[href='#{url}'][data-method='delete']"
+      expect(page).to have_css(destroy_link)
     end
 
     def click_on_destroy_link(url)

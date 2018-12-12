@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Academics', type: :feature do
   let(:admin) { create(:admin) }
   let(:resource_name) { Academic.model_name.human }
+  let!(:academic) { create(:academic) }
 
   before(:each) do
     login_as(admin, scope: :admin)
@@ -24,14 +25,9 @@ RSpec.describe 'Academics', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_academics_path)
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.m',
-                                                   resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-        end
+        text = I18n.t('flash.actions.create.m', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
+        expect_page_have_in('table tbody', attributes[:name])
       end
     end
 
@@ -40,34 +36,29 @@ RSpec.describe 'Academics', type: :feature do
         attach_file 'academic_image', FileSpecHelper.pdf.path
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        have_contains('div.academic_name', I18n.t('errors.messages.blank'))
-        have_contains('div.academic_contact', I18n.t('errors.messages.blank'))
+        fields = %w[div.academic_name div.academic_contact]
+
+        expect_page_blank_messages(fields)
+
         expect(page).to have_unchecked_field('academic_graduated')
-        within('div.academic_image') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
-        end
+        i18nmsg = 'errors.messages.extension_whitelist_error'
+        text = I18n.t(i18nmsg, extension: '"pdf"', allowed_types: 'jpg, jpeg, gif, png')
+        expect_page_have_in('div.academic_image', text)
       end
     end
   end
 
   describe '#update' do
-    let(:academic) { create(:academic) }
-
     before(:each) do
       visit edit_admins_academic_path(academic)
     end
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'academic_name',
-                                   with: academic.name
-        expect(page).to have_field 'academic_contact',
-                                   with: academic.contact
+        expect_page_have_value('academic_name', academic.name)
+        expect_page_have_value('academic_contact', academic.contact)
         expect(page).to have_unchecked_field('academic_graduated')
         expect(page).to have_css("img[src*='#{academic.image}']")
       end
@@ -85,14 +76,10 @@ RSpec.describe 'Academics', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_academics_path)
+        text = I18n.t('flash.actions.update.m', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
 
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.m',
-                                                   resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(new_name)
-        end
+        expect_page_have_in('table tbody', new_name)
       end
     end
 
@@ -104,39 +91,14 @@ RSpec.describe 'Academics', type: :feature do
         attach_file 'academic_image', FileSpecHelper.pdf.path
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
 
-        within('div.academic_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.academic_contact') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        fields = %w[div.academic_name div.academic_contact]
+        expect_page_blank_messages(fields)
         expect(page).to have_checked_field('academic_graduated')
-
-        within('div.academic_image') do
-          expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
-                                              extension: '"pdf"',
-                                              allowed_types: 'jpg, jpeg, gif, png'))
-        end
-      end
-    end
-  end
-
-  describe '#destroy' do
-    it 'academic' do
-      academic = create(:academic)
-      visit admins_academics_path
-
-      click_on_destroy_link(admins_academic_path(academic))
-
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.m',
-                                                 resource_name: resource_name))
-
-      within('table tbody') do
-        expect(page).not_to have_content(academic.name)
+        i18nmsg = 'errors.messages.extension_whitelist_error'
+        text = I18n.t(i18nmsg, extension: '"pdf"', allowed_types: 'jpg, jpeg, gif, png')
+        expect_page_have_in('div.academic_image', text)
       end
     end
   end
@@ -153,9 +115,19 @@ RSpec.describe 'Academics', type: :feature do
         expect(page).to have_content(I18n.l(a.created_at, format: :long))
 
         expect(page).to have_link(href: edit_admins_academic_path(a))
-        destroy_link = "a[href='#{admins_academic_path(a)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_academic_path(a))
       end
+    end
+  end
+
+  describe '#destroy' do
+    it 'academic' do
+      visit admins_academics_path
+
+      click_on_destroy_link(admins_academic_path(academic))
+      text = I18n.t('flash.actions.destroy.m', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('table tbody', academic.name)
     end
   end
 end

@@ -7,6 +7,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
   let!(:monitor_type) { create_list(:monitor_type, 2).sample }
   let!(:professor) { create_list(:professor, 2).sample }
   let!(:discipline) { create_list(:discipline, 2).sample }
+  let!(:discipline_monitor) { create(:discipline_monitor) }
 
   before(:each) do
     login_as admin, scope: :admin
@@ -32,14 +33,9 @@ RSpec.describe 'Discipline Monitors', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_discipline_monitors_path)
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.f',
-                                                   resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(attributes[:academic])
-        end
+        text = I18n.t('flash.actions.create.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
+        expect_page_have_in('table tbody', attributes[:academic])
       end
     end
 
@@ -47,52 +43,38 @@ RSpec.describe 'Discipline Monitors', type: :feature do
       it 'show errors' do
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
-        within('div.discipline_monitor_semester') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_description') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_academic') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_monitor_type') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_discipline_ids') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.discipline_monitor_professor_ids') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        fields = %w[div.discipline_monitor_semester]
+        fields.push 'div.discipline_monitor_description'
+        fields.push 'div.discipline_monitor_academic'
+        fields.push 'div.discipline_monitor_monitor_type'
+        fields.push 'div.discipline_monitor_discipline_ids'
+        fields.push ' div.discipline_monitor_professor_ids'
+        expect_page_blank_messages(fields)
       end
     end
   end
 
   describe '#update' do
-    let!(:discipline_monitor) { create(:discipline_monitor) }
-
     before(:each) do
       visit edit_admins_discipline_monitor_path(discipline_monitor)
     end
 
     context 'with fields filled' do
       it 'with correct values' do
-        expect(page).to have_field 'discipline_monitor_year',
-                                   with: discipline_monitor.year
-        expect(page).to have_field 'discipline_monitor_description',
-                                   with: discipline_monitor.description
-        expect(page).to have_select 'discipline_monitor_academic_id',
-                                    selected: discipline_monitor.academic.name
-        expect(page).to have_select 'discipline_monitor_monitor_type_id',
-                                    selected: discipline_monitor.monitor_type.name
-
-        expect(page).to have_select 'discipline_monitor_discipline_ids',
-                                    selected: discipline_monitor.disciplines.map(&:name)
-        expect(page).to have_select 'discipline_monitor_professor_ids',
-                                    selected: discipline_monitor.professors.map(&:name)
+        prof_name = discipline_monitor.professors.map(&:name)
+        disc_name = discipline_monitor.disciplines.map(&:name)
+        fields = [
+          { id: 'discipline_monitor_academic_id', value: discipline_monitor.academic.name },
+          { id: 'discipline_monitor_monitor_type_id', value: discipline_monitor.monitor_type.name },
+          { id: 'discipline_monitor_discipline_ids', value: disc_name },
+          { id: 'discipline_monitor_professor_ids', value: prof_name }
+        ]
+        expect_page_have_value('discipline_monitor_year', discipline_monitor.year)
+        expect_page_have_value('discipline_monitor_description', discipline_monitor.description)
+        fields.each do |f|
+          expect_page_have_selected(f[:id], f[:value])
+        end
       end
     end
 
@@ -114,14 +96,9 @@ RSpec.describe 'Discipline Monitors', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admins_discipline_monitors_path)
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.f',
-                                                   resource_name: resource_name))
-
-        within('table tbody') do
-          expect(page).to have_content(academic.name)
-        end
+        text = I18n.t('flash.actions.update.f', resource_name: resource_name)
+        expect(page).to have_flash(:success, text: text)
+        expect_page_have_in('table tbody', academic.name)
       end
     end
 
@@ -129,34 +106,20 @@ RSpec.describe 'Discipline Monitors', type: :feature do
       it 'show errors' do
         fill_in 'discipline_monitor_description', with: ''
         submit_form
-
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
-
-        within('div.discipline_monitor_description') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
+        expect_page_blank_message('div.discipline_monitor_description')
       end
     end
   end
 
   describe '#destroy' do
     it 'discipline_monitor' do
-      discipline_monitor = create(:discipline_monitor)
-
       visit admins_discipline_monitors_path
 
-      destroy_path = admins_discipline_monitor_path(discipline_monitor)
-      destroy_link = "a[href='#{destroy_path}'][data-method='delete']"
-      find(destroy_link).click
-
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.destroy.f',
-                                                 resource_name: resource_name))
-
-      within('table tbody') do
-        expect(page).not_to have_content(discipline_monitor.academic.name)
-      end
+      click_on_destroy_link(admins_discipline_monitor_path(discipline_monitor))
+      text = I18n.t('flash.actions.destroy.f', resource_name: resource_name)
+      expect(page).to have_flash(:success, text: text)
+      expect_page_not_have_in('table tbody', discipline_monitor.academic.name)
     end
   end
 
@@ -174,8 +137,7 @@ RSpec.describe 'Discipline Monitors', type: :feature do
         expect(page).to have_content(m.disciplines.first.code)
 
         expect(page).to have_link(href: edit_admins_discipline_monitor_path(m))
-        destroy_link = "a[href='#{admins_discipline_monitor_path(m)}'][data-method='delete']"
-        expect(page).to have_css(destroy_link)
+        expect_page_have_destroy_link(admins_discipline_monitor_path(m))
       end
     end
   end
