@@ -1,0 +1,11 @@
+<% provide(:page_title, "Upload de documentos") %>
+
+<%= simple_form_for [:admins, @gallery], method: :post, url: admins_documents_path(@gallery.context) do |f| %>
+
+  <%= f.input :documents, as: :file, label: false, input_html: { multiple: true }  %>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_galleries_path(@gallery.context), class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

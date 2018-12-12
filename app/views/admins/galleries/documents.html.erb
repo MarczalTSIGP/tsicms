@@ -1,4 +1,4 @@
-<% provide(:page_title, 'Galeria') %>
+<% provide(:page_title, 'Galeria de documentos') %>
 
 <div class="text-right mb-3">
   <%= link_to new_admins_document_path(@gallery.context),
@@ -10,13 +10,17 @@
 </div>
 
 <div id="gallery-<%= @gallery.context %>">
-  <% @gallery.documents.in_groups_of(3, false).each do |documents| %>
+  <% @gallery.documents.in_groups_of(4, false).each do |documents| %>
     <div class="row row-cards">
       <% documents.each do |document| %>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-3">
           <div class="card p-1">
-            <  href="<%= document.file.url %>">
-              <i class="fa fa-file"></i>
+            <a href="<%= document.file.url %>" target="_blank" class="document-card-body" id="document-<%= document.id %>">
+              <i class="fa fa-file fa-5x"></i>
+
+              <label for="document-<%= document.id %>">
+                <%= File.basename(document.file.path) %>
+              </label>
             </a>
 
             <div class="d-flex align-items-center px-2">
