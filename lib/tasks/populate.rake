@@ -160,75 +160,87 @@ namespace :db do
     end
 
     start_date = Faker::Date.between(1.year.ago, 5.months.ago)
-    tcc_activity = Activity.find_or_create_by!(
-      name: I18n.t('helpers.tcc'),
-      description: Faker::Lorem.paragraph(2)
+    #########
+    #  @type Activity
+    #######
+
+    tcc_activity = Activity.create_with(description: Faker::Lorem.paragraph(2)).find_or_create_by!(
+      name: I18n.t('helpers.tcc')
     )
-    trainee_activity = Activity.find_or_create_by!(
-      name: I18n.t('helpers.trainee'),
-      description: Faker::Lorem.paragraph(2)
+    trainee_activity = Activity.create_with(description: Faker::Lorem.paragraph(2)).find_or_create_by!(
+      name: I18n.t('helpers.trainee')
     )
-    monitor_activity = Activity.find_or_create_by!(
-      name: I18n.t('helpers.monitor'),
-      description: Faker::Lorem.paragraph(2)
+    monitor_activity = Activity.create_with(description: Faker::Lorem.paragraph(2)).find_or_create_by!(
+      name: I18n.t('helpers.monitor')
     )
-    extension_activity = Activity.find_or_create_by!(
-      name: I18n.t('helpers.extension_activity'),
-      description: Faker::Lorem.paragraph(2)
-    )
-    StaticPage.find_or_create_by!(
-      title: I18n.t('helpers.trainee'),
-      sub_title: 'Vagas de Estágio',
-      content: '## conteudo',
-      permalink: 'estagio',
-      activity_id: trainee_activity,
-      fixed: true
+    extension_activity = Activity.create_with(description: Faker::Lorem.paragraph(2)).find_or_create_by!(
+      name: I18n.t('helpers.extension_activity')
     )
 
-    StaticPage.find_or_create_by!(
-      title: I18n.t('helpers.monitor'),
+    #########
+    #  @type StaticPage
+    #######
+
+    StaticPage.create_with(
+      sub_title: 'Vagas de Estágio',
+      content: '## conteudo',
+      permalink: 'trainee',
+      activity_id: trainee_activity,
+      fixed: true
+    ).find_or_create_by!(
+      title: I18n.t('helpers.trainee')
+    )
+
+    StaticPage.create_with(
       sub_title: 'Vagas de Monitoria',
       content: '## conteudo',
       permalink: 'monitor',
       activity_id: monitor_activity,
       fixed: true
+    ).find_or_create_by!(
+      title: I18n.t('helpers.monitor')
     )
 
-    StaticPage.find_or_create_by!(
-      title: I18n.t('helpers.tcc'),
+    StaticPage.create_with(
       content: '## conteudo',
       permalink: 'tcc',
       activity_id: tcc_activity,
       fixed: true
+    ).find_or_create_by!(
+      title: I18n.t('helpers.tcc')
     )
 
-    StaticPage.find_or_create_by!(
-      title: I18n.t('helpers.extension_activity'),
+    StaticPage.create_with(
       content: '## conteudo',
       permalink: 'extension_activity',
       activity_id: extension_activity,
       fixed: true
-    )
+    ).find_or_create_by!(
+      title: I18n.t('helpers.extension_activity'),
+      )
 
-    StaticPage.find_or_create_by!(
-      title: I18n.t('helpers.instruction_subscription'),
+    StaticPage.create_with(
       content: '## conteudo',
       permalink: 'instruction_subscription',
       fixed: true
+    ).find_or_create_by!(
+      title: I18n.t('helpers.instruction_subscription')
     )
 
-    StaticPage.find_or_create_by!(
-      title: I18n.t('helpers.be_our_student'),
+    StaticPage.create_with(
       content: '## conteudo',
       permalink: 'be_our_student',
       fixed: true
+    ).find_or_create_by!(
+      title: I18n.t('helpers.be_our_student')
     )
 
-    StaticPage.find_or_create_by!(
-      title: I18n.t('helpers.course_about'),
+    StaticPage.create_with(
       content: '## conteudo',
       permalink: 'course_about',
       fixed: true
+    ).find_or_create_by!(
+      title: I18n.t('helpers.course_about')
     )
 
     ActivityProfessor.find_or_create_by!(
