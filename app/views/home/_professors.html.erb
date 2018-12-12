@@ -4,109 +4,114 @@
       <div class="col-lg-8 mx-auto">
         <h2 class="section-heading text-white">Professores</h2>
         <hr class="light my-4">
-        <p>
-
-          <a class="btn btn-light" data-toggle="collapse" href="#efetive" role="button" aria-expanded="false"
-            aria-controls="efetive">
-            Efetivos
-          </a>
-          <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#temporary" aria-expanded="false"
-            aria-controls="temporary">
-            Colaboradores
-          </button>
-          <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#ex-professor" aria-expanded="false"
-            aria-controls="ex-professor">
-            Ex-Professores
-          </button>
-        </p>
-        <div class="collapse multi-collapse" id="efetive">
-          <div class="card card-body">
-            <%@efetive_professors.each do |p| %>
-            <div class="col-sm-12 py-2">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="media">
-                    <%= image_tag p.image.url, class:'avatar avatar-xxl mr-5' %>
-                    <div class="media-body">
-                      <h4 class="m-0">
-                        <%= p.name %>
-                      </h4>
-                      <p class="text-muted mb-0">
-                        <%= p.professor_title.name %>
-                      </p>
-                      <ul class="social-links list-inline mb-0 mt-2">
-                        <li class="list-inline-item">
-                          <strong>E-mail: </strong>
-                          <%= p.email %>
-                        </li>
-                        <li class="list-inline-item">
-                          <strong>Lates: </strong>
-                          <%= p.lattes %>
-                        </li>
-                        <hr>
-                        <li class="list-inline-item">
-                          <strong>Atuação: </strong>
-                          <%= p.occupation_area %>
-                        </li>
-                        <li class="list-inline-item">
-                          <strong>Status: </strong>
-                          <%= p.professor_category.name %>
-                        </li>
-                      </ul>
+        <div id="accordion">
+          <div id="headingEfetive">
+            <a class="btn btn-light" data-toggle="collapse" href="#efetive" role="button" aria-expanded="false"
+              aria-controls="efetive">
+              Efetivos
+            </a>
+          </div>
+          <div id="headingTemporary">
+            <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#temporary" aria-expanded="false"
+              aria-controls="temporary">
+              Temporários
+            </button>
+          </div>
+          <div id="headingEx-professors">
+            <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#ex-professor"
+              aria-expanded="false" aria-controls="ex-professor">
+              Ex-Professores
+            </button>
+          </div>
+          <div id="efetive" class="collapse" aria-labelledby="headingEfetive" data-parent="#accordion">
+            <div class="card card-body">
+              <%@efetive_professors.each do |p| %>
+              <div class="col-sm-12 py-2">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <div class="media">
+                      <%= image_tag p.image.url, class:'avatar avatar-xxl mr-5' %>
+                      <div class="media-body">
+                        <h4 class="m-0">
+                          <%= p.name %>
+                        </h4>
+                        <p class="text-muted mb-0">
+                          <%= p.professor_title.name %>
+                        </p>
+                        <ul class="social-links list-inline mb-0 mt-2">
+                          <li class="list-inline-item">
+                            <strong>E-mail: </strong>
+                            <%= p.email %>
+                          </li>
+                          <li class="list-inline-item">
+                            <strong>Lates: </strong>
+                            <%= p.lattes %>
+                          </li>
+                          <hr>
+                          <li class="list-inline-item">
+                            <strong>Atuação: </strong>
+                            <%= p.occupation_area %>
+                          </li>
+                          <li class="list-inline-item">
+                            <strong>Status: </strong>
+                            <%= p.professor_category.name %>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <% end %>
             </div>
-            <% end %>
           </div>
-        </div>
-        <div class="collapse multi-collapse" id="temporary">
-          <div class="card card-body">
-            <%@temporary_professors.each do |p| %>
-            <div class="col-sm-12 py-2">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="media">
-                    <%= image_tag p.image.url, class:'avatar avatar-xxl mr-5' %>
-                    <div class="media-body">
-                      <h4 class="m-0">
-                        <%= p.name %>
-                      </h4>
-                      <p class="text-muted mb-0">
-                        <%= p.professor_title.name %>
-                      </p>
-                      <ul class="social-links list-inline mb-0 mt-2">
-                        <li class="list-inline-item">
-                          <strong>E-mail: </strong>
-                          <%= p.email %>
-                        </li>
-                        <li class="list-inline-item">
-                          <strong>Lates: </strong>
-                          <%= p.lattes %>
-                        </li>
-                        <hr>
-                        <li class="list-inline-item">
-                          <strong>Atuação: </strong>
-                          <%= p.occupation_area %>
-                        </li>
-                        <li class="list-inline-item">
-                          <strong>Status: </strong>
-                          <%= p.professor_category.name %>
-                        </li>
-                      </ul>
+          <div id="temporary" class="collapse" aria-labelledby="headingTemporary" data-parent="#accordion">
+            <div class="card card-body">
+              <%@temporary_professors.each do |p| %>
+              <div class="col-sm-12 py-2">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <div class="media">
+                      <%= image_tag p.image.url, class:'avatar avatar-xxl mr-5' %>
+                      <div class="media-body">
+                        <h4 class="m-0">
+                          <%= p.name %>
+                        </h4>
+                        <p class="text-muted mb-0">
+                          <%= p.professor_title.name %>
+                        </p>
+                        <ul class="social-links list-inline mb-0 mt-2">
+                          <li class="list-inline-item">
+                            <strong>E-mail: </strong>
+                            <%= p.email %>
+                          </li>
+                          <li class="list-inline-item">
+                            <strong>Lates: </strong>
+                            <%= p.lattes %>
+                          </li>
+                          <hr>
+                          <li class="list-inline-item">
+                            <strong>Atuação: </strong>
+                            <%= p.occupation_area %>
+                          </li>
+                          <li class="list-inline-item">
+                            <strong>Status: </strong>
+                            <%= p.professor_category.name %>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <% end %>
             </div>
-            <% end %>
           </div>
-        </div>
-        <div class="collapse" id="ex-professor">
-          <div class="card card-body">
-            gfdgdfgfdrehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh
-            helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          <div id="ex-professor" class="collapse" aria-labelledby="headingEx-professores" data-parent="#accordion">
+            <div class="card card-body">
+              gfdgdfgfdrehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh
+              helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
           </div>
         </div>
       </div>
