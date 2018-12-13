@@ -7,34 +7,30 @@ class Gallery < ApplicationRecord
   accepts_nested_attributes_for :documents
 
   def upload_images(pictures)
-    if pictures.empty?
-      errors[:pictures] << I18n.t('errors.messages.blank')
-      return false
-    end
-
-    pictures.map! { |picture| { image: picture } }
-
-    return true if update(pictures_attributes: pictures)
-
-    errors.add(:pictures, errors['pictures.image'].join('. '))
-    false
+    upload(pictures, 'pictures', 'image')
   end
 
   def upload_documents(documents)
-    if documents.empty?
-      errors[:documents] << I18n.t('errors.messages.blank')
-      return false
-    end
-
-    documents.map! { |document| { file: document } }
-
-    return true if update(documents_attributes: documents)
-
-    errors.add(:documents, errors['documents.file'].join('. '))
-    false
+    upload(documents, 'documents', 'file')
   end
 
   def contains_pictures
     course? || static_page?
+  end
+
+  private
+
+  def upload(files, table, attribute)
+    if files.empty?
+      errors[table.to_s] << I18n.t('errors.messages.blank')
+      return false
+    end
+
+    files.map! { |file| { "#{attribute}": file } }
+
+    return true if update("#{table}_attributes": files)
+
+    errors.add(table.to_s, errors["#{table}.#{attribute}"].join('. '))
+    false
   end
 end
