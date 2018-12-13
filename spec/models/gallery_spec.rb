@@ -28,5 +28,13 @@ RSpec.describe Gallery, type: :model do
 
       expect(gallery).to eq(static_page_gallery)
     end
+
+    it 'return files from document gallery' do
+      document_gallery = create(:gallery, :context_document)
+
+      gallery = Gallery.find_by!(context: Gallery.contexts[:document])
+
+      expect(gallery).to eq(document_gallery)
+    end
   end
 end

@@ -109,7 +109,7 @@ StaticPage.find_or_create_by!(
   permalink: 'course_about',
   fixed: true
 )
-gallery_contexts = %w[course static_page]
+gallery_contexts = %w[course static_page document]
 gallery_contexts.each do |context|
   Gallery.find_or_create_by!(context: context)
 end

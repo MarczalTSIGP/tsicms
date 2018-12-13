@@ -1,0 +1,11 @@
+.document-card-body {
+  padding-top: 10px;
+  text-align: center;
+
+  label {
+    height: 60px;
+    margin-top: 5px;
+    overflow: scroll;
+    word-break: break-all;
+  }
+}

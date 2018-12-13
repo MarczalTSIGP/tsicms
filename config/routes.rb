@@ -61,6 +61,7 @@ Rails.application.routes.draw do
         scope '/galleries/:context' do
           get '/' => 'galleries#index', :as => 'galleries'
           resources :pictures, excepty: [:index, :show]
+          resources :documents, excepty: [:index, :show]
         end
       end
     end

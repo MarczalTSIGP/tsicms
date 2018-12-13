@@ -14,8 +14,13 @@ FactoryBot.define do
       context { :static_page }
     end
 
+    trait :context_document do
+      context { :document }
+    end
+
     after :create do |gallery|
       create_list :picture, 3, gallery: gallery
+      create_list :document, 3, gallery: gallery
     end
   end
 end
