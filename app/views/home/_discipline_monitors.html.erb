@@ -1,13 +1,11 @@
-<% provide(:page_title, 'Histórico de Monitorias') %>
-<div class="bg-show-info">
+<section class="bg-show-info" id="discipline_monitors">
   <div class="container text-center">
-    <h2 class="mb-4">Histórico de Monitorias -
-      <%= link_to "Home", root_path, class: 'btn btn-primary' %>
+    <h2 class="mb-4">Monitorias de Disciplinas - Atuais
     </h2>
     <hr>
     <div class="row">
       <hr class="my-4">
-      <%@discipline_monitors.each do |dm| %>
+      <%@discipline_monitors.year_now.semester_now.each do |dm| %>
       <div class="col-sm-6 py-2">
         <div class="card h-100">
           <h4 class="m-2">
@@ -17,8 +15,9 @@
           </h4>
           <p class="text-muted mb-0">
             Tipo:
-            <%= dm.monitor_type.name %> -
-            <%= dm.year %>/<%= t("enums.semesters.#{dm.semester}") %>
+            <%= dm.monitor_type.name %>
+            <%= dm.year %>/
+            <%= t("enums.semesters.#{dm.semester}") %>
           </p>
           <hr class="large">
           <div class="card-body">
@@ -54,7 +53,11 @@
       </div>
       <% end %>
     </div>
-    <hr class="my-4">
-    <%= link_to "Home", root_path, class: 'btn btn-primary' %>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <hr>
+        <%= link_to "Histórico de Monitorias", discipline_monitors_path, class: 'btn btn-primary btn-xl sr-button' %>
+      </div>
+    </div>
   </div>
-</div>
+</section>

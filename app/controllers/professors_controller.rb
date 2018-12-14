@@ -1,6 +1,5 @@
 class ProfessorsController < ApplicationController
   add_breadcrumb I18n.t('breadcrumbs.professors.name'), :professors_path
-
   def index
     @professors = Professor.order(name: :asc).page params[:page]
   end

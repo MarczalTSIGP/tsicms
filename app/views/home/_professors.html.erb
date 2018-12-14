@@ -1,0 +1,31 @@
+<section class="bg-primary" id="professors">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="section-heading text-white">Professores</h2>
+        <hr class="light my-4">
+        <div id="accordion">
+
+          <% @cp.each do |category, professors|%>
+          <div id="professors-<%= category.parameterize %>">
+            <a class="btn btn-light" data-toggle="collapse" href="#<%= category.parameterize %>" role="button" aria-expanded="false"
+              aria-controls="efetive">
+              <%= category %>
+            </a>
+          </div>
+          <% end %>
+
+          <% @cp.each do |category, professors|%>
+          <div id="<%= category.parameterize %>" class="collapse" aria-labelledby="professors-<%= category.parameterize %>" data-parent="#accordion">
+            <div class="card card-body">
+                <h4 class="section-heading text-black"><%= category %></h4>
+              <%= render partial: 'describe_professors', collection: professors, as: :professor %>
+            </div>
+          </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
