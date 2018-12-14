@@ -25,6 +25,7 @@
 //= require config/gallery
 //= require config/navbar_collapse
 //= require config/scrollspy
+//= require config/simplemde
 
 // App files
 //--------------------

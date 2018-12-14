@@ -4,15 +4,20 @@
       <div class="col-lg-10 mx-auto">
         <h2 class="section-heading">FAQs</h2>
         <hr class="my-4">
-        <%@faqs.each do |f| %>
+        <%@faqs.each do |faq| %>
         <div class="card">
-          <div class="card-body">
-            <h4 class="m-0">
-              <%= f.title %>
-            </h4>
-            <p class="text-muted mb-0">
-              <%= f.answer %>
-            </p>
+          <div class="card-body" id="headingOne">
+            <h5 class="m-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= faq.id %>" aria-expanded="true"
+                aria-controls="collapse<%= faq.id %>>">
+                <%= faq.title %>
+              </button>
+            </h5>
+          </div>
+          <div id="collapse<%= faq.id %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body markdown-content" data-markdown="<%= faq.answer %>">
+              <%= faq.answer %>
+            </div>
           </div>
         </div>
         <% end %>
