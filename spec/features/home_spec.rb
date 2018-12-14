@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'home page', type: :feature do
-  let!(:discipline_monitors) { create_list(:discipline_monitor, 4, year: Time.now.year,
-     semester: DisciplineMonitor.current_semester) }
-  let!(:efetive_professors) { create_list(:professor, 2, professor_category: create(:professor_category, name: 'Efetivo')) }
-  let!(:temporary_professors) { create_list(:professor, 2, professor_category: create(:professor_category, name: 'Temporário')) }
+  let!(:discipline_monitors) { create_list(:discipline_monitor, 4, year: Time.zone.now.year,
+                                            semester: DisciplineMonitor.current_semester) }
+  let!(:efetive_professors) { create_list(:professor, 2,
+                                          professor_category: create(:professor_category, name: 'Efetivo')) }
+  let!(:temporary_professors) { create_list(:professor, 2,
+                                            professor_category: create(:professor_category, name: 'Temporário')) }
   let!(:companies) { create_list(:company, 2) }
   let!(:trainees) { create_list(:trainee, 3) }
   let!(:faqs) { create_list(:faq, 3) }

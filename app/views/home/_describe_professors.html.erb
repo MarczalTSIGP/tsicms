@@ -1,0 +1,36 @@
+<div class="col-sm-12 py-2">
+  <div class="card h-100">
+    <div class="card-body">
+      <div class="media">
+        <%= image_tag professor.image.url, class:'avatar avatar-xxl mr-5' %>
+        <div class="media-body">
+          <h4 class="m-0">
+            <%= professor.name %>
+          </h4>
+          <p class="text-muted mb-0">
+            <%= professor.professor_title.name %>
+          </p>
+          <ul class="social-links list-inline mb-0 mt-2">
+            <li class="list-inline-item">
+              <strong>E-mail: </strong>
+              <%= professor.email %>
+            </li>
+            <li class="list-inline-item">
+              <strong>Lates: </strong>
+              <%= professor.lattes %>
+            </li>
+            <hr>
+            <li class="list-inline-item">
+              <strong>Atuação: </strong>
+              <%= professor.occupation_area %>
+            </li>
+            <li class="list-inline-item">
+              <strong>Status: </strong>
+              <%= professor.professor_category.name %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
