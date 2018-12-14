@@ -26,7 +26,7 @@ RSpec.describe 'Admins', type: :feature do
         expect(page).to have_selector('div.alert.alert-info',
                                       text: I18n.t('devise.registrations.updated'))
 
-        within('a.nav-link') do
+        within('a.user-options-dropdown') do
           expect(page).to have_content(new_name)
           admin.reload
           expect(page).to have_css("span[style=\"background-image: url('#{admin.image}')\"]")

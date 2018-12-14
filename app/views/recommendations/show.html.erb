@@ -1,0 +1,17 @@
+<% provide(:page_title, "Visualizar Recomendação") %>
+
+<div class="card mx-auto mt-4" style="width: 60%">
+  <div class="card-header" text-align="center">
+    <h3 class="pt-4"><%= @recommendation.title %></h3>
+  </div>
+  <div class="card-body">
+    <p class="mb-6"><%= l(@recommendation.created_at, format: :long) %></p>
+    <h5 class="mb-4">Categoria da Recomendação: <%= @recommendation.category_recommendation.name %></h5>
+    <%= image_tag @recommendation.image.url, class: 'card-img-top' %>
+    <p class="mb-2"><%= @recommendation.description %></p>
+  </div>
+</div>
+
+<div class="d-flex ml-9">
+  <%= link_to "Voltar", recommendations_path, class: 'btn btn-secondary' %>
+</div>

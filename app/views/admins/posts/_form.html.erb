@@ -1,0 +1,22 @@
+<%= simple_form_for [:admins, @post] do |f| %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= f.input :title %>
+    </div>
+    <div class="col-md-6">
+      <%= f.association :post_category,
+        collection: @post_categories,
+        prompt: t('prompt.select.f', name: 'categoria') %>
+    </div>
+    <div class="col-md-12">
+      <%= f.input :description, placeholder: "Digite a descrição da notícia",
+          input_html: {class: "form-control markdown-editor"} %>
+    </div>
+  </div>
+  <%= f.input :posted, as: :boolean %>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_posts_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

@@ -5,9 +5,27 @@
         <% image_tag 'logo-tsi-text.png', class: 'header-brand-img'  %>
       <% end  %>
       <div class="d-flex order-lg-2 ml-auto">
+      
+        <div class="dropdown d-none d-md-flex">
+          <a class="nav-link icon" data-toggle="dropdown">
+            <i class="fe fe-bell"></i>
+            <span class="nav-unread"></span>
+          </a>
+          
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" style="width: 400px; text-overflow: clip;">
+            <%= render "admins/layouts/message" %>
+            <div class="dropdown-divider"></div>
+              <%= active_link_to admins_contacts_path do %>
+                <span class="dropdown-item text-center text-muted-dark">Ver todas as mensagens</span>
+              <% end %>
+              <%= active_link_to "#" do %>
+                <span class="dropdown-item text-center text-muted-dark">Marcar todas como lidas</span>
+              <% end %>
+            </div>                    
+          </div>
 
         <div class="dropdown">
-          <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+          <a href="#" class="nav-link user-options-dropdown pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar" style="background-image: url('<%= current_admin.image %>')"></span>
 
             <span class="ml-2 d-none d-lg-block">

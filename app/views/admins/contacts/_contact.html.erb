@@ -1,0 +1,11 @@
+<tr data-link="<%= admins_contact_path(contact) %>" class="<%= contact.read? ? 'read' : '' %>" >
+  <td>
+    <label class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" name="messages_ids[]" value="<%= contact.id %>">
+      <span class="custom-control-label"></span>
+    </label>
+  </td>
+  <td class="tr-link"><%= contact.name %></td>
+  <td class="tr-link"><%= contact.email %></td>
+  <td class="tr-link"><%= l(contact.created_at, format: :short) %></td>
+</tr>

@@ -1,7 +1,9 @@
 class Admins::BaseController < ActionController::Base
-  before_action :find_fixed_pages
-  include FlashMessage
   include Admins::ApplicationHelper
+  include Admins::LastMessages
+  include FlashMessage
+
+  before_action :find_fixed_pages
 
   protect_from_forgery with: :exception
 

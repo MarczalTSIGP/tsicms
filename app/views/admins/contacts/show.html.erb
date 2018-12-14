@@ -1,0 +1,11 @@
+<h5><%= @contact.name %></h5>
+<p>E-mail: <%= @contact.email %></p>
+<p>Telefone: <%= @contact.phone %></p>
+<div class="text-muted">
+    <%= @contact.message %>
+</div>
+</br>
+<p>Enviada em: <%= l(@contact.created_at, format: :short) %></p>
+<div class="d-flex">
+    <%= link_to "Voltar", admins_contacts_path, class: 'btn btn-secondary ml-auto' %>
+</div>

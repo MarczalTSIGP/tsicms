@@ -19,6 +19,7 @@ pt-BR:
     category_recommendations: categorias_de_recomendacoes
     companies: empresas
     company: empresa
+    contact: contato
     course_about: curso
     disciplines: disciplinas
     discipline: disciplina
@@ -126,6 +127,17 @@ pt-BR:
     pictures:
       new: 'Upload de Imagens'
       edit: 'Editar Imagem %{name}'
+    contacts:
+      name: 'Contatos'
+      show: 'Visualizar Contato %{name}'
+    posts:
+      name: 'Notícias'
+      new: 'Nova Notícia'
+      edit: 'Editar Notícia %{name}'
+    post_categories:
+      name: 'Categorias de Notícia'
+      new: 'Nova Categoria'
+      edit: 'Editar Categoria %{name}'
   helpers:
     currently: 'Atualmente'
     trainee: 'Estágio'
@@ -211,6 +223,15 @@ pt-BR:
       picture:
         one: 'Imagem'
         other: 'Imagens'
+      contact:
+        one: 'Contato'
+        other: 'Contatos'
+      post:
+        one: 'Notícia'
+        other: 'Notícias'
+      post_category:
+        one: 'Categoria de Notícia'
+        other: 'Categorias de Notícia'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -290,3 +311,20 @@ pt-BR:
         title: 'Título'
         company: 'Empresa'
         trainee_status: 'Status'
+      contact:
+        <<: *commons
+        phone: 'Telefone'
+        message: 
+          one: 'Mensagem'
+          other: 'Mensagens'
+        read: 'Lido'
+      category_post:
+        <<: *commons
+      post:
+        title: 'Título'
+        description: 'Descrição'
+        image: 'Imagem'
+        posted: 'Publicado'
+        post_category: 'Categoria'
+      post_category:
+        <<: *commons

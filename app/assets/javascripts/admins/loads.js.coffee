@@ -6,5 +6,6 @@ $(document).on "turbolinks:load", ->
              #company_image,
              #professor_image"
   TSICMS.imagePreview(img_ids)
-  TSICMS.loadMarkdownEditor()
   TSICMS.PermalinkGeneratorOnBlur('#static_page_title', '#static_page_permalink')
+  TSICMS.addEventToShowContactsMessage()
+  TSICMS.addEventToReadAndUnread()
