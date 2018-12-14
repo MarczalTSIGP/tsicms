@@ -1,0 +1,29 @@
+<h4 class="text-center">Vagas de estagio</h4>
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter text-nowrap">
+    <thead>
+    <tr>
+      <th class="w-1">Id</th>
+      <th>Titulo</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @company.trainees.each do |trainee| %>
+      <tr id="professor_activity">
+        <td><%= trainee.id %></td>
+        <td><%= trainee.title %></td>
+        <td><%= trainee.trainee_status.name %></td>
+        <td>
+
+          <%= link_to trainee_path(trainee) do %>
+              <span class="icon mr-3">
+                <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Mostrar"></i>
+              </span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

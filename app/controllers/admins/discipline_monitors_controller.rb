@@ -13,7 +13,7 @@ class Admins::DisciplineMonitorsController < Admins::BaseController
                  :new_admins_discipline_monitor_path, only: [:new, :create]
 
   def index
-    @discipline_monitors = DisciplineMonitor.order(year: :desc, semester: :desc)
+    @discipline_monitors = DisciplineMonitor.order(year: :desc, semester: :desc).page params[:page]
   end
 
   def new

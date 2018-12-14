@@ -1,8 +1,6 @@
 <section class="bg-show-info" id="discipline_monitors">
   <div class="container text-center">
-    <h2 class="mb-4">Monitorias de Disciplinas -
-      <%= @discipline_monitors.year_now.first.year %>/
-      <%= t("enums.semesters.#{@discipline_monitors.semester_now.first.semester}") %>
+    <h2 class="mb-4">Monitorias de Disciplinas - Atuais
     </h2>
     <hr>
     <div class="row">
@@ -18,6 +16,8 @@
           <p class="text-muted mb-0">
             Tipo:
             <%= dm.monitor_type.name %>
+            <%= dm.year %>/
+            <%= t("enums.semesters.#{dm.semester}") %>
           </p>
           <hr class="large">
           <div class="card-body">

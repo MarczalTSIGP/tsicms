@@ -1,0 +1,23 @@
+<% provide(:page_title, "Visualizar Empresa") %>
+
+<div class="card card-profile">
+  <div class="card-header profile-bg"></div>
+  <div class="card-body text-center">
+    <%= image_tag @company.image.url, class: 'card-profile-img' %>
+
+    <h3 class="mb-3"><%= @company.name %></h3>
+    <p class="mb-4"><%= @company.site %></p>
+
+    <span class="markdown-content" data-markdown="<%= @company.operation %>">
+      <%= @company.operation %>
+    </span>
+
+    <p>
+      <%= render 'trainees' %>
+    </p>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to "Voltar", companies_path, class: 'btn btn-secondary' %>
+</div>

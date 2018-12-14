@@ -7,7 +7,7 @@ class Admins::RecommendationsController < Admins::BaseController
                  only: [:new, :create]
 
   def index
-    @recommendations = Recommendation.order(created_at: :desc)
+    @recommendations = Recommendation.order(created_at: :desc).page params[:page]
   end
 
   def new

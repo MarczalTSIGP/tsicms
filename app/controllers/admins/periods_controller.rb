@@ -6,7 +6,7 @@ class Admins::PeriodsController < Admins::BaseController
 
   def index
     @periods = Period.includes(:matrix)
-                     .order('matrices.name ASC', 'periods.name ASC')
+                     .order('matrices.name ASC', 'periods.name ASC').page params[:page]
   end
 
   def new

@@ -16,4 +16,4 @@ TSICMS.loadMarkdownEditor = function () {
 
       $(this).html(html);
    })
-}
+};

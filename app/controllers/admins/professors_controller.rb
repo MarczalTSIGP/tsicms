@@ -6,7 +6,7 @@ class Admins::ProfessorsController < Admins::BaseController
                  only: [:new, :create]
 
   def index
-    @professors = Professor.order(name: :asc)
+    @professors = Professor.order(name: :asc).page params[:page]
   end
 
   def new

@@ -43,12 +43,8 @@ RSpec.describe 'Academics', type: :feature do
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
 
-        within('div.academic_name') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
-        within('div.academic_contact') do
-          expect(page).to have_content(I18n.t('errors.messages.blank'))
-        end
+        have_contains('div.academic_name', I18n.t('errors.messages.blank'))
+        have_contains('div.academic_contact', I18n.t('errors.messages.blank'))
         expect(page).to have_unchecked_field('academic_graduated')
         within('div.academic_image') do
           expect(page).to have_content(I18n.t('errors.messages.extension_whitelist_error',
@@ -133,8 +129,7 @@ RSpec.describe 'Academics', type: :feature do
       academic = create(:academic)
       visit admins_academics_path
 
-      destroy_path = "/admins/academics/#{academic.id}"
-      click_link href: destroy_path
+      click_on_destroy_link(admins_academic_path(academic))
 
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.destroy.m',

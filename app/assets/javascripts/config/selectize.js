@@ -1,4 +1,4 @@
-//=require selectize/selectize.min
+//= require selectize/selectize.min
 
 $(document).on('turbolinks:load', function() {
     $('select').selectize();

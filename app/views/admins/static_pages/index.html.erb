@@ -2,25 +2,28 @@
 
 <div class="text-right">
   <%= link_to new_admins_static_page_path,
-    class: 'btn btn-secondary',
-    title: 'Nova página estática',
-    data: { toggle: 'tooltip', placement: 'top' } do %>
+              class: 'btn btn-secondary',
+              title: 'Nova página estática',
+              data: {toggle: 'tooltip', placement: 'top'} do %>
     <i class="fas fa-plus"></i>
   <% end %>
 </div>
+<%= paginate @static_pages %>
 
 <div class="table-responsive">
   <table class="table card-table table-vcenter text-nowrap" id="static_pages_table">
     <thead>
-      <tr>
-        <th>Título</th>
-        <th>Subtítulo</th>
-        <th>Data de criação</th>
-        <th></th>
-      </tr>
+    <tr>
+      <th>Título</th>
+      <th>Subtítulo</th>
+      <th>Data de criação</th>
+      <th></th>
+    </tr>
     </thead>
     <tbody>
-      <%= render @static_pages %>
+    <%= render @static_pages %>
+
     </tbody>
   </table>
+
 </div>

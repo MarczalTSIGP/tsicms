@@ -2,15 +2,20 @@ class Admins::AcademicsController < Admins::BaseController
   before_action :set_academic, only: [:edit, :update, :destroy]
 
   add_breadcrumb I18n.t('breadcrumbs.academics.name'), :admins_academics_path
-  add_breadcrumb I18n.t('breadcrumbs.academics.new'), :new_admins_academic_path,
-                 only: [:new, :create]
+  add_breadcrumb I18n.t('breadcrumbs.academics.new'),
+                 :new_admins_academic_path, only: [:new, :create]
 
   def index
-    @academics = Academic.order(created_at: :desc)
+    @academics = Academic.order(created_at: :desc).page params[:page]
   end
 
   def new
     @academic = Academic.new
+  end
+
+  def show
+    add_breadcrumb I18n.t('breadcrumbs.academics.show',
+                          name: "##{@academic.id}"), :admins_academic_path
   end
 
   def create
@@ -46,11 +51,6 @@ class Admins::AcademicsController < Admins::BaseController
     @academic.destroy
     success_destroy_message
     redirect_to admins_academics_path
-  end
-
-  def show
-    add_breadcrumb I18n.t('breadcrumbs.academics.show', name: "##{@academic.id}"),
-                   :admins_academic_path
   end
 
   protected

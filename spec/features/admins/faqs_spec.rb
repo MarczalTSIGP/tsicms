@@ -110,7 +110,7 @@ RSpec.describe 'Faqs', type: :feature do
       faq = create(:faq)
       visit admins_faqs_path
 
-      destroy_path = "/admins/faqs/#{faq.id}"
+      destroy_path = admins_faq_path(faq)
       click_link href: destroy_path
 
       expect(page).to have_selector('div.alert.alert-success',
