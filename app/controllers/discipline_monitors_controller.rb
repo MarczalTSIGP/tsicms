@@ -3,4 +3,3 @@ class DisciplineMonitorsController < ApplicationController
     @discipline_monitors = DisciplineMonitor.order(year: :desc, semester: :desc)
   end
 end
-
