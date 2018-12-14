@@ -1,4 +1,6 @@
-<%= simple_form_for(@contact) do |f| %>
+<div class="flash_message"></div>
+
+<%= simple_form_for(@contact, remote: true) do |f| %>
  
   <div class="form-inputs">
     <%= f.input :name %>

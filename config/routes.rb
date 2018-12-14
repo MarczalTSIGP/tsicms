@@ -24,6 +24,19 @@ Rails.application.routes.draw do
       get 'page/:page', action: :index, on: :collection
     end
     resources :contacts, only: [:create, :new]
+    resources :posts, only: [:index, :show] do
+      get 'page/:page', action: :index, on: :collection
+    end
+    get '/post_categories/:id/posts', to: 'posts#index', as: :posts_by_category
+    resources :recommendations, only: [:index, :show] do
+      get 'page/:page', action: :index, on: :collection
+    end
+    get '/recommendation_categories/:id/recommendations', to: 'recommendations#index',
+                                                          as: :recommendations_by_category
+    get '/404', to: 'errors#not_found'
+    get '/422', to: 'errors#unacceptable'
+    get '/500', to: 'errors#internal_error'
+
     #========================================
     # Admin
     #========================================
@@ -66,10 +79,22 @@ Rails.application.routes.draw do
           get '/' => 'galleries#index', :as => 'galleries'
           resources :pictures, excepty: [:index, :show]
         end
-        put '/contacts/mark_as_read', to: 'contacts#mark_messages_read', as: :mark_messages_read
-        put '/contacts/mark_as_unread', to: 'contacts#mark_messages_unread', as: :mark_messages_unread
-        put '/contacts/mark_all_as_read', to: 'contacts#mark_all_messages_read', as: :mark_all_messages_read
+        put '/contacts/mark_as_read', to: 'contacts#mark_messages_read',
+                                      as: :mark_messages_read
+        put '/contacts/mark_as_unread', to: 'contacts#mark_messages_unread',
+                                        as: :mark_messages_unread
+        put '/contacts/mark_all_as_read', to: 'contacts#mark_all_messages_read',
+                                          as: :mark_all_messages_read
         resources :contacts, excepty: [:show]
+        resources :post_categories, excepty: [:show] do
+          get 'page/:page', action: :index, on: :collection
+        end
+        resources :posts, excepty: [:show] do
+          get 'page/:page', action: :index, on: :collection
+        end
+        get '/404', to: 'errors#not_found'
+        get '/422', to: 'errors#unacceptable'
+        get '/500', to: 'errors#internal_error'
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_20_220250) do
+ActiveRecord::Schema.define(version: 2018_12_10_234406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,19 +72,19 @@ ActiveRecord::Schema.define(version: 2018_11_20_220250) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "discipline_monitor_disciplines", force: :cascade do |t|
-    t.integer "discipline_id"
-    t.integer "discipline_monitor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-  
   create_table "contacts", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "phone"
     t.text "message"
     t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "discipline_monitor_disciplines", force: :cascade do |t|
+    t.integer "discipline_id"
+    t.integer "discipline_monitor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -158,6 +158,22 @@ ActiveRecord::Schema.define(version: 2018_11_20_220250) do
     t.index ["gallery_id"], name: "index_pictures_on_gallery_id"
   end
 
+  create_table "post_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.boolean "posted", default: false
+    t.bigint "post_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_category_id"], name: "index_posts_on_post_category_id"
+  end
+
   create_table "professor_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -218,6 +234,7 @@ ActiveRecord::Schema.define(version: 2018_11_20_220250) do
   add_foreign_key "discipline_monitors", "monitor_types"
   add_foreign_key "disciplines", "periods"
   add_foreign_key "periods", "matrices"
+  add_foreign_key "posts", "post_categories"
   add_foreign_key "professors", "professor_categories"
   add_foreign_key "professors", "professor_titles"
   add_foreign_key "static_pages", "activities"

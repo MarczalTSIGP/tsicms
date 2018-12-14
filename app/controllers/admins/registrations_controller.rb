@@ -1,4 +1,6 @@
 class Admins::RegistrationsController < Devise::RegistrationsController
+  include Admins::LastMessages
+
   layout 'admins/layouts/application'
 
   protected

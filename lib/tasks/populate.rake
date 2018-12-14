@@ -19,7 +19,9 @@ namespace :db do
      Trainee,
      TraineeStatus,
      Picture,
-     Gallery].each(&:delete_all)
+     Gallery,
+     Post,
+     PostCategory].each(&:delete_all)
 
     Admin.create_with(name: 'Administrador', password: '123456')
          .find_or_create_by!(email: 'admin@admin.com')
@@ -269,8 +271,21 @@ namespace :db do
         email: Faker::Internet.email,
         phone: Faker::PhoneNumber.phone_number,
         message: Faker::Lorem.paragraph,
-        read: [true, false].sample,
+        read: [true, false].sample
       )
+    end
+
+    post_categories = %w[TCC Semana_Acadêmica Bolsas]
+    post_categories.each do |category|
+      PostCategory.find_or_create_by!(name: category)
+    end
+
+    PostCategory.all.each do |post_category|
+      5.times do
+        post_category.posts.create!(title: Faker::Hacker.adjective,
+                                    description: Faker::Hacker.say_something_smart,
+                                    posted: [true, false].sample)
+      end
     end
   end
 end

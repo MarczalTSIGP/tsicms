@@ -19,6 +19,7 @@ pt-BR:
     category_recommendations: categorias_de_recomendacoes
     companies: empresas
     company: empresa
+    contact: contato
     course_about: curso
     disciplines: disciplinas
     discipline: disciplina
@@ -129,6 +130,14 @@ pt-BR:
     contacts:
       name: 'Contatos'
       show: 'Visualizar Contato %{name}'
+    posts:
+      name: 'Notícias'
+      new: 'Nova Notícia'
+      edit: 'Editar Notícia %{name}'
+    post_categories:
+      name: 'Categorias de Notícia'
+      new: 'Nova Categoria'
+      edit: 'Editar Categoria %{name}'
   helpers:
     currently: 'Atualmente'
     trainee: 'Estágio'
@@ -205,7 +214,6 @@ pt-BR:
       discipline_monitor:
         one: 'Monitoria de disciplina'
         other: 'Monitorias de disciplina'
-<<<<<<< 05c94d34fd05122363cf3211106ce77bab3180e7
       company:
         one: 'Empresa'
         other: 'Empresas'
@@ -215,11 +223,15 @@ pt-BR:
       picture:
         one: 'Imagem'
         other: 'Imagens'
-=======
       contact:
         one: 'Contato'
         other: 'Contatos'
->>>>>>> Fale Conosco Admin
+      post:
+        one: 'Notícia'
+        other: 'Notícias'
+      post_category:
+        one: 'Categoria de Notícia'
+        other: 'Categorias de Notícia'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -289,7 +301,6 @@ pt-BR:
         academic: 'Acadêmico'
         description: 'Descrição'
         monitor_type: 'Tipo da monitoria'
-<<<<<<< 05c94d34fd05122363cf3211106ce77bab3180e7
         discipline_ids: 'Disciplina'
         professor_ids: 'Professor'
       company:
@@ -300,7 +311,6 @@ pt-BR:
         title: 'Título'
         company: 'Empresa'
         trainee_status: 'Status'
-=======
       contact:
         <<: *commons
         phone: 'Telefone'
@@ -308,4 +318,13 @@ pt-BR:
           one: 'Mensagem'
           other: 'Mensagens'
         read: 'Lido'
->>>>>>> Fale Conosco Admin
+      category_post:
+        <<: *commons
+      post:
+        title: 'Título'
+        description: 'Descrição'
+        image: 'Imagem'
+        posted: 'Publicado'
+        post_category: 'Categoria'
+      post_category:
+        <<: *commons

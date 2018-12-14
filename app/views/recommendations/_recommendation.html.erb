@@ -1,0 +1,14 @@
+<div class="col-sm-6 col-xl-3 mt-5">
+  <div class="card">
+    <div class="card-body d-flex flex-column">
+      <h4><%= link_to recommendation.title, recommendation_path(recommendation) %></h4>
+      <%= image_tag recommendation.image.url, class: 'card-img-top' %>
+      <%= link_to recommendation.description, recommendation_path(recommendation) %>
+      <div class="d-flex align-items-center mt-auto">
+        <div>
+          <small class="d-block text-muted"><%= l(recommendation.created_at, format: :long) %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

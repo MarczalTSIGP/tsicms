@@ -1,0 +1,8 @@
+<%= simple_form_for [:admins, @post_category] do |f| %>
+  <%= f.input :name %>
+
+  <div class="d-flex">
+    <%= link_to "Voltar", admins_post_categories_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
