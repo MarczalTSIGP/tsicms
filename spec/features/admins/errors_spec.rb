@@ -9,30 +9,28 @@ RSpec.describe 'Errors Admins Page', type: :feature do
 
   describe '#not_found' do
     it '404 - resource not found' do
-      visit admins_404_url
+      visit 'administradores/404'
 
-      expect(page).to have_content(text: '404 - Not Found')
-      expect(page).to have_content(text: 'Ops!! Seems we could`t find the page you`re looking for.')
+      expect(page).to have_content("404 - Not Found\nOops!! Seems we could't find the page you're",
+                                   'looking for.')
     end
   end
 
   describe '#unacceptable' do
     it '422 - params unacceptable' do
-      visit admins_422_url
+      visit 'administradores/422'
 
-      expect(page).to have_content(text: '422 - Unacceptable')
-      expect(page).to have_content(text: 'Hey, looks like we doing something wrong.
-                                         Please check it and try again.')
+      expect(page).to have_content('422 - Unacceptable\nHey, looks like we doing something wrong.',
+                                   'Please check it and try again.')
     end
   end
 
   describe '#internal_error' do
     it '500 - internal server error' do
-      visit admins_500_url
+      visit 'administradores/500'
 
-      expect(page).to have_content(text: '500 - Internal Error')
-      expect(page).to have_content(text: 'Hey, looks like we had a problem at our server.')
-      expect(page).to have_content(text: 'We`ll be trying to solve the problem faster as we can.')
+      expect(page).to have_content('500 - Internal Error\nHey, looks like we had a problem at our ',
+                                   "server.\nWe'll be trying to solve the problem.")
     end
   end
 end

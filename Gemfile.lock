@@ -404,7 +404,7 @@ DEPENDENCIES
   brakeman
   breadcrumbs_on_rails
   byebug
-  capybara (>= 2.15)
+  capybara
   carrierwave (~> 1.0)
   carrierwave-i18n
   chromedriver-helper

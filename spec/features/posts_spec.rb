@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Post Public Page', type: :feature do
   describe '#index' do
-    let!(:posts) { create_list(:post, 3) }
+    let!(:posts) { create_list(:post, 3, posted: true) }
 
     it 'all posts' do
       visit posts_path
